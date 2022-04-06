@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="MainWindowAccount.xaml">
+    <Page Update="View\MainWindowAccount.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
