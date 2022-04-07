@@ -25,6 +25,7 @@ namespace Zdravstena_ustanova.View
 
         private void Button_Click_Add_Account(object sender, RoutedEventArgs e)
         {
+            /*
             string name1 = name.Text;
             string surname1 = surname.Text;
             double id1 = Convert.ToDouble(id.Text);
@@ -49,8 +50,7 @@ namespace Zdravstena_ustanova.View
             {
                 list.Items.Add(acc.Username);
             }
-
-
+            */
         }
 
         private void Button_Click_Delete_Account(object sender, RoutedEventArgs e)

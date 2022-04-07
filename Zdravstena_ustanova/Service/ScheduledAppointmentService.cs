@@ -21,7 +21,7 @@ namespace Service
             _patientService = patientService;
         }
 
-        internal IEnumerable<ScheduledAppointment> GetAll()
+        public IEnumerable<ScheduledAppointment> GetAll()
         {
             var patients = _patientService.GetAll();
             var doctors = _doctorService.GetAll();
@@ -29,6 +29,21 @@ namespace Service
             var scheduledAppointmets = _scheduledAppointmentRepository.GetAll();
             BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointmets);
             return scheduledAppointmets;
+        }
+        public ScheduledAppointment GetById(long Id)
+        {
+            var patients = _patientService.GetAll();
+            var doctors = _doctorService.GetAll();
+            var rooms = _roomService.GetAll();
+            var scheduledAppointmet = _scheduledAppointmentRepository.Get(Id);
+            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet);
+            return scheduledAppointmet;
+        }
+        private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment)
+        {
+                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
+                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
+                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
         }
 
         private void BindPatientDoctorRoomWithScheduledAppointments(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, IEnumerable<ScheduledAppointment> scheduledAppointments)
@@ -39,6 +54,7 @@ namespace Service
                 scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
                 scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
             });
+
         }
 
         private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)

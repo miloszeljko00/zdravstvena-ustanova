@@ -15,10 +15,14 @@ namespace Service
             _doctorRepository = doctorRepository;
         }
 
-        internal IEnumerable<Doctor> GetAll()
+        public IEnumerable<Doctor> GetAll()
         {
             var doctors = _doctorRepository.GetAll();
             return doctors;
+        }
+        public Doctor GetById(long id)
+        {
+            return _doctorRepository.Get(id);
         }
 
         private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)

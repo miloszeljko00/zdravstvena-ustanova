@@ -18,6 +18,10 @@ namespace Controller
         {
             return _scheduledAppointmentService.GetAll();
         }
+        public ScheduledAppointment GetById(long Id)
+        {
+            return _scheduledAppointmentService.GetById(Id);
+        }
 
         public ScheduledAppointment Create(ScheduledAppointment scheduledAppointment)
         {

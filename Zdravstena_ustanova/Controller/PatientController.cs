@@ -18,6 +18,10 @@ namespace Controller
         {
             return _patientService.GetAll();
         }
+        public Patient GetById(long id)
+        {
+            return _patientService.GetById(id);
+        }
 
         public Patient Create(Patient patient)
         {

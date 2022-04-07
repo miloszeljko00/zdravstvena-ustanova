@@ -64,14 +64,15 @@ namespace Repository
                     sa.Start = scheduledAppointment.Start;
                     sa.End = scheduledAppointment.End;
                     sa.AppointmentType = scheduledAppointment.AppointmentType;
-                    sa.Patient = scheduledAppointment.Patient;
-                    sa.Doctor = scheduledAppointment.Doctor;
-                    sa.Room = scheduledAppointment.Room;
+                    sa.PatientId = scheduledAppointment.PatientId;
+                    sa.DoctorId = scheduledAppointment.DoctorId;
+                    sa.RoomId = scheduledAppointment.RoomId;
+                    WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
+                    break;
                 }
             }
 
 
-            WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
         }
         public void Delete(long scheduledAppointmentId)
         {
@@ -93,9 +94,9 @@ namespace Repository
         private string ScheduledAppointmentToCSVFormat(ScheduledAppointment scheduledAppointment)
         {
             return string.Join(_delimiter,
-                scheduledAppointment.Start.ToString("MM / dd / yyyy"),
-                scheduledAppointment.End.ToString("MM / dd / yyyy"),
-                scheduledAppointment.AppointmentType,
+                scheduledAppointment.Start.ToString("dd.MM.yyyy"),
+                scheduledAppointment.End.ToString("dd.MM.yyyy"),
+                (int)scheduledAppointment.AppointmentType,
                 scheduledAppointment.Id,
                 scheduledAppointment.PatientId,
                 scheduledAppointment.DoctorId,
@@ -121,9 +122,9 @@ namespace Repository
                Convert.ToDateTime(tokens[1]),
                (AppointmentType)int.Parse(tokens[2]),
                long.Parse(tokens[3]),
-               long.Parse(tokens[3]),
-               long.Parse(tokens[3]),
-               long.Parse(tokens[3])
+               long.Parse(tokens[4]),
+               long.Parse(tokens[5]),
+               long.Parse(tokens[6])
                 );
         }
 

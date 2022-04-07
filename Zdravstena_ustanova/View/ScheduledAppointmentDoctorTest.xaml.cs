@@ -32,20 +32,26 @@ namespace Zdravstena_ustanova.View
             InitializeComponent();
             this.DataContext = this;
             var app = Application.Current as App;
-
+            
             typeComboBox.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
             ScheduledAppointments = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            
 
             Doctors = new ObservableCollection<Doctor>(app.DoctorController.GetAll());
+            dComboBox.DataContext = Doctors;
 
+            Patients = new ObservableCollection<Patient>(app.PatientController.GetAll());
+            pComboBox.DataContext = Patients;
 
-
-
+            Rooms = new ObservableCollection<Room>(app.RoomController.GetAll());
+            sComboBox.DataContext = Rooms;
         }
 
         private void create_Click(object sender, RoutedEventArgs e)
         {
-            if (nameTextBox.Text == "" || floorTextBox.Text == "" || typeComboBox.SelectedIndex == -1)
+            if (datePicker1.SelectedDate == null || datePicker2.SelectedDate == null ||
+                typeComboBox.SelectedIndex == -1 || dComboBox.SelectedIndex == -1 ||
+                pComboBox.SelectedIndex == -1 || sComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -53,26 +59,34 @@ namespace Zdravstena_ustanova.View
 
             var app = Application.Current as App;
 
-            string roomName = nameTextBox.Text;
-            int roomFloor = int.Parse(floorTextBox.Text);
-            RoomType roomType = (RoomType)typeComboBox.SelectedIndex;
+            DateTime startDate = (DateTime)datePicker1.SelectedDate;
+            DateTime endDate = (DateTime)datePicker2.SelectedDate;
+            AppointmentType appointmentType = (AppointmentType)typeComboBox.SelectedIndex;
+            long patientId = (long)pComboBox.SelectedValue;
+            long doctorId = (long)dComboBox.SelectedValue;
+            long roomId = (long)sComboBox.SelectedValue;
 
-            var room = new Room(roomName, roomFloor, roomType);
 
-            room = app.RoomController.Create(room);
+            var scheduledAppointment = new ScheduledAppointment(startDate,endDate,appointmentType, patientId, doctorId, roomId);
 
-            Rooms.Add(room);
+            scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
+
+            scheduledAppointment = app.ScheduledAppointmentController.GetById(scheduledAppointment.Id);
+
+            ScheduledAppointments.Add(scheduledAppointment);
         }
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
-            var room = (Room)dataGridRooms.SelectedItem;
-            if (room == null)
+            var scheduledAppointment = (ScheduledAppointment)dataGridScheduledAppointments.SelectedItem;
+            if (scheduledAppointment == null)
             {
                 MessageBox.Show("Odaberi sobu!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (nameTextBox.Text == "" || floorTextBox.Text == "" || typeComboBox.SelectedIndex == -1)
+            if (datePicker1.SelectedDate == null || datePicker2.SelectedDate == null ||
+                typeComboBox.SelectedIndex == -1 || dComboBox.SelectedIndex == -1 ||
+                pComboBox.SelectedIndex == -1 || sComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -80,19 +94,24 @@ namespace Zdravstena_ustanova.View
 
             var app = Application.Current as App;
 
-            room.Name = nameTextBox.Text;
-            room.Floor = int.Parse(floorTextBox.Text);
-            room.RoomType = (RoomType)typeComboBox.SelectedIndex;
+            scheduledAppointment.Start = (DateTime)datePicker1.SelectedDate;
+            scheduledAppointment.End = (DateTime)datePicker2.SelectedDate;
+            scheduledAppointment.AppointmentType = (AppointmentType)typeComboBox.SelectedIndex;
+            scheduledAppointment.PatientId = (long)pComboBox.SelectedValue;
+            scheduledAppointment.DoctorId = (long)dComboBox.SelectedValue;
+            scheduledAppointment.RoomId = (long)sComboBox.SelectedValue;
+            scheduledAppointment.Patient = app.PatientController.GetById(scheduledAppointment.PatientId);
+            scheduledAppointment.Doctor = app.DoctorController.GetById(scheduledAppointment.DoctorId);
+            scheduledAppointment.Room = app.RoomController.GetById(scheduledAppointment.RoomId);
+            app.ScheduledAppointmentController.Update(scheduledAppointment);
 
-            app.RoomController.Update(room);
-
-            CollectionViewSource.GetDefaultView(dataGridRooms.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)
         {
-            var room = (Room)dataGridRooms.SelectedItem;
-            if (room == null)
+            var scheduledAppointment = (ScheduledAppointment)dataGridScheduledAppointments.SelectedItem;
+            if (scheduledAppointment == null)
             {
                 MessageBox.Show("Odaberi sobu!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -100,30 +119,29 @@ namespace Zdravstena_ustanova.View
 
             var app = Application.Current as App;
 
-            app.RoomController.Delete(room.Id);
-            Rooms.Remove(room);
+            app.ScheduledAppointmentController.Delete(scheduledAppointment.Id);
+            ScheduledAppointments.Remove(scheduledAppointment);
 
-            CollectionViewSource.GetDefaultView(dataGridRooms.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
         }
 
-        private void floorTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void dataGridScheduledAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
+            var scheduledAppointment = (ScheduledAppointment)dataGridScheduledAppointments.SelectedItem;
 
-        private void dataGridRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var room = (Room)dataGridRooms.SelectedItem;
-
-            if (room == null)
+            if (scheduledAppointment == null)
             {
                 return;
             }
 
-            typeComboBox.SelectedValue = room.RoomType;
-            nameTextBox.Text = room.Name;
-            floorTextBox.Text = room.Floor.ToString();
+            datePicker1.SelectedDate = scheduledAppointment.Start;
+            datePicker2.SelectedDate = scheduledAppointment.End;
+            typeComboBox.SelectedValue = scheduledAppointment.AppointmentType;
+            dComboBox.SelectedValue = scheduledAppointment.DoctorId;
+            pComboBox.SelectedValue = scheduledAppointment.PatientId;
+            sComboBox.SelectedValue = scheduledAppointment.RoomId;
+
+
         }
     }
 }

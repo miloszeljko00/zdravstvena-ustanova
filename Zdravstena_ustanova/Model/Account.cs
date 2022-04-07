@@ -4,6 +4,7 @@ namespace Model
 {
     public class Account
     {
+        public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsEnabled { get; set; } = true;
@@ -19,6 +20,7 @@ namespace Model
             IsEnabled = isEnabled;
             Person = person;
             PersonId = personId;
+            Id = personId;
         }
 
         public Account(string username, string password, bool isEnabled, long personId)
@@ -27,6 +29,7 @@ namespace Model
             Password = password;
             IsEnabled = isEnabled;
             PersonId = personId;
+            Id = personId;
         }
     }
 }

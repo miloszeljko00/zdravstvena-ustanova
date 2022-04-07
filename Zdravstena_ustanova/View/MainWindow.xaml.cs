@@ -38,7 +38,7 @@ namespace Zdravstena_ustanova.View
 
         private void Button_Click_Doktor(object sender, RoutedEventArgs e)
         {
-            SaDoctorTest sadt = new SaDoctorTest();
+            ScheduledAppointmentDoctorTest sadt = new ScheduledAppointmentDoctorTest();
             sadt.Show();
         }
 

@@ -24,6 +24,26 @@ namespace Service
             BindItemRoomsWithRooms(itemRooms, rooms);
             return rooms;
         }
+        public Room GetById(long id)
+        {
+            var itemRooms = _itemRoomService.GetAll();
+            var room = _roomRepository.Get(id);
+            BindItemRoomsWithRoom(itemRooms, room);
+            return room;
+        }
+        private void BindItemRoomsWithRoom(IEnumerable<ItemRoom> itemRooms, Room room)
+        {
+            itemRooms.ToList().ForEach(itemRoom =>
+            {
+                if (room != null)
+                {
+                    if (room.Id == itemRoom.RoomId)
+                    {
+                        room.ItemRooms.Add(itemRoom);
+                    }
+                }
+            });
+        }
 
         private void BindItemRoomsWithRooms(IEnumerable<ItemRoom> itemRooms, IEnumerable<Room> rooms)
         {
@@ -32,7 +52,10 @@ namespace Service
                 var room = FindRoomById(rooms, itemRoom.RoomId);
                 if(room != null)
                 {
-                    room.ItemRooms.Add(itemRoom);
+                    if(room.Id == itemRoom.RoomId)
+                    {
+                        room.ItemRooms.Add(itemRoom);
+                    }
                 }
             });
         }

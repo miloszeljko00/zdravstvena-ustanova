@@ -17,8 +17,11 @@ namespace Service
 
         internal IEnumerable<Patient> GetAll()
         {
-            var patients = _patientRepository.GetAll();
-            return patients;
+            return _patientRepository.GetAll();
+        }
+        internal Patient GetById(long id)
+        {
+            return _patientRepository.Get(id);
         }
 
         private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)

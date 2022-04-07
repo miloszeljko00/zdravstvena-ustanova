@@ -18,7 +18,10 @@ namespace Controller
         {
             return _roomService.GetAll();
         }
-
+        public Room GetById(long id)
+        {
+            return _roomService.GetById(id);
+        }
         public Room Create(Room room)
         {
             return _roomService.Create(room);

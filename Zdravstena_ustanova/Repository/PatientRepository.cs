@@ -103,7 +103,7 @@ namespace Repository
                 patient.Id,
                 patient.PhoneNumber,
                 patient.Email,
-                patient.DateOfBirth.ToString("MM / dd / yyyy"),
+                patient.DateOfBirth.ToString("dd.MM.yyyy"),
                 patient.Address.Street,
                 patient.Address.Number,
                 patient.Address.City,
