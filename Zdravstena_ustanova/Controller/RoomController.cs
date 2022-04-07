@@ -23,13 +23,13 @@ namespace Controller
         {
             return _roomService.Create(room);
         }
-        public void Update(Room room)
+        public bool Update(Room room)
         {
-            _roomService.Update(room);
+            return _roomService.Update(room);
         }
-        public void Delete(long roomId)
+        public bool Delete(long roomId)
         {
-            _roomService.Delete(roomId);
+            return _roomService.Delete(roomId);
         }
     }
 }

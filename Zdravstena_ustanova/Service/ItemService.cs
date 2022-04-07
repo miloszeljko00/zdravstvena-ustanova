@@ -15,7 +15,7 @@ namespace Service
             _itemRepository = itemRepository;
         }
 
-        internal IEnumerable<Item> GetAll()
+        public IEnumerable<Item> GetAll()
         {
             return _itemRepository.GetAll();
         }
@@ -28,6 +28,14 @@ namespace Service
         public Item Create(Item item)
         {
             return _itemRepository.Create(item);
+        }
+        public bool Update(Item item)
+        {
+            return _itemRepository.Update(item);
+        }
+        public bool Delete(long itemId)
+        {
+            return _itemRepository.Delete(itemId);
         }
     }
 }

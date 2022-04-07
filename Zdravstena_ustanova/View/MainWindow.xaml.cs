@@ -32,8 +32,8 @@ namespace Zdravstena_ustanova.View
 
         private void Button_Click_Prostorije(object sender, RoutedEventArgs e)
         {
-            MainWindowAccount mwa = new MainWindowAccount();
-            mwa.Show();
+            RoomsTestPage rtp = new RoomsTestPage();
+            rtp.Show();
         }
 
         private void Button_Click_Doktor(object sender, RoutedEventArgs e)

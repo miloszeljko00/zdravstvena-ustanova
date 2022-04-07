@@ -17,7 +17,7 @@ namespace Service
             _itemRoomService = itemRoomService;
         }
 
-        internal IEnumerable<Room> GetAll()
+        public IEnumerable<Room> GetAll()
         {
             var itemRooms = _itemRoomService.GetAll();
             var rooms = _roomRepository.GetAll();
@@ -30,7 +30,10 @@ namespace Service
             itemRooms.ToList().ForEach(itemRoom =>
             {
                 var room = FindRoomById(rooms, itemRoom.RoomId);
-                room.ItemRooms.Add(itemRoom);
+                if(room != null)
+                {
+                    room.ItemRooms.Add(itemRoom);
+                }
             });
         }
 
@@ -43,13 +46,13 @@ namespace Service
         {
             return _roomRepository.Create(room);
         }
-        public void Update(Room room)
+        public bool Update(Room room)
         {
-            _roomRepository.Update(room);
+            return _roomRepository.Update(room);
         }
-        public void Delete(long roomId)
+        public bool Delete(long roomId)
         {
-            _roomRepository.Delete(roomId);
+            return _roomRepository.Delete(roomId);
         }
     }
 }

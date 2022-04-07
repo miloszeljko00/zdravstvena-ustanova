@@ -50,7 +50,37 @@ namespace Repository
             AppendLineToFile(_path, ItemToCSVFormat(item));
             return item;
         }
+        public bool Update(Item item)
+        {
+            var items = GetAll();
 
+            foreach (Item i in items)
+            {
+                if (i.Id == item.Id)
+                {
+                    i.Name = item.Name;
+                    i.Description = item.Description;
+                    WriteLinesToFile(_path, ItemsToCSVFormat((List<Item>)items));
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool Delete(long roomId)
+        {
+            var items = (List<Item>)GetAll();
+
+            foreach (Item i in items)
+            {
+                if (i.Id == roomId)
+                {
+                    items.Remove(i);
+                    WriteLinesToFile(_path, ItemsToCSVFormat((List<Item>)items));
+                    return true;
+                }
+            }
+            return false;
+        }
         private string ItemToCSVFormat(Item item)
         {
             return string.Join(_delimiter,
@@ -66,9 +96,25 @@ namespace Repository
                 long.Parse(tokens[0]),
                 tokens[1], tokens[2]);
         }
+        private List<string> ItemsToCSVFormat(List<Item> items)
+        {
+            List<string> lines = new List<string>();
+
+            foreach (Item item in items)
+            {
+                lines.Add(ItemToCSVFormat(item));
+            }
+            return lines;
+        }
+
         private void AppendLineToFile(string path, string line)
         {
             File.AppendAllText(path, line + Environment.NewLine);
+        }
+
+        private void WriteLinesToFile(string path, List<string> lines)
+        {
+            File.WriteAllLines(path, lines);
         }
     }
 }

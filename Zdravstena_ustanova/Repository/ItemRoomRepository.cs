@@ -50,6 +50,41 @@ namespace Repository
             AppendLineToFile(_path, ItemRoomToCSVFormat(itemRoom));
             return itemRoom;
         }
+
+        public bool Update(ItemRoom itemRoom)
+        {
+            var itemRooms = GetAll();
+
+            foreach (ItemRoom ir in itemRooms)
+            {
+                if (ir.Id == itemRoom.Id)
+                {
+                    ir.RoomId = itemRoom.RoomId;
+                    ir.ItemId = itemRoom.ItemId;
+                    ir.Quantity = itemRoom.Quantity;
+                    ir.Item = itemRoom.Item;
+                    WriteLinesToFile(_path, ItemRoomsToCSVFormat((List<ItemRoom>)itemRooms));
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool Delete(long itemRoomId)
+        {
+            var itemRooms = (List<ItemRoom>)GetAll();
+
+            foreach (ItemRoom ir in itemRooms)
+            {
+                if (ir.Id == itemRoomId)
+                {
+                    itemRooms.Remove(ir);
+                    WriteLinesToFile(_path, ItemRoomsToCSVFormat((List<ItemRoom>)itemRooms));
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private string ItemRoomToCSVFormat(ItemRoom itemRoom)
         {
             return string.Join(_delimiter,
@@ -57,6 +92,16 @@ namespace Repository
                 itemRoom.RoomId,
                 itemRoom.ItemId,
                 itemRoom.Quantity);
+        }
+        private List<string> ItemRoomsToCSVFormat(List<ItemRoom> itemRooms)
+        {
+            List<string> lines = new List<string>();
+
+            foreach (ItemRoom itemRoom in itemRooms)
+            {
+                lines.Add(ItemRoomToCSVFormat(itemRoom));
+            }
+            return lines;
         }
 
         private ItemRoom CSVFormatToItem(string itemCSVFormat)
@@ -71,6 +116,11 @@ namespace Repository
         private void AppendLineToFile(string path, string line)
         {
             File.AppendAllText(path, line + Environment.NewLine);
+        }
+
+        private void WriteLinesToFile(string path, List<string> lines)
+        {
+            File.WriteAllLines(path, lines);
         }
     }
 }

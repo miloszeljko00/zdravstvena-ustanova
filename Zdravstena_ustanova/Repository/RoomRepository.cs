@@ -53,7 +53,7 @@ namespace Repository
             return room;
         }
 
-        public void Update(Room room)
+        public bool Update(Room room)
         {
             var rooms = GetAll();
 
@@ -64,13 +64,13 @@ namespace Repository
                     r.Name = room.Name;
                     r.Floor = room.Floor;
                     r.RoomType = room.RoomType;
+                    WriteLinesToFile(_path, RoomsToCSVFormat((List<Room>)rooms));
+                    return true;
                 }
             }
-
-
-            WriteLinesToFile(_path, RoomsToCSVFormat((List<Room>)rooms));
+            return false;
         }
-        public void Delete(long roomId)
+        public bool Delete(long roomId)
         {
             var rooms = (List<Room>)GetAll();
 
@@ -78,13 +78,12 @@ namespace Repository
             {
                 if (r.Id == roomId)
                 {
-                   rooms.Remove(r);
-                   break;
+                    rooms.Remove(r);
+                    WriteLinesToFile(_path, RoomsToCSVFormat((List<Room>)rooms));
+                    return true;
                 }
             }
-
-
-            WriteLinesToFile(_path, RoomsToCSVFormat((List<Room>)rooms));
+            return false;
         }
 
         private string RoomToCSVFormat(Room room)

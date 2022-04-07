@@ -7,7 +7,8 @@ namespace Controller
 {
    public class ItemRoomController
    {
-      private readonly Service.ItemRoomService _itemRoomService;
+        private readonly Service.ItemRoomService _itemRoomService;
+
         public ItemRoomController(ItemRoomService itemRoomService)
         {
             _itemRoomService = itemRoomService;
@@ -21,6 +22,14 @@ namespace Controller
         public ItemRoom Create(ItemRoom itemRoom)
         {
             return _itemRoomService.Create(itemRoom);
+        }
+        public bool Update(ItemRoom itemRoom)
+        {
+            return _itemRoomService.Update(itemRoom);
+        }
+        public bool Delete(long itemRoomId)
+        {
+            return _itemRoomService.Delete(itemRoomId);
         }
     }
 }

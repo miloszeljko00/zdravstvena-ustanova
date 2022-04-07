@@ -26,5 +26,13 @@ namespace Controller
         {
             return _itemService.Create(item);
         }
+        public bool Update(Item item)
+        {
+            return _itemService.Update(item);
+        }
+        public bool Delete(long itemId)
+        {
+            return _itemService.Delete(itemId);
+        }
     }
 }
