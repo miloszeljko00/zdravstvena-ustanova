@@ -10,12 +10,23 @@ namespace Model
 
         public Person Person { get; set; }
 
-        public Account(string username, string password, bool isEnabled, Person person)
+        public long PersonId {get; set;}
+
+        public Account(string username, string password, bool isEnabled, Person person, long personId)
         {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
             Person = person;
+            PersonId = personId;
+        }
+
+        public Account(string username, string password, bool isEnabled, long personId)
+        {
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            PersonId = personId;
         }
     }
 }
