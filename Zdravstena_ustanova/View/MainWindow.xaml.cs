@@ -26,8 +26,10 @@ namespace Zdravstena_ustanova.View
             {
                 list.Items.Add(nalog.Username);
             }*/
-            MainWindowAccount mwa = new MainWindowAccount();
-            mwa.Show();
+            AccountTest accountTest = new AccountTest();
+            accountTest.Show();
+           //MainWindowAccount mwa = new MainWindowAccount();
+           // mwa.Show();
         }
 
         private void Button_Click_Prostorije(object sender, RoutedEventArgs e)

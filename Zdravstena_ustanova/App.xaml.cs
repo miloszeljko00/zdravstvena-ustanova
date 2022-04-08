@@ -27,6 +27,7 @@ namespace Zdravstena_ustanova
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
+        public AccountController AccountController { get; set; }
 
         public App()
         {

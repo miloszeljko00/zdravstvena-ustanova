@@ -2,112 +2,109 @@ using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Model.Enums;
 
 namespace Service
 {
     public class AccountService
     {
-        public  List<Account> Accounts { get; set; }
+        private readonly AccountsRepository _accountsRepository;
+        private PatientService _patientService;
+        private DoctorService _doctorService;
+        private SecretaryService _secretaryService;
+        private ManagerService _managerService;
 
-        public  Repository.AccountsRepository accountsRepository;
-
-        public AccountService()
+        public AccountService(AccountsRepository accountsRepository, PatientService patientService, DoctorService doctorService, SecretaryService secretaryService, ManagerService managerService)
         {
-            Accounts = new List<Account>();
-            this.accountsRepository = new Repository.AccountsRepository();
+            _accountsRepository = accountsRepository;
+            _patientService = patientService;
+            _doctorService = doctorService;
+            _secretaryService = secretaryService;
+            _managerService = managerService;
         }
 
-        public  bool CreateAccount(Account account)
+        public Account Create(Account account)
         {
-            try
-            {
-                    Accounts.Add(account);
-                    return true;
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
+            return _accountsRepository.Create(account);
             
         }
 
-        public bool DeleteAccount(string username)
+        public bool Delete(long accountId)
         {
-            foreach (Account account in Accounts)
-            {
-                if (account.Username == username)
-                {
-                    return Accounts.Remove(account);    
-                    
-                }
-                    
-            }
-            return false;
+            return _accountsRepository.Delete(accountId);
         }
 
-        public Account GetByUsername(string username)
-        {
-            foreach (Account account in Accounts)
-            {
-                if (account.Username == username)
-                {
-                    return account;
-                }
-
-            }
-            return null;
+        public bool Update(Account account) 
+        { 
+               return _accountsRepository.Update(account);
         }
 
-        public bool Save()
+        public Account GetById(long id)
         {
-            return accountsRepository.Save(Accounts);
+            var patients = _patientService.GetAll();
+            var doctors = _doctorService.GetAll();
+            var managers = _managerService.GetAll();
+            var secretaries = _secretaryService.GetAll();
+            var account = _accountsRepository.GetById(id);
+            BindPersonWithAccount(patients, doctors, managers, secretaries, account);
+            return account;
         }
 
-        public bool Read()
+        public IEnumerable<Account> GetAll()
         {
-            try
+            var patients = _patientService.GetAll();
+            var doctors = _doctorService.GetAll();
+            var managers = _managerService.GetAll();
+            var secretaries = _secretaryService.GetAll();
+            var accounts = _accountsRepository.GetAll();
+            foreach (Account acc in accounts)
             {
-                Accounts = accountsRepository.Read();
-
-                if (Accounts == null)
-                    return false;
-
-                return true;
-
-            }catch(Exception ex)
-            {
-                return false;
+                BindPersonWithAccount(patients, doctors, managers, secretaries, acc);
             }
-            
-         }
+            return accounts;
+        }
 
-        public void DisableAccount(string username)
+        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
-            foreach (Account account in Accounts)
+            switch(account.AccountType)
             {
-                if (account.Username == username)
-                {
-                    account.IsEnabled = false;
+                case AccountType.PATIENT:
+                    account.Person = FindPatientById(patients, account.PersonID);
                     break;
-                }
-
-            }
-        }
-
-        public void EnableAccount(string username)
-        {
-            foreach (Account account in Accounts)
-            {
-                if (account.Username == username)
-                {
-                    account.IsEnabled = true;
+                case AccountType.DOCTOR:
+                    account.Person = FindDoctorById(doctors, account.PersonID);
                     break;
-                }
-
+                case AccountType.MANAGER:
+                    account.Person = FindManagerById(managers, account.PersonID);
+                    break;
+                case AccountType.SECRETARY:
+                    account.Person = FindSecretaryById(secretaries, account.PersonID);
+                    break;
+                default:
+                    //account.Person = null;
+                    break;
             }
         }
+        private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)
+        {
+            return patients.SingleOrDefault(patient => patient.Id == patientId);
+        }
 
-        
+        private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)
+        {
+            return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
+        }
+
+        private Manager FindManagerById(IEnumerable<Manager> managers, long managerId)
+        {
+            return managers.SingleOrDefault(manager => manager.Id == managerId);
+        }
+        private Secretary FindSecretaryById(IEnumerable<Secretary> secrearies, long secretaryId)
+        {
+            return secrearies.SingleOrDefault(secretary => secretary.Id == secretaryId);
+        }
+
 
     }
 }

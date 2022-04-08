@@ -1,3 +1,4 @@
+using Model.Enums;
 using System;
 
 namespace Model
@@ -11,25 +12,54 @@ namespace Model
 
         public Person Person { get; set; }
 
-        public long PersonId {get; set;}
+        public long PersonID { get; set; }
 
-        public Account(string username, string password, bool isEnabled, Person person, long personId)
+        public AccountType AccountType {get; set;}
+
+
+        public Account(string username, string password, bool isEnabled, Person person, AccountType accountType)
         {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
             Person = person;
-            PersonId = personId;
-            Id = personId;
+            PersonID = person.Id;
+            AccountType = accountType;
         }
 
-        public Account(string username, string password, bool isEnabled, long personId)
+        public Account(long id, string username, string password, bool isEnabled, Person person, AccountType accountType)
         {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
-            PersonId = personId;
-            Id = personId;
+            Id = id;
+            PersonID = person.Id;
+            AccountType = accountType;
+            Person = person;
         }
+        public Account(long id, string username, string password, bool isEnabled, long personId, AccountType accountType)
+        {
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            Id = id;
+            PersonID = personId;
+            AccountType = accountType;
+        }
+        public Account(string username, string password, bool isEnabled, long personId, AccountType accountType)
+        {
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            PersonID = personId;
+            AccountType = accountType;
+        }
+        public Account(string username, string password, AccountType accountType)//za guest nalog
+        {
+            Username = username;
+            Password = password;
+            AccountType = accountType;
+        }
+
     }
 }

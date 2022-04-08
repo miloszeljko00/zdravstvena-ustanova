@@ -13,7 +13,7 @@ namespace Zdravstena_ustanova.View
         public MainWindowAccount()
         {
             InitializeComponent();
-            accService = new AccountService();
+            //accService = new AccountService();
             var app = Application.Current as App;
             List<Item> items = (List<Item>)app.ItemController.GetAll();
             foreach (Item item in items)

@@ -1,32 +1,132 @@
 using Model;
+using Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Zdravstena_ustanova.Exception;
 
 namespace Repository
 {
     public class AccountsRepository
     {
-        public bool Save(List<Account> accounts)
+   
+        private const string NOT_FOUND_ERROR = "ACCOUNT NOT FOUND: {0} = {1}";
+        private readonly string _path;
+        private readonly string _delimiter;
+        private long _accountMaxId;
+
+        public AccountsRepository(string path, string delimiter)
         {
-            
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("..\\..\\..\\data\\accounts.txt", FileMode.Create, FileAccess.Write);
-            formatter.Serialize(stream, accounts);
-            stream.Close();
-           
-            return true;
+            _path = path;
+            _delimiter = delimiter;
+            _accountMaxId = GetMaxId(GetAll());
+        }
+        private long GetMaxId(IEnumerable<Account> accounts)
+        {
+            return accounts.Count() == 0 ? 0 : accounts.Max(account => account.Id);
         }
 
-        public List<Account> Read()
+        public IEnumerable<Account> GetAll()
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("..\\..\\..\\data\\accounts.txt", FileMode.Open, FileAccess.Read);
+            return File.ReadAllLines(_path)
+                .Select(CSVFormatToAccount)
+                .ToList();
+        }
 
-            List<Account> accounts = (List<Account>)formatter.Deserialize(stream);
-            return accounts;
+        public Account GetById(long id)
+        {
+            try
+            {
+                return GetAll().SingleOrDefault(account => account.Id == id);
+            }
+            catch (ArgumentException)
+            {
+                throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
+            }
+        }
+
+        public Account Create(Account account)
+        {
+            account.Id = ++_accountMaxId;
+            AppendLineToFile(_path, AccountToCSVFormat(account));
+            return account;
+        }
+        public bool Update(Account account)
+        {
+            var accounts = GetAll();
+
+            foreach (Account acc in accounts)
+            {
+                if (acc.Id == account.Id)
+                {
+                    acc.Username = account.Username;
+                    acc.Password = account.Password;
+                    acc.IsEnabled = account.IsEnabled;
+                    acc.AccountType = account.AccountType;
+                    WriteLinesToFile(_path, AccountsToCSVFormat((List<Account>)accounts));
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool Delete(long id)
+        {
+            var accounts = (List<Account>)GetAll();
+
+            foreach (Account acc in accounts)
+            {
+                if (acc.Id == id)
+                {
+                    accounts.Remove(acc);
+                    WriteLinesToFile(_path, AccountsToCSVFormat((List<Account>)accounts));
+                    return true;
+                }
+            }
+            return false;
+        }
+        private string AccountToCSVFormat(Account account)
+        {
+            return string.Join(_delimiter,
+                account.Id,
+                account.Username,
+                account.Password,
+                account.IsEnabled,
+                account.PersonID,
+                account.AccountType);
+        }
+
+        private Account CSVFormatToAccount(string accountCSVFormat)
+        {
+            var tokens = accountCSVFormat.Split(_delimiter.ToCharArray());
+            return new Account(
+                long.Parse(tokens[0]),
+                tokens[1], tokens[2],
+                bool.Parse(tokens[3]), 
+                long.Parse(tokens[4]),
+                (AccountType) int.Parse(tokens[5]));
+        }
+        private List<string> AccountsToCSVFormat(List<Account> accounts)
+        {
+            List<string> lines = new List<string>();
+
+            foreach (Account account in accounts)
+            {
+                lines.Add(AccountToCSVFormat(account));
+            }
+            return lines;
+        }
+
+        private void AppendLineToFile(string path, string line)
+        {
+            File.AppendAllText(path, line + Environment.NewLine);
+        }
+
+        private void WriteLinesToFile(string path, List<string> lines)
+        {
+            File.WriteAllLines(path, lines);
         }
     }
 }
