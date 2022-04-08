@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zdravstena_ustanova"
         mc:Ignorable="d"
-        Title="Zdravstvena ustanova" Height="450" Width="800">
+        Title="Zdravstvena ustanova" Height="321" Width="527">
 
     <Grid>
-        <Button Content="Nalozi" HorizontalAlignment="Left" Margin="142,316,0,0" VerticalAlignment="Top" Height="40" Width="120" Click="Button_Click_Nalozi"/>
-        <Button Content="Prostorije" HorizontalAlignment="Left" Margin="142,80,0,0" VerticalAlignment="Top" Height="40" Width="120" Click="Button_Click_Prostorije"/>
-        <Button Content="Pregledi-pacijent" HorizontalAlignment="Left" Margin="551,316,0,0" VerticalAlignment="Top" Height="40" Width="120" Click="Button_Click_Pacijent"/>
-        <Button Content="Pregledi-doktor" HorizontalAlignment="Left" Margin="551,80,0,0" VerticalAlignment="Top" Height="40" Width="120" Click="Button_Click_Doktor"/>
+        <Button Content="Prostorije" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Margin="80,50" Width="120" Click="Button_Click_Prostorije"/>
+        <Button Content="Nalozi" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Margin="80,50" Width="120" Click="Button_Click_Nalozi"/>
+        <Button Content="Pregledi-doktor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="80,50" Height="40" Width="120" Click="Button_Click_Doktor"/>
+        <Button Content="Pregledi-pacijent" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="80,50" Height="40" Width="120" Click="Button_Click_Pacijent"/>
     </Grid>
 </Window>

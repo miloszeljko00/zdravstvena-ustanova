@@ -46,7 +46,8 @@ namespace Zdravstena_ustanova.View
 
         private void Button_Click_Pacijent(object sender, RoutedEventArgs e)
         {
-
+            ScheduledAppointmentPatient sap = new ScheduledAppointmentPatient();
+            sap.Show();
         }
     }
 }
