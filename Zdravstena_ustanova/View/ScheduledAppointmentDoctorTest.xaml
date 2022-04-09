@@ -23,8 +23,8 @@
         <Button x:Name="create" Content="create" Margin="0,12,148,0" Click="create_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" />
         <Button x:Name="update" Content="update" Margin="0,12,79,0" Click="update_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" />
         <Button x:Name="delete" Content="delete" Margin="0,12,10,0" Click="delete_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" />
-        <DatePicker Height="24" HorizontalAlignment="Left" Margin="67,14,0,0" Name="datePicker1" VerticalAlignment="Top" Width="115"  />
-        <Label Content="Pocetak:" Margin="10,13,0,0" HorizontalAlignment="Left" Width="55"  Height="24" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+        <DatePicker Height="24" HorizontalAlignment="Left" Margin="60,13,0,0" Name="datePicker1" VerticalAlignment="Top" Width="115"  />
+        <Label Content="Datum:" Margin="6,13,0,0" HorizontalAlignment="Left" Width="55"  Height="24" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -34,14 +34,13 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <DatePicker Height="25" HorizontalAlignment="Left" Margin="224,14,0,0" Name="datePicker2" VerticalAlignment="Top" Width="115" />
 
-        <Label x:Name="typeLabel" Content="Tip:" HorizontalAlignment="Left" Margin="344,13,0,0" Width="33"  Height="26" VerticalAlignment="Top"/>
+        <Label x:Name="typeLabel" Content="Tip:" HorizontalAlignment="Left" Margin="358,13,0,0" Width="33"  Height="26" VerticalAlignment="Top"/>
         <ComboBox x:Name="typeComboBox" HorizontalAlignment="Right" Margin="0,10,760,0" Width="120"  Height="30" VerticalAlignment="Top"/>
-        <Label Content="Kraj:" Margin="187,13,0,0" HorizontalAlignment="Left" Width="32"  Height="26" VerticalAlignment="Top"/>
-        <Label  Content="Pacijent:" HorizontalAlignment="Right" Margin="0,12,702,0" Width="58"  Height="26" VerticalAlignment="Top"/>
-        <ComboBox x:Name="pComboBox" HorizontalAlignment="Right" ItemsSource="{Binding}" SelectedValuePath="Id"
-                  Margin="0,10,582,0" Width="120"  Height="30" VerticalAlignment="Top">
+        <Label Content="Vreme:" Margin="182,13,0,0" HorizontalAlignment="Left" Width="47"  Height="26" VerticalAlignment="Top"/>
+        <Label  Content="Pacijent:" HorizontalAlignment="Right" Margin="0,12,701,0" Width="58"  Height="26" VerticalAlignment="Top"/>
+        <ComboBox x:Name="pComboBox" HorizontalAlignment="Center" ItemsSource="{Binding}" SelectedValuePath="Id"
+                  Margin="0,10,0,0" Width="120"  Height="30" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -74,5 +73,6 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <ComboBox x:Name="timeComboBox" HorizontalAlignment="Left" Margin="232,15,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="timeComboBox_SelectionChanged"/>
     </Grid>
 </Window>

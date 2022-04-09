@@ -9,17 +9,36 @@ namespace Service
     public class DoctorService
     {
         private readonly DoctorRepository _doctorRepository;
+        private readonly RoomService _roomService;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(DoctorRepository doctorRepository, RoomService roomService)
         {
             _doctorRepository = doctorRepository;
+            _roomService = roomService;
         }
 
         public IEnumerable<Doctor> GetAll()
         {
+            var rooms = _roomService.GetAll();
             var doctors = _doctorRepository.GetAll();
+            BindDoctorsWithRooms(rooms, doctors);
             return doctors;
         }
+
+        private void BindDoctorsWithRooms(IEnumerable<Room> rooms, IEnumerable<Doctor> doctors)
+        {
+            doctors.ToList().ForEach(doctor =>
+            {
+                rooms.ToList().ForEach(room =>
+                {
+                    if(room.Id == doctor.RoomId)
+                    {
+                        doctor.Room = room;
+                    }
+                });
+            });
+        }
+        
         public Doctor GetById(long id)
         {
             return _doctorRepository.Get(id);

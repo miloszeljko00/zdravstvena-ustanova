@@ -44,6 +44,7 @@ namespace Service
                 scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
                 scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
                 scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
+
         }
 
         private void BindPatientDoctorRoomWithScheduledAppointments(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, IEnumerable<ScheduledAppointment> scheduledAppointments)

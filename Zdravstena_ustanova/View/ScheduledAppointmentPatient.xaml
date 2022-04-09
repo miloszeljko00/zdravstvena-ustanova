@@ -25,12 +25,12 @@
         <Label Content="Datum:" Margin="10,13,0,0" HorizontalAlignment="Left" Width="55"  Height="24" VerticalAlignment="Top" />
         <DatePicker Height="24" HorizontalAlignment="Left" Margin="67,14,0,0" Name="datePicker" VerticalAlignment="Top" Width="115"  />
 
-        <Label  Content="Pacijent:" HorizontalAlignment="Right" Margin="0,12,969,0" Width="58"  Height="26" VerticalAlignment="Top"/>
-        <TextBox x:Name="patient" HorizontalAlignment="Right" Margin="0,16,849,0" Width="120"  Height="18" VerticalAlignment="Top" />
+        <Label  Content="Pacijent:" HorizontalAlignment="Right" Margin="0,12,680,0" Width="58"  Height="26" VerticalAlignment="Top"/>
+        <TextBox x:Name="patient" HorizontalAlignment="Right" Margin="0,16,560,0" Width="120"  Height="18" VerticalAlignment="Top" />
 
-        <Label Content="Doktor:" HorizontalAlignment="Left" Margin="484,12,0,0" Width="56"  Height="26" VerticalAlignment="Top"/>
+        <Label Content="Doktor:" HorizontalAlignment="Left" Margin="773,12,0,0" Width="56"  Height="26" VerticalAlignment="Top"/>
         <ComboBox x:Name="doctorCB" ItemsSource="{Binding}" SelectedValuePath="Id"
-                  HorizontalAlignment="Left" Margin="542,10,0,0" Width="120"  Height="30" VerticalAlignment="Top">
+                  HorizontalAlignment="Left" Margin="831,10,0,0" Width="120"  Height="30" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -40,6 +40,10 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <ComboBox x:Name="timeComboBox" HorizontalAlignment="Left" Margin="239,14,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="TimeComboBox_SelectionChanged">
+            <Label Content="Label"/>
+        </ComboBox>
+        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="187,12,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
