@@ -103,13 +103,13 @@ namespace Repository
                 manager.Id,
                 manager.PhoneNumber,
                 manager.Email,
-                manager.DateOfBirth.ToString("MM / dd / yyyy"),
+                manager.DateOfBirth.ToString("dd.MM.yyyy"),
                 manager.Address.Street,
                 manager.Address.Number,
                 manager.Address.City,
                 manager.Address.Country,
                 manager.AccountId,
-                manager.DateOfEmployment.ToString("MM / dd / yyyy"),
+                manager.DateOfEmployment.ToString("dd.MM.yyyy"),
                 manager.WeeklyHours,
                 manager.Experience
                );

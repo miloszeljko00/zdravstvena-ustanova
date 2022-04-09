@@ -39,6 +39,12 @@ namespace Zdravstena_ustanova
 
         public Patient Patient { get; set; }
 
+        public Doctor Doctor { get; set; }
+
+        public Manager Manager { get; set; }
+
+        public Secretary Secretary { get; set; }
+
         public App()
         {
             var itemRepository = new ItemRepository(ITEM_FILE, CSV_DELIMITER);
@@ -58,7 +64,7 @@ namespace Zdravstena_ustanova
             var patientService = new PatientService(patientRepository);
             var managerService = new ManagerService(managerRepository);
             var secretaryService = new SecretaryService(secretaryRepository);
-            var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository, roomService, doctorService, patientService);
+            var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomService, doctorService, patientService);
             var accountService = new AccountService(accountRepository, patientService, doctorService, secretaryService, managerService);
 
             ItemController = new ItemController(itemService);

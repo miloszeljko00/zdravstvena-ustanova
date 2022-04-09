@@ -14,7 +14,7 @@
         <DataGrid x:Name="dataGridAccounts" ItemsSource="{Binding Accounts}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" VerticalAlignment="Top" Margin="10,48,10,0" Height="620" Grid.Row="1" SelectionChanged="dataGridAccounts_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Userame}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
@@ -22,14 +22,14 @@
         <Button x:Name="create" Content="create" Margin="0,12,148,0" Click="create_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" Grid.RowSpan="2"/>
         <Button x:Name="update" Content="update" Margin="0,12,79,0" Click="update_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" Grid.RowSpan="2"/>
         <Button x:Name="delete" Content="delete" Margin="0,12,10,0" Click="delete_Click" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Width="64" Grid.RowSpan="2"/>
-        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Right" Margin="0,21,1071,0" TextWrapping="Wrap" Width="120" Grid.RowSpan="2" Height="18" VerticalAlignment="Top"/>
-        <Label x:Name="usernameLabel" Content="Username:" Margin="0,14,1196,0" HorizontalAlignment="Right" Width="74" Grid.RowSpan="2" Height="24" VerticalAlignment="Top"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Right" Margin="0,22,878,0" TextWrapping="Wrap" 
+        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Right" Margin="0,21,1049,0" TextWrapping="Wrap" Width="120" Grid.RowSpan="2" Height="18" VerticalAlignment="Top" RenderTransformOrigin="0.946,0.863"/>
+        <Label x:Name="usernameLabel" Content="Username:" Margin="0,17,1174,0" HorizontalAlignment="Right" Width="74" Grid.RowSpan="2" Height="24" VerticalAlignment="Top" RenderTransformOrigin="1.081,0.877"/>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Right" Margin="0,23,861,0" TextWrapping="Wrap" 
                   Width="120" Grid.RowSpan="2" Height="18" VerticalAlignment="Top"/>
         <Label x:Name="typeLabel" Content="Tip:" HorizontalAlignment="Right" Margin="0,18,824,0" Width="32" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
         <ComboBox x:Name="typeComboBox" HorizontalAlignment="Right" Margin="0,18,680,0" Width="120" Grid.RowSpan="2" Height="22" VerticalAlignment="Top"/>
-        <Label x:Name="passwordLabel" Content="Sifra:" Margin="0,15,1003,0" HorizontalAlignment="Right" Width="46" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
-        <RadioButton x:Name ="enableRadioButton" Content="Blokiran" HorizontalAlignment="Left" Margin="672,21,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label x:Name="passwordLabel" Content="Sifra:" Margin="0,17,986,0" HorizontalAlignment="Right" Width="46" Grid.RowSpan="2" Height="26" VerticalAlignment="Top" RenderTransformOrigin="1.141,0.655"/>
+        <CheckBox x:Name ="isDisabledCheckBox" Content="Blokiran" HorizontalAlignment="Left" Margin="656,21,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.322,0.053" Grid.RowSpan="2" Height="34" Width="96"/>
 
     </Grid>
 </Window>

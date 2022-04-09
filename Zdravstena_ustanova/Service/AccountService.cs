@@ -70,19 +70,23 @@ namespace Service
             switch(account.AccountType)
             {
                 case AccountType.PATIENT:
-                    account.Person = FindPatientById(patients, account.PersonID);
+                    Patient patient = FindPatientById(patients, account.PersonID);
+                    account.Person = patient;
                     break;
                 case AccountType.DOCTOR:
-                    account.Person = FindDoctorById(doctors, account.PersonID);
+                    Doctor doctor = FindDoctorById(doctors, account.PersonID);
+                    account.Person = doctor;
                     break;
                 case AccountType.MANAGER:
-                    account.Person = FindManagerById(managers, account.PersonID);
+                    Manager manager = FindManagerById(managers, account.PersonID);
+                    account.Person = manager;
                     break;
                 case AccountType.SECRETARY:
-                    account.Person = FindSecretaryById(secretaries, account.PersonID);
+                    Secretary secretary = FindSecretaryById(secretaries, account.PersonID);
+                    account.Person = secretary;
                     break;
                 default:
-                    //account.Person = null;
+                    account.Person = null;
                     break;
             }
         }
