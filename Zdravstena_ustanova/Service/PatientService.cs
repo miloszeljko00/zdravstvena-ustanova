@@ -15,11 +15,14 @@ namespace Service
             _patientRepository = patientRepository;
         }
 
-        internal IEnumerable<Patient> GetAll()
+
+        public IEnumerable<Patient> GetAll()
         {
             return _patientRepository.GetAll();
+            
         }
-        internal Patient GetById(long id)
+
+        public Patient GetById(long id)
         {
             return _patientRepository.Get(id);
         }

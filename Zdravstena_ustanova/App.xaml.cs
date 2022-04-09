@@ -54,7 +54,7 @@ namespace Zdravstena_ustanova
             var itemService = new ItemService(itemRepository);
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemService);
             var roomService = new RoomService(roomRepository, itemRoomService);
-            var doctorService = new DoctorService(doctorRepository);
+            var doctorService = new DoctorService(doctorRepository, roomService);
             var patientService = new PatientService(patientRepository);
             var managerService = new ManagerService(managerRepository);
             var secretaryService = new SecretaryService(secretaryRepository);

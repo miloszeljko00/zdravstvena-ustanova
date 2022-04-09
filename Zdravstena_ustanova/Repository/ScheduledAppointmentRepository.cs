@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 
 namespace Repository
 {
@@ -94,8 +95,8 @@ namespace Repository
         private string ScheduledAppointmentToCSVFormat(ScheduledAppointment scheduledAppointment)
         {
             return string.Join(_delimiter,
-                scheduledAppointment.Start.ToString("dd.MM.yyyy"),
-                scheduledAppointment.End.ToString("dd.MM.yyyy"),
+                scheduledAppointment.Start.ToString("dd.MM.yyyy HH:mm"),
+                scheduledAppointment.End.ToString("dd.MM.yyyy HH:mm"),
                 (int)scheduledAppointment.AppointmentType,
                 scheduledAppointment.Id,
                 scheduledAppointment.PatientId,
@@ -117,9 +118,20 @@ namespace Repository
         private ScheduledAppointment CSVFormatToScheduledAppointment(string scheduledAppointmentCSVFormat)
         {
             var tokens = scheduledAppointmentCSVFormat.Split(_delimiter.ToCharArray());
+            var timeFormat = "dd.MM.yyyy HH:mm";
+            DateTime startTime;
+            DateTime endTime;
+
+            DateTime.TryParseExact(tokens[0], timeFormat, CultureInfo.InvariantCulture
+                                                , DateTimeStyles.None
+                                                , out startTime);
+            DateTime.TryParseExact(tokens[1], timeFormat, CultureInfo.InvariantCulture
+                                                , DateTimeStyles.None
+                                                , out endTime);
+
             return new ScheduledAppointment(
-               Convert.ToDateTime(tokens[0]),
-               Convert.ToDateTime(tokens[1]),
+               startTime,
+               endTime,
                (AppointmentType)int.Parse(tokens[2]),
                long.Parse(tokens[3]),
                long.Parse(tokens[4]),

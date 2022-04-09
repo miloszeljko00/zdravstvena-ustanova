@@ -113,7 +113,8 @@ namespace Repository
                 doctor.DateOfEmployment.ToString("dd.MM.yyyy"),
                 doctor.WeeklyHours,
                 doctor.Experience,
-                doctor.LicenseNumber
+                doctor.LicenseNumber,
+                doctor.RoomId
                );
         }
 
@@ -148,7 +149,8 @@ namespace Repository
                 Convert.ToDateTime(tokens[11]),
                 int.Parse(tokens[12]),
                 int.Parse(tokens[13]),
-                tokens[14]);
+                tokens[14],
+                long.Parse(tokens[15]));
         }
 
         private List<string> DoctorsToCSVFormat(List<Doctor> doctors)
