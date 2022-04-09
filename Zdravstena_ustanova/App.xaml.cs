@@ -24,6 +24,8 @@ namespace Zdravstena_ustanova
         private string MANAGER_FILE = _projectPath + "\\Resources\\Data\\Managers.csv";
         private string SECRETARY_FILE = _projectPath + "\\Resources\\Data\\Secretary.csv";
         private string ACCOUNT_FILE = _projectPath + "\\Resources\\Data\\Accounts.csv";
+        private string SPECIALTY_FILE = _projectPath + "\\Resources\\Data\\Specialty.csv";
+        private string DOCSPEC_FILE = _projectPath + "\\Resources\\Data\\DoctorSpecialist.csv";
 
         public ItemController ItemController { get; set; }
         public ItemRoomController ItemRoomController { get; set; }
@@ -32,14 +34,14 @@ namespace Zdravstena_ustanova
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
-
+   
+        public DoctorSpecController DoctorSpecController { get; set; }
         public SecretaryController SecretaryController { get; set; }
-
         public ManagerController ManagerController { get; set; }
-
+        public SpecialtyController SpecialtyController { get; set; }
         public Patient Patient { get; set; }
-
         public Doctor Doctor { get; set; }
+        public DoctorSpecialist DoctorSpecialist { get; set; }
 
         public Manager Manager { get; set; }
 
@@ -56,6 +58,8 @@ namespace Zdravstena_ustanova
             var accountRepository = new AccountsRepository(ACCOUNT_FILE, CSV_DELIMITER);
             var managerRepository = new ManagerRepository(MANAGER_FILE, CSV_DELIMITER);
             var secretaryRepository = new SecretaryRepository(SECRETARY_FILE, CSV_DELIMITER);
+            var specialtyRepository = new SpecialtyRepository(SPECIALTY_FILE, CSV_DELIMITER);
+            var doctorSpecRepository = new DoctorSpecRepository(DOCSPEC_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemService);
@@ -66,6 +70,8 @@ namespace Zdravstena_ustanova
             var secretaryService = new SecretaryService(secretaryRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomService, doctorService, patientService);
             var accountService = new AccountService(accountRepository, patientService, doctorService, secretaryService, managerService);
+            var specialtyService = new SpecialtyService(specialtyRepository);
+            var doctorSpecService = new DoctorSpecService(doctorSpecRepository);
 
             ItemController = new ItemController(itemService);
             ItemRoomController = new ItemRoomController(itemRoomService);
@@ -76,6 +82,8 @@ namespace Zdravstena_ustanova
             AccountController = new AccountController(accountService);
             ManagerController = new ManagerController(managerService);
             SecretaryController = new SecretaryController(secretaryService);
+            SpecialtyController = new SpecialtyController(specialtyService);
+            DoctorSpecController = new DoctorSpecController(doctorSpecService);
         }
     }
 }

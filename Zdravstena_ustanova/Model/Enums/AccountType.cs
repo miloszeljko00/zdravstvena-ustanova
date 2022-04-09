@@ -5,6 +5,7 @@
         GUEST,
         PATIENT,
         DOCTOR,
+        DOCTOR_SPECIALIST,
         MANAGER,
         SECRETARY
 

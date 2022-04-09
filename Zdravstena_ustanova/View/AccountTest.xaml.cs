@@ -123,7 +123,7 @@ namespace Zdravstena_ustanova.View
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
                     break;
                 case 2:
-                    AddDoctorAccount ada = new AddDoctorAccount();
+                    AddDoctorAccount ada = new AddDoctorAccount(0);
                     ada.ShowDialog();
                     Doctor doctor = app.Doctor;
                     Account account3 = new Account(username, password, isEnabled, doctor, (AccountType)typeComboBox.SelectedIndex);
@@ -134,6 +134,17 @@ namespace Zdravstena_ustanova.View
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
                     break;
                 case 3:
+                    AddDoctorAccount ada1 = new AddDoctorAccount(1);
+                    ada1.ShowDialog();
+                    DoctorSpecialist doctorSpecialist = app.DoctorSpecialist;
+                    Account account6 = new Account(username, password, isEnabled, doctorSpecialist, (AccountType)typeComboBox.SelectedIndex);
+                    account3 = app.AccountController.Create(account6);
+                    doctorSpecialist.AccountId = account6.Id;
+                    app.DoctorSpecController.Update(doctorSpecialist);
+                    Accounts.Add(account6);
+                    CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
+                    break;
+                case 4:
                     AddStaffAccount asa = new AddStaffAccount(0);
                     asa.ShowDialog();
                     Manager manager = app.Manager;
@@ -144,7 +155,7 @@ namespace Zdravstena_ustanova.View
                     Accounts.Add(account4);
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
                     break;
-                case 4:
+                case 5:
                     AddStaffAccount asa1 = new AddStaffAccount(1);
                     asa1.ShowDialog();
                     Secretary secretary = app.Secretary;

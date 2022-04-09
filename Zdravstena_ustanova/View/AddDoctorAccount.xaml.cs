@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,16 @@ namespace Zdravstena_ustanova.View
     /// </summary>
     public partial class AddDoctorAccount : Window
     {
-        public AddDoctorAccount()
+        private int type;
+        public ObservableCollection<Specialty> Specs { get; set; }
+        public AddDoctorAccount(int type)
         {
             InitializeComponent();
+            this.type = type;
+            var app = Application.Current as App;
+            Specs = new ObservableCollection<Specialty>(app.SpecialtyController.GetAll());
+            specCB.DataContext = Specs;
+            
             
         }
 
@@ -43,11 +51,23 @@ namespace Zdravstena_ustanova.View
             string licenceNumber = licenceTextBox.Text;
             int experience = int.Parse(experienceTextBox.Text);
             DateTime emplDate = (DateTime)dateOfEmployment.SelectedDate;
-            Doctor doctor = new Doctor(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience, licenceNumber);
-            var app = Application.Current as App;
-            doctor = app.DoctorController.Create(doctor);
-            app.Doctor = doctor;
-            this.Close();
+            if(type == 0)
+            {
+                Doctor doctor = new Doctor(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience, licenceNumber);
+                var app = Application.Current as App;
+                doctor = app.DoctorController.Create(doctor);
+                app.Doctor = doctor;
+                this.Close();
+            }
+            else
+            {
+                DoctorSpecialist doctorSpecialist = new DoctorSpecialist(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience, licenceNumber, (long)specCB.SelectedValue);
+                var app = Application.Current as App;
+                doctorSpecialist = app.DoctorSpecController.Create(doctorSpecialist);
+                app.DoctorSpecialist = doctorSpecialist;
+                this.Close();
+            }
+            
         }
     }
 }

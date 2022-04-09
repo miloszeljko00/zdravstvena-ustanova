@@ -44,5 +44,15 @@
         <Label Content="Datum zaposlenja" HorizontalAlignment="Left" Margin="279,316,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="26" Width="105"/>
         <Label Content="Broj licence" HorizontalAlignment="Left" Margin="2,140,0,0" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="2" Grid.Column="1" Height="26" RenderTransformOrigin="-0.111,0.155"/>
         <TextBox x:Name="licenceTextBox" HorizontalAlignment="Left" Margin="77,140,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.Column="2" Height="18" RenderTransformOrigin="0.508,-2.442"/>
+        <ComboBox x:Name="specCB" HorizontalAlignment="Left" Margin="77,183,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" ItemsSource="{Binding}" SelectedValuePath="Id">
+           <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="2" Text="{Binding Name}"></TextBlock>
+                </StackPanel>
+            </DataTemplate>
+           </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Grid.Column="1" Content="Spcijalizacija" HorizontalAlignment="Left" Margin="2,181,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
