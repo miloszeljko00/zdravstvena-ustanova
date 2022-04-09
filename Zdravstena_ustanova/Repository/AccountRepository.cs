@@ -95,7 +95,7 @@ namespace Repository
                 account.Password,
                 account.IsEnabled,
                 account.PersonID,
-                account.AccountType);
+                (int)account.AccountType);
         }
 
         private Account CSVFormatToAccount(string accountCSVFormat)

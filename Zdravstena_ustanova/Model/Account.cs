@@ -54,10 +54,12 @@ namespace Model
             PersonID = personId;
             AccountType = accountType;
         }
-        public Account(string username, string password, AccountType accountType)//za guest nalog
+        public Account(string username, string password, bool isEnabled, AccountType accountType)
         {
             Username = username;
             Password = password;
+            IsEnabled = isEnabled;
+            PersonID = -1;
             AccountType = accountType;
         }
 

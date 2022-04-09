@@ -110,8 +110,8 @@ namespace Repository
                 patient.Address.Country,
                 patient.AccountId,
                 patient.InsuranceNumber,
-                patient.BloodType,
-                patient.EmploymentStatus
+                (int)patient.BloodType,
+                (int)patient.EmploymentStatus
                 
                );
         }

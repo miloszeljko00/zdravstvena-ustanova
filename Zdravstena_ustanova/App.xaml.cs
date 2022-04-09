@@ -3,6 +3,7 @@ using System.Windows;
 using Controller;
 using Repository;
 using Service;
+using Model;
 
 namespace Zdravstena_ustanova
 {
@@ -20,6 +21,9 @@ namespace Zdravstena_ustanova
         private string SCHEDULED_APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
         private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\Doctors.csv";
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\Patients.csv";
+        private string MANAGER_FILE = _projectPath + "\\Resources\\Data\\Managers.csv";
+        private string SECRETARY_FILE = _projectPath + "\\Resources\\Data\\Secretary.csv";
+        private string ACCOUNT_FILE = _projectPath + "\\Resources\\Data\\Accounts.csv";
 
         public ItemController ItemController { get; set; }
         public ItemRoomController ItemRoomController { get; set; }
@@ -29,6 +33,12 @@ namespace Zdravstena_ustanova
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
 
+        public SecretaryController SecretaryController { get; set; }
+
+        public ManagerController ManagerController { get; set; }
+
+        public Patient Patient { get; set; }
+
         public App()
         {
             var itemRepository = new ItemRepository(ITEM_FILE, CSV_DELIMITER);
@@ -37,14 +47,19 @@ namespace Zdravstena_ustanova
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
             var patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
+            var accountRepository = new AccountsRepository(ACCOUNT_FILE, CSV_DELIMITER);
+            var managerRepository = new ManagerRepository(MANAGER_FILE, CSV_DELIMITER);
+            var secretaryRepository = new SecretaryRepository(SECRETARY_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemService);
             var roomService = new RoomService(roomRepository, itemRoomService);
             var doctorService = new DoctorService(doctorRepository);
             var patientService = new PatientService(patientRepository);
+            var managerService = new ManagerService(managerRepository);
+            var secretaryService = new SecretaryService(secretaryRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository, roomService, doctorService, patientService);
-
+            var accountService = new AccountService(accountRepository, patientService, doctorService, secretaryService, managerService);
 
             ItemController = new ItemController(itemService);
             ItemRoomController = new ItemRoomController(itemRoomService);
@@ -52,6 +67,9 @@ namespace Zdravstena_ustanova
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
             ScheduledAppointmentController = new ScheduledAppointmentController(ScheduledAppointmentService);
+            AccountController = new AccountController(accountService);
+            ManagerController = new ManagerController(managerService);
+            SecretaryController = new SecretaryController(secretaryService);
         }
     }
 }

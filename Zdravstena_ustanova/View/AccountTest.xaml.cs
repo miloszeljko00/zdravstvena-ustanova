@@ -99,11 +99,30 @@ namespace Zdravstena_ustanova.View
 
         private void create_Click(object sender, RoutedEventArgs e)
         {
-            /*switch (typeComboBox.SelectedIndex)
+            var app = Application.Current as App;
+            string username = usernameTextBox.Text;
+            string password = passwordTextBox.Text;
+            bool isEnabled = (bool)enableRadioButton.IsChecked;
+            switch (typeComboBox.SelectedIndex)
             {
                 case 0:
+                    Account account1 = new Account(username, password, isEnabled, (AccountType)typeComboBox.SelectedIndex);
+                    app.AccountController.Create(account1);
+                    Accounts.Add(account1);
+                    CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
+                    break;
+                case 1:
+                    AddPatientAccount apa = new AddPatientAccount();
+                    apa.ShowDialog();
+                    Patient patient = app.Patient;
+                    Account account = new Account(username, password, isEnabled, patient, (AccountType)typeComboBox.SelectedIndex);
+                    app.AccountController.Create(account);
+                    Accounts.Add(account);
+                    CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
+                    break;
 
-            }*/
+            }
+            
         }
 
         

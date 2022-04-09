@@ -48,6 +48,8 @@ namespace Zdravstena_ustanova.View
             Patient patient = new Patient(name, surname, phone, email, date1, address, null, -1, insurance, bloodType, employment);
             var app = Application.Current as App;
             patient = app.PatientController.Create(patient);
+
+            app.Patient = patient;
         }
 
         
