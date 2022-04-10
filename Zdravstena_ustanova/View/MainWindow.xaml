@@ -1,0 +1,16 @@
+﻿<Window x:Class="Zdravstena_ustanova.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zdravstena_ustanova"
+        mc:Ignorable="d"
+        Title="Zdravstvena ustanova" Height="321" Width="527">
+
+    <Grid>
+        <Button Content="Prostorije" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Margin="80,50" Width="120" Click="Button_Click_Prostorije"/>
+        <Button Content="Nalozi" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Margin="80,50" Width="120" Click="Button_Click_Nalozi"/>
+        <Button Content="Pregledi-doktor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="80,50" Height="40" Width="120" Click="Button_Click_Doktor"/>
+        <Button Content="Pregledi-pacijent" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="80,50" Height="40" Width="120" Click="Button_Click_Pacijent"/>
+    </Grid>
+</Window>
