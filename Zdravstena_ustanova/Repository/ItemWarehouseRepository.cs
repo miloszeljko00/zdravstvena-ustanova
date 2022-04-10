@@ -61,7 +61,7 @@ namespace Repository
             {
                 if (iw.Id == itemWarehouse.Id)
                 {
-                    iw.RoomId = itemWarehouse.RoomId;
+                    iw.WarehouseId = itemWarehouse.WarehouseId;
                     iw.ItemId = itemWarehouse.ItemId;
                     iw.Quantity = itemWarehouse.Quantity;
                     iw.Item = itemWarehouse.Item;
@@ -91,7 +91,7 @@ namespace Repository
         {
             return string.Join(_delimiter,
                 itemWarehouse.Id,
-                itemWarehouse.RoomId,
+                itemWarehouse.WarehouseId,
                 itemWarehouse.ItemId,
                 itemWarehouse.Quantity);
         }

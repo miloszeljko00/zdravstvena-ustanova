@@ -8,18 +8,18 @@ using System.Linq;
 
 namespace Repository
 {
-    public class DoctorSpecRepository
+    public class DoctorSpecialistRepository
     {
         private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
-        private long _doctorSpecMaxId;
+        private long _doctorSpecialistMaxId;
 
-        public DoctorSpecRepository(string path, string delimiter)
+        public DoctorSpecialistRepository(string path, string delimiter)
         {
             _path = path;
             _delimiter = delimiter;
-            _doctorSpecMaxId = GetMaxId(GetAll());
+            _doctorSpecialistMaxId = GetMaxId(GetAll());
         }
 
         private long GetMaxId(IEnumerable<DoctorSpecialist> doctors)
@@ -30,7 +30,7 @@ namespace Repository
         public IEnumerable<DoctorSpecialist> GetAll()
         {
             return File.ReadAllLines(_path)
-                .Select(CSVFormatToDoctorSpec)
+                .Select(CSVFormatToDoctorSpecialist)
                 .ToList();
         }
 
@@ -48,8 +48,8 @@ namespace Repository
 
         public DoctorSpecialist Create(DoctorSpecialist doctor)
         {
-            doctor.Id = ++_doctorSpecMaxId;
-            AppendLineToFile(_path, DoctorSpecToCSVFormat(doctor));
+            doctor.Id = ++_doctorSpecialistMaxId;
+            AppendLineToFile(_path, DoctorSpecialistToCSVFormat(doctor));
             return doctor;
         }
 
@@ -78,7 +78,7 @@ namespace Repository
             }
 
 
-            WriteLinesToFile(_path, DoctorsSpecToCSVFormat((List<DoctorSpecialist>)doctors));
+            WriteLinesToFile(_path, DoctorsSpecialistToCSVFormat((List<DoctorSpecialist>)doctors));
         }
         public void Delete(long doctorId)
         {
@@ -94,10 +94,10 @@ namespace Repository
             }
 
 
-            WriteLinesToFile(_path, DoctorsSpecToCSVFormat((List<DoctorSpecialist>)doctors));
+            WriteLinesToFile(_path, DoctorsSpecialistToCSVFormat((List<DoctorSpecialist>)doctors));
         }
 
-        private string DoctorSpecToCSVFormat(DoctorSpecialist doctor)
+        private string DoctorSpecialistToCSVFormat(DoctorSpecialist doctor)
         {
             return string.Join(_delimiter,
                 doctor.Name,
@@ -129,7 +129,7 @@ namespace Repository
             File.WriteAllLines(path, lines);
         }
 
-        private DoctorSpecialist CSVFormatToDoctorSpec(string doctorCSVFormat)
+        private DoctorSpecialist CSVFormatToDoctorSpecialist(string doctorCSVFormat)
         {
             var tokens = doctorCSVFormat.Split(_delimiter.ToCharArray());
             var address = new Address(
@@ -154,13 +154,13 @@ namespace Repository
                 long.Parse(tokens[15]));
         }
 
-        private List<string> DoctorsSpecToCSVFormat(List<DoctorSpecialist> doctors)
+        private List<string> DoctorsSpecialistToCSVFormat(List<DoctorSpecialist> doctors)
         {
             List<string> lines = new List<string>();
 
             foreach (DoctorSpecialist doctor in doctors)
             {
-                lines.Add(DoctorSpecToCSVFormat(doctor));
+                lines.Add(DoctorSpecialistToCSVFormat(doctor));
             }
             return lines;
         }

@@ -7,9 +7,9 @@ namespace Controller
 {
    public class DoctorSpecController
    {
-        private readonly DoctorSpecService _doctorSpecService;
+        private readonly DoctorSpecialistService _doctorSpecService;
 
-        public DoctorSpecController(DoctorSpecService doctorSpecService)
+        public DoctorSpecController(DoctorSpecialistService doctorSpecService)
         {
             _doctorSpecService = doctorSpecService;
         }

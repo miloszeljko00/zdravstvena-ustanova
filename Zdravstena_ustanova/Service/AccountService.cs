@@ -9,15 +9,15 @@ namespace Service
 {
     public class AccountService
     {
-        private readonly AccountsRepository _accountsRepository;
+        private readonly AccountRepository _accountRepository;
         private PatientService _patientService;
         private DoctorService _doctorService;
         private SecretaryService _secretaryService;
         private ManagerService _managerService;
 
-        public AccountService(AccountsRepository accountsRepository, PatientService patientService, DoctorService doctorService, SecretaryService secretaryService, ManagerService managerService)
+        public AccountService(AccountRepository accountsRepository, PatientService patientService, DoctorService doctorService, SecretaryService secretaryService, ManagerService managerService)
         {
-            _accountsRepository = accountsRepository;
+            _accountRepository = accountsRepository;
             _patientService = patientService;
             _doctorService = doctorService;
             _secretaryService = secretaryService;
@@ -26,18 +26,18 @@ namespace Service
 
         public Account Create(Account account)
         {
-            return _accountsRepository.Create(account);
+            return _accountRepository.Create(account);
             
         }
 
         public bool Delete(long accountId)
         {
-            return _accountsRepository.Delete(accountId);
+            return _accountRepository.Delete(accountId);
         }
 
         public bool Update(Account account) 
         { 
-               return _accountsRepository.Update(account);
+               return _accountRepository.Update(account);
         }
 
         public Account GetById(long id)
@@ -46,7 +46,7 @@ namespace Service
             var doctors = _doctorService.GetAll();
             var managers = _managerService.GetAll();
             var secretaries = _secretaryService.GetAll();
-            var account = _accountsRepository.GetById(id);
+            var account = _accountRepository.GetById(id);
             BindPersonWithAccount(patients, doctors, managers, secretaries, account);
             return account;
         }
@@ -57,7 +57,7 @@ namespace Service
             var doctors = _doctorService.GetAll();
             var managers = _managerService.GetAll();
             var secretaries = _secretaryService.GetAll();
-            var accounts = _accountsRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
             foreach (Account acc in accounts)
             {
                 BindPersonWithAccount(patients, doctors, managers, secretaries, acc);

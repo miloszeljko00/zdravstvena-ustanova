@@ -10,7 +10,7 @@ using Zdravstena_ustanova.Exception;
 
 namespace Repository
 {
-    public class AccountsRepository
+    public class AccountRepository
     {
    
         private const string NOT_FOUND_ERROR = "ACCOUNT NOT FOUND: {0} = {1}";
@@ -18,7 +18,7 @@ namespace Repository
         private readonly string _delimiter;
         private long _accountMaxId;
 
-        public AccountsRepository(string path, string delimiter)
+        public AccountRepository(string path, string delimiter)
         {
             _path = path;
             _delimiter = delimiter;
