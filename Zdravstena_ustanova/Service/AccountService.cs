@@ -12,16 +12,18 @@ namespace Service
         private readonly AccountRepository _accountRepository;
         private PatientService _patientService;
         private DoctorService _doctorService;
+        private DoctorSpecialistService _doctorSpecialistService;
         private SecretaryService _secretaryService;
         private ManagerService _managerService;
 
-        public AccountService(AccountRepository accountsRepository, PatientService patientService, DoctorService doctorService, SecretaryService secretaryService, ManagerService managerService)
+        public AccountService(AccountRepository accountsRepository, PatientService patientService, DoctorService doctorService, DoctorSpecialistService doctorSpecialistService, SecretaryService secretaryService, ManagerService managerService)
         {
             _accountRepository = accountsRepository;
             _patientService = patientService;
             _doctorService = doctorService;
             _secretaryService = secretaryService;
             _managerService = managerService;
+            _doctorSpecialistService = doctorSpecialistService;
         }
 
         public Account Create(Account account)
@@ -44,10 +46,12 @@ namespace Service
         {
             var patients = _patientService.GetAll();
             var doctors = _doctorService.GetAll();
+            var doctorsSpecialist = _doctorSpecialistService.GetAll();
             var managers = _managerService.GetAll();
             var secretaries = _secretaryService.GetAll();
             var account = _accountRepository.GetById(id);
-            BindPersonWithAccount(patients, doctors, managers, secretaries, account);
+            
+            BindPersonWithAccount(patients, doctors, doctorsSpecialist, managers, secretaries, account);
             return account;
         }
 
@@ -55,17 +59,18 @@ namespace Service
         {
             var patients = _patientService.GetAll();
             var doctors = _doctorService.GetAll();
+            var doctorsSpecialist = _doctorSpecialistService.GetAll();
             var managers = _managerService.GetAll();
             var secretaries = _secretaryService.GetAll();
             var accounts = _accountRepository.GetAll();
             foreach (Account acc in accounts)
             {
-                BindPersonWithAccount(patients, doctors, managers, secretaries, acc);
+                BindPersonWithAccount(patients, doctors, doctorsSpecialist, managers, secretaries, acc);
             }
             return accounts;
         }
 
-        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
+        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<DoctorSpecialist> doctorsSpecialist, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
             switch(account.AccountType)
             {
@@ -76,6 +81,10 @@ namespace Service
                 case AccountType.DOCTOR:
                     Doctor doctor = FindDoctorById(doctors, account.PersonID);
                     account.Person = doctor;
+                    break;
+                case AccountType.DOCTOR_SPECIALIST:
+                    DoctorSpecialist doctorSpecialist = FindDoctorSpecialistById(doctorsSpecialist, account.PersonID);
+                    account.Person = doctorSpecialist;
                     break;
                 case AccountType.MANAGER:
                     Manager manager = FindManagerById(managers, account.PersonID);
@@ -100,6 +109,10 @@ namespace Service
             return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
         }
 
+        private DoctorSpecialist FindDoctorSpecialistById(IEnumerable<DoctorSpecialist> doctorsSpecialist, long doctorSpecialistId)
+        {
+            return doctorsSpecialist.SingleOrDefault(doctorSpecialist => doctorSpecialist.Id == doctorSpecialistId);
+        }
         private Manager FindManagerById(IEnumerable<Manager> managers, long managerId)
         {
             return managers.SingleOrDefault(manager => manager.Id == managerId);

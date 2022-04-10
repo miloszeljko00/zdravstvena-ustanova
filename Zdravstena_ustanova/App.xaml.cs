@@ -65,13 +65,15 @@ namespace Zdravstena_ustanova
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemService);
             var roomService = new RoomService(roomRepository, itemRoomService);
             var doctorService = new DoctorService(doctorRepository, roomService);
+            var specialtyService = new SpecialtyService(specialtyRepository);
+            var doctorSpecialistService = new DoctorSpecialistService(doctorSpecialistRepository, specialtyService);
             var patientService = new PatientService(patientRepository);
             var managerService = new ManagerService(managerRepository);
             var secretaryService = new SecretaryService(secretaryRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomService, doctorService, patientService);
-            var accountService = new AccountService(accountRepository, patientService, doctorService, secretaryService, managerService);
-            var specialtyService = new SpecialtyService(specialtyRepository);
-            var doctorSpecialistService = new DoctorSpecialistService(doctorSpecialistRepository, specialtyService);
+            var accountService = new AccountService(accountRepository, patientService, doctorService, doctorSpecialistService, secretaryService, managerService);
+            
+            
 
             ItemController = new ItemController(itemService);
             ItemRoomController = new ItemRoomController(itemRoomService);

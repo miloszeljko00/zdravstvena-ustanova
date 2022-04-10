@@ -27,7 +27,7 @@
         <TextBox x:Name="passwordTextBox" HorizontalAlignment="Right" Margin="0,23,861,0" TextWrapping="Wrap" 
                   Width="120" Grid.RowSpan="2" Height="18" VerticalAlignment="Top"/>
         <Label x:Name="typeLabel" Content="Tip:" HorizontalAlignment="Right" Margin="0,18,824,0" Width="32" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
-        <ComboBox x:Name="typeComboBox" HorizontalAlignment="Right" Margin="0,18,680,0" Width="120" Grid.RowSpan="2" Height="22" VerticalAlignment="Top"/>
+        <ComboBox x:Name="typeComboBox" HorizontalAlignment="Right" Margin="0,18,658,0" Width="142" Grid.RowSpan="2" Height="22" VerticalAlignment="Top"/>
         <Label x:Name="passwordLabel" Content="Sifra:" Margin="0,17,986,0" HorizontalAlignment="Right" Width="46" Grid.RowSpan="2" Height="26" VerticalAlignment="Top" RenderTransformOrigin="1.141,0.655"/>
         <CheckBox x:Name ="isDisabledCheckBox" Content="Blokiran" HorizontalAlignment="Left" Margin="656,21,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.322,0.053" Grid.RowSpan="2" Height="34" Width="96"/>
 
