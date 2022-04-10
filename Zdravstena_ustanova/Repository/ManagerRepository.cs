@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 
 namespace Repository
 {
@@ -133,6 +134,15 @@ namespace Repository
                     tokens[7],
                     tokens[8],
                     tokens[9]);
+            var timeFormat = "dd.MM.yyyy";
+            DateTime dateOfBirth;
+            DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
+                                               , DateTimeStyles.None
+                                               , out dateOfBirth);
+            DateTime dateOfEmployment;
+            DateTime.TryParseExact(tokens[11], timeFormat, CultureInfo.InvariantCulture
+                                               , DateTimeStyles.None
+                                               , out dateOfEmployment);
 
             return new Manager(
                 tokens[0],
@@ -140,10 +150,10 @@ namespace Repository
                 long.Parse(tokens[2]),
                 tokens[3],
                 tokens[4],
-                Convert.ToDateTime(tokens[5]),
+                dateOfBirth,
                 address,
                 long.Parse(tokens[10]),
-                Convert.ToDateTime(tokens[11]),
+                dateOfEmployment,
                 int.Parse(tokens[12]),
                 int.Parse(tokens[13]));
         }

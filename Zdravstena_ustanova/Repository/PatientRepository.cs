@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 
 namespace Repository
 {
@@ -134,6 +135,11 @@ namespace Repository
                     tokens[7],
                     tokens[8],
                     tokens[9]);
+            var timeFormat = "dd.MM.yyyy";
+            DateTime dateOfBirth;
+            DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
+                                               , DateTimeStyles.None
+                                               , out dateOfBirth);
 
             return new Patient(
                 tokens[0],
@@ -141,8 +147,8 @@ namespace Repository
                 long.Parse(tokens[2]),
                 tokens[3],
                 tokens[4],
-                Convert.ToDateTime(tokens[5]),
-                address,
+                dateOfBirth,
+            address,
                 long.Parse(tokens[10]),
                 int.Parse(tokens[11]),
                 (BloodType)int.Parse(tokens[12]),
