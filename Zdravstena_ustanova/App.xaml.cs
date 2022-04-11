@@ -35,16 +35,13 @@ namespace Zdravstena_ustanova
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
    
-        public DoctorSpecController DoctorSpecController { get; set; }
         public SecretaryController SecretaryController { get; set; }
         public ManagerController ManagerController { get; set; }
         public SpecialtyController SpecialtyController { get; set; }
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }
-        public DoctorSpecialist DoctorSpecialist { get; set; }
         public Manager Manager { get; set; }
-
         public Secretary Secretary { get; set; }
 
         public App()
@@ -59,19 +56,17 @@ namespace Zdravstena_ustanova
             var managerRepository = new ManagerRepository(MANAGER_FILE, CSV_DELIMITER);
             var secretaryRepository = new SecretaryRepository(SECRETARY_FILE, CSV_DELIMITER);
             var specialtyRepository = new SpecialtyRepository(SPECIALTY_FILE, CSV_DELIMITER);
-            var doctorSpecialistRepository = new DoctorSpecialistRepository(DOCSPEC_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemService);
             var roomService = new RoomService(roomRepository, itemRoomService);
             var doctorService = new DoctorService(doctorRepository, roomService);
             var specialtyService = new SpecialtyService(specialtyRepository);
-            var doctorSpecialistService = new DoctorSpecialistService(doctorSpecialistRepository, specialtyService);
             var patientService = new PatientService(patientRepository);
             var managerService = new ManagerService(managerRepository);
             var secretaryService = new SecretaryService(secretaryRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomService, doctorService, patientService);
-            var accountService = new AccountService(accountRepository, patientService, doctorService, doctorSpecialistService, secretaryService, managerService);
+            var accountService = new AccountService(accountRepository, patientService, doctorService, secretaryService, managerService);
             
             
 
@@ -85,7 +80,6 @@ namespace Zdravstena_ustanova
             ManagerController = new ManagerController(managerService);
             SecretaryController = new SecretaryController(secretaryService);
             SpecialtyController = new SpecialtyController(specialtyService);
-            DoctorSpecController = new DoctorSpecController(doctorSpecialistService);
         }
     }
 }

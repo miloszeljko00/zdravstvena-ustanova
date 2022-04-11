@@ -30,7 +30,7 @@ namespace Service
         {
             itemRooms.ToList().ForEach(itemRoom =>
             {
-                itemRoom.Item = FindItemById(items, itemRoom.ItemId);
+                itemRoom.Item = FindItemById(items, itemRoom.Item.Id);
             });
         }
 

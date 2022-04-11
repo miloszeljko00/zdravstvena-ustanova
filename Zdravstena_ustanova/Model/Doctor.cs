@@ -7,7 +7,7 @@ namespace Model
     {
         public string LicenseNumber { get; set; }
         public Room Room { get; set; }
-        Specialty Specialty { get; set; }
+        public Specialty Specialty { get; set; }
 
         public Doctor(string licenceNumber, Room room, Specialty specialty, DateTime dateOfEmployment, int experience,
             string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth,

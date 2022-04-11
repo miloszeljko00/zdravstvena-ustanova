@@ -68,11 +68,10 @@ namespace Repository
                     m.Email = manager.Email;
                     m.DateOfBirth = manager.DateOfBirth;
                     m.DateOfEmployment = manager.DateOfEmployment;
-                    m.WeeklyHours = manager.WeeklyHours;
                     m.Experience = manager.Experience;
                     m.Address = manager.Address;
                     m.Account = manager.Account;
-                    m.AccountId = manager.AccountId;
+                    m.Account.Id = manager.Account.Id;
                 }
             }
 
@@ -109,9 +108,8 @@ namespace Repository
                 manager.Address.Number,
                 manager.Address.City,
                 manager.Address.Country,
-                manager.AccountId,
+                manager.Account.Id,
                 manager.DateOfEmployment.ToString("dd.MM.yyyy"),
-                manager.WeeklyHours,
                 manager.Experience
                );
         }
@@ -140,7 +138,7 @@ namespace Repository
                                                , DateTimeStyles.None
                                                , out dateOfBirth);
             DateTime dateOfEmployment;
-            DateTime.TryParseExact(tokens[11], timeFormat, CultureInfo.InvariantCulture
+            DateTime.TryParseExact(tokens[10], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
                                                , out dateOfEmployment);
 
@@ -154,8 +152,7 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[12]),
-                int.Parse(tokens[13]));
+                int.Parse(tokens[11]));
         }
 
         private List<string> ManagersToCSVFormat(List<Manager> managers)

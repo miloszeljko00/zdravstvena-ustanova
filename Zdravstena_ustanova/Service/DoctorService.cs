@@ -31,7 +31,7 @@ namespace Service
             {
                 rooms.ToList().ForEach(room =>
                 {
-                    if(room.Id == doctor.RoomId)
+                    if(room.Id == doctor.Room.Id)
                     {
                         doctor.Room = room;
                     }

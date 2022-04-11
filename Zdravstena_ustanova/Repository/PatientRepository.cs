@@ -69,7 +69,7 @@ namespace Repository
                     p.DateOfBirth = patient.DateOfBirth;
                     p.Address = patient.Address;
                     p.Account = patient.Account;
-                    p.AccountId = patient.AccountId;
+                    p.Account.Id = patient.Account.Id;
                     p.InsuranceNumber = patient.InsuranceNumber;
                     p.BloodType = patient.BloodType;
                     p.EmploymentStatus = patient.EmploymentStatus;
@@ -109,7 +109,7 @@ namespace Repository
                 patient.Address.Number,
                 patient.Address.City,
                 patient.Address.Country,
-                patient.AccountId,
+                patient.Account.Id,
                 patient.InsuranceNumber,
                 (int)patient.BloodType,
                 (int)patient.EmploymentStatus

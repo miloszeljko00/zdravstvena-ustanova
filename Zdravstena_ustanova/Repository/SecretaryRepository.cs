@@ -68,11 +68,10 @@ namespace Repository
                     s.Email = secretary.Email;
                     s.DateOfBirth = secretary.DateOfBirth;
                     s.DateOfEmployment = secretary.DateOfEmployment;
-                    s.WeeklyHours = secretary.WeeklyHours;
                     s.Experience = secretary.Experience;
                     s.Address = secretary.Address;
                     s.Account = secretary.Account;
-                    s.AccountId = secretary.AccountId;
+                    s.Account.Id = secretary.Account.Id;
                 }
             }
 
@@ -109,9 +108,8 @@ namespace Repository
                 secretary.Address.Number,
                 secretary.Address.City,
                 secretary.Address.Country,
-                secretary.AccountId,
+                secretary.Account.Id,
                 secretary.DateOfEmployment.ToString("dd.MM.yyyy"),
-                secretary.WeeklyHours,
                 secretary.Experience
                );
         }

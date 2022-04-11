@@ -12,8 +12,7 @@ namespace Model
         }
 
         public Manager(string name, string surname, long id, string phoneNumber, string email,
-            DateTime dateOfBirth, Address address, Account account,  DateTime dateOfEmployment,
-            int weeklyHours, int experience) : base(dateOfEmployment, experience, name, surname, id, phoneNumber,
+            DateTime dateOfBirth, Address address, Account account,  DateTime dateOfEmployment, int experience) : base(dateOfEmployment, experience, name, surname, id, phoneNumber,
                 email, dateOfBirth,
                 address, account)
         {

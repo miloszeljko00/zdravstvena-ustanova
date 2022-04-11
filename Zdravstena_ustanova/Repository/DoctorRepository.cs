@@ -10,7 +10,7 @@ namespace Repository
 {
     public class DoctorRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "DOCTOR NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _doctorMaxId;
@@ -67,12 +67,11 @@ namespace Repository
                     d.Email = doctor.Email;
                     d.DateOfBirth = d.DateOfBirth;
                     d.DateOfEmployment = doctor.DateOfEmployment;
-                    d.WeeklyHours = doctor.WeeklyHours;
                     d.Experience = doctor.Experience;
                     d.LicenseNumber = doctor.LicenseNumber;
                     d.Address = doctor.Address;
                     d.Account = doctor.Account;
-                    d.AccountId = doctor.AccountId;
+                    d.Specialty = doctor.Specialty;
                 }
             }
 
@@ -99,6 +98,11 @@ namespace Repository
         private string DoctorToCSVFormat(Doctor doctor)
         {
             return string.Join(_delimiter,
+                 doctor.LicenseNumber,
+                doctor.Room.Id,
+                doctor.Specialty,
+                 doctor.DateOfEmployment.ToString("dd.MM.yyyy"),
+                doctor.Experience,
                 doctor.Name,
                 doctor.Surname,
                 doctor.Id,
@@ -109,12 +113,7 @@ namespace Repository
                 doctor.Address.Number,
                 doctor.Address.City,
                 doctor.Address.Country,
-                doctor.AccountId,
-                doctor.DateOfEmployment.ToString("dd.MM.yyyy"),
-                doctor.WeeklyHours,
-                doctor.Experience,
-                doctor.LicenseNumber,
-                doctor.RoomId
+                doctor.Account.Id
                );
         }
 
@@ -132,25 +131,26 @@ namespace Repository
         {
             var tokens = doctorCSVFormat.Split(_delimiter.ToCharArray());
             var address = new Address(
-                    tokens[6],
-                    tokens[7],
-                    tokens[8],
-                    tokens[9]);
+                    tokens[11],
+                    tokens[12],
+                    tokens[13],
+                    tokens[14]);
 
             return new Doctor(
                 tokens[0],
-                tokens[1],
+                long.Parse(tokens[1]),
                 long.Parse(tokens[2]),
-                tokens[3],
-                tokens[4],
-                Convert.ToDateTime(tokens[5]),
+                Convert.ToDateTime(tokens[3]),
+                int.Parse(tokens[4]),
+                tokens[5],
+                tokens[6],
+                long.Parse(tokens[7]),
+                tokens[8],
+                tokens[9],
+                Convert.ToDateTime(tokens[10]),
                 address,
-                long.Parse(tokens[10]),
-                Convert.ToDateTime(tokens[11]),
-                int.Parse(tokens[12]),
-                int.Parse(tokens[13]),
-                tokens[14],
                 long.Parse(tokens[15]));
+                
         }
 
         private List<string> DoctorsToCSVFormat(List<Doctor> doctors)

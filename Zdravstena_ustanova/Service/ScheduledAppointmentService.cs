@@ -41,9 +41,9 @@ namespace Service
         }
         private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment)
         {
-                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
-                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
-                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
+                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.Patient.Id);
+                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.Doctor.Id);
+                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.Room.Id);
 
         }
 
@@ -51,9 +51,9 @@ namespace Service
         {
             scheduledAppointments.ToList().ForEach(scheduledAppointment =>
             {
-                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
-                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
-                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
+                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.Patient.Id);
+                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.Doctor.Id);
+                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.Room.Id);
             });
 
         }

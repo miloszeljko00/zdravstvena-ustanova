@@ -31,7 +31,7 @@ namespace Service
         {
             itemWarehouses.ToList().ForEach(itemWarehouse =>
             {
-                itemWarehouse.Item = FindItemById(items, itemWarehouse.ItemId);
+                itemWarehouse.Item = FindItemById(items, itemWarehouse.Item.Id);
             });
         }
 

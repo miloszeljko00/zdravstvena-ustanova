@@ -94,7 +94,7 @@ namespace Repository
                 account.Username,
                 account.Password,
                 account.IsEnabled,
-                account.PersonID,
+                account.Person,
                 (int)account.AccountType);
         }
 
