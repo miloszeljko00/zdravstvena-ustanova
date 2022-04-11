@@ -9,16 +9,51 @@ namespace Service
     public class SecretaryService
     {
         private readonly SecretaryRepository _secretaryRepository;
+        private readonly AccountRepository _accountRepository;
 
-        public SecretaryService(SecretaryRepository secretaryRepository)
+        public SecretaryService(SecretaryRepository secretaryRepository, AccountRepository accountRepository)
         {
             _secretaryRepository = secretaryRepository;
+            _accountRepository = accountRepository;
         }
 
-        internal IEnumerable<Secretary> GetAll()
+        public IEnumerable<Secretary> GetAll()
         {
             var secretaries = _secretaryRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
+
+            BindSecretariesWithAccounts(secretaries, accounts);
+
             return secretaries;
+
+        }
+
+        private void BindSecretariesWithAccounts(IEnumerable<Secretary> secretaries, IEnumerable<Account> accounts)
+        {
+            foreach (Secretary s in secretaries)
+            {
+                BindSecretaryWithAccount(accounts, s);
+            }
+        }
+
+        public Secretary GetById(long id)
+        {
+            var secretary = _secretaryRepository.Get(id);
+            var accounts = _accountRepository.GetAll();
+            BindSecretaryWithAccount(accounts, secretary);
+            return secretary;
+        }
+
+        private void BindSecretaryWithAccount(IEnumerable<Account> accounts, Secretary secretary)
+        {
+            foreach(Account acc in accounts)
+            {
+                if(acc.Person.Id == secretary.Id)
+                {
+                    secretary.Account = acc;
+                    acc.Person = secretary;
+                }
+            }
         }
 
         private Secretary FindSecretaryById(IEnumerable<Secretary> secretaries, long secretaryId)

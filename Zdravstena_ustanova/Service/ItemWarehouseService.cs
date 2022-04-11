@@ -11,27 +11,39 @@ namespace Service
     public class ItemWarehouseService
     {
         private readonly ItemWarehouseRepository _itemWarehouseRepository;
-        private readonly ItemService _itemService;
+        private readonly ItemRepository _itemRepository;
 
-        public ItemWarehouseService(ItemWarehouseRepository itemWarehouseRepository, ItemService itemService)
+        public ItemWarehouseService(ItemWarehouseRepository itemWarehouseRepository, ItemRepository itemRepository)
         {
-            _itemService = itemService;
+            _itemRepository = itemRepository;
             _itemWarehouseRepository = itemWarehouseRepository;
         }
 
         public IEnumerable<ItemWarehouse> GetAll()
         {
-            var items = _itemService.GetAll();
+            var items = _itemRepository.GetAll();
             var itemWarehouses = _itemWarehouseRepository.GetAll();
             BindItemsWithItemWarehouses(items, itemWarehouses);
             return itemWarehouses;
+        }
+        public ItemWarehouse GetById(long id)
+        {
+            var items = _itemRepository.GetAll();
+            var itemWarehouse = _itemWarehouseRepository.Get(id);
+            BindItemWithItemWarehouse(items, itemWarehouse);
+            return itemWarehouse;
+        }
+
+        private void BindItemWithItemWarehouse(IEnumerable<Item> items, ItemWarehouse itemWarehouse)
+        { 
+            itemWarehouse.Item = FindItemById(items, itemWarehouse.Item.Id); 
         }
 
         private void BindItemsWithItemWarehouses(IEnumerable<Item> items, IEnumerable<ItemWarehouse> itemWarehouses)
         {
             itemWarehouses.ToList().ForEach(itemWarehouse =>
             {
-                itemWarehouse.Item = FindItemById(items, itemWarehouse.Item.Id);
+                BindItemWithItemWarehouse(items, itemWarehouse);
             });
         }
 

@@ -32,7 +32,7 @@ namespace Repository
                 .ToList();
         }
 
-        public Warehouse GetById(long id)
+        public Warehouse Get(long id)
         {
             try
             {

@@ -34,7 +34,7 @@ namespace Repository
                 .ToList();
         }
 
-        public ItemWarehouse GetById(long id)
+        public ItemWarehouse Get(long id)
         {
             try
             {

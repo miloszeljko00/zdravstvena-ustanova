@@ -32,7 +32,7 @@ namespace Repository
                 .ToList();
         }
 
-        public ItemRoom GetById(long id)
+        public ItemRoom Get(long id)
         {
             try
             {

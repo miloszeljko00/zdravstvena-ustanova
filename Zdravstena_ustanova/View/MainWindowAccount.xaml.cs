@@ -9,7 +9,6 @@ namespace Zdravstena_ustanova.View
 {
     public partial class MainWindowAccount : Window
     {
-        AccountService accService;
         public MainWindowAccount()
         {
             InitializeComponent();

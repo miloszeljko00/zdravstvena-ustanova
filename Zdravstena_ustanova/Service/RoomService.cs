@@ -9,27 +9,46 @@ namespace Service
     public class RoomService
     {
         private readonly RoomRepository _roomRepository;
-        private ItemRoomService _itemRoomService;
+        private readonly ItemRoomRepository _itemRoomRepository;
+        private readonly ItemRepository _itemRepository;
 
-        public RoomService(RoomRepository roomRepository, ItemRoomService itemRoomService)
+        public RoomService(RoomRepository roomRepository, ItemRoomRepository itemRoomRepository, ItemRepository itemRepository)
         {
             _roomRepository = roomRepository;
-            _itemRoomService = itemRoomService;
+            _itemRoomRepository = itemRoomRepository;
+            _itemRepository = itemRepository;
         }
 
         public IEnumerable<Room> GetAll()
         {
-            var itemRooms = _itemRoomService.GetAll();
+            var items = _itemRepository.GetAll();
+            var itemRooms = _itemRoomRepository.GetAll();
             var rooms = _roomRepository.GetAll();
+
+            BindItemsWithItemRooms(items, itemRooms);
             BindItemRoomsWithRooms(itemRooms, rooms);
             return rooms;
         }
         public Room GetById(long id)
         {
-            var itemRooms = _itemRoomService.GetAll();
+            var items = _itemRepository.GetAll();
+            var itemRooms = _itemRoomRepository.GetAll();
             var room = _roomRepository.Get(id);
+
+            BindItemsWithItemRooms(items, itemRooms);
             BindItemRoomsWithRoom(itemRooms, room);
             return room;
+        }
+        private void BindItemsWithItemRooms(IEnumerable<Item> items, IEnumerable<ItemRoom> itemRooms)
+        {
+            itemRooms.ToList().ForEach(itemRoom =>
+            {
+                itemRoom.Item = FindItemById(items, itemRoom.Item.Id);
+            });
+        }
+        private Item FindItemById(IEnumerable<Item> items, long itemId)
+        {
+            return items.SingleOrDefault(item => item.Id == itemId);
         }
         private void BindItemRoomsWithRoom(IEnumerable<ItemRoom> itemRooms, Room room)
         {
