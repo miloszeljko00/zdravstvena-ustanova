@@ -10,20 +10,18 @@ namespace Service
     public class AccountService
     {
         private readonly AccountRepository _accountRepository;
-        private PatientService _patientService;
-        private DoctorService _doctorService;
-        private DoctorSpecialistService _doctorSpecialistService;
-        private SecretaryService _secretaryService;
-        private ManagerService _managerService;
+        private PatientRepository _patientRepository;
+        private DoctorRepository _doctorRepository;
+        private SecretaryRepository _secretaryRepository;
+        private ManagerRepository _managerRepository;
 
-        public AccountService(AccountRepository accountsRepository, PatientService patientService, DoctorService doctorService, DoctorSpecialistService doctorSpecialistService, SecretaryService secretaryService, ManagerService managerService)
+        public AccountService(AccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository, SecretaryRepository secretaryRepository, ManagerRepository managerRepository)
         {
             _accountRepository = accountsRepository;
-            _patientService = patientService;
-            _doctorService = doctorService;
-            _secretaryService = secretaryService;
-            _managerService = managerService;
-            _doctorSpecialistService = doctorSpecialistService;
+            _patientRepository = patientRepository;
+            _doctorRepository = doctorRepository;
+            _secretaryRepository = secretaryRepository;
+            _managerRepository = managerRepository;
         }
 
         public Account Create(Account account)
@@ -44,58 +42,55 @@ namespace Service
 
         public Account GetById(long id)
         {
-            var patients = _patientService.GetAll();
-            var doctors = _doctorService.GetAll();
-            var doctorsSpecialist = _doctorSpecialistService.GetAll();
-            var managers = _managerService.GetAll();
-            var secretaries = _secretaryService.GetAll();
+            var patients = _patientRepository.GetAll();
+            var doctors = _doctorRepository.GetAll();
+            var managers = _managerRepository.GetAll();
+            var secretaries = _secretaryRepository.GetAll();
             var account = _accountRepository.GetById(id);
             
-            BindPersonWithAccount(patients, doctors, doctorsSpecialist, managers, secretaries, account);
+            BindPersonWithAccount(patients, doctors, managers, secretaries, account);
             return account;
         }
 
         public IEnumerable<Account> GetAll()
         {
-            var patients = _patientService.GetAll();
-            var doctors = _doctorService.GetAll();
-            var doctorsSpecialist = _doctorSpecialistService.GetAll();
-            var managers = _managerService.GetAll();
-            var secretaries = _secretaryService.GetAll();
+            var patients = _patientRepository.GetAll();
+            var doctors = _doctorRepository.GetAll();
+            var managers = _managerRepository.GetAll();
+            var secretaries = _secretaryRepository.GetAll();
             var accounts = _accountRepository.GetAll();
             foreach (Account acc in accounts)
             {
-                BindPersonWithAccount(patients, doctors, doctorsSpecialist, managers, secretaries, acc);
+                BindPersonWithAccount(patients, doctors, managers, secretaries, acc);
             }
             return accounts;
         }
 
-        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<DoctorSpecialist> doctorsSpecialist, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
+        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
             switch(account.AccountType)
             {
                 case AccountType.PATIENT:
-                    Patient patient = FindPatientById(patients, account.PersonID);
+                    Patient patient = FindPatientById(patients, account.Person.Id);
+                    patient.Account = account;
                     account.Person = patient;
                     break;
                 case AccountType.DOCTOR:
-                    Doctor doctor = FindDoctorById(doctors, account.PersonID);
+                    Doctor doctor = FindDoctorById(doctors, account.Person.Id);
+                    doctor.Account = account;
                     account.Person = doctor;
                     break;
-                case AccountType.DOCTOR_SPECIALIST:
-                    DoctorSpecialist doctorSpecialist = FindDoctorSpecialistById(doctorsSpecialist, account.PersonID);
-                    account.Person = doctorSpecialist;
-                    break;
                 case AccountType.MANAGER:
-                    Manager manager = FindManagerById(managers, account.PersonID);
+                    Manager manager = FindManagerById(managers, account.Person.Id);
+                    manager.Account = account;
                     account.Person = manager;
                     break;
                 case AccountType.SECRETARY:
-                    Secretary secretary = FindSecretaryById(secretaries, account.PersonID);
+                    Secretary secretary = FindSecretaryById(secretaries, account.Person.Id);
+                    secretary.Account = account;
                     account.Person = secretary;
                     break;
                 default:
-                    account.Person = null;
                     break;
             }
         }
@@ -109,10 +104,6 @@ namespace Service
             return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
         }
 
-        private DoctorSpecialist FindDoctorSpecialistById(IEnumerable<DoctorSpecialist> doctorsSpecialist, long doctorSpecialistId)
-        {
-            return doctorsSpecialist.SingleOrDefault(doctorSpecialist => doctorSpecialist.Id == doctorSpecialistId);
-        }
         private Manager FindManagerById(IEnumerable<Manager> managers, long managerId)
         {
             return managers.SingleOrDefault(manager => manager.Id == managerId);

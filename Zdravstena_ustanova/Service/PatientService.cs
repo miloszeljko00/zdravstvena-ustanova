@@ -9,22 +9,49 @@ namespace Service
     public class PatientService
     {
         private readonly PatientRepository _patientRepository;
+        private readonly AccountRepository _accountRepository;
 
-        public PatientService(PatientRepository patientRepository)
+        public PatientService(PatientRepository patientRepository, AccountRepository accountRepository)
         {
             _patientRepository = patientRepository;
+            _accountRepository = accountRepository;
         }
 
 
         public IEnumerable<Patient> GetAll()
         {
-            return _patientRepository.GetAll();
-            
+            var patients = _patientRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
+            BindPatientsWithAccounts(patients, accounts);
+            return patients;
+        }
+
+        private void BindPatientsWithAccounts(IEnumerable<Patient> patients, IEnumerable<Account> accounts)
+        {
+            foreach (Patient p in patients)
+            {
+                BindPatientWithAccount(p, accounts);
+            }
         }
 
         public Patient GetById(long id)
         {
-            return _patientRepository.Get(id);
+            var patient = _patientRepository.Get(id);
+            var accounts = _accountRepository.GetAll();
+            BindPatientWithAccount(patient, accounts);
+            return patient;
+        }
+
+        private void BindPatientWithAccount(Patient patient, IEnumerable<Account> accounts)
+        {
+            foreach(Account acc in accounts)
+            {
+                if(acc.Person.Id == patient.Id)
+                {
+                    patient.Account = acc;
+                    acc.Person = patient;
+                }
+            }
         }
 
         private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)

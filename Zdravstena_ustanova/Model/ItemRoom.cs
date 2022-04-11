@@ -6,15 +6,13 @@ namespace Model
    {
         public long Id { get; set; }
         public long RoomId { get; set; }
-        public long ItemId { get; set; }
         public int Quantity { get; set; }
         public Item Item { get; set; }
 
-        public ItemRoom(long id, long roomId, long itemId, int quantity, Item item)
+        public ItemRoom(long id, long roomId, int quantity, Item item)
         {
             Id = id;
             RoomId = roomId;
-            ItemId = itemId;
             Quantity = quantity;
             Item = item;
         }
@@ -22,15 +20,13 @@ namespace Model
         {
             Id = id;
             RoomId = roomId;
-            ItemId = itemId;
+            Item = new Item(itemId);
             Quantity = quantity;
         }
 
-        public ItemRoom(long roomId, long itemId, int quantity)
+        public ItemRoom(long id)
         {
-            RoomId = roomId;
-            ItemId = itemId;
-            Quantity = quantity;
+            Id = id;
         }
     }
 }

@@ -9,25 +9,27 @@ namespace Model
     public class ItemWarehouse
     {
         public long Id { get; set; }
-        public long ItemId { get; set; }
         public long WarehouseId { get; set; }
         public int Quantity { get; set; }
         public Item Item { get; set; }
         
-        public ItemWarehouse(long id, long itemId, long warehouseId, int quantity)
+        public ItemWarehouse(long id)
         {
             Id = id;
-            ItemId = itemId;
-            WarehouseId = warehouseId;
-            Quantity = quantity;
         }
-        public ItemWarehouse(long id, long itemId, long warehouseId, int quantity, Item item)
+        public ItemWarehouse(long id, long warehouseId, int quantity, Item item)
         {
             Id = id;
-            ItemId = itemId;
             WarehouseId = warehouseId;
             Quantity = quantity;
             Item = item;
+        }
+        public ItemWarehouse(long id, long warehouseId, int quantity, long itemId)
+        {
+            Id = id;
+            WarehouseId = warehouseId;
+            Quantity = quantity;
+            Item = new Item(itemId);
         }
     }
 }

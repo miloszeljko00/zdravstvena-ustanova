@@ -103,6 +103,8 @@ namespace Zdravstena_ustanova.View
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Text;
             bool isEnabled = !(bool)isDisabledCheckBox.IsChecked;
+
+            
             switch (typeComboBox.SelectedIndex)
             {
                 case 0:
@@ -117,7 +119,7 @@ namespace Zdravstena_ustanova.View
                     Patient patient = app.Patient;
                     Account account2 = new Account(username, password, isEnabled, patient, (AccountType)typeComboBox.SelectedIndex);
                     account2 = app.AccountController.Create(account2);
-                    patient.AccountId = account2.Id;
+                    patient.Account = account2;
                     app.PatientController.Update(patient);
                     Accounts.Add(account2);
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
@@ -128,40 +130,29 @@ namespace Zdravstena_ustanova.View
                     Doctor doctor = app.Doctor;
                     Account account3 = new Account(username, password, isEnabled, doctor, (AccountType)typeComboBox.SelectedIndex);
                     account3 = app.AccountController.Create(account3);
-                    doctor.AccountId = account3.Id;
+                    doctor.Account = account3;
                     app.DoctorController.Update(doctor);
                     Accounts.Add(account3);
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
                     break;
                 case 3:
-                    AddDoctorAccount ada1 = new AddDoctorAccount(1);
-                    ada1.ShowDialog();
-                    DoctorSpecialist doctorSpecialist = app.DoctorSpecialist;
-                    Account account6 = new Account(username, password, isEnabled, doctorSpecialist, (AccountType)typeComboBox.SelectedIndex);
-                    account3 = app.AccountController.Create(account6);
-                    doctorSpecialist.AccountId = account6.Id;
-                    app.DoctorSpecController.Update(doctorSpecialist);
-                    Accounts.Add(account6);
-                    CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
-                    break;
-                case 4:
                     AddStaffAccount asa = new AddStaffAccount(0);
                     asa.ShowDialog();
                     Manager manager = app.Manager;
                     Account account4 = new Account(username, password, isEnabled, manager, (AccountType)typeComboBox.SelectedIndex);
                     account4 = app.AccountController.Create(account4);
-                    manager.AccountId = account4.Id;
+                    manager.Account = account4;
                     app.ManagerController.Update(manager);
                     Accounts.Add(account4);
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();
                     break;
-                case 5:
+                case 4:
                     AddStaffAccount asa1 = new AddStaffAccount(1);
                     asa1.ShowDialog();
                     Secretary secretary = app.Secretary;
                     Account account5 = new Account(username, password, isEnabled, secretary, (AccountType)typeComboBox.SelectedIndex);
                     account5 = app.AccountController.Create(account5);
-                    secretary.AccountId = account5.Id;
+                    secretary.Account = account5;
                     app.SecretaryController.Update(secretary);
                     Accounts.Add(account5);
                     CollectionViewSource.GetDefaultView(dataGridAccounts.ItemsSource).Refresh();

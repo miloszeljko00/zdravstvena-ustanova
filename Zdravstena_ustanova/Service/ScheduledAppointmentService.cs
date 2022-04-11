@@ -9,53 +9,79 @@ namespace Service
     public class ScheduledAppointmentService
     {
         private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private PatientService _patientService;
-        private DoctorService _doctorService;
-        private RoomService _roomService;
+        private PatientRepository _patientRepository;
+        private DoctorRepository _doctorRepository;
+        private RoomRepository _roomRepository;
+        private AccountRepository _accountRepository;
 
-        public ScheduledAppointmentService(ScheduledAppointmentRepository scheduledAppointmentRepository, RoomService roomService, DoctorService doctorService, PatientService patientService)
+        public ScheduledAppointmentService(ScheduledAppointmentRepository scheduledAppointmentRepository, RoomRepository roomRepository,
+            DoctorRepository doctorRepository, PatientRepository patientRepository, AccountRepository accountRepository)
         {
             _scheduledAppointmentRepository = scheduledAppointmentRepository;
-            _roomService = roomService;
-            _doctorService = doctorService;
-            _patientService = patientService;
+            _roomRepository = roomRepository;
+            _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
+            _accountRepository = accountRepository;
         }
 
         public IEnumerable<ScheduledAppointment> GetAll()
         {
-            var patients = _patientService.GetAll();
-            var doctors = _doctorService.GetAll();
-            var rooms = _roomService.GetAll();
+            var patients = _patientRepository.GetAll();
+            var doctors = _doctorRepository.GetAll();
+            var rooms = _roomRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
             var scheduledAppointmets = _scheduledAppointmentRepository.GetAll();
-            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointmets);
+            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointmets, accounts);
             return scheduledAppointmets;
         }
         public ScheduledAppointment GetById(long Id)
         {
-            var patients = _patientService.GetAll();
-            var doctors = _doctorService.GetAll();
-            var rooms = _roomService.GetAll();
+            var patients = _patientRepository.GetAll();
+            var doctors = _doctorRepository.GetAll();
+            var rooms = _roomRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
             var scheduledAppointmet = _scheduledAppointmentRepository.Get(Id);
-            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet);
+            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet, accounts);
             return scheduledAppointmet;
         }
-        private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment)
+        private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors,
+            IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment, IEnumerable<Account> accounts)
         {
-                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
-                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
-                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
+            scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.Patient.Id);
+            BindPatientWithAccount(accounts, scheduledAppointment.Patient);
+            scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.Doctor.Id);
+            BindDoctorWithRoom(rooms, scheduledAppointment.Doctor);
+            BindDoctorWithAccount(accounts, scheduledAppointment.Doctor);
+            scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.Room.Id);
 
         }
 
-        private void BindPatientDoctorRoomWithScheduledAppointments(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Room> rooms, IEnumerable<ScheduledAppointment> scheduledAppointments)
+        private void BindPatientDoctorRoomWithScheduledAppointments(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors,
+            IEnumerable<Room> rooms, IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Account> accounts)
         {
             scheduledAppointments.ToList().ForEach(scheduledAppointment =>
             {
-                scheduledAppointment.Patient = FindPatientById(patients, scheduledAppointment.PatientId);
-                scheduledAppointment.Doctor = FindDoctorById(doctors, scheduledAppointment.DoctorId);
-                scheduledAppointment.Room = FindRoomById(rooms, scheduledAppointment.RoomId);
+                BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointment, accounts);
             });
+        }
+        private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
+        {
+            doctor.Room = FindRoomById(rooms, doctor.Room.Id);
+        }
+        private void BindDoctorWithAccount(IEnumerable<Account> accounts, Doctor doctor)
+        {
+            doctor.Account = FindAccountById(accounts, doctor.Account.Id);
+            doctor.Account.Person = doctor;
+        }
+        private void BindPatientWithAccount(IEnumerable<Account> accounts, Patient patient)
+        {
+            patient.Account = FindAccountById(accounts, patient.Account.Id);
+            patient.Account.Person = patient;
+        }
 
+        private Account FindAccountById(IEnumerable<Account> accounts, long accountId)
+        {
+            return accounts.SingleOrDefault(account => account.Id == accountId);
         }
 
         private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)

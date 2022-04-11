@@ -12,5 +12,9 @@ namespace Model
             Id = id;
             Name = name;
         }
+        public Specialty(long id)
+        {
+            this.Id = id;
+        }
     }
 }

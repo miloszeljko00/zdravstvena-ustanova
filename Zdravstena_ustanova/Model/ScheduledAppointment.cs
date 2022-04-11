@@ -13,11 +13,9 @@ namespace Model
         public Patient Patient { get; set; }
         public Doctor Doctor   { get; set; }
         public Room Room { get; set; }
-        public long PatientId { get; set; }
-        public long DoctorId { get; set; }
-        public long RoomId { get; set; }
 
-        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType, long id, Patient patient, Doctor doctor, Room room, long patientId, long doctorId, long roomId)
+        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType,
+            long id, Patient patient, Doctor doctor, Room room)
         {
             Start = start;
             End = end;
@@ -26,29 +24,34 @@ namespace Model
             Patient = patient;
             Doctor = doctor;
             Room = room;
-            PatientId = patientId;
-            DoctorId = doctorId;
-            RoomId = roomId;
         }
 
-        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType, long id, long patientId, long doctorId, long roomId)
+        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType,
+            long id, long patientId, long doctorId, long roomId)
         {
             Start = start;
             End = end;
             AppointmentType = appointmentType;
             Id = id;
-            PatientId = patientId;
-            DoctorId = doctorId;
-            RoomId = roomId;
+            Patient = new Patient(patientId);
+            Doctor = new Doctor(doctorId);
+            Room = new Room(roomId);
         }
-        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType, long patientId, long doctorId, long roomId)
+
+        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType,
+            long patientId, long doctorId, long roomId)
         {
             Start = start;
             End = end;
             AppointmentType = appointmentType;
-            PatientId = patientId;
-            DoctorId = doctorId;
-            RoomId = roomId;
+            Patient = new Patient(patientId);
+            Doctor = new Doctor(doctorId);
+            Room = new Room(roomId);
+        }
+
+        public ScheduledAppointment(long id)
+        {
+            Id=id;
         }
 
     }

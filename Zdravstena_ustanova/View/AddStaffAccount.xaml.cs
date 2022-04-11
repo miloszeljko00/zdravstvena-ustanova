@@ -40,12 +40,11 @@ namespace Zdravstena_ustanova.View
             string city = cityTextBox.Text;
             string country = countryTextBox.Text;
             Address address = new Address(street, num, city, country);
-            int weeklyHours = int.Parse(weeklyHoursTextBox.Text);
             int experience = int.Parse(experienceTextBox.Text);
             DateTime emplDate = (DateTime)dateOfEmployment.SelectedDate;
             if(type == 0)
             {
-                Manager manager = new Manager(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience);
+                Manager manager = new Manager(name, surname, id, phone, email, date1, address, -1, emplDate, experience);
                 var app = Application.Current as App;
                 manager = app.ManagerController.Create(manager);
                 app.Manager = manager;
@@ -53,7 +52,7 @@ namespace Zdravstena_ustanova.View
             }
             else
             {
-                Secretary secretary = new Secretary(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience);
+                Secretary secretary = new Secretary(name, surname, id, phone, email, date1, address, -1, emplDate, experience);
                 var app = Application.Current as App;
                 secretary = app.SecretaryController.Create(secretary);
                 app.Secretary = secretary;
