@@ -24885,19 +24885,11 @@ Shadow=0</a:DisplayPreferences>
 <o:Dependency Ref="o1204"/>
 </c:Object>
 </o:DependencySymbol>
-<<<<<<< Updated upstream
 <o:UseCaseAssociationSymbol Id="o1205">
 <a:CreationDate>1647562471</a:CreationDate>
 <a:ModificationDate>1647564382</a:ModificationDate>
 <a:Rect>((-37406,811), (-21185,8217))</a:Rect>
 <a:ListOfPoints>((-37006,7817),(-37006,1211),(-21585,1211))</a:ListOfPoints>
-=======
-<o:DependencySymbol Id="o1205">
-<a:CreationDate>1649611825</a:CreationDate>
-<a:ModificationDate>1649611854</a:ModificationDate>
-<a:Rect>((-15890,44), (-6237,8280))</a:Rect>
-<a:ListOfPoints>((-6637,7249),(-13453,7249),(-13453,444))</a:ListOfPoints>
->>>>>>> Stashed changes
 <a:CornerStyle>2</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>128</a:LineColor>
@@ -25000,19 +24992,11 @@ Shadow=0</a:DisplayPreferences>
 </c:Object>
 </o:DependencySymbol>
 <o:DependencySymbol Id="o1219">
-<<<<<<< Updated upstream
 <a:CreationDate>1647564874</a:CreationDate>
 <a:ModificationDate>1647564886</a:ModificationDate>
 <a:CenterTextOffset>(105, -1154)</a:CenterTextOffset>
 <a:Rect>((-18510,-11096), (-13636,-1088))</a:Rect>
 <a:ListOfPoints>((-16178,-10696),(-16178,-1488))</a:ListOfPoints>
-=======
-<a:CreationDate>1649611825</a:CreationDate>
-<a:ModificationDate>1649611854</a:ModificationDate>
-<a:CenterTextWidth>5783</a:CenterTextWidth>
-<a:Rect>((-10864,13693), (4070,15426))</a:Rect>
-<a:ListOfPoints>((3670,14393),(-10464,14393))</a:ListOfPoints>
->>>>>>> Stashed changes
 <a:CornerStyle>2</a:CornerStyle>
 <a:ArrowStyle>8</a:ArrowStyle>
 <a:LineColor>128</a:LineColor>
