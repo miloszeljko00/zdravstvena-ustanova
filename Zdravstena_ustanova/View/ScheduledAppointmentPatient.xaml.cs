@@ -134,13 +134,13 @@ namespace Zdravstena_ustanova.View
             scheduledAppointment.End = new DateTime(date.Year, date.Month, date.Day, hour + 1, minute, 0);
 
             scheduledAppointment.AppointmentType = AppointmentType.REGULAR_APPOINTMENT;
-            scheduledAppointment.PatientId = p;
-            scheduledAppointment.DoctorId = (long)doctorCB.SelectedValue;
+            scheduledAppointment.Patient.Id = p;
+            scheduledAppointment.Doctor.Id = (long)doctorCB.SelectedValue;
             //RoomId zakucan na fiksnu vrednost dok se lekaru ne dodeli radna prostorija
-            scheduledAppointment.RoomId = 1;
-            scheduledAppointment.Patient = app.PatientController.GetById(scheduledAppointment.PatientId);
-            scheduledAppointment.Doctor = app.DoctorController.GetById(scheduledAppointment.DoctorId);
-            scheduledAppointment.Room = app.RoomController.GetById(scheduledAppointment.RoomId);
+            scheduledAppointment.Room.Id = app.DoctorController.GetById(scheduledAppointment.Doctor.Id).Room.Id;
+            scheduledAppointment.Patient = app.PatientController.GetById(scheduledAppointment.Patient.Id);
+            scheduledAppointment.Doctor = app.DoctorController.GetById(scheduledAppointment.Doctor.Id);
+            scheduledAppointment.Room = app.RoomController.GetById(scheduledAppointment.Room.Id);
             app.ScheduledAppointmentController.Update(scheduledAppointment);
 
             CollectionViewSource.GetDefaultView(dGScheduledAppointments.ItemsSource).Refresh();
@@ -180,8 +180,8 @@ namespace Zdravstena_ustanova.View
 
             selectedTime = hour + ":" + minute;
             timeComboBox.SelectedItem = selectedTime;
-            doctorCB.SelectedValue = scheduledAppointment.DoctorId;
-            Patient p = app.PatientController.GetById(scheduledAppointment.PatientId);
+            doctorCB.SelectedValue = scheduledAppointment.Doctor.Id;
+            Patient p = app.PatientController.GetById(scheduledAppointment.Patient.Id);
             patient.Text = p.Name + " " + p.Surname;
             
         }

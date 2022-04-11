@@ -9,7 +9,7 @@ namespace Repository
 {
    public class ItemRoomRepository
    {
-        private const string NOT_FOUND_ERROR = "ItemRoom NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "ITEMROOM NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _itemRoomMaxId;

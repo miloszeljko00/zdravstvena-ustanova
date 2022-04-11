@@ -88,25 +88,46 @@ namespace Repository
             return false;
         }
         private string AccountToCSVFormat(Account account)
-        {
+        {   
+            if(account.Person != null)
+            {
+                return string.Join(_delimiter,
+                account.Id,
+                account.Username,
+                account.Password,
+                account.IsEnabled,
+                account.Person.Id,
+                (int)account.AccountType);
+            }
             return string.Join(_delimiter,
                 account.Id,
                 account.Username,
                 account.Password,
                 account.IsEnabled,
-                account.Person,
+                -1,
                 (int)account.AccountType);
         }
 
         private Account CSVFormatToAccount(string accountCSVFormat)
         {
             var tokens = accountCSVFormat.Split(_delimiter.ToCharArray());
+            if(long.Parse(tokens[4]) != -1)
+            {
+                return new Account(
+                long.Parse(tokens[0]),
+                tokens[1],
+                tokens[2],
+                bool.Parse(tokens[3]),
+                long.Parse(tokens[4]),
+                (AccountType)int.Parse(tokens[5]));
+            }
             return new Account(
                 long.Parse(tokens[0]),
-                tokens[1], tokens[2],
-                bool.Parse(tokens[3]), 
-                long.Parse(tokens[4]),
-                (AccountType) int.Parse(tokens[5]));
+                tokens[1],
+                tokens[2],
+                bool.Parse(tokens[3]),
+                (AccountType)int.Parse(tokens[5]));
+
         }
         private List<string> AccountsToCSVFormat(List<Account> accounts)
         {

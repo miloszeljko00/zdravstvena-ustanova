@@ -11,19 +11,25 @@ namespace Model
         public bool IsEnabled { get; set; } = true;
 
         public Person Person { get; set; }
-        public long PersonId { get; set; }
 
 
         public AccountType AccountType {get; set;}
 
-        public Account(long id, string username, string password, bool isEnabled, Person person, long personId, AccountType accountType)
+        public Account(long id, string username, string password, bool isEnabled, Person person, AccountType accountType)
         {
             Id = id;
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
             Person = person;
-            PersonId = personId;
+            AccountType = accountType;
+        }
+        public Account(string username, string password, bool isEnabled, Person person, AccountType accountType)
+        {
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            Person = person;
             AccountType = accountType;
         }
         public Account(long id, string username, string password, bool isEnabled, long personId, AccountType accountType)
@@ -32,7 +38,40 @@ namespace Model
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
-            PersonId = personId;
+            AccountType = accountType;
+
+            switch (AccountType)
+            {
+                case AccountType.PATIENT:
+                    Person = new Patient(personId);
+                    break;
+                case AccountType.DOCTOR:
+                    Person = new Doctor(personId);
+                    break;
+                case AccountType.MANAGER:
+                    Person = new Manager(personId);
+                    break;
+                case AccountType.SECRETARY:
+                    Person = new Secretary(personId);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public Account(string username, string password, bool isEnabled, AccountType accountType)
+        {
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            AccountType = accountType;
+        }
+        public Account(long id, string username, string password, bool isEnabled, AccountType accountType)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
             AccountType = accountType;
         }
 

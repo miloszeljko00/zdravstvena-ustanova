@@ -95,8 +95,8 @@ namespace Repository
         private string ScheduledAppointmentToCSVFormat(ScheduledAppointment scheduledAppointment)
         {
             return string.Join(_delimiter,
-                scheduledAppointment.Start.ToString("dd.MM.yyyy HH:mm"),
-                scheduledAppointment.End.ToString("dd.MM.yyyy HH:mm"),
+                scheduledAppointment.Start.ToString("dd.MM.yyyy. HH:mm"),
+                scheduledAppointment.End.ToString("dd.MM.yyyy. HH:mm"),
                 (int)scheduledAppointment.AppointmentType,
                 scheduledAppointment.Id,
                 scheduledAppointment.Patient.Id,
@@ -118,7 +118,7 @@ namespace Repository
         private ScheduledAppointment CSVFormatToScheduledAppointment(string scheduledAppointmentCSVFormat)
         {
             var tokens = scheduledAppointmentCSVFormat.Split(_delimiter.ToCharArray());
-            var timeFormat = "dd.MM.yyyy HH:mm";
+            var timeFormat = "dd.MM.yyyy. HH:mm";
             DateTime startTime;
             DateTime endTime;
 

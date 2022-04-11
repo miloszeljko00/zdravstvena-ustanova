@@ -41,7 +41,22 @@ namespace Service
         
         public Doctor GetById(long id)
         {
-            return _doctorRepository.Get(id);
+            Doctor doctor =  _doctorRepository.Get(id);
+            IEnumerable<Room> rooms = _roomService.GetAll();
+            BindDoctorWithRoom(rooms, doctor);
+            return doctor;
+        }
+
+        private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
+        {
+                rooms.ToList().ForEach(room =>
+                {
+                    if (room.Id == doctor.Room.Id)
+                    {
+                        doctor.Room = room;
+                        return;
+                    }
+                });
         }
 
         private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)

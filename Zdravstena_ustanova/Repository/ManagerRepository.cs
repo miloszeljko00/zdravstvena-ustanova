@@ -11,7 +11,7 @@ namespace Repository
 {
     public class ManagerRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "MANAGER NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _managerMaxId;
@@ -103,13 +103,13 @@ namespace Repository
                 manager.Id,
                 manager.PhoneNumber,
                 manager.Email,
-                manager.DateOfBirth.ToString("dd.MM.yyyy"),
+                manager.DateOfBirth.ToString("dd.MM.yyyy."),
                 manager.Address.Street,
                 manager.Address.Number,
                 manager.Address.City,
                 manager.Address.Country,
                 manager.Account.Id,
-                manager.DateOfEmployment.ToString("dd.MM.yyyy"),
+                manager.DateOfEmployment.ToString("dd.MM.yyyy."),
                 manager.Experience
                );
         }
@@ -132,13 +132,13 @@ namespace Repository
                     tokens[7],
                     tokens[8],
                     tokens[9]);
-            var timeFormat = "dd.MM.yyyy";
+            var timeFormat = "dd.MM.yyyy.";
             DateTime dateOfBirth;
             DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
                                                , out dateOfBirth);
             DateTime dateOfEmployment;
-            DateTime.TryParseExact(tokens[10], timeFormat, CultureInfo.InvariantCulture
+            DateTime.TryParseExact(tokens[11], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
                                                , out dateOfEmployment);
 
@@ -152,7 +152,7 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[11]));
+                int.Parse(tokens[12]));
         }
 
         private List<string> ManagersToCSVFormat(List<Manager> managers)

@@ -79,7 +79,7 @@ namespace Zdravstena_ustanova.View
             long roomId = (long)sComboBox.SelectedValue;
 
 
-            var scheduledAppointment = new ScheduledAppointment(startDate,endDate,appointmentType, patientId, doctorId, roomId);
+            var scheduledAppointment = new ScheduledAppointment(startDate, endDate, appointmentType, patientId, doctorId, roomId);
 
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
 
@@ -115,12 +115,15 @@ namespace Zdravstena_ustanova.View
             scheduledAppointment.End = new DateTime(date.Year, date.Month, date.Day, hour + 1, minute, 0);
 
             scheduledAppointment.AppointmentType = (AppointmentType)typeComboBox.SelectedIndex;
-            scheduledAppointment.PatientId = (long)pComboBox.SelectedValue;
-            scheduledAppointment.DoctorId = (long)dComboBox.SelectedValue;
-            scheduledAppointment.RoomId = (long)sComboBox.SelectedValue;
-            scheduledAppointment.Patient = app.PatientController.GetById(scheduledAppointment.PatientId);
-            scheduledAppointment.Doctor = app.DoctorController.GetById(scheduledAppointment.DoctorId);
-            scheduledAppointment.Room = app.RoomController.GetById(scheduledAppointment.RoomId);
+
+            long patientId = (long)pComboBox.SelectedValue;
+            long doctorId = (long)dComboBox.SelectedValue;
+            long roomId = (long)sComboBox.SelectedValue;
+
+            scheduledAppointment.Patient = app.PatientController.GetById(patientId);
+            scheduledAppointment.Doctor = app.DoctorController.GetById(doctorId);
+            scheduledAppointment.Room = app.RoomController.GetById(roomId);
+
             app.ScheduledAppointmentController.Update(scheduledAppointment);
 
             CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
@@ -159,9 +162,9 @@ namespace Zdravstena_ustanova.View
             selectedTime = hour + ":" + minute;
             timeComboBox.SelectedItem = selectedTime;
             typeComboBox.SelectedValue = scheduledAppointment.AppointmentType;
-            dComboBox.SelectedValue = scheduledAppointment.DoctorId;
-            pComboBox.SelectedValue = scheduledAppointment.PatientId;
-            sComboBox.SelectedValue = scheduledAppointment.RoomId;
+            dComboBox.SelectedValue = scheduledAppointment.Doctor.Id;
+            pComboBox.SelectedValue = scheduledAppointment.Patient.Id;
+            sComboBox.SelectedValue = scheduledAppointment.Room.Id;
 
 
         }

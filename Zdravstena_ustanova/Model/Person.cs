@@ -39,6 +39,17 @@ namespace Model
             Address = address;
             Account = new Account(Id);
         }
+        public Person(string name, string surname, string phoneNumber, string email,
+            DateTime dateOfBirth, Address address, long accountId)
+        {
+            Name = name;
+            Surname = surname;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            DateOfBirth = dateOfBirth;
+            Address = address;
+            Account = new Account(Id);
+        }
 
         public Person(long id)
         {

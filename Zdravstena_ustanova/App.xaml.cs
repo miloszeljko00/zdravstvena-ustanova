@@ -34,7 +34,6 @@ namespace Zdravstena_ustanova
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
-   
         public SecretaryController SecretaryController { get; set; }
         public ManagerController ManagerController { get; set; }
         public SpecialtyController SpecialtyController { get; set; }

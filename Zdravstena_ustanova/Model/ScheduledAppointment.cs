@@ -27,7 +27,7 @@ namespace Model
         }
 
         public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType,
-      long id, long patientId, long doctorId, long roomId)
+            long id, long patientId, long doctorId, long roomId)
         {
             Start = start;
             End = end;
@@ -37,6 +37,18 @@ namespace Model
             Doctor = new Doctor(doctorId);
             Room = new Room(roomId);
         }
+
+        public ScheduledAppointment(DateTime start, DateTime end, AppointmentType appointmentType,
+            long patientId, long doctorId, long roomId)
+        {
+            Start = start;
+            End = end;
+            AppointmentType = appointmentType;
+            Patient = new Patient(patientId);
+            Doctor = new Doctor(doctorId);
+            Room = new Room(roomId);
+        }
+
         public ScheduledAppointment(long id)
         {
             Id=id;

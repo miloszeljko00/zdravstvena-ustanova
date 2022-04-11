@@ -17,6 +17,7 @@ namespace Model
             InsuranceNumber = insuranceNumber;
             BloodType = bloodType;
             EmploymentStatus = employmentStatus;
+            Account = account;
         }
 
         public Patient(string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth,
@@ -28,7 +29,15 @@ namespace Model
             BloodType = bloodType;
             EmploymentStatus = employmentStatus;
         }
-
+        public Patient(string name, string surname, string phoneNumber, string email, DateTime dateOfBirth,
+            Address address, long accountId, int insuranceNumber, Enums.BloodType bloodType,
+            Enums.EmploymentStatus employmentStatus)
+            : base(name, surname, phoneNumber, email, dateOfBirth, address, accountId)
+        {
+            InsuranceNumber = insuranceNumber;
+            BloodType = bloodType;
+            EmploymentStatus = employmentStatus;
+        }
         public Patient(long id) : base(id)
         {
 

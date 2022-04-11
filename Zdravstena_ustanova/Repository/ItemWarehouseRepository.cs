@@ -11,7 +11,7 @@ namespace Repository
 {
     public class ItemWarehouseRepository
     {
-        private const string NOT_FOUND_ERROR = "ItemRoom NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "ITEMWAREHOUSE NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _itemWarehouseMaxId;

@@ -11,7 +11,7 @@ namespace Repository
 {
     public class PatientRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "PATIENT NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _patientMaxId;
@@ -104,7 +104,7 @@ namespace Repository
                 patient.Id,
                 patient.PhoneNumber,
                 patient.Email,
-                patient.DateOfBirth.ToString("dd.MM.yyyy"),
+                patient.DateOfBirth.ToString("dd.MM.yyyy."),
                 patient.Address.Street,
                 patient.Address.Number,
                 patient.Address.City,
@@ -135,7 +135,7 @@ namespace Repository
                     tokens[7],
                     tokens[8],
                     tokens[9]);
-            var timeFormat = "dd.MM.yyyy";
+            var timeFormat = "dd.MM.yyyy.";
             DateTime dateOfBirth;
             DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
