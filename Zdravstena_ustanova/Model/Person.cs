@@ -14,9 +14,8 @@ namespace Model
         public Address Address { get; set; }
         public Account Account { get; set; }
 
-        public long AccountId { get; set; }
-
-        public Person(string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth, Address address, Account account, long accountId)
+        public Person(string name, string surname, long id, string phoneNumber, string email,
+            DateTime dateOfBirth, Address address, Account account)
         {
             Name = name;
             Surname = surname;
@@ -26,22 +25,10 @@ namespace Model
             DateOfBirth = dateOfBirth;
             Address = address;
             Account = account;
-            AccountId = accountId;
         }
 
-        protected Person(string name, string surname, string phoneNumber, string email, DateTime dateOfBirth, Address address, Account account, long accountId)
-        {
-            Name = name;
-            Surname = surname;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            DateOfBirth = dateOfBirth;
-            Address = address;
-            Account = account;
-            AccountId = accountId;
-        }
-
-        protected Person(string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth, Address address, long accountId)
+        public Person(string name, string surname, long id, string phoneNumber, string email,
+            DateTime dateOfBirth, Address address, long accountId)
         {
             Name = name;
             Surname = surname;
@@ -50,7 +37,23 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Address = address;
-            AccountId = accountId;
+            Account = new Account(Id);
+        }
+        public Person(string name, string surname, string phoneNumber, string email,
+            DateTime dateOfBirth, Address address, long accountId)
+        {
+            Name = name;
+            Surname = surname;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            DateOfBirth = dateOfBirth;
+            Address = address;
+            Account = new Account(Id);
+        }
+
+        public Person(long id)
+        {
+            Id = id;
         }
     }
 }

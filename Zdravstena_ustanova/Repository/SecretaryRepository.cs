@@ -11,7 +11,7 @@ namespace Repository
 {
     public class SecretaryRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "SECRETARY NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _secretaryMaxId;
@@ -68,11 +68,10 @@ namespace Repository
                     s.Email = secretary.Email;
                     s.DateOfBirth = secretary.DateOfBirth;
                     s.DateOfEmployment = secretary.DateOfEmployment;
-                    s.WeeklyHours = secretary.WeeklyHours;
                     s.Experience = secretary.Experience;
                     s.Address = secretary.Address;
                     s.Account = secretary.Account;
-                    s.AccountId = secretary.AccountId;
+                    s.Account.Id = secretary.Account.Id;
                 }
             }
 
@@ -104,14 +103,13 @@ namespace Repository
                 secretary.Id,
                 secretary.PhoneNumber,
                 secretary.Email,
-                secretary.DateOfBirth.ToString("dd.MM.yyyy"),
+                secretary.DateOfBirth.ToString("dd.MM.yyyy."),
                 secretary.Address.Street,
                 secretary.Address.Number,
                 secretary.Address.City,
                 secretary.Address.Country,
-                secretary.AccountId,
-                secretary.DateOfEmployment.ToString("dd.MM.yyyy"),
-                secretary.WeeklyHours,
+                secretary.Account.Id,
+                secretary.DateOfEmployment.ToString("dd.MM.yyyy."),
                 secretary.Experience
                );
         }
@@ -129,7 +127,7 @@ namespace Repository
         private Secretary CSVFormatToSecretary(string secretaryCSVFormat)
         {
             var tokens = secretaryCSVFormat.Split(_delimiter.ToCharArray());
-            var timeFormat = "dd.MM.yyyy";
+            var timeFormat = "dd.MM.yyyy.";
             DateTime dateOfBirth;
             DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
@@ -154,8 +152,7 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[12]),
-                int.Parse(tokens[13]));
+                int.Parse(tokens[12]));
         }
 
         private List<string> SecretariesToCSVFormat(List<Secretary> secretaries)

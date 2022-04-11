@@ -11,7 +11,7 @@ namespace Repository
 {
     public class ManagerRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "MANAGER NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _managerMaxId;
@@ -68,11 +68,10 @@ namespace Repository
                     m.Email = manager.Email;
                     m.DateOfBirth = manager.DateOfBirth;
                     m.DateOfEmployment = manager.DateOfEmployment;
-                    m.WeeklyHours = manager.WeeklyHours;
                     m.Experience = manager.Experience;
                     m.Address = manager.Address;
                     m.Account = manager.Account;
-                    m.AccountId = manager.AccountId;
+                    m.Account.Id = manager.Account.Id;
                 }
             }
 
@@ -104,14 +103,13 @@ namespace Repository
                 manager.Id,
                 manager.PhoneNumber,
                 manager.Email,
-                manager.DateOfBirth.ToString("dd.MM.yyyy"),
+                manager.DateOfBirth.ToString("dd.MM.yyyy."),
                 manager.Address.Street,
                 manager.Address.Number,
                 manager.Address.City,
                 manager.Address.Country,
-                manager.AccountId,
-                manager.DateOfEmployment.ToString("dd.MM.yyyy"),
-                manager.WeeklyHours,
+                manager.Account.Id,
+                manager.DateOfEmployment.ToString("dd.MM.yyyy."),
                 manager.Experience
                );
         }
@@ -134,7 +132,7 @@ namespace Repository
                     tokens[7],
                     tokens[8],
                     tokens[9]);
-            var timeFormat = "dd.MM.yyyy";
+            var timeFormat = "dd.MM.yyyy.";
             DateTime dateOfBirth;
             DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
                                                , DateTimeStyles.None
@@ -154,8 +152,7 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[12]),
-                int.Parse(tokens[13]));
+                int.Parse(tokens[12]));
         }
 
         private List<string> ManagersToCSVFormat(List<Manager> managers)

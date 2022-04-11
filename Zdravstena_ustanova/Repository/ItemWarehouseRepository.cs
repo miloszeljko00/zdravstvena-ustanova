@@ -11,7 +11,7 @@ namespace Repository
 {
     public class ItemWarehouseRepository
     {
-        private const string NOT_FOUND_ERROR = "ItemRoom NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "ITEMWAREHOUSE NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _itemWarehouseMaxId;
@@ -34,7 +34,7 @@ namespace Repository
                 .ToList();
         }
 
-        public ItemWarehouse GetById(long id)
+        public ItemWarehouse Get(long id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Repository
                 if (iw.Id == itemWarehouse.Id)
                 {
                     iw.WarehouseId = itemWarehouse.WarehouseId;
-                    iw.ItemId = itemWarehouse.ItemId;
+                    iw.Item.Id = itemWarehouse.Item.Id;
                     iw.Quantity = itemWarehouse.Quantity;
                     iw.Item = itemWarehouse.Item;
                     WriteLinesToFile(_path, ItemWarehousesToCSVFormat((List<ItemWarehouse>)itemWarehouses));
@@ -92,7 +92,7 @@ namespace Repository
             return string.Join(_delimiter,
                 itemWarehouse.Id,
                 itemWarehouse.WarehouseId,
-                itemWarehouse.ItemId,
+                itemWarehouse.Item.Id,
                 itemWarehouse.Quantity);
         }
         private List<string> ItemWarehousesToCSVFormat(List<ItemWarehouse> itemWarehouses)
@@ -112,8 +112,8 @@ namespace Repository
             return new ItemWarehouse(
                 long.Parse(tokens[0]),
                 long.Parse(tokens[1]),
-                long.Parse(tokens[2]),
-                int.Parse(tokens[3]));
+                int.Parse(tokens[2]),
+                long.Parse(tokens[3]));
         }
         private void AppendLineToFile(string path, string line)
         {

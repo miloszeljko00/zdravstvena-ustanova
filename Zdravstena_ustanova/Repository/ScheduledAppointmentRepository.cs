@@ -11,7 +11,7 @@ namespace Repository
 {
     public class ScheduledAppointmentRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "APPOINTMENT NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _scheduledAppointmentMaxId;
@@ -65,9 +65,9 @@ namespace Repository
                     sa.Start = scheduledAppointment.Start;
                     sa.End = scheduledAppointment.End;
                     sa.AppointmentType = scheduledAppointment.AppointmentType;
-                    sa.PatientId = scheduledAppointment.PatientId;
-                    sa.DoctorId = scheduledAppointment.DoctorId;
-                    sa.RoomId = scheduledAppointment.RoomId;
+                    sa.Patient.Id = scheduledAppointment.Patient.Id;
+                    sa.Doctor.Id = scheduledAppointment.Doctor.Id;
+                    sa.Room.Id = scheduledAppointment.Room.Id;
                     WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
                     break;
                 }
@@ -95,13 +95,13 @@ namespace Repository
         private string ScheduledAppointmentToCSVFormat(ScheduledAppointment scheduledAppointment)
         {
             return string.Join(_delimiter,
-                scheduledAppointment.Start.ToString("dd.MM.yyyy HH:mm"),
-                scheduledAppointment.End.ToString("dd.MM.yyyy HH:mm"),
+                scheduledAppointment.Start.ToString("dd.MM.yyyy. HH:mm"),
+                scheduledAppointment.End.ToString("dd.MM.yyyy. HH:mm"),
                 (int)scheduledAppointment.AppointmentType,
                 scheduledAppointment.Id,
-                scheduledAppointment.PatientId,
-                scheduledAppointment.DoctorId,
-                scheduledAppointment.RoomId
+                scheduledAppointment.Patient.Id,
+                scheduledAppointment.Doctor.Id,
+                scheduledAppointment.Room.Id
                 );
         }
 
@@ -118,7 +118,7 @@ namespace Repository
         private ScheduledAppointment CSVFormatToScheduledAppointment(string scheduledAppointmentCSVFormat)
         {
             var tokens = scheduledAppointmentCSVFormat.Split(_delimiter.ToCharArray());
-            var timeFormat = "dd.MM.yyyy HH:mm";
+            var timeFormat = "dd.MM.yyyy. HH:mm";
             DateTime startTime;
             DateTime endTime;
 

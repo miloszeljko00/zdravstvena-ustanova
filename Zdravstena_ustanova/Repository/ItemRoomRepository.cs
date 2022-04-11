@@ -9,7 +9,7 @@ namespace Repository
 {
    public class ItemRoomRepository
    {
-        private const string NOT_FOUND_ERROR = "ItemRoom NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "ITEMROOM NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _itemRoomMaxId;
@@ -32,7 +32,7 @@ namespace Repository
                 .ToList();
         }
 
-        public ItemRoom GetById(long id)
+        public ItemRoom Get(long id)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Repository
                 if (ir.Id == itemRoom.Id)
                 {
                     ir.RoomId = itemRoom.RoomId;
-                    ir.ItemId = itemRoom.ItemId;
+                    ir.Item.Id = itemRoom.Item.Id;
                     ir.Quantity = itemRoom.Quantity;
                     ir.Item = itemRoom.Item;
                     WriteLinesToFile(_path, ItemRoomsToCSVFormat((List<ItemRoom>)itemRooms));
@@ -90,7 +90,7 @@ namespace Repository
             return string.Join(_delimiter,
                 itemRoom.Id,
                 itemRoom.RoomId,
-                itemRoom.ItemId,
+                itemRoom.Item.Id,
                 itemRoom.Quantity);
         }
         private List<string> ItemRoomsToCSVFormat(List<ItemRoom> itemRooms)

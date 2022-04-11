@@ -9,7 +9,7 @@ namespace Repository
 {
     public class WarehouseRepository
     {
-        private const string NOT_FOUND_ERROR = "Warehouse NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "WAREHOUSE NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _warehouseMaxId;
@@ -32,7 +32,7 @@ namespace Repository
                 .ToList();
         }
 
-        public Warehouse GetById(long id)
+        public Warehouse Get(long id)
         {
             try
             {

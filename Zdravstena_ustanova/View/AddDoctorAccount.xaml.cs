@@ -51,20 +51,15 @@ namespace Zdravstena_ustanova.View
             string licenceNumber = licenceTextBox.Text;
             int experience = int.Parse(experienceTextBox.Text);
             DateTime emplDate = (DateTime)dateOfEmployment.SelectedDate;
+
+            long roomId = 1; //TODO NAPRAVITI UNOS SA XAML FORME!!!!
+            long specialityId = 1; //TODO NAPRAVITI UNOS SA XAML FORME!!!!
             if(type == 0)
             {
-                Doctor doctor = new Doctor(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience, licenceNumber);
+                Doctor doctor = new Doctor(licenceNumber, roomId, specialityId, emplDate, experience, name, surname, id, phone, email, date1, address, -1);
                 var app = Application.Current as App;
                 doctor = app.DoctorController.Create(doctor);
                 app.Doctor = doctor;
-                this.Close();
-            }
-            else
-            {
-                DoctorSpecialist doctorSpecialist = new DoctorSpecialist(name, surname, id, phone, email, date1, address, -1, emplDate, weeklyHours, experience, licenceNumber, (long)specCB.SelectedValue);
-                var app = Application.Current as App;
-                doctorSpecialist = app.DoctorSpecController.Create(doctorSpecialist);
-                app.DoctorSpecialist = doctorSpecialist;
                 this.Close();
             }
             

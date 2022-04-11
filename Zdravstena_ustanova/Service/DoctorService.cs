@@ -9,29 +9,50 @@ namespace Service
     public class DoctorService
     {
         private readonly DoctorRepository _doctorRepository;
-        private readonly RoomService _roomService;
+        private readonly RoomRepository _roomRepository;
+        private readonly AccountRepository _accountRepository;
 
-        public DoctorService(DoctorRepository doctorRepository, RoomService roomService)
+        public DoctorService(DoctorRepository doctorRepository, RoomRepository roomRepository, AccountRepository accountRepository)
         {
             _doctorRepository = doctorRepository;
-            _roomService = roomService;
+            _roomRepository = roomRepository;
+            _accountRepository = accountRepository;
         }
 
         public IEnumerable<Doctor> GetAll()
         {
-            var rooms = _roomService.GetAll();
+            var rooms = _roomRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
             var doctors = _doctorRepository.GetAll();
             BindDoctorsWithRooms(rooms, doctors);
+            BindDoctorsWithAccounts(accounts, doctors);
             return doctors;
         }
-
+        private void BindDoctorsWithAccounts(IEnumerable<Account> accounts, IEnumerable<Doctor> doctors)
+        {
+            doctors.ToList().ForEach(doctor =>
+            {
+               BindDoctorWithAccount(accounts, doctor);
+            });
+        }
+        private void BindDoctorWithAccount(IEnumerable<Account> accounts, Doctor doctor)
+        {
+            accounts.ToList().ForEach(account =>
+            {
+                if (account.Id == doctor.Account.Id)
+                {
+                    account.Person = doctor;
+                    doctor.Account = account;
+                }
+            });
+        }
         private void BindDoctorsWithRooms(IEnumerable<Room> rooms, IEnumerable<Doctor> doctors)
         {
             doctors.ToList().ForEach(doctor =>
             {
                 rooms.ToList().ForEach(room =>
                 {
-                    if(room.Id == doctor.RoomId)
+                    if(room.Id == doctor.Room.Id)
                     {
                         doctor.Room = room;
                     }
@@ -41,7 +62,26 @@ namespace Service
         
         public Doctor GetById(long id)
         {
-            return _doctorRepository.Get(id);
+            var rooms = _roomRepository.GetAll();
+            var accounts = _accountRepository.GetAll();
+            var doctor =  _doctorRepository.Get(id);
+            BindDoctorWithRoom(rooms, doctor);
+            BindDoctorWithAccount(accounts, doctor);
+            return doctor;
+        }
+        
+
+
+        private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
+        {
+                rooms.ToList().ForEach(room =>
+                {
+                    if (room.Id == doctor.Room.Id)
+                    {
+                        doctor.Room = room;
+                        return;
+                    }
+                });
         }
 
         private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)

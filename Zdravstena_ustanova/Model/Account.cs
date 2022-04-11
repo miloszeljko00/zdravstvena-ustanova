@@ -12,56 +12,72 @@ namespace Model
 
         public Person Person { get; set; }
 
-        public long PersonID { get; set; }
 
         public AccountType AccountType {get; set;}
 
-
+        public Account(long id, string username, string password, bool isEnabled, Person person, AccountType accountType)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
+            Person = person;
+            AccountType = accountType;
+        }
         public Account(string username, string password, bool isEnabled, Person person, AccountType accountType)
         {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
             Person = person;
-            PersonID = person.Id;
             AccountType = accountType;
-        }
-
-        public Account(long id, string username, string password, bool isEnabled, Person person, AccountType accountType)
-        {
-            Username = username;
-            Password = password;
-            IsEnabled = isEnabled;
-            Id = id;
-            PersonID = person.Id;
-            AccountType = accountType;
-            Person = person;
         }
         public Account(long id, string username, string password, bool isEnabled, long personId, AccountType accountType)
         {
-            Username = username;
-            Password = password;
-            IsEnabled = isEnabled;
             Id = id;
-            PersonID = personId;
-            AccountType = accountType;
-        }
-        public Account(string username, string password, bool isEnabled, long personId, AccountType accountType)
-        {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
-            PersonID = personId;
             AccountType = accountType;
+
+            switch (AccountType)
+            {
+                case AccountType.PATIENT:
+                    Person = new Patient(personId);
+                    break;
+                case AccountType.DOCTOR:
+                    Person = new Doctor(personId);
+                    break;
+                case AccountType.MANAGER:
+                    Person = new Manager(personId);
+                    break;
+                case AccountType.SECRETARY:
+                    Person = new Secretary(personId);
+                    break;
+                default:
+                    break;
+            }
         }
+
         public Account(string username, string password, bool isEnabled, AccountType accountType)
         {
             Username = username;
             Password = password;
             IsEnabled = isEnabled;
-            PersonID = -1;
+            AccountType = accountType;
+        }
+        public Account(long id, string username, string password, bool isEnabled, AccountType accountType)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            IsEnabled = isEnabled;
             AccountType = accountType;
         }
 
+        public Account(long id)
+        {
+            Id = id;
+        }
     }
 }

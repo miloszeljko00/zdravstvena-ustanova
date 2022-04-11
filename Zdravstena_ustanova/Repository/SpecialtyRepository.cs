@@ -10,7 +10,7 @@ namespace Repository
 {
     public class SpecialtyRepository
     {
-        private const string NOT_FOUND_ERROR = "ROOM NOT FOUND: {0} = {1}";
+        private const string NOT_FOUND_ERROR = "SPECIALITY NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
         private long _specialtyMaxId;
