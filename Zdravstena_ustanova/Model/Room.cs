@@ -29,13 +29,9 @@ namespace Model
             RoomType = roomType;
             ItemRooms = new List<ItemRoom>();
         }
-
-        public Room(string name, int floor, RoomType roomType)
+        public Room(long id)
         {
-            Name = name;
-            Floor = floor;
-            RoomType = roomType;
-            ItemRooms = new List<ItemRoom>();
+            Id=id;
         }
     }
 }

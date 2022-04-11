@@ -12,6 +12,10 @@ namespace Model
         {
         }
 
+        public Secretary(long id) : base(id)
+        {
+        }
+
     }
 
 }
