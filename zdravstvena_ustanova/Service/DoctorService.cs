@@ -11,12 +11,15 @@ namespace Service
         private readonly DoctorRepository _doctorRepository;
         private readonly RoomRepository _roomRepository;
         private readonly AccountRepository _accountRepository;
+        private readonly SpecialtyRepository _specialtyRepository;
 
-        public DoctorService(DoctorRepository doctorRepository, RoomRepository roomRepository, AccountRepository accountRepository)
+        public DoctorService(DoctorRepository doctorRepository, RoomRepository roomRepository, AccountRepository accountRepository, SpecialtyRepository specialtyRepository)
         {
             _doctorRepository = doctorRepository;
             _roomRepository = roomRepository;
             _accountRepository = accountRepository;
+            _specialtyRepository = specialtyRepository;
+
         }
 
         public IEnumerable<Doctor> GetAll()
@@ -24,10 +27,31 @@ namespace Service
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
             var doctors = _doctorRepository.GetAll();
+            var specialties = _specialtyRepository.GetAll();
+            BindDoctorsWithSpecialties(specialties, doctors);
             BindDoctorsWithRooms(rooms, doctors);
             BindDoctorsWithAccounts(accounts, doctors);
             return doctors;
         }
+        private void BindDoctorsWithSpecialties(IEnumerable<Specialty> specialties, IEnumerable<Doctor> doctors)
+        {
+            doctors.ToList().ForEach(doctor =>
+            {
+                BindDoctorWithSpecialty(specialties, doctor);
+            });
+        }
+
+        private void BindDoctorWithSpecialty(IEnumerable<Specialty> specialties, Doctor doctor)
+        {
+            specialties.ToList().ForEach(specialty =>
+            {
+                if (specialty.Id == doctor.Specialty.Id)
+                {
+                    doctor.Specialty = specialty;
+                }
+            });
+        }
+
         private void BindDoctorsWithAccounts(IEnumerable<Account> accounts, IEnumerable<Doctor> doctors)
         {
             doctors.ToList().ForEach(doctor =>
@@ -64,7 +88,9 @@ namespace Service
         {
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
+            var specialties = _specialtyRepository.GetAll();
             var doctor =  _doctorRepository.Get(id);
+            BindDoctorWithSpecialty(specialties, doctor);
             BindDoctorWithRoom(rooms, doctor);
             BindDoctorWithAccount(accounts, doctor);
             return doctor;

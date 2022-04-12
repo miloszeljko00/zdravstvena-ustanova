@@ -46,6 +46,7 @@ namespace Service
         {
             foreach(Account acc in accounts)
             {
+                if (acc.Person == null) continue;
                 if(acc.Person.Id == patient.Id)
                 {
                     patient.Account = acc;

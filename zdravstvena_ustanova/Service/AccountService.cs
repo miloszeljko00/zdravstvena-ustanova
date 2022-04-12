@@ -68,6 +68,7 @@ namespace Service
 
         public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
+            if (account.Person == null) return;
             switch(account.AccountType)
             {
                 case AccountType.PATIENT:

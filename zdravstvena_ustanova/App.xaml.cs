@@ -59,7 +59,7 @@ namespace zdravstvena_ustanova
             var itemService = new ItemService(itemRepository);
             var itemRoomService = new ItemRoomService(itemRoomRepository, itemRepository);
             var roomService = new RoomService(roomRepository, itemRoomRepository, itemRepository);
-            var doctorService = new DoctorService(doctorRepository, roomRepository, accountRepository);
+            var doctorService = new DoctorService(doctorRepository, roomRepository, accountRepository, specialtyRepository);
             var specialtyService = new SpecialtyService(specialtyRepository);
             var patientService = new PatientService(patientRepository, accountRepository);
             var managerService = new ManagerService(managerRepository, accountRepository);
