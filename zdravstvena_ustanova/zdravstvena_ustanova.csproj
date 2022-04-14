@@ -8,6 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\img\add-icon.png" />
+    <None Remove="Resources\img\delete-icon.png" />
+    <None Remove="Resources\img\drop-down-arrow.png" />
+    <None Remove="Resources\img\edit-icon.png" />
+    <None Remove="Resources\img\logo.png" />
+    <None Remove="Resources\img\profile-picture.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\img\add-icon.png" />
+    <Resource Include="Resources\img\delete-icon.png" />
+    <Resource Include="Resources\img\drop-down-arrow.png" />
+    <Resource Include="Resources\img\edit-icon.png" />
+    <Resource Include="Resources\img\logo.png" />
+    <Resource Include="Resources\img\profile-picture.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="View\MainWindowAccount.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

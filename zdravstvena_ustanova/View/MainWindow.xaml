@@ -5,12 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova"
         mc:Ignorable="d"
-        Title="Zdravstvena ustanova" Height="321" Width="527">
+        Title="Zdravo klinika" Height="720" Width="1280" WindowStyle="SingleBorderWindow">
 
-    <Grid>
-        <Button Content="Prostorije" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Margin="80,50" Width="120" Click="Button_Click_Prostorije"/>
-        <Button Content="Nalozi" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Margin="80,50" Width="120" Click="Button_Click_Nalozi"/>
-        <Button Content="Pregledi-doktor" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="80,50" Height="40" Width="120" Click="Button_Click_Doktor"/>
-        <Button Content="Pregledi-pacijent" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="80,50" Height="40" Width="120" Click="Button_Click_Pacijent"/>
-    </Grid>
+    <Frame NavigationUIVisibility="Hidden" Panel.ZIndex="1" Height="704" Width="1280" x:Name="Main"></Frame>
 </Window>
