@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,25 @@ namespace zdravstvena_ustanova.View.Pages
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ManagerMainPage());
+            string username = usernameTextBox.Text;
+            string password = passwordTextBox.Text;
+
+            if (username == null || password == null) return;
+
+            var app = Application.Current as App;
+            var user = app.AccountController.Login(username, password);
+
+            if (user == null) return;
+
+            app.LoggedInUser = user;
+
+            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
+            if (app.LoggedInUser is Secretary) { }  // TODO redirect on Secretary homescreen
+            if (app.LoggedInUser is Doctor) { }     // TODO redirect on Doctor homescreen
+            if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
+
         }
     }
 }

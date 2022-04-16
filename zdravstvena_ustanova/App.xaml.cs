@@ -26,7 +26,6 @@ namespace zdravstvena_ustanova
         private string SECRETARY_FILE = ProjectPath + "\\Resources\\Data\\Secretary.csv";
         private string ACCOUNT_FILE = ProjectPath + "\\Resources\\Data\\Accounts.csv";
         private string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
-        private string DOCSPEC_FILE = ProjectPath + "\\Resources\\Data\\DoctorSpecialist.csv";
 
         public ItemController ItemController { get; set; }
         public ItemRoomController ItemRoomController { get; set; }
@@ -38,6 +37,8 @@ namespace zdravstvena_ustanova
         public SecretaryController SecretaryController { get; set; }
         public ManagerController ManagerController { get; set; }
         public SpecialtyController SpecialtyController { get; set; }
+
+        public Person LoggedInUser { get; set; }
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }

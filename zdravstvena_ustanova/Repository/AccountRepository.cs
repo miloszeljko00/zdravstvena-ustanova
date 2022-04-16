@@ -47,6 +47,17 @@ namespace Repository
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
             }
         }
+        public Account GetByUsername(string username)
+        {
+            try
+            {
+                return GetAll().SingleOrDefault(account => account.Username == username);
+            }
+            catch (ArgumentException)
+            {
+                throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "username", username));
+            }
+        }
 
         public Account Create(Account account)
         {
