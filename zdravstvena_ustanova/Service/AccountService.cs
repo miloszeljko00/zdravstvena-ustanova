@@ -66,6 +66,26 @@ namespace Service
             return accounts;
         }
 
+        private bool CanLogin(string username, string password)
+        {
+            var account = _accountRepository.GetByUsername(username);
+
+            if (account == null) return false;
+            if(account.Password != password) return false;
+            if (!account.IsEnabled) return false;
+
+            return true;
+        }
+
+        public Person Login(string username, string password)
+        {
+            if (!CanLogin(username, password)) return null;
+
+            var accountId =  _accountRepository.GetByUsername(username).Id;
+
+            return GetById(accountId).Person;
+        }
+
         public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
             if (account.Person == null) return;

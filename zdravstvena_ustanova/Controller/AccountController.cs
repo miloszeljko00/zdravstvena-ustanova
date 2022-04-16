@@ -50,5 +50,9 @@ namespace Controller
             account.IsEnabled = false;
             Update(account);
         }
+        public Person Login(string username, string password)
+        {
+            return _accountService.Login(username, password);
+        }
     }
 }
