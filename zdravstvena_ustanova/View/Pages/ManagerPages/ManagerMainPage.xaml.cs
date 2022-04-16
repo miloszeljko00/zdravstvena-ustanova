@@ -40,5 +40,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
             ManagerMain.Content = new ManagerRoomsPage();
         }
+
+        private void itemsButton_Click(object sender, RoutedEventArgs e)
+        {
+            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            itemsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
+            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+
+            ManagerMain.Content = new ManagerItemsPage();
+        }
     }
 }

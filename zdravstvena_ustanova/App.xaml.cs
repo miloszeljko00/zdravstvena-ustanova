@@ -12,20 +12,21 @@ namespace zdravstvena_ustanova
     /// </summary>
     public partial class App : Application
     {
-        private const string CSV_DELIMITER = ";";
-        private static string _projectPath = System.Reflection.Assembly.GetExecutingAssembly().Location
+        public static string ProjectPath { get; set; } = System.Reflection.Assembly.GetExecutingAssembly().Location
                .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
-        private string ITEM_FILE = _projectPath + "\\Resources\\Data\\Items.csv";
-        private string ITEM_ROOM_FILE = _projectPath + "\\Resources\\Data\\ItemRooms.csv";
-        private string ROOM_FILE = _projectPath + "\\Resources\\Data\\Rooms.csv";
-        private string SCHEDULED_APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
-        private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\Doctors.csv";
-        private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\Patients.csv";
-        private string MANAGER_FILE = _projectPath + "\\Resources\\Data\\Managers.csv";
-        private string SECRETARY_FILE = _projectPath + "\\Resources\\Data\\Secretary.csv";
-        private string ACCOUNT_FILE = _projectPath + "\\Resources\\Data\\Accounts.csv";
-        private string SPECIALTY_FILE = _projectPath + "\\Resources\\Data\\Specialty.csv";
-        private string DOCSPEC_FILE = _projectPath + "\\Resources\\Data\\DoctorSpecialist.csv";
+
+        private const string CSV_DELIMITER = ";";
+        private string ITEM_FILE = ProjectPath + "\\Resources\\Data\\Items.csv";
+        private string ITEM_ROOM_FILE = ProjectPath + "\\Resources\\Data\\ItemRooms.csv";
+        private string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
+        private string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
+        private string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
+        private string PATIENT_FILE = ProjectPath + "\\Resources\\Data\\Patients.csv";
+        private string MANAGER_FILE = ProjectPath + "\\Resources\\Data\\Managers.csv";
+        private string SECRETARY_FILE = ProjectPath + "\\Resources\\Data\\Secretary.csv";
+        private string ACCOUNT_FILE = ProjectPath + "\\Resources\\Data\\Accounts.csv";
+        private string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
+        private string DOCSPEC_FILE = ProjectPath + "\\Resources\\Data\\DoctorSpecialist.csv";
 
         public ItemController ItemController { get; set; }
         public ItemRoomController ItemRoomController { get; set; }

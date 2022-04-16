@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
     /// <summary>
-    /// Interaction logic for ManagerRoomsPage.xaml
+    /// Interaction logic for ManagerItemsPage.xaml
     /// </summary>
-    public partial class ManagerRoomsPage : Page
+    public partial class ManagerItemsPage : Page
     {
-        public ManagerRoomsPage()
+        public ManagerItemsPage()
         {
             InitializeComponent();
         }
