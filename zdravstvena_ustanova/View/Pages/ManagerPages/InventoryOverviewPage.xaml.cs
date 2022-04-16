@@ -1,7 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +17,52 @@ using System.Windows.Shapes;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
-    public partial class ManagerRoomsPage : Page
+    /// <summary>
+    /// Interaction logic for InventoryOverviewPage.xaml
+    /// </summary>
+    public partial class InventoryOverviewPage : Page, INotifyPropertyChanged
     {
-        public ObservableCollection<Room> Rooms { get; set; }
+        #region NotifyProperties
+        private Room _room;
+        public Room Room 
+        { 
+            get
+            {
+                return _room;
+            } set 
+            {
+                if (value != _room)
+                {
+                    _room = value;
+                    OnPropertyChanged("room");
+                }
+            }
+        }
+        #endregion
 
-        public ManagerRoomsPage()
+        #region PropertyChangedNotifier
+        protected virtual void OnPropertyChanged(string name)
         {
-            InitializeComponent(); 
-            DataContext = this;
-
-            var app = Application.Current as App;
-           
-            Rooms = new ObservableCollection<Room>(app.RoomController.GetAll());
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        public InventoryOverviewPage(Room room)
+        {
+            Room = room;
+            InitializeComponent();
+            DataContext = this;
+        }
+
+        private void GoBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (SearchTextBox.Text == "")
@@ -52,35 +84,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
                 SearchTextBox.Background = null;
             }
-        }
-
-        private void InventoryOverviewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsRoomSelected()) return;
-            var room = GetSelectedRoom();
-            NavigationService.Navigate(new InventoryOverviewPage(room));
-        }
-
-        public bool IsRoomSelected()
-        {
-            if (RoomsDataGrid.SelectedItem == null) return false;
-            return true;
-        }
-        public Room GetSelectedRoom()
-        {
-            return (Room)RoomsDataGrid.SelectedItem;
-        }
-        private void AddRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-        private void EditRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-        private void DeleteRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }
