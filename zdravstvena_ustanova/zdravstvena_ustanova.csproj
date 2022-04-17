@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ModalControl\ModalControl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\img\add-icon.png" />
     <Resource Include="Resources\img\back-icon.png" />
     <Resource Include="Resources\img\calendar-icon.png" />

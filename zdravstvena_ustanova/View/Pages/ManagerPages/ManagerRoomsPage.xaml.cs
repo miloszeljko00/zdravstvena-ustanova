@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -72,15 +73,22 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         }
         private void AddRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            MainWindow.Modal.Content = new AddRoomControl(Rooms);
+            MainWindow.Modal.IsOpen = true;
         }
         private void EditRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(RoomsDataGrid.SelectedItem == null) return;
 
+            MainWindow.Modal.Content = new EditRoomControl(Rooms, RoomsDataGrid);
+            MainWindow.Modal.IsOpen = true;
         }
         private void DeleteRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (RoomsDataGrid.SelectedItem == null) return;
 
+            MainWindow.Modal.Content = new DeleteRoomControl(Rooms, RoomsDataGrid);
+            MainWindow.Modal.IsOpen = true;
         }
     }
 }
