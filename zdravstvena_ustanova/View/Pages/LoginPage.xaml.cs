@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
+using zdravstvena_ustanova.View.Pages.SecretaryPages;
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -42,7 +43,7 @@ namespace zdravstvena_ustanova.View.Pages
             app.LoggedInUser = user;
 
             if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
-            if (app.LoggedInUser is Secretary) { }  // TODO redirect on Secretary homescreen
+            if (app.LoggedInUser is Secretary) {NavigationService.Navigate(new HomePagePatients()); }  
             if (app.LoggedInUser is Doctor) { }     // TODO redirect on Doctor homescreen
             if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
 

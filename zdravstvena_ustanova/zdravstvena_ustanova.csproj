@@ -15,6 +15,15 @@
     <None Remove="Resources\img\logo.png" />
     <None Remove="Resources\img\profile-picture.png" />
     <None Remove="Resources\img\search-name.png" />
+    <None Remove="View\Pages\SecretaryPages\acc-icon.png" />
+    <None Remove="View\Pages\SecretaryPages\app-icon.png" />
+    <None Remove="View\Pages\SecretaryPages\delete-icon.png" />
+    <None Remove="View\Pages\SecretaryPages\logo.png" />
+    <None Remove="View\Pages\SecretaryPages\new-user.png" />
+    <None Remove="View\Pages\SecretaryPages\order-icon.png" />
+    <None Remove="View\Pages\SecretaryPages\schedule-icon.png" />
+    <None Remove="View\Pages\SecretaryPages\statistic.png" />
+    <None Remove="View\Pages\SecretaryPages\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +34,15 @@
     <Resource Include="Resources\img\logo.png" />
     <Resource Include="Resources\img\profile-picture.png" />
     <Resource Include="Resources\img\search-name.png" />
+    <Resource Include="View\Pages\SecretaryPages\acc-icon.png" />
+    <Resource Include="View\Pages\SecretaryPages\app-icon.png" />
+    <Resource Include="View\Pages\SecretaryPages\delete-icon.png" />
+    <Resource Include="View\Pages\SecretaryPages\logo.png" />
+    <Resource Include="View\Pages\SecretaryPages\new-user.png" />
+    <Resource Include="View\Pages\SecretaryPages\order-icon.png" />
+    <Resource Include="View\Pages\SecretaryPages\schedule-icon.png" />
+    <Resource Include="View\Pages\SecretaryPages\statistic.png" />
+    <Resource Include="View\Pages\SecretaryPages\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>
