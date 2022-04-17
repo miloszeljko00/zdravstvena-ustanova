@@ -26,8 +26,10 @@ namespace zdravstvena_ustanova.View
             {
                 list.Items.Add(nalog.Username);
             }*/
-            AccountTest accountTest = new AccountTest();
-            accountTest.Show();
+            //AccountTest accountTest = new AccountTest();
+            //accountTest.Show();
+            SecretaryAppointments sa = new SecretaryAppointments();
+            sa.Show();
            //MainWindowAccount mwa = new MainWindowAccount();
            // mwa.Show();
         }
