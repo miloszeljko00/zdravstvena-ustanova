@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using ModalControl;
 using Model;
 using zdravstvena_ustanova.View.Pages;
 
@@ -7,10 +8,12 @@ namespace zdravstvena_ustanova.View
 {
     public partial class MainWindow : Window
     {
+        public static Modal Modal { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             CenterWindowOnScreen();
+            Modal = modal;
             Main.Content = new LoginPage();
         }
         private void CenterWindowOnScreen()
@@ -64,5 +67,6 @@ namespace zdravstvena_ustanova.View
             ScheduledAppointmentPatient sap = new ScheduledAppointmentPatient();
             sap.Show();
         }
+
     }
 }
