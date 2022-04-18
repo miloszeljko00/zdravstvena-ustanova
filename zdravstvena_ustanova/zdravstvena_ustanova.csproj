@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Resources\img\add-icon.png" />
+    <None Remove="Resources\img\back-icon.png" />
+    <None Remove="Resources\img\calendar-icon.png" />
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\edit-icon.png" />
@@ -18,7 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ModalControl\ModalControl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\img\add-icon.png" />
+    <Resource Include="Resources\img\back-icon.png" />
+    <Resource Include="Resources\img\calendar-icon.png" />
     <Resource Include="Resources\img\delete-icon.png" />
     <Resource Include="Resources\img\drop-down-arrow.png" />
     <Resource Include="Resources\img\edit-icon.png" />
