@@ -72,6 +72,7 @@ namespace Repository
                     s.Address = secretary.Address;
                     s.Account = secretary.Account;
                     s.Account.Id = secretary.Account.Id;
+                    s.Shift = secretary.Shift;
                 }
             }
 
@@ -110,7 +111,8 @@ namespace Repository
                 secretary.Address.Country,
                 secretary.Account.Id,
                 secretary.DateOfEmployment.ToString("dd.MM.yyyy."),
-                secretary.Experience
+                secretary.Experience,
+                (int)secretary.Shift
                );
         }
 
@@ -152,7 +154,8 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[12]));
+                int.Parse(tokens[12]),
+                (Shift)int.Parse(tokens[13]));
         }
 
         private List<string> SecretariesToCSVFormat(List<Secretary> secretaries)

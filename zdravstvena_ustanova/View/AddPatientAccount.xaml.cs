@@ -45,7 +45,7 @@ namespace zdravstvena_ustanova.View
             BloodType bloodType = (BloodType)bloodTypeComboBox.SelectedIndex;
             EmploymentStatus employment = (EmploymentStatus)emplTypeComboBox.SelectedIndex;
             Address address = new Address(street, num, city, country);
-            Patient patient = new Patient(name, surname, phone, email, date1, address, -1, insurance, bloodType, employment);
+            Patient patient = new Patient(name, surname, phone, email, date1, address, -1);
             var app = Application.Current as App;
             patient = app.PatientController.Create(patient);
 

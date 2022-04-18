@@ -70,9 +70,6 @@ namespace Repository
                     p.Address = patient.Address;
                     p.Account = patient.Account;
                     p.Account.Id = patient.Account.Id;
-                    p.InsuranceNumber = patient.InsuranceNumber;
-                    p.BloodType = patient.BloodType;
-                    p.EmploymentStatus = patient.EmploymentStatus;
                 }
             }
 
@@ -109,11 +106,7 @@ namespace Repository
                 patient.Address.Number,
                 patient.Address.City,
                 patient.Address.Country,
-                patient.Account.Id,
-                patient.InsuranceNumber,
-                (int)patient.BloodType,
-                (int)patient.EmploymentStatus
-                
+                patient.Account.Id  
                );
         }
 
@@ -149,11 +142,7 @@ namespace Repository
                 tokens[4],
                 dateOfBirth,
             address,
-                long.Parse(tokens[10]),
-                int.Parse(tokens[11]),
-                (BloodType)int.Parse(tokens[12]),
-                (EmploymentStatus)int.Parse(tokens[13])
-                );
+                long.Parse(tokens[10]));
         }
 
         private List<string> PatientsToCSVFormat(List<Patient> patients)

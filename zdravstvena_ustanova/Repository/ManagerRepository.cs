@@ -72,6 +72,7 @@ namespace Repository
                     m.Address = manager.Address;
                     m.Account = manager.Account;
                     m.Account.Id = manager.Account.Id;
+                    m.Shift = manager.Shift;
                 }
             }
 
@@ -110,7 +111,8 @@ namespace Repository
                 manager.Address.Country,
                 manager.Account.Id,
                 manager.DateOfEmployment.ToString("dd.MM.yyyy."),
-                manager.Experience
+                manager.Experience,
+                (int)manager.Shift
                );
         }
 
@@ -152,7 +154,8 @@ namespace Repository
                 address,
                 long.Parse(tokens[10]),
                 dateOfEmployment,
-                int.Parse(tokens[12]));
+                int.Parse(tokens[12]),
+                (Shift)int.Parse(tokens[13]));
         }
 
         private List<string> ManagersToCSVFormat(List<Manager> managers)

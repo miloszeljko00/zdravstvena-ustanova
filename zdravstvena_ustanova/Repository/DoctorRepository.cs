@@ -72,6 +72,7 @@ namespace Repository
                     d.Address = doctor.Address;
                     d.Account = doctor.Account;
                     d.Specialty = doctor.Specialty;
+                    d.Shift = doctor.Shift;
                 }
             }
 
@@ -113,7 +114,8 @@ namespace Repository
                 doctor.Address.Number,
                 doctor.Address.City,
                 doctor.Address.Country,
-                doctor.Account.Id
+                doctor.Account.Id,
+                (int)doctor.Shift
                );
         }
 
@@ -149,7 +151,8 @@ namespace Repository
                 tokens[9],
                 Convert.ToDateTime(tokens[10]),
                 address,
-                long.Parse(tokens[15]));
+                long.Parse(tokens[15]),
+                (Shift)int.Parse(tokens[16]));
                 
         }
 
