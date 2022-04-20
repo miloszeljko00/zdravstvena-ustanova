@@ -133,5 +133,45 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void dataGridScheduledAppointments_SelectionChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var selectedCellIndex = (int)dataGridScheduledAppointments.SelectedCells[0].Column.DisplayIndex;
+            AppointmentsWeeklyByHour awbh = (AppointmentsWeeklyByHour)dataGridScheduledAppointments.SelectedCells[0].Item;
+            ScheduledAppointment sa = null;
+
+            switch (selectedCellIndex)
+            {
+                case 1:
+                    sa = awbh.MondayAppointment;
+                    break;
+                case 2:
+                    sa = awbh.TuesdayAppointment;
+                    break;
+                case 3:
+                    sa = awbh.WednesdayAppointment;
+                    break;
+                case 4:
+                    sa = awbh.ThursdayAppointment;
+                    break;
+                case 5:
+                    sa = awbh.FridayAppointment;
+                    break;
+                case 6:
+                    sa = awbh.SaturdayAppointment;
+                    break;
+                case 7:
+                    sa = awbh.SundayAppointment;
+                    break;
+            }
+
+            ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa);
+            scheduledAppointmentWindow.Show();
+        }
     }
 }
