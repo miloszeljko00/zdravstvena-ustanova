@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
+using zdravstvena_ustanova.View.Windows.DoctorWindows;
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -22,9 +23,11 @@ namespace zdravstvena_ustanova.View.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public LoginPage()
+        public MainWindow Mw { get; set; }
+        public LoginPage(MainWindow mw)
         {
             InitializeComponent();
+            Mw = mw;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -33,8 +36,8 @@ namespace zdravstvena_ustanova.View.Pages
             string password = passwordTextBox.Text;
 
             //TESTING
-            username = "upravnik";
-            password = "upravnik";
+            username = "velja";
+            password = "velja";
 
             if (username == null || password == null) return;
 
@@ -47,7 +50,12 @@ namespace zdravstvena_ustanova.View.Pages
 
             if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
             if (app.LoggedInUser is Secretary) { }  // TODO redirect on Secretary homescreen
-            if (app.LoggedInUser is Doctor) { }     // TODO redirect on Doctor homescreen
+            if (app.LoggedInUser is Doctor)
+            {
+                var doctorHomePage = new DoctorHomePageWindow();
+                Mw.Close();
+                doctorHomePage.Show();
+            }
             if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
 
         }
