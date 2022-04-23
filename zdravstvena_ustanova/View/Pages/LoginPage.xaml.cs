@@ -36,8 +36,8 @@ namespace zdravstvena_ustanova.View.Pages
             string password = passwordTextBox.Text;
 
             //TESTING
-            username = "velja";
-            password = "velja";
+            username = "upravnik";
+            password = "upravnik";
 
             if (username == null || password == null) return;
 

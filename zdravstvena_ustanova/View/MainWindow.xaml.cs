@@ -3,6 +3,7 @@ using System.Windows;
 using ModalControl;
 using Model;
 using zdravstvena_ustanova.View.Pages;
+using zdravstvena_ustanova.View.Pages.ManagerPages;
 
 namespace zdravstvena_ustanova.View
 {
@@ -14,7 +15,9 @@ namespace zdravstvena_ustanova.View
             InitializeComponent();
             CenterWindowOnScreen();
             Modal = modal;
-            Main.Content = new LoginPage(this);
+            //TESTING
+            //Main.Content = new LoginPage(this);
+            Main.Content = new RoomCalendarOverview();
         }
         private void CenterWindowOnScreen()
         {

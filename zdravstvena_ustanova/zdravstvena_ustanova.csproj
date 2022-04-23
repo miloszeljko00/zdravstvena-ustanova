@@ -14,6 +14,7 @@
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\edit-icon.png" />
+    <None Remove="Resources\img\forward-icon.png" />
     <None Remove="Resources\img\logo.png" />
     <None Remove="Resources\img\profile-picture.png" />
     <None Remove="Resources\img\search-name.png" />
@@ -26,6 +27,7 @@
   <ItemGroup>
     <Resource Include="Resources\img\add-icon.png" />
     <Resource Include="Resources\img\back-icon.png" />
+    <Resource Include="Resources\img\forward-icon.png" />
     <Resource Include="Resources\img\calendar-icon.png" />
     <Resource Include="Resources\img\delete-icon.png" />
     <Resource Include="Resources\img\drop-down-arrow.png" />

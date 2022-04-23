@@ -90,5 +90,11 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             MainWindow.Modal.Content = new DeleteRoomControl(Rooms, RoomsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
+
+        private void CalendarIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            NavigationService.Navigate(new RoomCalendarOverview());
+        }
     }
 }
