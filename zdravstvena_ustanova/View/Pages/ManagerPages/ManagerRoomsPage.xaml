@@ -77,7 +77,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Width="32" Height="32" Margin="4,4,4,4">
+                            <Image x:Name="CalendarIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="CalendarIcon_MouseDown">
                                 <Image.Resources>
                                     <Style TargetType="{x:Type Image}">
                                         <!-- Default image -->

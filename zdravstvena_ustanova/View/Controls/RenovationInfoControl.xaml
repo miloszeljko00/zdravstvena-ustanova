@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.RenovationInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <WrapPanel Margin="10,0,10,0">
+            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.StartDate}"></Label>
+        </WrapPanel>
+        <WrapPanel Margin="10,0,10,0">
+            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Do:"></Label>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.EndDate}"></Label>
+        </WrapPanel>
+        <StackPanel Margin="10,0,10,0">
+            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Razlog renoviranja:"></Label>
+            <Border BorderBrush="Gray" BorderThickness="1px">
+                <TextBlock Margin="10" FontSize="14" Height="330" Text="{Binding RenovationAppointment.Description}"></TextBlock>
+            </Border>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

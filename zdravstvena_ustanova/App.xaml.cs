@@ -16,20 +16,22 @@ namespace zdravstvena_ustanova
                .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
 
         private const string CSV_DELIMITER = ";";
-        private string ITEM_FILE = ProjectPath + "\\Resources\\Data\\Items.csv";
-        private string ITEM_ROOM_FILE = ProjectPath + "\\Resources\\Data\\ItemRooms.csv";
-        private string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
-        private string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
-        private string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
-        private string PATIENT_FILE = ProjectPath + "\\Resources\\Data\\Patients.csv";
-        private string MANAGER_FILE = ProjectPath + "\\Resources\\Data\\Managers.csv";
-        private string SECRETARY_FILE = ProjectPath + "\\Resources\\Data\\Secretary.csv";
-        private string ACCOUNT_FILE = ProjectPath + "\\Resources\\Data\\Accounts.csv";
-        private string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
+        private readonly string ITEM_FILE = ProjectPath + "\\Resources\\Data\\Items.csv";
+        private readonly string ITEM_ROOM_FILE = ProjectPath + "\\Resources\\Data\\ItemRooms.csv";
+        private readonly string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
+        private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
+        private readonly string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
+        private readonly string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
+        private readonly string PATIENT_FILE = ProjectPath + "\\Resources\\Data\\Patients.csv";
+        private readonly string MANAGER_FILE = ProjectPath + "\\Resources\\Data\\Managers.csv";
+        private readonly string SECRETARY_FILE = ProjectPath + "\\Resources\\Data\\Secretary.csv";
+        private readonly string ACCOUNT_FILE = ProjectPath + "\\Resources\\Data\\Accounts.csv";
+        private readonly string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
 
         public ItemController ItemController { get; set; }
         public ItemRoomController ItemRoomController { get; set; }
         public RoomController RoomController { get; set; }
+        public RenovationAppointmentController RenovationAppointmentController { get; set; }
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
@@ -37,6 +39,7 @@ namespace zdravstvena_ustanova
         public SecretaryController SecretaryController { get; set; }
         public ManagerController ManagerController { get; set; }
         public SpecialtyController SpecialtyController { get; set; }
+
 
         public Person LoggedInUser { get; set; }
 
@@ -50,6 +53,7 @@ namespace zdravstvena_ustanova
             var itemRepository = new ItemRepository(ITEM_FILE, CSV_DELIMITER);
             var itemRoomRepository = new ItemRoomRepository(ITEM_ROOM_FILE, CSV_DELIMITER);
             var roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
+            var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
             var patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
@@ -66,6 +70,8 @@ namespace zdravstvena_ustanova
             var patientService = new PatientService(patientRepository, accountRepository);
             var managerService = new ManagerService(managerRepository, accountRepository);
             var secretaryService = new SecretaryService(secretaryRepository, accountRepository);
+            var renovationAppointmentService = new RenovationAppointmentService(renovationAppointmentRepository, roomRepository,
+                itemRoomRepository, itemRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
@@ -77,6 +83,7 @@ namespace zdravstvena_ustanova
             RoomController = new RoomController(roomService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
+            RenovationAppointmentController = new RenovationAppointmentController(renovationAppointmentService);
             ScheduledAppointmentController = new ScheduledAppointmentController(ScheduledAppointmentService);
             AccountController = new AccountController(accountService);
             ManagerController = new ManagerController(managerService);
