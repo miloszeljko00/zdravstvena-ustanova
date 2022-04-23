@@ -40,5 +40,40 @@ namespace Model
             PatientVaccination = new List<PatientVaccination>();
             Patient = patient;
         }
+
+        public HealthRecord(long id, int insuranceNumber, BloodType bloodType, EmploymentStatus employmentStatus, long patientId)
+        {
+            Id = id;
+            InsuranceNumber = insuranceNumber;
+            BloodType = bloodType;
+            EmploymentStatus = employmentStatus;
+            Allergens = new List<Allergens>();
+            Anamnesis = new List<Anamnesis>();
+            LabAnalysisRecord = new List<LabAnalysisRecord>();
+            HospitalizationRecord = new List<HospitalizationRecord>();
+            PrescribedMedicine = new List<PrescribedMedicine>();
+            PatientDisease = new List<PatientDisease>();
+            PatientVaccination = new List<PatientVaccination>();
+            Patient = new Patient(id);
+        }
+
+        public HealthRecord(long id, int insuranceNumber, BloodType bloodType, EmploymentStatus employmentStatus,
+            List<Allergens> allergens, List<Anamnesis> anamnesis, List<LabAnalysisRecord> labAnalysisRecord,
+            List<HospitalizationRecord> hospitalizationRecord, List<PrescribedMedicine> prescribedMedicine,
+            List<PatientDisease> patientDisease, List<PatientVaccination> patientVaccination, long patientId)
+        {
+            Id = id;
+            InsuranceNumber = insuranceNumber;
+            BloodType = bloodType;
+            EmploymentStatus = employmentStatus;
+            Allergens = allergens;
+            Anamnesis = anamnesis;
+            LabAnalysisRecord = labAnalysisRecord;
+            HospitalizationRecord = hospitalizationRecord;
+            PrescribedMedicine = prescribedMedicine;
+            PatientDisease = patientDisease;
+            PatientVaccination = patientVaccination;
+            Patient = new Patient(patientId);
+        }
     }
 }

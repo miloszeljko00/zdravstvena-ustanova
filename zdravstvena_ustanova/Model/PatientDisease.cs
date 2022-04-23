@@ -17,5 +17,17 @@ namespace Model
             EndDate = endDate;
             Disease = disease;
         }
+        public PatientDisease(long id, DateTime startDate, DateTime endDate, long diseaseId)
+        {
+            Id = id;
+            StartDate = startDate;
+            EndDate = endDate;
+            Disease = new Disease(diseaseId);
+        }
+
+        public PatientDisease(long id)
+        {
+            Id = id;
+        }
     }
 }

@@ -3,8 +3,8 @@ using System;
 
 namespace Model
 {
-   public class HospitalizationRecord
-   {
+    public class HospitalizationRecord
+    {
         public long Id { get; set; }
         public string Cause { get; set; }
         public DateTime Admission { get; set; }
@@ -21,6 +21,21 @@ namespace Model
             Release = release;
             ReleaseKind = releaseKind;
             Room = room;
+        }
+
+        public HospitalizationRecord(long id, string cause, DateTime admission, DateTime release, ReleaseKind releaseKind, long roomId)
+        {
+            Id = id;
+            Cause = cause;
+            Admission = admission;
+            Release = release;
+            ReleaseKind = releaseKind;
+            Room = new Room(roomId);
+        }
+
+        public HospitalizationRecord(long id)
+        {
+            Id = id;
         }
     }
 }

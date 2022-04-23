@@ -170,8 +170,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     break;
             }
 
-            ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa);
-            scheduledAppointmentWindow.Show();
+            if (sa != null)
+            {
+                ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa);
+                scheduledAppointmentWindow.Show();
+            } else
+            {
+                CreateNewAppointment createNewAppointment = new CreateNewAppointment();
+                createNewAppointment.Show();
+            }
         }
     }
 }

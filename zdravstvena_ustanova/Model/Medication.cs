@@ -17,5 +17,10 @@ namespace Model
             Ingredient = new List<Ingredient>();
 
         }
+
+        public Medication(long id)
+        {
+            Id = id;
+        }
     }
 }

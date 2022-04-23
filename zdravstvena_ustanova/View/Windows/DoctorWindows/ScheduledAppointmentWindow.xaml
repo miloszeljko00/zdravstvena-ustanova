@@ -240,11 +240,11 @@
         </TabControl>
         <StackPanel Margin="6,289,897,221" Orientation="Vertical">
             <Label Content="Name:" Height="40" Width="100" FontSize="20"/>
-            <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18"/>
+            <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Surname:" Height="40" Width="100" FontSize="20"/>
-            <TextBox TextWrapping="Wrap" Text="MyPatient" Height="26" Width="120" FontSize="18"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding PatientSurname}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Date of birth:" Height="40" Width="140" FontSize="20"/>
-            <TextBox TextWrapping="Wrap" Text="BirthDay" Height="26" Width="120" FontSize="18"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding PatientBirthday}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
         </StackPanel>
         <Button Content="Cancel" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
                 Margin="23,575,0,0" VerticalAlignment="Top" Height="63" Width="87" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
