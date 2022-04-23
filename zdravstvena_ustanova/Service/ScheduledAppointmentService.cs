@@ -44,6 +44,20 @@ namespace Service
             BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet, accounts);
             return scheduledAppointmet;
         }
+        public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start >= start && sa.Start <= end)
+                {
+                    listOfCorrectAppointments.Add(sa);
+                }
+            }
+
+            return listOfCorrectAppointments;
+        }
         private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors,
             IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment, IEnumerable<Account> accounts)
         {

@@ -18,6 +18,10 @@ namespace Controller
         {
             return _scheduledAppointmentService.GetAll();
         }
+        public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
+        {
+            return _scheduledAppointmentService.GetFromToDates(start, end);
+        }
         public ScheduledAppointment GetById(long Id)
         {
             return _scheduledAppointmentService.GetById(Id);

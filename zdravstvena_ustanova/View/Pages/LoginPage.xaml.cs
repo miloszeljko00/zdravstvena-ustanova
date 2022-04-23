@@ -14,7 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
+
 using zdravstvena_ustanova.View.Pages.SecretaryPages;
+using zdravstvena_ustanova.View.Windows.DoctorWindows;
+
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -23,11 +26,11 @@ namespace zdravstvena_ustanova.View.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        private MainWindow _mainWindow;
+        public MainWindow Mw { get; set; }
         public LoginPage(MainWindow mw)
         {
             InitializeComponent();
-            _mainWindow = mw;
+            Mw = mw;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -52,13 +55,18 @@ namespace zdravstvena_ustanova.View.Pages
             if (app.LoggedInUser is Secretary) 
             {
                 HomePagePatients hpp = new HomePagePatients();
-                _mainWindow.Height = 768;
-                _mainWindow.Width = 1024;
-                _mainWindow.Main.Content = hpp;
+                Mw.Height = 768;
+                Mw.Width = 1024;
+                Mw.Main.Content = hpp;
                
 
             }  
-            if (app.LoggedInUser is Doctor) { }     // TODO redirect on Doctor homescreen
+            if (app.LoggedInUser is Doctor)
+            {
+                var doctorHomePage = new DoctorHomePageWindow();
+                Mw.Close();
+                doctorHomePage.Show();
+            }
             if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
 
         }
