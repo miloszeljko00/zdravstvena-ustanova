@@ -25,24 +25,16 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
     
     public partial class HomePagePatients : Page
     {
-        public ObservableCollection<Account> Accounts { get; set; }
-        public ICollectionView PatientsAccounts { get; set; }
-        public ICollectionView StaffAccounts { get; set; }
         public HomePagePatients()
         {
             InitializeComponent();
-            this.DataContext = this;
-            var app = Application.Current as App;
-            Accounts = new ObservableCollection<Account>(app.AccountController.GetAll());
-            PatientsAccounts = new CollectionViewSource { Source = Accounts }.View;
-            PatientsAccounts.Filter = acc => ((Account)acc).AccountType == AccountType.PATIENT || ((Account)acc).AccountType == AccountType.GUEST;
-            StaffAccounts = new CollectionViewSource { Source = Accounts }.View;
-            StaffAccounts.Filter = acc => ((Account)acc).AccountType != AccountType.PATIENT && ((Account)acc).AccountType != AccountType.GUEST;
-
+            //this.DataContext = this;
+            SecretaryFrame.Content = new TabsAccountsPage(this);
         }
 
-        public void DeleteMouseDown(object sender, MouseEventArgs e)
+       /* public void DeleteMouseDown(object sender, MouseEventArgs e)
         {
+            
             var acc = (Account)dataGridAccountsPatients.SelectedItem;
             if (acc == null)
             {
@@ -56,11 +48,13 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             Accounts.Remove(acc);
 
             CollectionViewSource.GetDefaultView(dataGridAccountsPatients.ItemsSource).Refresh();
+            
         }
-
-        public void AddMouseDown(object sender, MouseEventArgs e)
+*/
+        public void AccountsMouseDown(object sender, MouseEventArgs e)
         {
-            NavigationService.Navigate(new AddPatientAccountPage());
+            //NavigationService.Navigate(new AddPatientAccountPage());
+            SecretaryFrame.Content = new TabsAccountsPage(this);
         }
     }
 

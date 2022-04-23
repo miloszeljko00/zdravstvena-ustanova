@@ -8,24 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\img\acc-icon.png" />
     <None Remove="Resources\img\add-icon.png" />
+    <None Remove="Resources\img\app-icon.png" />
     <None Remove="Resources\img\back-icon.png" />
     <None Remove="Resources\img\calendar-icon.png" />
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\edit-icon.png" />
     <None Remove="Resources\img\logo.png" />
+    <None Remove="Resources\img\new-user.png" />
+    <None Remove="Resources\img\order-icon.png" />
     <None Remove="Resources\img\profile-picture.png" />
+    <None Remove="Resources\img\schedule-icon.png" />
     <None Remove="Resources\img\search-name.png" />
-    <None Remove="View\Pages\SecretaryPages\acc-icon.png" />
-    <None Remove="View\Pages\SecretaryPages\app-icon.png" />
-    <None Remove="View\Pages\SecretaryPages\delete-icon.png" />
-    <None Remove="View\Pages\SecretaryPages\logo.png" />
-    <None Remove="View\Pages\SecretaryPages\new-user.png" />
-    <None Remove="View\Pages\SecretaryPages\order-icon.png" />
-    <None Remove="View\Pages\SecretaryPages\schedule-icon.png" />
-    <None Remove="View\Pages\SecretaryPages\statistic.png" />
-    <None Remove="View\Pages\SecretaryPages\work-time.png" />
+    <None Remove="Resources\img\statistic.png" />
+    <None Remove="Resources\img\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,24 +31,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\img\acc-icon.png" />
     <Resource Include="Resources\img\add-icon.png" />
+    <Resource Include="Resources\img\app-icon.png" />
     <Resource Include="Resources\img\back-icon.png" />
     <Resource Include="Resources\img\calendar-icon.png" />
     <Resource Include="Resources\img\delete-icon.png" />
     <Resource Include="Resources\img\drop-down-arrow.png" />
     <Resource Include="Resources\img\edit-icon.png" />
     <Resource Include="Resources\img\logo.png" />
+    <Resource Include="Resources\img\new-user.png" />
+    <Resource Include="Resources\img\order-icon.png" />
     <Resource Include="Resources\img\profile-picture.png" />
+    <Resource Include="Resources\img\schedule-icon.png" />
     <Resource Include="Resources\img\search-name.png" />
-    <Resource Include="View\Pages\SecretaryPages\acc-icon.png" />
-    <Resource Include="View\Pages\SecretaryPages\app-icon.png" />
-    <Resource Include="View\Pages\SecretaryPages\delete-icon.png" />
-    <Resource Include="View\Pages\SecretaryPages\logo.png" />
-    <Resource Include="View\Pages\SecretaryPages\new-user.png" />
-    <Resource Include="View\Pages\SecretaryPages\order-icon.png" />
-    <Resource Include="View\Pages\SecretaryPages\schedule-icon.png" />
-    <Resource Include="View\Pages\SecretaryPages\statistic.png" />
-    <Resource Include="View\Pages\SecretaryPages\work-time.png" />
+    <Resource Include="Resources\img\statistic.png" />
+    <Resource Include="Resources\img\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>

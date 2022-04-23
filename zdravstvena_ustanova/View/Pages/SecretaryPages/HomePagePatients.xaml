@@ -5,62 +5,35 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
       mc:Ignorable="d" 
-      d:DesignHeight="704" d:DesignWidth="1280"
+      d:DesignHeight="768" d:DesignWidth="1024"
       Title="HomePagePatients">
 
     <Grid>
-        <TabControl x:Name="Tabs" Margin="0,95,0,0" BorderBrush="#FF0E0D0D">
-            <TabItem Header="Pacijenti" FontSize="24">
-                <Grid>
-                    <DataGrid x:Name="dataGridAccountsPatients" ItemsSource="{Binding PatientsAccounts}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" VerticalAlignment="Top"  Height="356" Grid.Row="1" Margin="8,0,24,0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Image x:Name ="AddImage" Height="85" Width="85" Margin="233,379,941,86" Source="/View/Pages/SecretaryPages/new-user.png" MouseDown="AddMouseDown"/>
-                    <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="225,484,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <Image x:Name="DeleteImage" Height="85" Margin="370,387,819,0" VerticalAlignment="Top" Width="85" Source="/View/Pages/SecretaryPages/delete-icon.png" MouseDown="DeleteMouseDown"/>
-                    <Label Content="Obrisi" HorizontalAlignment="Left" Margin="379,484,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <Image HorizontalAlignment="Left" Height="113" Margin="1083,403,0,0" VerticalAlignment="Top" Width="141" Source="/View/Pages/SecretaryPages/logo.png"/>
-                </Grid>
-            </TabItem>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Line
+            X1="0" Y1="125"
+            X2="1024" Y2="125"
+            Stroke="Black"
+            StrokeThickness="4" />
+        <Frame x:Name ="SecretaryFrame"></Frame>
 
-            <TabItem Header="Osoblje" FontSize="24">
-                <Grid>
-                    <DataGrid x:Name="dataGridAccountsStaff" ItemsSource="{Binding StaffAccounts}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" VerticalAlignment="Top"  Height="356" Grid.Row="1" Margin="8,0,24,0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Image x:Name ="AddStaffImage" Height="85" Width="85" Margin="233,379,941,86" Source="/View/Pages/SecretaryPages/new-user.png" />
-                    <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="225,484,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <Image x:Name="DeleteStaffImage" Height="85" Margin="370,387,819,0" VerticalAlignment="Top" Width="85" Source="/View/Pages/SecretaryPages/delete-icon.png" MouseDown="DeleteMouseDown"/>
-                    <Label Content="Obrisi" HorizontalAlignment="Left" Margin="379,484,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <Image HorizontalAlignment="Left" Height="113" Margin="1083,403,0,0" VerticalAlignment="Top" Width="141" Source="/View/Pages/SecretaryPages/logo.png"/>
-                </Grid>
-            </TabItem>
+        <Image HorizontalAlignment="Center" Height="85" VerticalAlignment="Top" Width="84" Source="/Resources/img/acc-icon.png" MouseDown="AccountsMouseDown"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="580,2,0,0" VerticalAlignment="Top" Width="86" Source="/Resources/img/schedule-icon.png"/>
+        <Image HorizontalAlignment="Left" Height="86" Margin="686,0,0,0" VerticalAlignment="Top" Width="84" Source="/Resources/img/order-icon.png"/>
+        <Label Content="Nalozi" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" FontSize="22" />
+        <Label Content="Termini" HorizontalAlignment="Left" Margin="584,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Content="Nabavka" HorizontalAlignment="Left" Margin="684,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="799,-1,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/work-time.png"/>
+        <Label Content="Raspored" HorizontalAlignment="Left" Margin="793,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="908,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/statistic.png"/>
+        <Label Content="Statistika" HorizontalAlignment="Left" Margin="898,77,0,0" VerticalAlignment="Top" FontSize="22" Width="104"/>
 
-        </TabControl>
-        <Image HorizontalAlignment="Center" Height="85" VerticalAlignment="Top" Width="84" Source="/View/Pages/SecretaryPages/acc-icon.png" RenderTransformOrigin="-0.341,0.553"/>
-        <Image HorizontalAlignment="Left" Height="85" Margin="714,2,0,0" VerticalAlignment="Top" Width="86" Source="/View/Pages/SecretaryPages/schedule-icon.png"/>
-        <Image HorizontalAlignment="Left" Height="86" Margin="828,0,0,618" VerticalAlignment="Bottom" Width="84" Source="/View/Pages/SecretaryPages/order-icon.png" RenderTransformOrigin="0.446,0.435"/>
-        <Label Content="Nalozi" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" FontSize="22" RenderTransformOrigin="0.584,0.942"/>
-        <Label Content="Termini" HorizontalAlignment="Left" Margin="718,77,0,0" VerticalAlignment="Top" FontSize="22" RenderTransformOrigin="0.813,0.56"/>
-        <Label Content="Nabavka" HorizontalAlignment="Left" Margin="828,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Image HorizontalAlignment="Left" Height="85" Margin="947,1,0,0" VerticalAlignment="Top" Width="85" Source="/View/Pages/SecretaryPages/work-time.png"/>
-        <Label Content="Raspored" HorizontalAlignment="Left" Margin="939,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Image HorizontalAlignment="Left" Height="85" Margin="1068,2,0,0" VerticalAlignment="Top" Width="85" Source="/View/Pages/SecretaryPages/statistic.png"/>
-        <Label Content="Statistika" HorizontalAlignment="Left" Margin="1068,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+
 
     </Grid>
 </Page>

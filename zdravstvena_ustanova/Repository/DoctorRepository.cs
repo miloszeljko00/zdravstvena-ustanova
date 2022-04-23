@@ -101,7 +101,7 @@ namespace Repository
             return string.Join(_delimiter,
                 doctor.LicenseNumber,
                 doctor.Room.Id,
-                doctor.Specialty,
+                doctor.Specialty.Id,
                 doctor.DateOfEmployment.ToString("dd.MM.yyyy."),
                 doctor.Experience,
                 doctor.Name,

@@ -23,9 +23,11 @@ namespace zdravstvena_ustanova.View.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public LoginPage()
+        private MainWindow _mainWindow;
+        public LoginPage(MainWindow mw)
         {
             InitializeComponent();
+            _mainWindow = mw;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -34,8 +36,8 @@ namespace zdravstvena_ustanova.View.Pages
             string password = passwordTextBox.Text;
 
             //TESTING
-            username = "upravnik";
-            password = "upravnik";
+            username = "sekretar";
+            password = "sekretar";
 
             if (username == null || password == null) return;
 
@@ -47,7 +49,15 @@ namespace zdravstvena_ustanova.View.Pages
             app.LoggedInUser = user;
 
             if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
-            if (app.LoggedInUser is Secretary) {NavigationService.Navigate(new HomePagePatients()); }  
+            if (app.LoggedInUser is Secretary) 
+            {
+                HomePagePatients hpp = new HomePagePatients();
+                _mainWindow.Height = 768;
+                _mainWindow.Width = 1024;
+                _mainWindow.Main.Content = hpp;
+               
+
+            }  
             if (app.LoggedInUser is Doctor) { }     // TODO redirect on Doctor homescreen
             if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
 
