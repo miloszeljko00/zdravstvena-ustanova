@@ -93,8 +93,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void CalendarIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            var calendarIcon = (Image)e.OriginalSource;
+            var dataContext = calendarIcon.DataContext;
+            var dataSource = (Room)dataContext;
+            long roomId = dataSource.Id;
 
-            NavigationService.Navigate(new RoomCalendarOverview());
+            NavigationService.Navigate(new RoomCalendarOverview(roomId));
         }
     }
 }

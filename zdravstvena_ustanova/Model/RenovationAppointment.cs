@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace zdravstvena_ustanova.Model
+namespace Model
 {
     public class RenovationAppointment
     {
@@ -13,13 +13,27 @@ namespace zdravstvena_ustanova.Model
         public Room Room { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string Description { get; set; }
 
-        public RenovationAppointment(long id, Room room, DateTime startDate, DateTime endDate)
+        public RenovationAppointment()
+        {
+        }
+
+        public RenovationAppointment(long id, Room room, DateTime startDate, DateTime endDate, string description)
         {
             Id = id;
             Room = room;
             StartDate = startDate;
             EndDate = endDate;
+            Description = description;
+        }
+        public RenovationAppointment(long id, long roomId, DateTime startDate, DateTime endDate, string description)
+        {
+            Id = id;
+            Room = new Room(roomId);
+            StartDate = startDate;
+            EndDate = endDate;
+            Description = description;
         }
     }
 }

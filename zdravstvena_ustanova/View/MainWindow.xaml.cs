@@ -15,9 +15,8 @@ namespace zdravstvena_ustanova.View
             InitializeComponent();
             CenterWindowOnScreen();
             Modal = modal;
-            //TESTING
-            //Main.Content = new LoginPage(this);
-            Main.Content = new RoomCalendarOverview();
+            Main.Content = new LoginPage(this);
+            
         }
         private void CenterWindowOnScreen()
         {

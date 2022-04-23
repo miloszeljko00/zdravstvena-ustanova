@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Pages.ManagerPages;
 
 namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
 {
@@ -22,10 +23,15 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
         public DateTime DisplayedMonth { get; set; }
         public DateTime FirstDayOfMonth { get; set; }
         public DateTime LastDayOfMonth { get; set; }
+        public long RoomId { get; set; }
+        public RoomCalendarOverview RoomCalendarOverview { get; set; }
 
-        public RoomsCalendarControl()
+        public RoomsCalendarControl(long roomId, RoomCalendarOverview roomCalendarOverview)
         {
             InitializeComponent();
+
+            RoomId = roomId;
+            RoomCalendarOverview = roomCalendarOverview;
 
             UpdateDisplayedMonth();
 
@@ -91,7 +97,12 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             int daysGenerated = 0;
             for (var i = 0; i < dayOfTheWeekForFirstDayInMonth; i++)
             {
-                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(previousMonth.Year, previousMonth.Month, daysInPreviousMonth - dayOfTheWeekForFirstDayInMonth + i + 1), false);
+                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(previousMonth.Year, 
+                                                                                      previousMonth.Month,
+                                                                                      daysInPreviousMonth - dayOfTheWeekForFirstDayInMonth + i + 1),
+                                                                                      false,
+                                                                                      RoomId,
+                                                                                      RoomCalendarOverview);
                 daysContainer.Children.Add(dayFieldCalendar);
                 daysGenerated++;
             }
@@ -105,7 +116,12 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             int daysGenerated = 0;
             for (var i = 0; i < daysInCurrentMonth; i++)
             {
-                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(date.Year, date.Month, i + 1), true);
+                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(date.Year,
+                                                                                      date.Month,
+                                                                                      i + 1),
+                                                                                      true,
+                                                                                      RoomId,
+                                                                                      RoomCalendarOverview);
                 daysContainer.Children.Add(dayFieldCalendar);
                 daysGenerated++;
             }
@@ -121,7 +137,12 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             for (var i = 0; i < daysInNextMonth; i++)
             {
                 if (dayCounter >= 42) break;
-                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(nextMonth.Year, nextMonth.Month, i + 1), false);
+                DayFieldCalendar dayFieldCalendar = new DayFieldCalendar(new DateTime(nextMonth.Year,
+                                                                                      nextMonth.Month,
+                                                                                      i + 1),
+                                                                                      false,
+                                                                                      RoomId,
+                                                                                      RoomCalendarOverview);
                 daysContainer.Children.Add(dayFieldCalendar);
                 daysGenerated++;
                 dayCounter++;

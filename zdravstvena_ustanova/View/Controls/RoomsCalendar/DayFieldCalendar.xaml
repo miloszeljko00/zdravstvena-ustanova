@@ -20,7 +20,7 @@
     
     <Border BorderBrush="Black" BorderThickness="1px" Margin="1">
         <Grid>
-            <StackPanel x:Name="panel" Width="109.1428" Height="58" Style="{StaticResource dayfieldStyle}">
+            <StackPanel MouseDown="panel_MouseDown" x:Name="panel" Width="109.1428" Height="58" Style="{StaticResource dayfieldStyle}">
                 <Label Height="20" Name="label" Content="{Binding DayNumber}" FontSize="8"></Label>
                 <Label Name="AppointmentsCountDisplay" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="14" Content=""></Label>
             </StackPanel>
