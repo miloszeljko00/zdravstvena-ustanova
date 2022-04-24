@@ -20,10 +20,10 @@
             X2="1024" Y2="125"
             Stroke="Black"
             StrokeThickness="4" />
-        <Frame x:Name ="SecretaryFrame"></Frame>
+
 
         <Image HorizontalAlignment="Center" Height="85" VerticalAlignment="Top" Width="84" Source="/Resources/img/acc-icon.png" MouseDown="AccountsMouseDown"/>
-        <Image HorizontalAlignment="Left" Height="85" Margin="580,2,0,0" VerticalAlignment="Top" Width="86" Source="/Resources/img/schedule-icon.png"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="580,2,0,0" VerticalAlignment="Top" Width="86" Source="/Resources/img/schedule-icon.png" MouseDown="AppointmentMouseDown"/>
         <Image HorizontalAlignment="Left" Height="86" Margin="686,0,0,0" VerticalAlignment="Top" Width="84" Source="/Resources/img/order-icon.png"/>
         <Label Content="Nalozi" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" FontSize="22" />
         <Label Content="Termini" HorizontalAlignment="Left" Margin="584,77,0,0" VerticalAlignment="Top" FontSize="22"/>
@@ -32,7 +32,9 @@
         <Label Content="Raspored" HorizontalAlignment="Left" Margin="793,77,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Image HorizontalAlignment="Left" Height="85" Margin="908,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/statistic.png"/>
         <Label Content="Statistika" HorizontalAlignment="Left" Margin="898,77,0,0" VerticalAlignment="Top" FontSize="22" Width="104"/>
-
+        <Frame x:Name ="SecretaryFrame" Margin="0,124,0,0"></Frame>
+        <Image HorizontalAlignment="Left" Height="85" Margin="10,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/profile-picture.png"/>
+        <Label Content="Profil" HorizontalAlignment="Left" Margin="22,77,0,0" VerticalAlignment="Top" FontSize="22"/>
 
 
     </Grid>

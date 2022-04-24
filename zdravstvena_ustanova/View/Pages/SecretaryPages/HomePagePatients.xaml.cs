@@ -56,6 +56,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             //NavigationService.Navigate(new AddPatientAccountPage());
             SecretaryFrame.Content = new TabsAccountsPage(this);
         }
+        public void AppointmentMouseDown(object sender, MouseEventArgs e)
+        {
+                SecretaryFrame.Content = new SecretaryAppointmentPage(this);
+        }
     }
 
 }

@@ -1,0 +1,49 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.EditAppointmentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Height="620" Width="1024"
+      Title="EditAppointmentPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBox x:Name="patientTB" Margin="0,129,0,0" TextWrapping="Wrap" Text="Pacijent" VerticalAlignment="Top" Width="240" FontSize="24" IsEnabled="False" HorizontalAlignment="Center"/>
+        <Label Content="Pacijent" HorizontalAlignment="Left" Margin="83,75,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="doctorTB" HorizontalAlignment="Center" Margin="0,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="24" IsEnabled="False" Text="Doktor" Grid.Column="1"/>
+        <Label Content="Doktor:" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
+        <DatePicker x:Name="dateDP" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,103,0,0" Width="240" SelectedDateChanged="dateDP_SelectedDateChanged"/>
+        <Label Content="Datum pregleda:" HorizontalAlignment="Left" Margin="55,47,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <ComboBox x:Name="roomCB" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Column="1" HorizontalAlignment="Center" Margin="0,103,0,0" VerticalAlignment="Top" Width="240" FontSize="24" Grid.Row="1" SelectionChanged="roomCB_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Grid.Column="1" Content="Prostorija" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Grid.Row="1" Margin="0,52,0,0"/>
+        <ComboBox x:Name="timeCB" Grid.Column="2" HorizontalAlignment="Left" Margin="58,102,0,0" Grid.Row="1" VerticalAlignment="Top" Width="240" FontSize="24"/>
+        <Label Grid.Column="2" Content="Vreme:" HorizontalAlignment="Left" Margin="122,52,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="typeCB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,129,0,0" TextWrapping="Wrap" Text="Tip pregleda" VerticalAlignment="Top" Width="260" FontSize="24" IsEnabled="False"/>
+        <Label Grid.Column="2" Content="Tip pregleda" HorizontalAlignment="Left" Margin="93,78,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="86,16,0,0" Grid.Row="2" VerticalAlignment="Top" Width="85" Source="/Resources/img/save-icon.png" RenderTransformOrigin="0.109,0.284" Grid.Column="1" MouseDown="Save_MouseDown"/>
+        <Label Content="Sacuvaj" HorizontalAlignment="Left" Margin="82,92,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
+        <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="215,22,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Source="/Resources/img/back-icon.png" MouseDown="Back_MouseDown"/>
+        <Label Grid.Column="1" Content="Nazad" HorizontalAlignment="Left" Margin="215,98,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="5.724,-1.815" FontSize="24"/>
+    </Grid>
+</Page>
