@@ -62,6 +62,7 @@ namespace zdravstvena_ustanova.Repository
                 if (a.Id == allergen.Id)
                 {
                     a.Name = allergen.Name;
+                    a.Ingredients = allergen.Ingredients;
                     WriteLinesToFile(_path, AllergensToCSVFormat((List<Allergens>)allergens));
                     return true;
                 }
@@ -95,9 +96,19 @@ namespace zdravstvena_ustanova.Repository
 
         private string AllergenToCSVFormat(Allergens allergen)
         {
+            int count = allergen.Ingredients.Count;
+            string ingredients = "";
+            for (int i = 0; i < count; i++)
+            {
+                ingredients = string.Join(_delimiter, ingredients, allergen.Ingredients[i].Id);
+            }
+
             return string.Join(_delimiter,
                 allergen.Id,
-                allergen.Name);
+                allergen.Name,
+                count,
+                ingredients
+                );
         }
         private List<string> AllergensToCSVFormat(List<Allergens> allergens)
         {
@@ -113,9 +124,19 @@ namespace zdravstvena_ustanova.Repository
         private Allergens CSVFormatToAllergen(string allergenCSVFormat)
         {
             var tokens = allergenCSVFormat.Split(_delimiter.ToCharArray());
+
+            List<Ingredient> ingredients = new List<Ingredient>();
+            for (int i = 2 + 1; i < 2 + 1 + int.Parse(tokens[2]); i++)
+            {
+                var ingredient = new Ingredient(int.Parse(tokens[i]));
+                ingredients.Add(ingredient);
+            }
+
             return new Allergens(
                 long.Parse(tokens[0]),
-                tokens[1]);
+                tokens[1],
+                ingredients
+                );
         }
 
     }

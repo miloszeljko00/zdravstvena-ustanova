@@ -48,10 +48,10 @@ namespace zdravstvena_ustanova.Service
             var prescribedMedicines = _prescribedMedicineRepository.GetAll();
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
+            BindAllergensWithHealthRecords(allergens, healthRecords);
             BindPrescribedMedicinesWithHealthRecords(prescribedMedicines, healthRecords);
             return healthRecords;
         }
-
         public HealthRecord GetById(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
@@ -63,9 +63,35 @@ namespace zdravstvena_ustanova.Service
             var prescribedMedicines = _prescribedMedicineRepository.GetAll();
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
+            BindAllergensWithHealthRecord(allergens, healthRecord);
             BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, healthRecord);
             return healthRecord;
         }
+
+        private void BindAllergensWithHealthRecord(IEnumerable<Allergens> allergens, HealthRecord healthRecord)
+        {
+            List<Allergens> allergensBinded = new List<Allergens>();
+            foreach (Allergens a1 in healthRecord.Allergens)
+            {
+                foreach (Allergens a2 in allergens)
+                {
+                    if (a2.Id == a1.Id)
+                    {
+                        allergensBinded.Add(a2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.Allergens = allergensBinded;
+        }
+        private void BindAllergensWithHealthRecords(IEnumerable<Allergens> allergens, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindAllergensWithHealthRecord(allergens, hr);
+            }
+        }
+
 
         private void BindPrescribedMedicinesWithHealthRecord(IEnumerable<PrescribedMedicine> prescribedMedicines, HealthRecord healthRecord)
         {
