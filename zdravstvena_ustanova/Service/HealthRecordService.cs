@@ -49,9 +49,15 @@ namespace zdravstvena_ustanova.Service
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             BindAllergensWithHealthRecords(allergens, healthRecords);
+            BindLabAnalysisRecordsWithHealthRecords(labAnalysisRecords, healthRecords);
+            BindHospitalizationRecordsWithHealthRecords(hospitalizationRecords, healthRecords);
             BindPrescribedMedicinesWithHealthRecords(prescribedMedicines, healthRecords);
+            BindPatientDiseasesWithHealthRecords(patientDiseases, healthRecords);
+            BindPatientVaccinationsWithHealthRecords(patientVaccinations, healthRecords);
             return healthRecords;
         }
+
+
         public HealthRecord GetById(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
@@ -64,9 +70,111 @@ namespace zdravstvena_ustanova.Service
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             BindAllergensWithHealthRecord(allergens, healthRecord);
+            BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, healthRecord);
+            BindHospitalizationRecordsWithHealthRecord(hospitalizationRecords, healthRecord);
             BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, healthRecord);
+            BindPatientDiseasesWithHealthRecord(patientDiseases, healthRecord);
+            BindPatientVaccinationsWithHealthRecord(patientVaccinations, healthRecord);
             return healthRecord;
         }
+
+        private void BindPatientDiseasesWithHealthRecord(IEnumerable<PatientDisease> patientDiseases, HealthRecord healthRecord)
+        {
+            List<PatientDisease> patientDiseasesBinded = new List<PatientDisease>();
+            foreach (PatientDisease pd1 in healthRecord.PatientDisease)
+            {
+                foreach (PatientDisease pd2 in patientDiseases)
+                {
+                    if (pd2.Id == pd1.Id)
+                    {
+                        patientDiseasesBinded.Add(pd2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.PatientDisease = patientDiseasesBinded;
+        }
+        private void BindPatientDiseasesWithHealthRecords(IEnumerable<PatientDisease> patientDiseases, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindPatientDiseasesWithHealthRecord(patientDiseases, hr);
+            }
+        }
+
+        private void BindLabAnalysisRecordsWithHealthRecord(IEnumerable<LabAnalysisRecord> labAnalysisRecords, HealthRecord healthRecord)
+        {
+            List<LabAnalysisRecord> labAnalysisRecordsBinded = new List<LabAnalysisRecord>();
+            foreach (LabAnalysisRecord lar1 in healthRecord.LabAnalysisRecord)
+            {
+                foreach (LabAnalysisRecord lar2 in labAnalysisRecords)
+                {
+                    if (lar2.Id == lar1.Id)
+                    {
+                        labAnalysisRecordsBinded.Add(lar2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.LabAnalysisRecord = labAnalysisRecordsBinded;
+        }
+        private void BindLabAnalysisRecordsWithHealthRecords(IEnumerable<LabAnalysisRecord> labAnalysisRecords, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, hr);
+            }
+        }
+
+        private void BindHospitalizationRecordsWithHealthRecord(IEnumerable<HospitalizationRecord> hospitalizationRecords, HealthRecord healthRecord)
+        {
+            List<HospitalizationRecord> hospitalizationRecordsBinded = new List<HospitalizationRecord>();
+            foreach (HospitalizationRecord hr1 in healthRecord.HospitalizationRecord)
+            {
+                foreach (HospitalizationRecord hr2 in hospitalizationRecords)
+                {
+                    if (hr2.Id == hr1.Id)
+                    {
+                        hospitalizationRecordsBinded.Add(hr2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.HospitalizationRecord = hospitalizationRecordsBinded;
+        }
+        private void BindHospitalizationRecordsWithHealthRecords(IEnumerable<HospitalizationRecord> hospitalizationRecords, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindHospitalizationRecordsWithHealthRecord(hospitalizationRecords, hr);
+            }
+        }
+
+
+        private void BindPatientVaccinationsWithHealthRecord(IEnumerable<PatientVaccination> patientVaccinations, HealthRecord healthRecord)
+        {
+            List<PatientVaccination> patientVaccinationsBinded = new List<PatientVaccination>();
+            foreach (PatientVaccination pv1 in healthRecord.PatientVaccination)
+            {
+                foreach (PatientVaccination pv2 in patientVaccinations)
+                {
+                    if (pv2.Id == pv1.Id)
+                    {
+                        patientVaccinationsBinded.Add(pv2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.PatientVaccination = patientVaccinationsBinded;
+        }
+        private void BindPatientVaccinationsWithHealthRecords(IEnumerable<PatientVaccination> patientVaccinations, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindPatientVaccinationsWithHealthRecord(patientVaccinations, hr);
+            }
+        }
+
 
         private void BindAllergensWithHealthRecord(IEnumerable<Allergens> allergens, HealthRecord healthRecord)
         {
