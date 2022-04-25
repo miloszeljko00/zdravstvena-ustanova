@@ -14,28 +14,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
     /// <summary>
-    /// Interaction logic for InventoryOverviewPage.xaml
+    /// Interaction logic for WarehouseInventoryOverviewPage.xaml
     /// </summary>
-    public partial class InventoryOverviewPage : Page, INotifyPropertyChanged
+    public partial class WarehouseInventoryOverviewPage : Page, INotifyPropertyChanged
     {
         #region NotifyProperties
-        private Room _room;
-        public Room Room 
-        { 
+        private Warehouse _warehouse;
+        public Warehouse Warehouse
+        {
             get
             {
-                return _room;
-            } set 
+                return _warehouse;
+            }
+            set
             {
-                if (value != _room || value.StoredItems.Count != _room.StoredItems.Count)
+                if (value != _warehouse)
                 {
-                    _room = value;
-                    OnPropertyChanged("Room");
+                    _warehouse = value;
+                    OnPropertyChanged("Warehouse");
                 }
             }
         }
@@ -53,17 +53,16 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public InventoryOverviewPage(Room room)
+        public WarehouseInventoryOverviewPage()
         {
-            Room = room;
+            var app = Application.Current as App;
+
+            Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
+
             InitializeComponent();
             DataContext = this;
         }
 
-        private void GoBackButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (SearchTextBox.Text == "")
@@ -85,18 +84,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
                 SearchTextBox.Background = null;
             }
-        }
-
-        private void AddItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.Modal.Content = new AddItemToRoom(Room, roomItemsDataGrid);
-            MainWindow.Modal.IsOpen = true;
-        }
-
-        private void RemoveItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.Modal.Content = new RemoveItemFromRoom(Room, roomItemsDataGrid);
-            MainWindow.Modal.IsOpen = true;
         }
     }
 }

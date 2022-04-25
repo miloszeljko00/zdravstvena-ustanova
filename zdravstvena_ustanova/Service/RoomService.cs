@@ -3,77 +3,86 @@ using System;
 using System.Collections.Generic;
 using Repository;
 using System.Linq;
+using Model.Enums;
 
 namespace Service
 {
     public class RoomService
     {
         private readonly RoomRepository _roomRepository;
-        private readonly ItemRoomRepository _itemRoomRepository;
+        private readonly StoredItemRepository _storedItemRepository;
         private readonly ItemRepository _itemRepository;
 
-        public RoomService(RoomRepository roomRepository, ItemRoomRepository itemRoomRepository, ItemRepository itemRepository)
+        public RoomService(RoomRepository roomRepository, StoredItemRepository storedItemRepository, ItemRepository itemRepository)
         {
             _roomRepository = roomRepository;
-            _itemRoomRepository = itemRoomRepository;
+            _storedItemRepository = storedItemRepository;
             _itemRepository = itemRepository;
         }
 
         public IEnumerable<Room> GetAll()
         {
             var items = _itemRepository.GetAll();
-            var itemRooms = _itemRoomRepository.GetAll();
+            var storedItems = _storedItemRepository.GetAll();
             var rooms = _roomRepository.GetAll();
 
-            BindItemsWithItemRooms(items, itemRooms);
-            BindItemRoomsWithRooms(itemRooms, rooms);
+            BindItemsWithStoredItems(items, storedItems);
+            BindStoredItemsWithRooms(storedItems, rooms);
             return rooms;
         }
         public Room GetById(long id)
         {
             var items = _itemRepository.GetAll();
-            var itemRooms = _itemRoomRepository.GetAll();
+            var storedItems = _storedItemRepository.GetAll();
             var room = _roomRepository.Get(id);
 
-            BindItemsWithItemRooms(items, itemRooms);
-            BindItemRoomsWithRoom(itemRooms, room);
+            BindItemsWithStoredItems(items, storedItems);
+            BindStoredItemsWithRoom(storedItems, room);
             return room;
         }
-        private void BindItemsWithItemRooms(IEnumerable<Item> items, IEnumerable<ItemRoom> itemRooms)
+        private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> storedItems)
         {
-            itemRooms.ToList().ForEach(itemRoom =>
+            storedItems.ToList().ForEach(storedItem =>
             {
-                itemRoom.Item = FindItemById(items, itemRoom.Item.Id);
+                storedItem.Item = FindItemById(items, storedItem.Item.Id);
             });
         }
         private Item FindItemById(IEnumerable<Item> items, long itemId)
         {
             return items.SingleOrDefault(item => item.Id == itemId);
         }
-        private void BindItemRoomsWithRoom(IEnumerable<ItemRoom> itemRooms, Room room)
+        private void BindStoredItemsWithRoom(IEnumerable<StoredItem> storedItems, Room room)
         {
-            itemRooms.ToList().ForEach(itemRoom =>
+            storedItems.ToList().ForEach(storedItem =>
             {
                 if (room != null)
                 {
-                    if (room.Id == itemRoom.RoomId)
+                    if (storedItem.StorageType == StorageType.ROOM)
                     {
-                        room.ItemRooms.Add(itemRoom);
+                        if(room.Id == storedItem.Room.Id)
+                        {
+                            storedItem.Room = room;
+                            room.StoredItems.Add(storedItem);
+                        }
                     }
                 }
             });
         }
 
-        private void BindItemRoomsWithRooms(IEnumerable<ItemRoom> itemRooms, IEnumerable<Room> rooms)
+        private void BindStoredItemsWithRooms(IEnumerable<StoredItem> storedItems, IEnumerable<Room> rooms)
         {
-            itemRooms.ToList().ForEach(itemRoom =>
+            storedItems.ToList().ForEach(storedItem =>
             {
-                var room = FindRoomById(rooms, itemRoom.RoomId);
-                if(room != null)
+                if (storedItem.StorageType == StorageType.ROOM)
                 {
-                    if(room.Id == itemRoom.RoomId)
+                    var room = FindRoomById(rooms, storedItem.Room.Id);
+                    if (room != null)
                     {
-                        room.ItemRooms.Add(itemRoom);
+                        if (room.Id == storedItem.Room.Id)
+                        {
+                            storedItem.Room = room;
+                            room.StoredItems.Add(storedItem);
+                        }
                     }
                 }
             });

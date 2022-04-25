@@ -82,7 +82,7 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
         }
         private DateTime GetNextMonth(DateTime date)
         {
-            if (date.Month < 1) return new DateTime(date.Year, date.Month + 1, date.Day);
+            if (date.Month < 12) return new DateTime(date.Year, date.Month + 1, date.Day);
             return new DateTime(date.Year + 1, 1, date.Day);
         }
 
