@@ -78,6 +78,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 return true;
             };
             roomCB.ItemsSource = RoomView;
+            roomCB.SelectedValue = _scheduledAppointment.Room.Id;
             timeCB.ItemsSource = TimeView;
         }
 

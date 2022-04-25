@@ -123,7 +123,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
             };
 
-
+            dataGridScheduledAppointments.SelectedIndex = -1;
             Doctors = new ObservableCollection<Doctor>(app.DoctorController.GetAll());
             dComboBox.ItemsSource = Doctors;
 
@@ -134,9 +134,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" };
         }
 
-        private void dataGridScheduledAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void data1GridScheduledAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(da)
+           /* if(da)
             {
                 da = false;
                 dataGridScheduledAppointments.SelectedIndex = -1;
@@ -148,8 +148,20 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             if(sa != null)
             {
                 _homePagePatients.SecretaryFrame.Content = new EditAppointmentPage(sa, _homePagePatients);
-            }
+            }*/
 
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        { 
+            var editIcon = (Image)e.OriginalSource;
+            var dataContext = editIcon.DataContext;
+            ScheduledAppointment sa = dataContext as ScheduledAppointment;
+
+            if (sa != null)
+            {
+                _homePagePatients.SecretaryFrame.Content = new EditAppointmentPage(sa, _homePagePatients);
+            }
         }
     }
 }

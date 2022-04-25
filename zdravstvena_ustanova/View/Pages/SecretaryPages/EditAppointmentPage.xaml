@@ -43,7 +43,7 @@
         <Label Grid.Column="2" Content="Tip pregleda" HorizontalAlignment="Left" Margin="93,78,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Image HorizontalAlignment="Left" Height="85" Margin="86,16,0,0" Grid.Row="2" VerticalAlignment="Top" Width="85" Source="/Resources/img/save-icon.png" RenderTransformOrigin="0.109,0.284" Grid.Column="1" MouseDown="Save_MouseDown"/>
         <Label Content="Sacuvaj" HorizontalAlignment="Left" Margin="82,92,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
-        <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="215,22,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Source="/Resources/img/back-icon.png" MouseDown="Back_MouseDown"/>
+        <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="215,22,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown"/>
         <Label Grid.Column="1" Content="Nazad" HorizontalAlignment="Left" Margin="215,98,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="5.724,-1.815" FontSize="24"/>
     </Grid>
 </Page>

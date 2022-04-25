@@ -47,7 +47,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void dataGridAccountsPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (da)
+            /*if (da)
             {
                 dataGridAccountsPatients.SelectedIndex = -1;
                 da = false;
@@ -60,7 +60,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             if (account != null)
             {
                 _homePagePatients.SecretaryFrame.Content = new EditPatientAccountPage(account, _homePagePatients);
-            }
+            }*/
         }
 
         private void AddNewPatientMouseDown(object sender, MouseEventArgs e)
@@ -72,6 +72,30 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         private void AddStaffMouseDown(object sender, MouseEventArgs e)
         {
             _homePagePatients.SecretaryFrame.Content = new AddStaffAccountPage(_homePagePatients);
+        }
+
+
+        private void Edit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var editIcon = (Image)e.OriginalSource;
+            var dataContext = editIcon.DataContext;
+            Account account = dataContext as Account;
+            if (account != null)
+            {
+                _homePagePatients.SecretaryFrame.Content = new EditPatientAccountPage(account, _homePagePatients);
+            }
+
+        }
+
+        private void Record_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var recordIcon = (Image)e.OriginalSource;
+            var dataContext = recordIcon.DataContext;
+            Account account = dataContext as Account;
+            if (account != null)
+            {
+                _homePagePatients.SecretaryFrame.Content = new SecretaryHealthRecordPage((Patient)account.Person);
+            }
         }
     }
 }

@@ -18,14 +18,56 @@
                         <ColumnDefinition Width="873*"/>
                     </Grid.ColumnDefinitions>
 
-                    <DataGrid x:Name="dataGridAccountsPatients" ItemsSource="{Binding PatientsAccounts}" IsReadOnly="True" SelectionMode="Single" SelectedIndex="-1"
-                  AutoGenerateColumns="False" VerticalAlignment="Bottom"  Height="356" Margin="10,0,23,170" HeadersVisibility="All" Grid.ColumnSpan="2" SelectionChanged="dataGridAccountsPatients_SelectionChanged">
+                    <DataGrid x:Name="dataGridAccountsPatients" ItemsSource="{Binding PatientsAccounts}" IsReadOnly="True" SelectionMode="Single" SelectedIndex="-1" SelectedItem="null"
+                  AutoGenerateColumns="False" VerticalAlignment="Bottom"  Height="356" Margin="10,0,23,170" HeadersVisibility="All" Grid.ColumnSpan="2" SelectionChanged="dataGridAccountsPatients_SelectionChanged" SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image x:Name="Record" Height="32" Margin="4,4,4,4" MouseDown="Record_MouseDown" >
+                                            <Image.Resources>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <!-- Default image -->
+                                                    <Setter Property="Source" Value="/Resources/img/medical-record.png"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <!-- Hover image -->
+                                                            <Setter Property="Opacity" Value="0.8"/>
+                                                            <Setter Property="Cursor" Value="Hand"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Resources>
+                                        </Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image x:Name="Edit" Width="32" Height="32" Margin="4,4,4,4" MouseDown="Edit_MouseDown">
+                                            <Image.Resources>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <!-- Default image -->
+                                                    <Setter Property="Source" Value="/Resources/img/icons8-edit.png"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <!-- Hover image -->
+                                                            <Setter Property="Opacity" Value="0.8"/>
+                                                            <Setter Property="Cursor" Value="Hand"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Resources>
+                                        </Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Image x:Name ="AddImage" Margin="112,360,820,81" Source="/Resources/img/new-user.png" Width="85" Height="85" Grid.ColumnSpan="2"  MouseDown="AddNewPatientMouseDown"/>

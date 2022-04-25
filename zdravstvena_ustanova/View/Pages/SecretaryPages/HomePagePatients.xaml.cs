@@ -25,11 +25,13 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
     
     public partial class HomePagePatients : Page
     {
-        public HomePagePatients()
+        private MainWindow mainWindow;
+        public HomePagePatients(MainWindow mainWindow)
         {
             InitializeComponent();
             //this.DataContext = this;
             SecretaryFrame.Content = new TabsAccountsPage(this);
+            this.mainWindow = mainWindow;
         }
 
        /* public void DeleteMouseDown(object sender, MouseEventArgs e)
@@ -59,6 +61,11 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         public void AppointmentMouseDown(object sender, MouseEventArgs e)
         {
                 SecretaryFrame.Content = new SecretaryAppointmentPage(this);
+        }
+
+        private void Profile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SecretaryFrame.Content = new ProfilePage(mainWindow);
         }
     }
 
