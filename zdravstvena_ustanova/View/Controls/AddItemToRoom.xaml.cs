@@ -26,7 +26,9 @@ namespace zdravstvena_ustanova.View.Controls
         public ObservableCollection<ItemViewModel> ItemViewModels { get; set; }
         public Room Room { get; set; }
         public Warehouse Warehouse { get; set; }
-        DataGrid RoomItemsDataGrid { get; set; }
+        public DataGrid RoomItemsDataGrid { get; set; }
+        public AddItemsNewInputControl AddItemsNewInputControl { get; set; }
+        public AddItemFromWarehouseControl AddItemFromWarehouseControl { get; set; }
 
         public AddItemToRoom(Room room, DataGrid roomItemsDataGrid)
         {
@@ -35,6 +37,8 @@ namespace zdravstvena_ustanova.View.Controls
             InitializeComponent();
             DataContext = this;
 
+            AddItemsNewInputControl = new AddItemsNewInputControl();
+            TransferCountPanel.Children.Add(AddItemsNewInputControl);
             var app = App.Current as App;
 
             Room = room;
@@ -53,16 +57,35 @@ namespace zdravstvena_ustanova.View.Controls
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ItemsSearchBox.SelectedItem == null || QuantityTextBox.Text == "")
+            if (NewInput.IsChecked == true)
             {
-                MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                if (ItemsSearchBox.SelectedItem == null || AddItemsNewInputControl.ItemsForTransfer <= 0)
+                {
+                    MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                if (ItemsSearchBox.SelectedItem == null || AddItemFromWarehouseControl.ItemsForTransfer <= 0)
+                {
+                    MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
 
             var app = Application.Current as App;
 
             Item item = (Item)ItemsSearchBox.SelectedItem;
-            int quantity = int.Parse(QuantityTextBox.Text);
+            int quantity;
+            if (NewInput.IsChecked == true)
+            {
+                quantity = AddItemsNewInputControl.ItemsForTransfer;
+            }
+            else
+            {
+                quantity = AddItemFromWarehouseControl.ItemsForTransfer;
+            }
 
             if (NewInput.IsChecked == true)
             {
@@ -81,16 +104,17 @@ namespace zdravstvena_ustanova.View.Controls
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;
         }
-        private void QuantityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
 
         private void WarehouseInput_Checked(object sender, RoutedEventArgs e)
         {
             ItemViewModels.Clear();
             Items.Clear();
+            if (TransferCountPanel is not null)
+            {
+                TransferCountPanel.Children.Clear();
+                AddItemFromWarehouseControl = new AddItemFromWarehouseControl();
+                TransferCountPanel.Children.Add(AddItemFromWarehouseControl);
+            }
             foreach (var storedItem in Warehouse.StoredItems)
             {
                 ItemViewModels.Add(new ItemViewModel(storedItem.Item, storedItem.Quantity));
@@ -104,10 +128,27 @@ namespace zdravstvena_ustanova.View.Controls
 
             ItemViewModels.Clear();
             Items.Clear();
-            foreach(var item in app.ItemController.GetAll())
+            if (TransferCountPanel is not null)
+            {
+                TransferCountPanel.Children.Clear();
+                AddItemsNewInputControl = new AddItemsNewInputControl();
+                TransferCountPanel.Children.Add(AddItemsNewInputControl);
+            }
+            foreach (var item in app.ItemController.GetAll())
             {
                 Items.Add((Item)item);
             }
+        }
+
+        private void ItemsSearchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WarehouseInput.IsChecked == true && ItemsSearchBox.SelectedItem is not null)
+            {
+                AddItemFromWarehouseControl.ItemCount = Warehouse.StoredItems.SingleOrDefault(storedItem =>
+                            storedItem.Item.Id == ((Item)ItemsSearchBox.SelectedItem).Id).Quantity;
+                AddItemFromWarehouseControl.ItemsForTransfer = 0;
+            }
+            
         }
     }
 }

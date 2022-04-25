@@ -80,6 +80,19 @@ namespace Service
             }
             return false;
         }
+
+        // TODO
+        public bool ScheduleRemovalFromRoom(StoredItem storedItem, int itemsForTransfer, DateTime scheduleDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        // TODO
+        public bool ScheduleTransferFromRoomToWarehouse(StoredItem storedItem, int itemsForTransfer, DateTime scheduleDate)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool MoveItemFromTo(Room fromRoom, Room toRoom, Item item, int quantity)
         {
             foreach (var si in fromRoom.StoredItems)

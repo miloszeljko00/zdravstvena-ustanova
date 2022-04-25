@@ -24,11 +24,11 @@
             <RadioButton x:Name="NewInput" GroupName="ItemSource" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Margin="5,0,0,0" IsChecked="True" Checked="NewInput_Checked">Nov unos</RadioButton>
             <RadioButton x:Name="WarehouseInput" GroupName="ItemSource" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="18"  Margin="10,0,0,0" Checked="WarehouseInput_Checked">Magacin</RadioButton>
         </UniformGrid>
-        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
-            <ComboBox VerticalContentAlignment="Center" Name="ItemsSearchBox" ItemsSource="{Binding Items}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" IsTextSearchEnabled="True"></ComboBox>
-            <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
-            <TextBox PreviewTextInput="QuantityTextBox_PreviewTextInput" VerticalContentAlignment="Center" x:Name="QuantityTextBox" Grid.Column="1" Grid.Row="3" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+        <ComboBox VerticalContentAlignment="Center" Name="ItemsSearchBox" ItemsSource="{Binding Items}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" IsTextSearchEnabled="True" SelectionChanged="ItemsSearchBox_SelectionChanged"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
+        <WrapPanel Name="TransferCountPanel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+
         </WrapPanel>
         <Button x:Name="OkButton" Margin="0,50,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
         <Button x:Name="CancelButton" Margin="0,50,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>

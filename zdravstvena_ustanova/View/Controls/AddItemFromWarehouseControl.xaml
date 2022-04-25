@@ -7,18 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
-        <ComboBox VerticalContentAlignment="Center" Name="ItemsSearchBox" ItemsSource="{Binding Items}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="0" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" IsTextSearchEnabled="True"></ComboBox>
-        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
-        <Slider Minimum="0" Maximum="{Binding ItemCount}" Value="{Binding ItemsForTransfer}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"></Slider>
-        <TextBox Text="{Binding ItemsForTransfer}" Margin="155,0,0,0" PreviewTextInput="QuantityTextBox_PreviewTextInput" VerticalContentAlignment="Center" x:Name="QuantityTextBox" Grid.Column="1" Grid.Row="1" Width="45" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+        <Slider Minimum="0" Maximum="{Binding ItemCount}" Value="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"></Slider>
+        <TextBox Text="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="155,0,0,0" PreviewTextInput="QuantityTextBox_PreviewTextInput"  VerticalContentAlignment="Center" x:Name="QuantityTextBox" Grid.Column="1" Grid.Row="1" Width="45" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
     </Grid>
 </UserControl>

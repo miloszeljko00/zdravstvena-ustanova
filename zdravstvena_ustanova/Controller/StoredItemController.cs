@@ -50,5 +50,15 @@ namespace Controller
         {
             return _storedItemService.MoveItemFromTo(fromRoom, toWarehouse, item, quantity);
         }
+
+        public bool ScheduleRemovalFromRoom(StoredItem storedItem, int itemsForTransfer, DateTime scheduleDate)
+        {
+            return _storedItemService.ScheduleRemovalFromRoom(storedItem, itemsForTransfer, scheduleDate);
+        }
+
+        public bool ScheduleTransferFromRoomToWarehouse(StoredItem storedItem, int itemsForTransfer, DateTime scheduleDate)
+        {
+            return _storedItemService.ScheduleTransferFromRoomToWarehouse(storedItem, itemsForTransfer, scheduleDate);
+        }
     }
 }

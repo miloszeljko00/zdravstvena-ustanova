@@ -95,7 +95,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void RemoveItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.Modal.Content = new RemoveItemFromRoom(Room, roomItemsDataGrid);
+            if (roomItemsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new RemoveItemFromRoomControl(Room, roomItemsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
     }
