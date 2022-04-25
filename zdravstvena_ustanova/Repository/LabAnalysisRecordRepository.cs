@@ -63,6 +63,7 @@ namespace zdravstvena_ustanova.Repository
                 if (lar.Id == labAnalysisRecord.Id)
                 {
                     lar.Date = labAnalysisRecord.Date;
+                    lar.LabAnalysisComponent=labAnalysisRecord.LabAnalysisComponent;
                     WriteLinesToFile(_path, LabAnalysisRecordsToCSVFormat((List<LabAnalysisRecord>)labAnalysisRecords));
                     return true;
                 }

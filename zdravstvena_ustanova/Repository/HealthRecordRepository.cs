@@ -53,36 +53,45 @@ namespace zdravstvena_ustanova.Repository
             return healthRecord;
         }
 
-        public void Update(HealthRecord healthRecord)
+        public bool Update(HealthRecord healthRecord)
         {
             var healthRecords = GetAll();
 
             foreach(HealthRecord hr in healthRecords)
             {
-                if(hr.Id == healthRecord.Id)
+                if (hr.Id == healthRecord.Id)
                 {
                     hr.InsuranceNumber = healthRecord.InsuranceNumber;
-                    hr.BloodType= healthRecord.BloodType;
+                    hr.BloodType = healthRecord.BloodType;
                     hr.EmploymentStatus = healthRecord.EmploymentStatus;
-                    hr.Patient.Id = healthRecord.Patient.Id;
+                    hr.Allergens = healthRecord.Allergens;
+                    hr.Anamnesis = healthRecord.Anamnesis;
+                    hr.LabAnalysisRecord = healthRecord.LabAnalysisRecord;
+                    hr.HospitalizationRecord = healthRecord.HospitalizationRecord;
+                    hr.PrescribedMedicine = healthRecord.PrescribedMedicine;
+                    hr.PatientDisease = healthRecord.PatientDisease;
+                    hr.PatientVaccination = healthRecord.PatientVaccination;
+                    hr.Patient = healthRecord.Patient;
                     WriteLinesToFile(_path, HealthRecordsToCSVFormat((List<HealthRecord>)healthRecords));
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
 
-        public void Delete(long healthRecordId)
+        public bool Delete(long healthRecordId)
         {
             var healthRecords = (List<HealthRecord>)GetAll();
-            foreach(HealthRecord hr in healthRecords) {
-                if(hr.Id==healthRecordId)
+            foreach (HealthRecord hr in healthRecords)
+            {
+                if (hr.Id == healthRecordId)
                 {
                     healthRecords.Remove(hr);
-                    break;
+                    WriteLinesToFile(_path, HealthRecordsToCSVFormat((List<HealthRecord>)healthRecords));
+                    return true;
                 }
             }
-
-            WriteLinesToFile(_path, HealthRecordsToCSVFormat((List<HealthRecord>)healthRecords));
+            return false;
         }
 
         private string HealthRecordToCSVFormat(HealthRecord healthRecord)

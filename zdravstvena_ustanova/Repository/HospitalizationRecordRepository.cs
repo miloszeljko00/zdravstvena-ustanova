@@ -67,6 +67,7 @@ namespace zdravstvena_ustanova.Repository
                     hr.Admission = hospitalizationRecord.Admission;
                     hr.Release = hospitalizationRecord.Release;
                     hr.ReleaseKind = hospitalizationRecord.ReleaseKind;
+                    hr.Room = hospitalizationRecord.Room;
                     WriteLinesToFile(_path, HospitalizationRecordsToCSVFormat((List<HospitalizationRecord>)hospitalizationRecords));
                     return true;
                 }

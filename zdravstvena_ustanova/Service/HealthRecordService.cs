@@ -42,13 +42,14 @@ namespace zdravstvena_ustanova.Service
             var healthRecords = _healthRecordRepository.GetAll();
             var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
-            var anamnesis = _anamnesisRepository.GetAll();
+            var anamnesiss = _anamnesisRepository.GetAll();
             var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
             var hospitalizationRecords = _hospitalizationRecordRepository.GetAll();
             var prescribedMedicines = _prescribedMedicineRepository.GetAll();
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             BindAllergensWithHealthRecords(allergens, healthRecords);
+            BindAnamnesissWithHealthRecords(anamnesiss, healthRecords);
             BindLabAnalysisRecordsWithHealthRecords(labAnalysisRecords, healthRecords);
             BindHospitalizationRecordsWithHealthRecords(hospitalizationRecords, healthRecords);
             BindPrescribedMedicinesWithHealthRecords(prescribedMedicines, healthRecords);
@@ -57,25 +58,49 @@ namespace zdravstvena_ustanova.Service
             return healthRecords;
         }
 
-
         public HealthRecord GetById(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
             var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
-            var anamnesis = _anamnesisRepository.GetAll();
+            var anamnesiss = _anamnesisRepository.GetAll();
             var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
             var hospitalizationRecords = _hospitalizationRecordRepository.GetAll();
             var prescribedMedicines = _prescribedMedicineRepository.GetAll();
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             BindAllergensWithHealthRecord(allergens, healthRecord);
+            BindAnamnesissWithHealthRecord(anamnesiss, healthRecord);
             BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, healthRecord);
             BindHospitalizationRecordsWithHealthRecord(hospitalizationRecords, healthRecord);
             BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, healthRecord);
             BindPatientDiseasesWithHealthRecord(patientDiseases, healthRecord);
             BindPatientVaccinationsWithHealthRecord(patientVaccinations, healthRecord);
             return healthRecord;
+        }
+
+        private void BindAnamnesissWithHealthRecord(IEnumerable<Anamnesis> anamnesiss, HealthRecord healthRecord)
+        {
+            List<Anamnesis> anamnesissBinded = new List<Anamnesis>();
+            foreach (Anamnesis a1 in healthRecord.Anamnesis)
+            {
+                foreach (Anamnesis a2 in anamnesiss)
+                {
+                    if (a2.Id == a1.Id)
+                    {
+                        anamnesissBinded.Add(a2);
+                        break;
+                    }
+                }
+            }
+            healthRecord.Anamnesis = anamnesissBinded;
+        }
+        private void BindAnamnesissWithHealthRecords(IEnumerable<Anamnesis> anamnesiss, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindAnamnesissWithHealthRecord(anamnesiss, hr);
+            }
         }
 
         private void BindPatientDiseasesWithHealthRecord(IEnumerable<PatientDisease> patientDiseases, HealthRecord healthRecord)
@@ -223,6 +248,18 @@ namespace zdravstvena_ustanova.Service
             {
                 BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, hr);
             }
+        }
+        public HealthRecord Create(HealthRecord healthRecord)
+        {
+            return _healthRecordRepository.Create(healthRecord);
+        }
+        public bool Update(HealthRecord healthRecord)
+        {
+            return _healthRecordRepository.Update(healthRecord);
+        }
+        public bool Delete(long id)
+        {
+            return _healthRecordRepository.Delete(id);
         }
     }
 }
