@@ -38,6 +38,40 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
             }
         }
+
+            private string _patientSurname;
+        public string PatientSurname
+        {
+            get
+            {
+                return _patientSurname;
+            }
+            set
+            {
+                if (value != _patientSurname)
+                {
+                    _patientSurname = value;
+                    OnPropertyChanged("PatientSurname");
+                }
+            }
+        }
+
+            private string _patientBirthday;
+        public string PatientBirthday
+        {
+            get
+            {
+                return _patientBirthday;
+            }
+            set
+            {
+                if (value != _patientBirthday)
+                {
+                    _patientBirthday = value;
+                    OnPropertyChanged("PatientBirthday");
+                }
+            }
+        }
         #endregion
 
         #region PropertyChangedNotifier
@@ -56,6 +90,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             InitializeComponent();
             DataContext = this;
             PatientName = selectedAppointment.Patient.Name;
+            PatientSurname = selectedAppointment.Patient.Surname;
+            PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

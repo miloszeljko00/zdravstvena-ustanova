@@ -66,13 +66,13 @@ namespace Repository
             }
             return false;
         }
-        public bool Delete(long roomId)
+        public bool Delete(long itemId)
         {
             var items = (List<Item>)GetAll();
 
             foreach (Item i in items)
             {
-                if (i.Id == roomId)
+                if (i.Id == itemId)
                 {
                     items.Remove(i);
                     WriteLinesToFile(_path, ItemsToCSVFormat((List<Item>)items));

@@ -12,5 +12,10 @@ namespace Model
             Id = id;
             Name = name;
         }
+
+        public Ingredient(long id)
+        {
+            Id = id;
+        }
     }
 }

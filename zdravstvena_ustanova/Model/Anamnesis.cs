@@ -14,5 +14,9 @@ namespace Model
             Diagnosis = diagnosis;
             Conclusion = conclusion;
         }
+        public Anamnesis(long id)
+        {
+            Id = id;
+        }
     }
 }

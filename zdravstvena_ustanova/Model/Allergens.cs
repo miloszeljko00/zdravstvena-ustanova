@@ -15,5 +15,17 @@ namespace Model
             Name = name;
             Ingredients = new List<Ingredient>();
         }
+        public Allergens(long id)
+        {
+            Id = id;
+            Ingredients = new List<Ingredient>();
+        }
+        public Allergens(long id, string name, List<Ingredient> ingredients)
+        {
+            Id = id;
+            Name = name;
+            Ingredients = ingredients;
+        }
+
     }
 }
