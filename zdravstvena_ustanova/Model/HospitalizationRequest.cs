@@ -18,5 +18,9 @@ namespace zdravstvena_ustanova.Model
             ReqDateOfAdmission = reqDateOfAdmission;
             Cause = cause;
         }
+        public HospitalizationRequest(long id)
+        {
+            Id = id;
+        }
     }
 }

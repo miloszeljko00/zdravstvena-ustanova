@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.Repository
 {
@@ -97,9 +98,17 @@ namespace zdravstvena_ustanova.Repository
 
         private string LabAnalysisRecordToCSVFormat(LabAnalysisRecord labAnalysisRecord)
         {
+            int count = labAnalysisRecord.LabAnalysisComponent.Count;
+            string labAnalysisComponents = "";
+            for(int i = 0; i<count;i++)
+            {
+                labAnalysisComponents = string.Join(_delimiter, labAnalysisComponents, labAnalysisRecord.LabAnalysisComponent[i].Id);
+            }
             return string.Join(_delimiter,
                 labAnalysisRecord.Id,
-                labAnalysisRecord.Date.ToString("dd.MM.yyyy. HH:mm")
+                labAnalysisRecord.Date.ToString("dd.MM.yyyy. HH:mm"),
+                count,
+                labAnalysisComponents
                 );
         }
         private List<string> LabAnalysisRecordsToCSVFormat(List<LabAnalysisRecord> labAnalysisRecords)
@@ -116,12 +125,21 @@ namespace zdravstvena_ustanova.Repository
         private LabAnalysisRecord CSVFormatToLabAnalysisRecord(string labAnalysisRecordCSVFormat)
         {
             var tokens = labAnalysisRecordCSVFormat.Split(_delimiter.ToCharArray());
+
+            List<LabAnalysisComponent> components = new List<LabAnalysisComponent>();
+            for(int i = 2+1;i<2+1+int.Parse(tokens[2]);i++)
+            {
+                var component = new LabAnalysisComponent(int.Parse(tokens[i]));
+                components.Add(component);
+            }
+
             var timeFormat = "dd.MM.yyyy. HH:mm";
             DateTime date;
             DateTime.TryParseExact(tokens[1], timeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
             return new LabAnalysisRecord(
                 long.Parse(tokens[0]),
-                date
+                date,
+                components
                 );
         }
 
