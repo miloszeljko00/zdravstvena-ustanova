@@ -31,7 +31,9 @@ namespace zdravstvena_ustanova.View
             {
                 today = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
             }
+            int days = DateTime.DaysInMonth(2022, DateTime.Now.Month);
             int to = today.Day + 4;
+            if(to > days) { to -= days; }
             dates = new ObservableCollection<string>();
             while (true)
             {
