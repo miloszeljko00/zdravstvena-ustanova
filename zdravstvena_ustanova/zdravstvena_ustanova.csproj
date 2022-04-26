@@ -17,11 +17,8 @@
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\edit-icon.png" />
-<<<<<<< HEAD
     <None Remove="Resources\img\forward-icon.png" />
-    <None Remove="Resources\img\logo.png" />
     <None Remove="Resources\img\minus-icon.png" />
-=======
     <None Remove="Resources\img\icons8-add.png" />
     <None Remove="Resources\img\icons8-back.png" />
     <None Remove="Resources\img\icons8-edit.png" />
@@ -31,7 +28,6 @@
     <None Remove="Resources\img\medical-record.png" />
     <None Remove="Resources\img\new-user.png" />
     <None Remove="Resources\img\order-icon.png" />
->>>>>>> feature/secretary-wpf2
     <None Remove="Resources\img\profile-picture.png" />
     <None Remove="Resources\img\quest-icon.png" />
     <None Remove="Resources\img\save-icon.png" />
@@ -61,14 +57,11 @@
     <Resource Include="Resources\img\icons8-edit.png" />
     <Resource Include="Resources\img\icons8-notification.png" />
     <Resource Include="Resources\img\logo.png" />
-<<<<<<< HEAD
     <Resource Include="Resources\img\minus-icon.png" />
-=======
     <Resource Include="Resources\img\logout-icon8.png" />
     <Resource Include="Resources\img\medical-record.png" />
     <Resource Include="Resources\img\new-user.png" />
     <Resource Include="Resources\img\order-icon.png" />
->>>>>>> feature/secretary-wpf2
     <Resource Include="Resources\img\profile-picture.png" />
     <Resource Include="Resources\img\quest-icon.png" />
     <Resource Include="Resources\img\save-icon.png" />
