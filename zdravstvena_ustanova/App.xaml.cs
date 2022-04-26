@@ -4,6 +4,9 @@ using Controller;
 using Repository;
 using Service;
 using Model;
+using zdravstvena_ustanova.Controller;
+using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Service;
 
 namespace zdravstvena_ustanova
 {
@@ -29,6 +32,7 @@ namespace zdravstvena_ustanova
         private readonly string SECRETARY_FILE = ProjectPath + "\\Resources\\Data\\Secretary.csv";
         private readonly string ACCOUNT_FILE = ProjectPath + "\\Resources\\Data\\Accounts.csv";
         private readonly string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
+        private readonly string ANAMNESIS_FILE = ProjectPath + "\\Resources\\Data\\Anamnesis.csv";
 
         public ItemController ItemController { get; set; }
         public StoredItemController StoredItemController { get; set; }
@@ -42,6 +46,7 @@ namespace zdravstvena_ustanova
         public SecretaryController SecretaryController { get; set; }
         public ManagerController ManagerController { get; set; }
         public SpecialtyController SpecialtyController { get; set; }
+        public AnamnesisController AnamnesisController { get; set; }
 
 
         public Person LoggedInUser { get; set; }
@@ -65,6 +70,7 @@ namespace zdravstvena_ustanova
             var managerRepository = new ManagerRepository(MANAGER_FILE, CSV_DELIMITER);
             var secretaryRepository = new SecretaryRepository(SECRETARY_FILE, CSV_DELIMITER);
             var specialtyRepository = new SpecialtyRepository(SPECIALTY_FILE, CSV_DELIMITER);
+            var anamnesisRepository = new AnamnesisRepository(ANAMNESIS_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -80,6 +86,7 @@ namespace zdravstvena_ustanova
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
+            var anamnesisService = new AnamnesisService(anamnesisRepository);
             
             
 
@@ -95,6 +102,7 @@ namespace zdravstvena_ustanova
             ManagerController = new ManagerController(managerService);
             SecretaryController = new SecretaryController(secretaryService);
             SpecialtyController = new SpecialtyController(specialtyService);
+            AnamnesisController = new AnamnesisController(anamnesisService);
         }
     }
 }

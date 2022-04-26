@@ -136,7 +136,7 @@ namespace zdravstvena_ustanova.Service
                         }
                     }
                 }
-                a3.Ingredients = ingredientsBinded;
+                a3.Ingredients =new List<Ingredient>(ingredientsBinded);
                 ingredientsBinded.Clear();
             }
             healthRecord.Allergens = allergensBinded;
@@ -199,7 +199,7 @@ namespace zdravstvena_ustanova.Service
                         }
                     }
                 }
-                lar3.LabAnalysisComponent=labAnalysisComponentsBinded;
+                lar3.LabAnalysisComponent=new List<LabAnalysisComponent>(labAnalysisComponentsBinded);
                 labAnalysisComponentsBinded.Clear();
             }
             healthRecord.LabAnalysisRecord = labAnalysisRecordsBinded;
@@ -286,7 +286,7 @@ namespace zdravstvena_ustanova.Service
                         }
                     }
                 }
-                pm4.Medication.Ingredients = ingredientsBinded;
+                pm4.Medication.Ingredients =new List<Ingredient>(ingredientsBinded);
                 ingredientsBinded.Clear();
             }
 

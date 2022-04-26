@@ -298,7 +298,7 @@ namespace zdravstvena_ustanova.Service
                         }
                     }
                 }
-                pm4.Medication.Ingredients = ingredientsBinded;
+                pm4.Medication.Ingredients =new List<Ingredient>(ingredientsBinded);
                 ingredientsBinded.Clear();
             }
             medicalExamination.PrescribedMedicine = prescribedMedicinesBinded;

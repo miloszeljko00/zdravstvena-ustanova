@@ -72,7 +72,25 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
             }
         }
+
+        private Anamnesis _anamnesis;
+        public Anamnesis Anamnesis
+        {
+            get
+            {
+                return _anamnesis;
+            }
+            set
+            {
+                if (value != _anamnesis)
+                {
+                    _anamnesis = value;
+                    OnPropertyChanged("Anamnesis");
+                }
+            }
+        }
         #endregion
+
 
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
@@ -92,6 +110,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            Anamnesis = new Anamnesis(-1);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -103,6 +122,31 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy();
             addMedicineToTherapy.Show();
+        }
+
+        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Diagnosis");
+            ad.Owner = this;
+            ad.Show();
+            
+        }
+
+        private void Button_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Conclusion");
+            ad.Owner = this;
+            ad.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+
+            Anamnesis = app.AnamnesisController.Create(Anamnesis);
+            Close();
+
+            // TODO Sve iz medical examination
         }
     }
 }
