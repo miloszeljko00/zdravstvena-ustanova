@@ -38,7 +38,6 @@ namespace zdravstvena_ustanova.View.Pages
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Text;
 
-            //TESTING
 
             if (username == null || password == null) return;
 
@@ -65,7 +64,12 @@ namespace zdravstvena_ustanova.View.Pages
                 Mw.Close();
                 doctorHomePage.Show();
             }
-            if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
+            if (app.LoggedInUser is Patient) 
+            {
+                var pmw = new PatientMainWindow();
+                Mw.Close();
+                pmw.Show();
+            }
 
         }
     }
