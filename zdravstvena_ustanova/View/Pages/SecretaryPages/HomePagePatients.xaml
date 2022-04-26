@@ -1,0 +1,41 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.HomePagePatients"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="HomePagePatients">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Line
+            X1="0" Y1="125"
+            X2="1024" Y2="125"
+            Stroke="Black"
+            StrokeThickness="4" />
+
+
+        <Image HorizontalAlignment="Center" Height="85" VerticalAlignment="Top" Width="84" Source="/Resources/img/acc-icon.png" MouseDown="AccountsMouseDown"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="580,2,0,0" VerticalAlignment="Top" Width="86" Source="/Resources/img/schedule-icon.png" MouseDown="AppointmentMouseDown"/>
+        <Image HorizontalAlignment="Left" Height="86" Margin="686,0,0,0" VerticalAlignment="Top" Width="84" Source="/Resources/img/order-icon.png"/>
+        <Label Content="Nalozi" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" FontSize="22" />
+        <Label Content="Termini" HorizontalAlignment="Left" Margin="584,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Content="Nabavka" HorizontalAlignment="Left" Margin="684,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="799,-1,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/work-time.png"/>
+        <Label Content="Raspored" HorizontalAlignment="Left" Margin="793,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Image HorizontalAlignment="Left" Height="85" Margin="908,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/statistic.png"/>
+        <Label Content="Statistika" HorizontalAlignment="Left" Margin="898,77,0,0" VerticalAlignment="Top" FontSize="22" Width="104"/>
+        <Frame x:Name ="SecretaryFrame" Margin="0,124,0,0"></Frame>
+        <Image x:Name="Profile" HorizontalAlignment="Left" Height="85" Margin="10,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/profile-picture.png" MouseDown="Profile_MouseDown"/>
+        <Label Content="Profil" HorizontalAlignment="Left" Margin="22,77,0,0" VerticalAlignment="Top" FontSize="22"/>
+
+
+    </Grid>
+</Page>

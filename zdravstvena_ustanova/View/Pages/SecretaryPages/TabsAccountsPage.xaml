@@ -1,0 +1,104 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.TabsAccountsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Height="620" Width="1024"
+      Title="TabsAccountsPage">
+
+    <Grid>
+        <TabControl x:Name="Tabs" Margin="0,46,0,4" >
+            <TabItem Header="Pacijenti" FontSize="24">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="146*"/>
+                        <ColumnDefinition Width="873*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dataGridAccountsPatients" ItemsSource="{Binding PatientsAccounts}" IsReadOnly="True" SelectionMode="Single" SelectedIndex="-1" SelectedItem="null"
+                  AutoGenerateColumns="False" VerticalAlignment="Bottom"  Height="356" Margin="10,0,23,170" HeadersVisibility="All" Grid.ColumnSpan="2" SelectionUnit="FullRow">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image x:Name="Record" Height="32" Margin="4,4,4,4" MouseDown="Record_MouseDown" >
+                                            <Image.Resources>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <!-- Default image -->
+                                                    <Setter Property="Source" Value="/Resources/img/medical-record.png"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <!-- Hover image -->
+                                                            <Setter Property="Opacity" Value="0.8"/>
+                                                            <Setter Property="Cursor" Value="Hand"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Resources>
+                                        </Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image x:Name="Edit" Width="32" Height="32" Margin="4,4,4,4" MouseDown="Edit_MouseDown">
+                                            <Image.Resources>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <!-- Default image -->
+                                                    <Setter Property="Source" Value="/Resources/img/icons8-edit.png"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <!-- Hover image -->
+                                                            <Setter Property="Opacity" Value="0.8"/>
+                                                            <Setter Property="Cursor" Value="Hand"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Resources>
+                                        </Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Image x:Name ="AddImage" Margin="112,360,820,81" Source="/Resources/img/new-user.png" Width="85" Height="85" Grid.ColumnSpan="2"  MouseDown="AddNewPatientMouseDown"/>
+                    <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="96,440,0,0" FontSize="22" Width="116" Height="39" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                    <Image x:Name="DeletePatient" Margin="102,0,685,78" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" Width="85" Grid.Column="1" MouseDown="DeletePatient_MouseDown" />
+                    <Label Content="Obrisi" HorizontalAlignment="Left" Margin="108,443,0,0" VerticalAlignment="Top" FontSize="22"  Height="39" Width="67" Grid.Column="1"/>
+                    <Image Height="135" Margin="0,0,41,33" VerticalAlignment="Bottom" Source="/Resources/img/logo.png" Grid.Column="1" HorizontalAlignment="Right" Width="175"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Osoblje" FontSize="24">
+                <Grid>
+                    <DataGrid x:Name="dataGridAccountsStaff" ItemsSource="{Binding StaffAccounts}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" VerticalAlignment="Top"  Height="356" Grid.Row="1" Margin="8,0,24,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Image x:Name ="AddStaffImage" Width="85" Margin="112,360,820,81" Source="/Resources/img/new-user.png" Height="85" MouseDown="AddStaffMouseDown"/>
+                    <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="96,440,0,0" VerticalAlignment="Top" FontSize="22"/>
+                    <Image x:Name="DeleteStaffImage" Margin="248,0,685,78" Width="85" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" MouseDown="DeleteStaffImage_MouseDown"/>
+                    <Label Content="Obrisi" HorizontalAlignment="Left" Margin="253,443,0,0" VerticalAlignment="Top" FontSize="22"/>
+                    <Image HorizontalAlignment="Left" Height="135" Margin="800,0,0,33" VerticalAlignment="Bottom" Width="175" Source="/Resources/img/logo.png" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+    </Grid>
+</Page>

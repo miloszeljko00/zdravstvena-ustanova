@@ -8,17 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\img\acc-icon.png" />
+    <None Remove="Resources\img\add-app-icon.png" />
     <None Remove="Resources\img\add-icon.png" />
+    <None Remove="Resources\img\app-icon.png" />
     <None Remove="Resources\img\back-icon.png" />
     <None Remove="Resources\img\calendar-icon.png" />
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\edit-icon.png" />
+<<<<<<< HEAD
     <None Remove="Resources\img\forward-icon.png" />
     <None Remove="Resources\img\logo.png" />
     <None Remove="Resources\img\minus-icon.png" />
+=======
+    <None Remove="Resources\img\icons8-add.png" />
+    <None Remove="Resources\img\icons8-back.png" />
+    <None Remove="Resources\img\icons8-edit.png" />
+    <None Remove="Resources\img\icons8-notification.png" />
+    <None Remove="Resources\img\logo.png" />
+    <None Remove="Resources\img\logout-icon8.png" />
+    <None Remove="Resources\img\medical-record.png" />
+    <None Remove="Resources\img\new-user.png" />
+    <None Remove="Resources\img\order-icon.png" />
+>>>>>>> feature/secretary-wpf2
     <None Remove="Resources\img\profile-picture.png" />
+    <None Remove="Resources\img\quest-icon.png" />
+    <None Remove="Resources\img\save-icon.png" />
+    <None Remove="Resources\img\schedule-icon.png" />
     <None Remove="Resources\img\search-name.png" />
+    <None Remove="Resources\img\statistic.png" />
+    <None Remove="Resources\img\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,17 +46,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\img\acc-icon.png" />
+    <Resource Include="Resources\img\add-app-icon.png" />
     <Resource Include="Resources\img\add-icon.png" />
+    <Resource Include="Resources\img\app-icon.png" />
     <Resource Include="Resources\img\back-icon.png" />
     <Resource Include="Resources\img\forward-icon.png" />
     <Resource Include="Resources\img\calendar-icon.png" />
     <Resource Include="Resources\img\delete-icon.png" />
     <Resource Include="Resources\img\drop-down-arrow.png" />
     <Resource Include="Resources\img\edit-icon.png" />
+    <Resource Include="Resources\img\icons8-add.png" />
+    <Resource Include="Resources\img\icons8-back.png" />
+    <Resource Include="Resources\img\icons8-edit.png" />
+    <Resource Include="Resources\img\icons8-notification.png" />
     <Resource Include="Resources\img\logo.png" />
+<<<<<<< HEAD
     <Resource Include="Resources\img\minus-icon.png" />
+=======
+    <Resource Include="Resources\img\logout-icon8.png" />
+    <Resource Include="Resources\img\medical-record.png" />
+    <Resource Include="Resources\img\new-user.png" />
+    <Resource Include="Resources\img\order-icon.png" />
+>>>>>>> feature/secretary-wpf2
     <Resource Include="Resources\img\profile-picture.png" />
+    <Resource Include="Resources\img\quest-icon.png" />
+    <Resource Include="Resources\img\save-icon.png" />
+    <Resource Include="Resources\img\schedule-icon.png" />
     <Resource Include="Resources\img\search-name.png" />
+    <Resource Include="Resources\img\statistic.png" />
+    <Resource Include="Resources\img\work-time.png" />
   </ItemGroup>
 
   <ItemGroup>
