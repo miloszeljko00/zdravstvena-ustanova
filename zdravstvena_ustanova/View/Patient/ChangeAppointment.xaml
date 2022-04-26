@@ -1,0 +1,20 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.ChangeAppointment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+        mc:Ignorable="d"
+        Title="Izmena termina" Height="200" Width="325" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Datum termina :" HorizontalAlignment="Left" Margin="34,16,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vreme termina :" HorizontalAlignment="Left" Margin="35,58,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="timeComboBox" Margin="147,59,24,78" SelectionChanged="timeSelected" />
+        <Button x:Name="yes" Content="Potvrdi" HorizontalAlignment="Left" Margin="67,116,0,0" VerticalAlignment="Top" Width="66" Height="26" Click="changeAppointment" IsEnabled="False" />
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="162,115,0,0" VerticalAlignment="Top" Width="66" Height="27" Click="goToManageAppointment" />
+        <ComboBox x:Name="dateComboBox" Margin="147,15,24,122" SelectionChanged="selectedDate" />
+
+
+
+    </Grid>
+</Window>
