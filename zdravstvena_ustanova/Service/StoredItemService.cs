@@ -58,24 +58,40 @@ namespace Service
             {
                 if (si.Item.Id == item.Id)
                 {
-                    if (si.Quantity == quantity)
+                    foreach(StoredItem roomStoredItem in toRoom.StoredItems)
                     {
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
-                        storedItem = Create(storedItem);
-                        toRoom.StoredItems.Add(storedItem);
+                        if (si.Item.Id == roomStoredItem.Item.Id)
+                        {
+                            roomStoredItem.Quantity += quantity;
+                            si.Quantity -= quantity;
+                            if (si.Quantity == 0)
+                            {
+                                Delete(si.Id);
+                                fromWarehouse.StoredItems.Remove(si);
+                            }
+                            else
+                            {
+                                Update(si);
+                            }
+                            Update(roomStoredItem);
+                            return true;
+                        }
+                    }
+
+
+                    si.Quantity -= quantity;
+                    if (si.Quantity == 0)
+                    {
                         Delete(si.Id);
                         fromWarehouse.StoredItems.Remove(si);
-                        return true;
                     }
                     else
                     {
-                        si.Quantity -= quantity;
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
-                        storedItem = Create(storedItem);
-                        toRoom.StoredItems.Add(storedItem);
                         Update(si);
-                        return true;
                     }
+                    var storedItem = Create(new StoredItem(item, quantity, StorageType.ROOM, toRoom));
+                    toRoom.StoredItems.Add(storedItem);
+                    return true;
                 }
             }
             return false;
