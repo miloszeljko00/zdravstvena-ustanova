@@ -37,13 +37,14 @@
                     </WrapPanel>
                 </StackPanel>
             </Border>
-            <Button Margin="130,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
+            <Button Margin="30,0,0,0" Content="Otkaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
+            <Button Margin="50,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
         </WrapPanel>
         <WrapPanel Grid.Row="1">
             <WrapPanel Margin="60, 0, 0, 0" Width="800" Height="450" Name="CalendarContainer">
 
             </WrapPanel>
-            <Border Margin="60, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="300" Height="450" Grid.Row="1">
+            <Border Margin="30, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="350" Height="450" Grid.Row="1">
                 <StackPanel x:Name="infoPanel">
                     
                 </StackPanel>
