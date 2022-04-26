@@ -19,7 +19,7 @@
                     </Grid.ColumnDefinitions>
 
                     <DataGrid x:Name="dataGridAccountsPatients" ItemsSource="{Binding PatientsAccounts}" IsReadOnly="True" SelectionMode="Single" SelectedIndex="-1" SelectedItem="null"
-                  AutoGenerateColumns="False" VerticalAlignment="Bottom"  Height="356" Margin="10,0,23,170" HeadersVisibility="All" Grid.ColumnSpan="2" SelectionChanged="dataGridAccountsPatients_SelectionChanged" SelectionUnit="FullRow">
+                  AutoGenerateColumns="False" VerticalAlignment="Bottom"  Height="356" Margin="10,0,23,170" HeadersVisibility="All" Grid.ColumnSpan="2" SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
@@ -72,7 +72,7 @@
                     </DataGrid>
                     <Image x:Name ="AddImage" Margin="112,360,820,81" Source="/Resources/img/new-user.png" Width="85" Height="85" Grid.ColumnSpan="2"  MouseDown="AddNewPatientMouseDown"/>
                     <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="96,440,0,0" FontSize="22" Width="116" Height="39" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-                    <Image x:Name="DeleteImage" Margin="102,0,685,78" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" Width="85" Grid.Column="1"  />
+                    <Image x:Name="DeletePatient" Margin="102,0,685,78" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" Width="85" Grid.Column="1" MouseDown="DeletePatient_MouseDown" />
                     <Label Content="Obrisi" HorizontalAlignment="Left" Margin="108,443,0,0" VerticalAlignment="Top" FontSize="22"  Height="39" Width="67" Grid.Column="1"/>
                     <Image Height="135" Margin="0,0,41,33" VerticalAlignment="Bottom" Source="/Resources/img/logo.png" Grid.Column="1" HorizontalAlignment="Right" Width="175"/>
                 </Grid>
@@ -92,7 +92,7 @@
                     </DataGrid>
                     <Image x:Name ="AddStaffImage" Width="85" Margin="112,360,820,81" Source="/Resources/img/new-user.png" Height="85" MouseDown="AddStaffMouseDown"/>
                     <Label Content="Novi nalog" HorizontalAlignment="Left" Margin="96,440,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <Image x:Name="DeleteStaffImage" Margin="248,0,685,78" Width="85" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" />
+                    <Image x:Name="DeleteStaffImage" Margin="248,0,685,78" Width="85" Source="/Resources/img/delete-icon.png" Height="85" VerticalAlignment="Bottom" MouseDown="DeleteStaffImage_MouseDown"/>
                     <Label Content="Obrisi" HorizontalAlignment="Left" Margin="253,443,0,0" VerticalAlignment="Top" FontSize="22"/>
                     <Image HorizontalAlignment="Left" Height="135" Margin="800,0,0,33" VerticalAlignment="Bottom" Width="175" Source="/Resources/img/logo.png" Grid.Column="1"/>
                 </Grid>

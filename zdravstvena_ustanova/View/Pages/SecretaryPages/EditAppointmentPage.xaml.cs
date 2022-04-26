@@ -84,6 +84,14 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         public void dateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            if((DateTime)dateDP.SelectedDate < DateTime.Today)
+            {
+                validate.Text = "Ne možete pomeriti termin u prošlost!";
+            }
+            else
+            {
+                validate.Text = "";
+            }
             var app = Application.Current as App;
             var r = roomCB.SelectedItem as Room;
             List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, r);

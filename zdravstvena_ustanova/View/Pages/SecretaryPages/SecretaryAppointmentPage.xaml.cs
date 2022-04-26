@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Controls.SecretaryControls;
 
 namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 {
@@ -157,11 +158,21 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             var editIcon = (Image)e.OriginalSource;
             var dataContext = editIcon.DataContext;
             ScheduledAppointment sa = dataContext as ScheduledAppointment;
+            if (sa.Start < DateTime.Today)
+                return;
 
             if (sa != null)
             {
                 _homePagePatients.SecretaryFrame.Content = new EditAppointmentPage(sa, _homePagePatients);
             }
+        }
+
+        private void Delete_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (dataGridScheduledAppointments.SelectedItem == null)
+                return;
+            MainWindow.Modal.Content = new CancelAppointmentControl(ScheduledAppointments, dataGridScheduledAppointments);
+            MainWindow.Modal.IsOpen = true;
         }
     }
 }

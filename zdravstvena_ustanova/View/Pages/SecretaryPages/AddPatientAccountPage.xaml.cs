@@ -22,6 +22,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
     /// </summary>
     public partial class AddPatientAccountPage : Page
     {
+
         private HomePagePatients _homePagePatients;
         public AddPatientAccountPage(HomePagePatients hpp)
         {

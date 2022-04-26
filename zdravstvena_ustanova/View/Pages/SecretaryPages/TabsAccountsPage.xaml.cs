@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Controls.SecretaryControls;
 
 namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 {
@@ -45,23 +46,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             da = true;
         }
 
-        private void dataGridAccountsPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*if (da)
-            {
-                dataGridAccountsPatients.SelectedIndex = -1;
-                da = false;
-            }
-            if(dataGridAccountsPatients.SelectedIndex == -1)
-            {
-                return;
-            }
-            Account account = dataGridAccountsPatients.SelectedValue as Account;
-            if (account != null)
-            {
-                _homePagePatients.SecretaryFrame.Content = new EditPatientAccountPage(account, _homePagePatients);
-            }*/
-        }
 
         private void AddNewPatientMouseDown(object sender, MouseEventArgs e)
         {
@@ -96,6 +80,22 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             {
                 _homePagePatients.SecretaryFrame.Content = new SecretaryHealthRecordPage((Patient)account.Person);
             }
+        }
+
+        private void DeletePatient_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (dataGridAccountsPatients.SelectedItem == null)
+                return;
+            MainWindow.Modal.Content = new DeleteAccount(Accounts, dataGridAccountsPatients);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void DeleteStaffImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (dataGridAccountsPatients.SelectedItem == null)
+                return;
+            MainWindow.Modal.Content = new DeleteAccount(Accounts, dataGridAccountsStaff);
+            MainWindow.Modal.IsOpen = true;
         }
     }
 }

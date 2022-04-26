@@ -21,33 +21,33 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBox x:Name= "usernameTB" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" TextAlignment="Left" HorizontalAlignment="Center"/>
-        <TextBox x:Name ="passwordTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <TextBox x:Name ="jmbgTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Row="1"/>
-        <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="59,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Grid.Column="1" Content="Lozinka:" HorizontalAlignment="Left" Margin="89,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Grid.Column="2" Content="JMBG:" HorizontalAlignment="Center" Margin="0,65,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="nameTB" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="117,65,0,0"/>
-        <TextBox x:Name ="surnameTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="1" Content="Prezime" HorizontalAlignment="Left" Margin="89,65,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Button Grid.Column="2" Content="dodaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Click="Button_Click" Margin="0,152,0,0"/>
-        <TextBox x:Name ="emailTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="2" Content="E-mail:" HorizontalAlignment="Left" Margin="92,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="phoneTB" Grid.Column="3" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="3" Content="Broj telefona:" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <DatePicker x:Name ="dateDP" Grid.Column="3" HorizontalAlignment="Left" Margin="36,116,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Visibility="Visible" Width="200"/>
-        <Label Grid.Column="3" Content="Datum rodjenja" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,61,0,0"/>
-        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,100,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
-        <Label Content="Ulica i broj:" HorizontalAlignment="Left" Margin="73,50,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,100,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
-        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,100,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Left" Margin="80,50,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,100,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="80,50,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <ComboBox x:Name="typeComboBox" HorizontalAlignment="Left" Margin="20,42,0,0" Grid.Row="2" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Column="3"/>
-        <Label Grid.Column="3" Content="Tip:" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <ComboBox x:Name="specCB" HorizontalAlignment="Left" Margin="20,137,0,0" VerticalAlignment="Top" Width="220" Grid.Column="3" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Row="2" FontSize="24">
+        <TextBox x:Name= "usernameTB" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" TextAlignment="Left" HorizontalAlignment="Center"/>
+        <TextBox x:Name ="passwordTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <TextBox x:Name ="jmbgTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Row="1"/>
+        <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="59,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="1" Content="Lozinka:" HorizontalAlignment="Left" Margin="89,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="2" Content="JMBG:" HorizontalAlignment="Center" Margin="0,50,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="nameTB" HorizontalAlignment="Center" Margin="0,100,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="117,50,0,0"/>
+        <TextBox x:Name ="surnameTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,100,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="1" Content="Prezime" HorizontalAlignment="Left" Margin="89,50,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Button Grid.Column="2" Content="dodaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Click="Button_Click" Margin="0,112,0,0"/>
+        <TextBox x:Name ="emailTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="2" Content="E-mail:" HorizontalAlignment="Left" Margin="92,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="phoneTB" Grid.Column="3" HorizontalAlignment="Center" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="3" Content="Broj telefona:" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <DatePicker x:Name ="dateDP" Grid.Column="3" HorizontalAlignment="Left" Margin="36,100,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Visibility="Visible" Width="200"/>
+        <Label Grid.Column="3" Content="Datum rodjenja" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,50,0,0"/>
+        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,70,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
+        <Label Content="Ulica i broj:" HorizontalAlignment="Left" Margin="73,20,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,70,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
+        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,70,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Left" Margin="80,20,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,70,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="80,20,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <ComboBox x:Name="typeComboBox" HorizontalAlignment="Left" Margin="20,36,0,0" Grid.Row="2" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Column="3"/>
+        <Label Grid.Column="3" Content="Tip:" HorizontalAlignment="Left" Margin="80,200,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Grid.RowSpan="2"/>
+        <ComboBox x:Name="specCB" HorizontalAlignment="Left" Margin="20,119,0,0" VerticalAlignment="Top" Width="220" Grid.Column="3" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Row="2" FontSize="24">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -56,7 +56,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Grid.Column="3" Content="Specijalizacija" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="24"/>
+        <Label Grid.Column="3" Content="Specijalizacija" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Margin="0,73,0,0"/>
 
     </Grid>
 </Page>

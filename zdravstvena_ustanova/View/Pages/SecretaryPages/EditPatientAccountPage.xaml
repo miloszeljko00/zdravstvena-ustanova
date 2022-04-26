@@ -31,21 +31,21 @@
         <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="117,65,0,0"/>
         <TextBox x:Name ="surnameTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
         <Label Grid.Column="1" Content="Prezime" HorizontalAlignment="Left" Margin="89,65,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Button Grid.Column="3" Content="sacuvaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Margin="0,111,0,0" Click="Button_Click"/>
+        <Button Grid.Column="3" Content="Sacuvaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Margin="0,80,0,0" Click="Button_Click"/>
         <TextBox x:Name ="emailTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
         <Label Grid.Column="2" Content="E-mail:" HorizontalAlignment="Left" Margin="92,95,0,0" VerticalAlignment="Top" FontSize="24"/>
         <TextBox x:Name="phoneTB" Grid.Column="3" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
         <Label Grid.Column="3" Content="Broj telefona:" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" FontSize="24"/>
         <DatePicker x:Name ="dateDP" Grid.Column="3" HorizontalAlignment="Left" Margin="36,116,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Visibility="Visible" Width="200"/>
-        <Label Grid.Column="3" Content="Datum rodjenja" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,61,0,0"/>
-        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
-        <Label Content="Ulica i broj:" HorizontalAlignment="Left" Margin="73,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
-        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Left" Margin="80,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="80,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <CheckBox x:Name="isDisabledCheckBox" Grid.Column="3" Content="Blokiraj" HorizontalAlignment="Left" Margin="62,35,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="136" Height="46"/>
+        <Label Grid.Column="3" Content="Datum rodjenja:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,61,0,0"/>
+        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
+        <Label Content="Ulica i broj:" HorizontalAlignment="Left" Margin="73,33,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
+        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Left" Margin="80,33,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,80,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="80,33,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <CheckBox x:Name="isDisabledCheckBox" Grid.Column="3" Content="Blokiraj" HorizontalAlignment="Left" Margin="62,30,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Width="136" Height="46"/>
 
     </Grid>
 </Page>

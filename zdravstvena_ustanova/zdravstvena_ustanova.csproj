@@ -20,6 +20,7 @@
     <None Remove="Resources\img\icons8-add.png" />
     <None Remove="Resources\img\icons8-back.png" />
     <None Remove="Resources\img\icons8-edit.png" />
+    <None Remove="Resources\img\icons8-notification.png" />
     <None Remove="Resources\img\logo.png" />
     <None Remove="Resources\img\logout-icon8.png" />
     <None Remove="Resources\img\medical-record.png" />
@@ -51,6 +52,7 @@
     <Resource Include="Resources\img\icons8-add.png" />
     <Resource Include="Resources\img\icons8-back.png" />
     <Resource Include="Resources\img\icons8-edit.png" />
+    <Resource Include="Resources\img\icons8-notification.png" />
     <Resource Include="Resources\img\logo.png" />
     <Resource Include="Resources\img\logout-icon8.png" />
     <Resource Include="Resources\img\medical-record.png" />
