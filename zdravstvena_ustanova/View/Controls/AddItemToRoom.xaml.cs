@@ -90,7 +90,17 @@ namespace zdravstvena_ustanova.View.Controls
             if (NewInput.IsChecked == true)
             {
                 StoredItem storedItem = new StoredItem(item, quantity, StorageType.ROOM, Room);
-                app.StoredItemController.Create(storedItem);
+                storedItem = app.StoredItemController.Create(storedItem);
+                foreach (StoredItem si in Room.StoredItems)
+                {
+                    if (si.Id == storedItem.Id)
+                    {
+                        storedItem.Item = si.Item;
+                        storedItem.Room = si.Room;
+                        Room.StoredItems.Remove(si);
+                        break;
+                    }
+                }
                 Room.StoredItems.Add(storedItem);
             }
             else
@@ -98,7 +108,6 @@ namespace zdravstvena_ustanova.View.Controls
                 app.StoredItemController.MoveItemFromTo(Warehouse, Room, item, quantity);
 
             }
-            RoomItemsDataGrid.ItemsSource = Room.StoredItems;
             CollectionViewSource.GetDefaultView(RoomItemsDataGrid.ItemsSource).Refresh();
 
             MainWindow.Modal.IsOpen = false;

@@ -47,6 +47,36 @@ namespace Repository
 
         public StoredItem Create(StoredItem storedItem)
         {
+
+            var storedItems = GetAll();
+
+            foreach(StoredItem si in storedItems)
+            {
+                if(si.Item.Id == storedItem.Item.Id)
+                {
+                    if(si.StorageType == StorageType.WAREHOUSE && storedItem.StorageType == StorageType.WAREHOUSE)
+                    {
+                        if(si.Warehouse.Id == storedItem.Warehouse.Id)
+                        {
+                            si.Quantity += storedItem.Quantity;
+                            Update(si);
+                            storedItem = si;
+                            return storedItem;
+                        }
+                    }
+                    else if(si.StorageType == StorageType.ROOM && storedItem.StorageType == StorageType.ROOM)
+                    {
+                        if (si.Room.Id == storedItem.Room.Id)
+                        {
+                            si.Quantity += storedItem.Quantity;
+                            Update(si);
+                            storedItem = si;
+                            return storedItem;
+                        }
+                    }
+                }
+            }
+
             storedItem.Id = ++_storedItemMaxId;
             AppendLineToFile(_path, StoredItemToCSVFormat(storedItem));
             return storedItem;

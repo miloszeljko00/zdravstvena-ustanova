@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
-    /// <summary>
-    /// Interaction logic for WarehouseInventoryOverviewPage.xaml
-    /// </summary>
     public partial class WarehouseInventoryOverviewPage : Page, INotifyPropertyChanged
     {
+        public ObservableCollection<StoredItem> StoredItems { get; set; }
         #region NotifyProperties
         private Warehouse _warehouse;
         public Warehouse Warehouse
@@ -58,6 +58,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             var app = Application.Current as App;
 
             Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
+            StoredItems = new ObservableCollection<StoredItem>(Warehouse.StoredItems);
 
             InitializeComponent();
             DataContext = this;
@@ -84,6 +85,23 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
                 SearchTextBox.Background = null;
             }
+        }
+
+        private void AddNewItemIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.Modal.Content = new AddItemToWarehouse(WarehouseItemsDataGrid, StoredItems, Warehouse);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void RemoveItemIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (WarehouseItemsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new RemoveItemFromWarehouse(WarehouseItemsDataGrid, StoredItems, Warehouse);
+            MainWindow.Modal.IsOpen = true;
         }
     }
 }

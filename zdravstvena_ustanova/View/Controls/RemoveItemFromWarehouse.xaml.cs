@@ -19,24 +19,14 @@ using System.Windows.Shapes;
 
 namespace zdravstvena_ustanova.View.Controls
 {
-    public partial class RemoveItemFromRoomControl : UserControl, INotifyPropertyChanged
+    /// <summary>
+    /// Interaction logic for RemoveItemFromWarehouse.xaml
+    /// </summary>
+    public partial class RemoveItemFromWarehouse : UserControl, INotifyPropertyChanged
     {
-        public DataGrid RoomItemsDataGrid { get; set; }
-
+        public DataGrid WarehouseItemsDataGrid { get; set; }
+        public ObservableCollection<StoredItem> StoredItems { get; set; }
         #region NotifyProperties
-        private Room _room;
-        public Room Room
-        {
-            get { return _room; }
-            set
-            {
-                if (_room != value)
-                {
-                    _room = value;
-                    OnPropertyChanged("Room");
-                }
-            }
-        }
         private StoredItem _storedItem;
         public StoredItem StoredItem
         {
@@ -104,44 +94,44 @@ namespace zdravstvena_ustanova.View.Controls
         #endregion
 
 
-        public RemoveItemFromRoomControl(Room room, DataGrid roomItemsdataGrid)
+        public RemoveItemFromWarehouse(DataGrid warehouseItemsDataGrid, ObservableCollection<StoredItem> storedItems, Warehouse warehouse)
         {
             InitializeComponent();
             DataContext = this;
 
             var app = App.Current as App;
 
-            Room = room;
-            Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
-            RoomItemsDataGrid = roomItemsdataGrid;
-            StoredItem = (StoredItem)RoomItemsDataGrid.SelectedItem;
+            StoredItems = storedItems;
+            Warehouse = warehouse;
+
+            WarehouseItemsDataGrid = warehouseItemsDataGrid;
+            StoredItem = (StoredItem)WarehouseItemsDataGrid.SelectedItem;
             ItemCount = StoredItem.Quantity;
             ItemsForTransfer = 0;
-            ScheduleDatePicker.SelectedDate = DateTime.Now;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if(ItemsForTransfer <= 0 || ItemsForTransfer > ItemCount || ScheduleDatePicker.SelectedDate == null)
+            if (ItemsForTransfer <= 0 || ItemsForTransfer > ItemCount)
             {
                 MessageBox.Show("Popuni sva polja!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             var app = App.Current as App;
-            StoredItem storedItem = (StoredItem)RoomItemsDataGrid.SelectedItem;
-            DateTime scheduleDate = (DateTime)ScheduleDatePicker.SelectedDate;
 
-            if(DeleteItemRadio.IsChecked == true)
+            if(ItemsForTransfer == ItemCount)
             {
-                app.StoredItemController.ScheduleRemovalFromRoom(storedItem, ItemsForTransfer, scheduleDate);
+                app.StoredItemController.Delete(StoredItem.Id);
+                StoredItems.Remove(StoredItem);
             }
             else
             {
-                app.StoredItemController.ScheduleTransferFromRoomToWarehouse(storedItem, ItemsForTransfer, scheduleDate);
+                StoredItem.Quantity -= ItemsForTransfer;
+                app.StoredItemController.Update(StoredItem);
             }
 
-            CollectionViewSource.GetDefaultView(RoomItemsDataGrid.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(WarehouseItemsDataGrid.ItemsSource).Refresh();
 
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;

@@ -26,7 +26,7 @@
             </TextBox>
 
             
-            <Image Width="48" Height="48" Margin="15,0,0,0">
+            <Image Name="RemoveItemIcon" MouseDown="RemoveItemIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -41,7 +41,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0">
+            <Image x:Name="AddNewItemIcon" MouseDown="AddNewItemIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -57,7 +57,7 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Warehouse.StoredItems}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="WarehouseItemsDataGrid" ItemsSource="{Binding StoredItems}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
