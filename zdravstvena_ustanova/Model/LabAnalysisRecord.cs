@@ -23,5 +23,10 @@ namespace Model
             Id = id;
             LabAnalysisComponent = new List<LabAnalysisComponent>();
         }
+
+        public LabAnalysisRecord(long id, DateTime date, List<LabAnalysisComponent> labAnalysisComponent) : this(id, date)
+        {
+            LabAnalysisComponent = labAnalysisComponent;
+        }
     }
 }

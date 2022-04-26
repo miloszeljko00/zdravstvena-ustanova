@@ -25,5 +25,18 @@ namespace Model
             HospitalizationRequest = hospitalizationRequest;
             PrescribedMedicine = new List<PrescribedMedicine>();
         }
+
+        public MedicalExamination(long id, long scheduledAppointmentId, long anamnesisId, long specialistRequestId,
+            long labAnalysisRequestId, long hospitalizationRequestId, List<PrescribedMedicine> prescribedMedicines)
+        {
+            Id = id;
+            ScheduledAppointment = new ScheduledAppointment(scheduledAppointmentId);
+            Anamnesis = new Anamnesis(anamnesisId);
+            SpecialistRequest = new SpecialistRequest(specialistRequestId);
+            LabAnalysisRequest = new LabAnalysisRequest(labAnalysisRequestId);
+            HospitalizationRequest = new HospitalizationRequest(hospitalizationRequestId);
+            PrescribedMedicine = prescribedMedicines;
+        }
+
     }
 }

@@ -22,5 +22,10 @@ namespace zdravstvena_ustanova.Model
             MaxRefValue = maxRefValue;
             Name = name;
         }
+
+        public LabAnalysisComponent(long id)
+        {
+            Id = id;
+        }
     }
 }
