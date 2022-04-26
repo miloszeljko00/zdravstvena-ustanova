@@ -11,7 +11,7 @@
             <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16">
                 <Canvas>
                     <Label Content="Generals:" Margin="70,35,0,0" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="70,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
+                    <Button Margin="70,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22" MouseDoubleClick="Button_MouseDoubleClick"/>
                     <Label Content="Current diseases:" HorizontalAlignment="Left" Margin="70,213,0,0" VerticalAlignment="Top" Height="37" Width="300"  FontSize="22"/>
                     <Button Margin="70,258,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
                     <Label Content="Socio-epidemiological data:" HorizontalAlignment="Left" Margin="530,214,0,0" VerticalAlignment="Top" Height="38" Width="300" FontSize="22"/>
@@ -19,11 +19,11 @@
                     <Label Content="Family anamnesis:" HorizontalAlignment="Left" Margin="530,35,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
                     <Button Margin="530,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
                     <Label Content="Anamnesis conclusion:" HorizontalAlignment="Left" Margin="530,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="530,445,0,0" Content="Double click to view/change" Background="White" FontSize="22"/>
+                    <Button Margin="530,445,0,0" Content="Double click to view/change" Background="White" FontSize="22" MouseDoubleClick="Button_MouseDoubleClick_1"/>
                     <Label Content="Earlier diseases:" HorizontalAlignment="Left" Margin="70,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
                     <Button Margin="70,455,0,0" Content="Double click to view/change" Background="White" FontSize="22"/>
                     <Button Content="Submit" FontSize="18"
-            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-174" Canvas.Top="9"/>
+            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-174" Canvas.Top="9" Click="Button_Click_1"/>
                     <Button Content="Cancel" FontSize="18"
             Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-155" Canvas.Top="9"/>
                 </Canvas>
