@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -32,10 +31,10 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 return _room;
             } set 
             {
-                if (value != _room || value.StoredItems.Count != _room.StoredItems.Count)
+                if (value != _room)
                 {
                     _room = value;
-                    OnPropertyChanged("Room");
+                    OnPropertyChanged("room");
                 }
             }
         }
@@ -85,23 +84,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
                 SearchTextBox.Background = null;
             }
-        }
-
-        private void AddItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.Modal.Content = new AddItemToRoom(Room, roomItemsDataGrid);
-            MainWindow.Modal.IsOpen = true;
-        }
-
-        private void RemoveItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (roomItemsDataGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            MainWindow.Modal.Content = new RemoveItemFromRoomControl(Room, roomItemsDataGrid);
-            MainWindow.Modal.IsOpen = true;
         }
     }
 }

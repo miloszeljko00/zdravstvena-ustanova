@@ -7,25 +7,20 @@ namespace Model
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public List<StoredItem> StoredItems { get; set; }
+        public List<ItemWarehouse> ItemWarehouses { get; set; }
 
-        public Warehouse(long id, string name, List<StoredItem> itemWarehouses)
+        public Warehouse(long id, string name, List<ItemWarehouse> itemWarehouses)
         {
             Id = id;
             Name = name;
-            StoredItems = itemWarehouses;
+            ItemWarehouses = itemWarehouses;
         }
 
         public Warehouse(long id, string name)
         {
             Id = id;
             Name = name;
-            StoredItems = new List<StoredItem>();
-        }
-
-        public Warehouse(long id)
-        {
-            Id = id;
+            ItemWarehouses = new List<ItemWarehouse>();
         }
     }
 }

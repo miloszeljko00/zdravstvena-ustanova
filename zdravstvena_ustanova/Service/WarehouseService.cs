@@ -3,7 +3,6 @@ using System;
 using Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Model.Enums;
 
 namespace Service
 {
@@ -11,86 +10,78 @@ namespace Service
     {
         private readonly WarehouseRepository _warehouseRepository;
         private readonly ItemRepository _itemRepository;
-        private readonly StoredItemRepository _storedItemRepository;
+        private readonly ItemWarehouseRepository _itemWarehouseRepository;
 
 
-        public WarehouseService(WarehouseRepository warehouseRepository, ItemRepository itemRepository,
-            StoredItemRepository storedItemRepository)
+        public WarehouseService(WarehouseRepository warehouseRepository, ItemRepository itemRepository, ItemWarehouseRepository itemWarehouseRepository)
         {
             _warehouseRepository = warehouseRepository;
             _itemRepository = itemRepository;
-            _storedItemRepository = storedItemRepository;
+            _itemWarehouseRepository = itemWarehouseRepository;
         }
 
         public IEnumerable<Warehouse> GetAll()
         {
             var items = _itemRepository.GetAll();
-            var storedItems = _storedItemRepository.GetAll();
+            var itemWarehouses = _itemWarehouseRepository.GetAll();
             var warehouses = _warehouseRepository.GetAll();
 
-            BindItemsWithStoredItems(items, storedItems);
-            BindStoredItemsWithWarehouses(storedItems, warehouses);
+            BindItemsWithItemWarehouses(items, itemWarehouses);
+            BindItemWarehousesWithWarehouses(itemWarehouses, warehouses);
             return warehouses;
         }
         public Warehouse GetById(long id)
         {
             var items = _itemRepository.GetAll();
-            var storedItems = _storedItemRepository.GetAll();
+            var itemWarehouses = _itemWarehouseRepository.GetAll();
             var warehouse = _warehouseRepository.Get(id);
 
-            BindItemsWithStoredItems(items, storedItems);
-            BindStoredItemsWithWarehouse(storedItems, warehouse);
+            BindItemsWithItemWarehouses(items, itemWarehouses);
+            BindItemWarehousesWithWarehouse(itemWarehouses, warehouse);
             return warehouse;
         }
 
-        private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> storedItems)
+        private void BindItemsWithItemWarehouses(IEnumerable<Item> items, IEnumerable<ItemWarehouse> itemWarehouses)
         {
-            storedItems.ToList().ForEach(storedItem =>
+            itemWarehouses.ToList().ForEach(itemWarehouse =>
             {
-                storedItem.Item = FindItemById(items, storedItem.Item.Id);
+                itemWarehouse.Item = FindItemById(items, itemWarehouse.Item.Id);
             });
         }
         private Item FindItemById(IEnumerable<Item> items, long itemId)
         {
             return items.SingleOrDefault(item => item.Id == itemId);
         }
-        private void BindStoredItemsWithWarehouse(IEnumerable<StoredItem> storedItems, Warehouse warehouse)
+        private void BindItemWarehousesWithWarehouse(IEnumerable<ItemWarehouse> itemWarehouses, Warehouse warehouse)
         {
-            storedItems.ToList().ForEach(storedItem =>
+            itemWarehouses.ToList().ForEach(itemWarehouse =>
             {
                 if (warehouse != null)
                 {
-                    if(storedItem.StorageType == StorageType.WAREHOUSE)
+                    if (warehouse.Id == itemWarehouse.WarehouseId)
                     {
-                        if (warehouse.Id == storedItem.Warehouse.Id)
-                        {
-                            storedItem.Warehouse = warehouse;
-                            warehouse.StoredItems.Add(storedItem);
-                        }
+                        warehouse.ItemWarehouses.Add(itemWarehouse);
                     }
                 }
             });
         }
 
-        private void BindStoredItemsWithWarehouses(IEnumerable<StoredItem> storedItems, IEnumerable<Warehouse> warehouses)
+        private void BindItemWarehousesWithWarehouses(IEnumerable<ItemWarehouse> itemWarehouses, IEnumerable<Warehouse> warehouses)
         {
-            storedItems.ToList().ForEach(storedItem =>
+            itemWarehouses.ToList().ForEach(itemWarehouse =>
             {
-                if (storedItem.StorageType == StorageType.WAREHOUSE)
+                var warehouse = FindWarehouseById(warehouses, itemWarehouse.WarehouseId);
+                if (warehouse != null)
                 {
-                    var warehouse = FindWarehouseById(warehouses, storedItem.Warehouse.Id);
-                    if (warehouse != null)
+                    if (warehouse.Id == itemWarehouse.WarehouseId)
                     {
-                        if (warehouse.Id == storedItem.Warehouse.Id)
-                        {
-                            storedItem.Warehouse = warehouse;
-                            warehouse.StoredItems.Add(storedItem);
-                        }
+                        warehouse.ItemWarehouses.Add(itemWarehouse);
                     }
                 }
-                
             });
         }
+
+
         private Warehouse FindWarehouseById(IEnumerable<Warehouse> warehouses, long warehouseId)
         {
             return warehouses.SingleOrDefault(warehouse => warehouse.Id == warehouseId);

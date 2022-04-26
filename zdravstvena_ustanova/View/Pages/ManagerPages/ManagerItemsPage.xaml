@@ -22,7 +22,7 @@
 
             </TextBox>
 
-            <Image x:Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteIcon_MouseDown">
+            <Image Width="48" Height="48" Margin="26,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -37,7 +37,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image x:Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditIcon_MouseDown">
+            <Image Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -52,7 +52,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image x:Name="AddIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="AddIcon_MouseDown">
+            <Image Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -68,12 +68,12 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="ItemsDataGrid" ItemsSource="{Binding ItemViewModels}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="dataGridRooms" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ukupno u bolnici" Binding="{Binding TotalCount}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opis" Binding="{Binding }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ukupno u bolnici" Binding="{Binding }" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
