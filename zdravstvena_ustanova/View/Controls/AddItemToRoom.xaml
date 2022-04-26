@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.AddItemToRoom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             mc:Ignorable="d" 
+            d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Width="500" Height="450">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Dodavanje inventara" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">Izvor:</Label>
+        <UniformGrid Width="200" Columns="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
+            <RadioButton x:Name="NewInput" GroupName="ItemSource" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Margin="5,0,0,0" IsChecked="True" Checked="NewInput_Checked">Nov unos</RadioButton>
+            <RadioButton x:Name="WarehouseInput" GroupName="ItemSource" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="18"  Margin="10,0,0,0" Checked="WarehouseInput_Checked">Magacin</RadioButton>
+        </UniformGrid>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+        <ComboBox VerticalContentAlignment="Center" Name="ItemsSearchBox" ItemsSource="{Binding Items}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center" IsTextSearchEnabled="True" SelectionChanged="ItemsSearchBox_SelectionChanged"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
+        <WrapPanel Name="TransferCountPanel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+        </WrapPanel>
+        <Button x:Name="OkButton" Margin="0,50,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,50,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+    </Grid>
+</UserControl>

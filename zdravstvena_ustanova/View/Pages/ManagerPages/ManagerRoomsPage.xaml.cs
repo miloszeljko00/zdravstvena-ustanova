@@ -78,15 +78,22 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         }
         private void EditRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(RoomsDataGrid.SelectedItem == null) return;
+            if (RoomsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi sobu!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             MainWindow.Modal.Content = new EditRoomControl(Rooms, RoomsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
         private void DeleteRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (RoomsDataGrid.SelectedItem == null) return;
-
+            if (RoomsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi sobu!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             MainWindow.Modal.Content = new DeleteRoomControl(Rooms, RoomsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }

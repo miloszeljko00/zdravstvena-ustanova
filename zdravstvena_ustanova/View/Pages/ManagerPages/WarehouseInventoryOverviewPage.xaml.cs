@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,24 +19,23 @@ using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
-    /// <summary>
-    /// Interaction logic for InventoryOverviewPage.xaml
-    /// </summary>
-    public partial class InventoryOverviewPage : Page, INotifyPropertyChanged
+    public partial class WarehouseInventoryOverviewPage : Page, INotifyPropertyChanged
     {
+        public ObservableCollection<StoredItem> StoredItems { get; set; }
         #region NotifyProperties
-        private Room _room;
-        public Room Room 
-        { 
+        private Warehouse _warehouse;
+        public Warehouse Warehouse
+        {
             get
             {
-                return _room;
-            } set 
+                return _warehouse;
+            }
+            set
             {
-                if (value != _room || value.StoredItems.Count != _room.StoredItems.Count)
+                if (value != _warehouse)
                 {
-                    _room = value;
-                    OnPropertyChanged("Room");
+                    _warehouse = value;
+                    OnPropertyChanged("Warehouse");
                 }
             }
         }
@@ -53,17 +53,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public InventoryOverviewPage(Room room)
+        public WarehouseInventoryOverviewPage()
         {
-            Room = room;
+            var app = Application.Current as App;
+
+            Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
+            StoredItems = new ObservableCollection<StoredItem>(Warehouse.StoredItems);
+
             InitializeComponent();
             DataContext = this;
         }
 
-        private void GoBackButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (SearchTextBox.Text == "")
@@ -87,20 +87,20 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             }
         }
 
-        private void AddItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void AddNewItemIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.Modal.Content = new AddItemToRoom(Room, roomItemsDataGrid);
+            MainWindow.Modal.Content = new AddItemToWarehouse(WarehouseItemsDataGrid, StoredItems, Warehouse);
             MainWindow.Modal.IsOpen = true;
         }
 
-        private void RemoveItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void RemoveItemIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (roomItemsDataGrid.SelectedItem == null)
+            if (WarehouseItemsDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MainWindow.Modal.Content = new RemoveItemFromRoomControl(Room, roomItemsDataGrid);
+            MainWindow.Modal.Content = new RemoveItemFromWarehouse(WarehouseItemsDataGrid, StoredItems, Warehouse);
             MainWindow.Modal.IsOpen = true;
         }
     }

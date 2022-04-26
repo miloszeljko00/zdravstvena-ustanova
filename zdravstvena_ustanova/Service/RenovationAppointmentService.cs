@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model;
+using Model.Enums;
 
 namespace Service
 {
@@ -12,10 +13,10 @@ namespace Service
     {
         private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
         private readonly RoomRepository _roomRepository;
-        private readonly ItemRoomRepository _itemRoomRepository;
+        private readonly StoredItemRepository _itemRoomRepository;
         private readonly ItemRepository _itemRepository;
 
-        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, ItemRoomRepository itemRoomRepository, ItemRepository itemRepository)
+        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository)
         {
             _renovationAppointmentRepository = renovationAppointmentRepository;
             _roomRepository = roomRepository;
@@ -31,7 +32,7 @@ namespace Service
             var renovationAppointments = _renovationAppointmentRepository.GetAll();
 
             BindItemsWithItemRooms(items, itemRooms);
-            BindItemRoomsWithRooms(itemRooms, rooms);
+            BindStoredItemsWithRooms(itemRooms, rooms);
             BindRoomWithRenovationAppointments(renovationAppointments, rooms);
 
             return renovationAppointments;
@@ -95,7 +96,7 @@ namespace Service
             var renovationAppointment = _renovationAppointmentRepository.Get(id);
 
             BindItemsWithItemRooms(items, itemRooms);
-            BindItemRoomsWithRooms(itemRooms, rooms);
+            BindStoredItemsWithRooms(itemRooms, rooms);
             BindRoomWithRenovationAppointment(renovationAppointment, rooms);
             return renovationAppointment;
         }
@@ -114,7 +115,7 @@ namespace Service
             });
         }
 
-        private void BindItemsWithItemRooms(IEnumerable<Item> items, IEnumerable<ItemRoom> itemRooms)
+        private void BindItemsWithItemRooms(IEnumerable<Item> items, IEnumerable<StoredItem> itemRooms)
         {
             itemRooms.ToList().ForEach(itemRoom =>
             {
@@ -126,18 +127,23 @@ namespace Service
             return items.SingleOrDefault(item => item.Id == itemId);
         }
        
-        private void BindItemRoomsWithRooms(IEnumerable<ItemRoom> itemRooms, IEnumerable<Room> rooms)
+        private void BindStoredItemsWithRooms(IEnumerable<StoredItem> storedItems, IEnumerable<Room> rooms)
         {
-            itemRooms.ToList().ForEach(itemRoom =>
+            storedItems.ToList().ForEach(storedItem =>
             {
-                var room = FindRoomById(rooms, itemRoom.RoomId);
-                if (room != null)
+                if(storedItem.StorageType == StorageType.ROOM)
                 {
-                    if (room.Id == itemRoom.RoomId)
+                    var room = FindRoomById(rooms, storedItem.Room.Id);
+                    if (room != null)
                     {
-                        room.ItemRooms.Add(itemRoom);
+                        if (room.Id == storedItem.Room.Id)
+                        {
+                            storedItem.Room = room;
+                            room.StoredItems.Add(storedItem);
+                        }
                     }
                 }
+               
             });
         }
 

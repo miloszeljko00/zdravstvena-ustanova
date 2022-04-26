@@ -16,9 +16,11 @@ namespace zdravstvena_ustanova
                .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
 
         private const string CSV_DELIMITER = ";";
+
         private readonly string ITEM_FILE = ProjectPath + "\\Resources\\Data\\Items.csv";
-        private readonly string ITEM_ROOM_FILE = ProjectPath + "\\Resources\\Data\\ItemRooms.csv";
+        private readonly string STORED_ITEM_FILE = ProjectPath + "\\Resources\\Data\\StoredItems.csv";
         private readonly string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
+        private readonly string WAREHOUSE_FILE = ProjectPath + "\\Resources\\Data\\Warehouses.csv";
         private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
         private readonly string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
         private readonly string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
@@ -29,8 +31,9 @@ namespace zdravstvena_ustanova
         private readonly string SPECIALTY_FILE = ProjectPath + "\\Resources\\Data\\Specialty.csv";
 
         public ItemController ItemController { get; set; }
-        public ItemRoomController ItemRoomController { get; set; }
+        public StoredItemController StoredItemController { get; set; }
         public RoomController RoomController { get; set; }
+        public WarehouseController WarehouseController { get; set; }
         public RenovationAppointmentController RenovationAppointmentController { get; set; }
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
         public DoctorController DoctorController { get; set; }
@@ -51,8 +54,9 @@ namespace zdravstvena_ustanova
         public App()
         {
             var itemRepository = new ItemRepository(ITEM_FILE, CSV_DELIMITER);
-            var itemRoomRepository = new ItemRoomRepository(ITEM_ROOM_FILE, CSV_DELIMITER);
+            var storedItemRepository = new StoredItemRepository(STORED_ITEM_FILE, CSV_DELIMITER);
             var roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
+            var warehouseRepository = new WarehouseRepository(WAREHOUSE_FILE, CSV_DELIMITER);
             var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
@@ -63,15 +67,16 @@ namespace zdravstvena_ustanova
             var specialtyRepository = new SpecialtyRepository(SPECIALTY_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
-            var itemRoomService = new ItemRoomService(itemRoomRepository, itemRepository);
-            var roomService = new RoomService(roomRepository, itemRoomRepository, itemRepository);
+            var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
+            var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository);
+            var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository);
             var doctorService = new DoctorService(doctorRepository, roomRepository, accountRepository, specialtyRepository);
             var specialtyService = new SpecialtyService(specialtyRepository);
             var patientService = new PatientService(patientRepository, accountRepository);
             var managerService = new ManagerService(managerRepository, accountRepository);
             var secretaryService = new SecretaryService(secretaryRepository, accountRepository);
             var renovationAppointmentService = new RenovationAppointmentService(renovationAppointmentRepository, roomRepository,
-                itemRoomRepository, itemRepository);
+                storedItemRepository, itemRepository);
             var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
@@ -79,8 +84,9 @@ namespace zdravstvena_ustanova
             
 
             ItemController = new ItemController(itemService);
-            ItemRoomController = new ItemRoomController(itemRoomService);
+            StoredItemController = new StoredItemController(storedItemService);
             RoomController = new RoomController(roomService);
+            WarehouseController = new WarehouseController(warehouseService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
             RenovationAppointmentController = new RenovationAppointmentController(renovationAppointmentService);

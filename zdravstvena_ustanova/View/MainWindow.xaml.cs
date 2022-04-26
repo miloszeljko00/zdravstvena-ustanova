@@ -16,7 +16,6 @@ namespace zdravstvena_ustanova.View
             CenterWindowOnScreen();
             Modal = modal;
             Main.Content = new LoginPage(this);
-            
         }
         private void CenterWindowOnScreen()
         {
