@@ -11,7 +11,7 @@
             <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16">
                 <Canvas>
                     <Label Content="Generals:" Margin="70,35,0,0" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="70,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
+                    <Button Margin="70,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22" MouseDoubleClick="Button_MouseDoubleClick"/>
                     <Label Content="Current diseases:" HorizontalAlignment="Left" Margin="70,213,0,0" VerticalAlignment="Top" Height="37" Width="300"  FontSize="22"/>
                     <Button Margin="70,258,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
                     <Label Content="Socio-epidemiological data:" HorizontalAlignment="Left" Margin="530,214,0,0" VerticalAlignment="Top" Height="38" Width="300" FontSize="22"/>
@@ -19,11 +19,11 @@
                     <Label Content="Family anamnesis:" HorizontalAlignment="Left" Margin="530,35,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
                     <Button Margin="530,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
                     <Label Content="Anamnesis conclusion:" HorizontalAlignment="Left" Margin="530,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="530,445,0,0" Content="Double click to view/change" Background="White" FontSize="22"/>
+                    <Button Margin="530,445,0,0" Content="Double click to view/change" Background="White" FontSize="22" MouseDoubleClick="Button_MouseDoubleClick_1"/>
                     <Label Content="Earlier diseases:" HorizontalAlignment="Left" Margin="70,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
                     <Button Margin="70,455,0,0" Content="Double click to view/change" Background="White" FontSize="22"/>
                     <Button Content="Submit" FontSize="18"
-            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-174" Canvas.Top="9"/>
+            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-174" Canvas.Top="9" Click="Button_Click_1"/>
                     <Button Content="Cancel" FontSize="18"
             Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-155" Canvas.Top="9"/>
                 </Canvas>
@@ -80,11 +80,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="JMBG:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,0,0,0"/>
-                    <TextBox Grid.Column="0" TextWrapping="Wrap" Text="4895156165152" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="0" TextWrapping="Wrap" Text="4895156165152" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="2" Content="LBO:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,6"/>
-                    <TextBox Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="981259195" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="981259195" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="4" Content="Room id:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,1,0,10"/>
-                    <TextBox Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" Text="optional" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="0" Grid.Row="4" TextWrapping="Wrap" Text="optional" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="6" Content="Cause of hospitalization:" Height="40" Width="248" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,6"/>
                     <Border Grid.Column="0" Grid.Row="6" BorderBrush="Gray" BorderThickness="1" Margin="20,46,20,15" Grid.RowSpan="2">
                         <TextBlock Grid.Column="0" Grid.Row="7" TextWrapping="Wrap" Text="Some text" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="40,0,0,0"/>
@@ -94,15 +94,15 @@
                         <TextBlock Grid.Column="0" Grid.Row="9" TextWrapping="Wrap" Text="Some text" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="40,0,0,0"/>
                     </Border>
                     <Label Grid.Column="0" Grid.Row="10" Content="Requested date for admission:" Height="40" Width="308" FontSize="22" HorizontalAlignment="Left" Margin="20,5,0,6"/>
-                    <DatePicker Grid.Column="0" Grid.Row="10" Height="35" Width="170" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,21" Grid.RowSpan="2"/>
+                    <DatePicker Grid.Column="0" Grid.Row="10" Width="170" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,10" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="0" Content="Date of admission:" Height="40" Width="190" FontSize="22" HorizontalAlignment="Left" Margin="191,1,0,10"/>
-                    <TextBox Grid.Column="1" TextWrapping="Wrap" Text="14.2.2022." Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="1" TextWrapping="Wrap" Text="14.2.2022." Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="1" Content="Release date:" Height="40" Width="145" FontSize="22" HorizontalAlignment="Left" Margin="236,47,0,14" Grid.RowSpan="2"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="21.2.2022." Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="21.2.2022." Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="4" Content="Room id:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Right" Margin="0,0,40,0"/>
-                    <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="123xyz" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,30" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="123xyz" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="6" Content="Hours of fan support:" Height="40" Width="216" FontSize="22" HorizontalAlignment="Left" Margin="165,5,0,6"/>
-                    <TextBox Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="48" Height="26" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,46,0,29" Grid.RowSpan="2"/>
+                    <TextBox Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="48" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,46,0,25" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="8" Grid.RowSpan="2" Content="Release kind:" Height="40" Width="160" FontSize="22" HorizontalAlignment="Left" Margin="221,25,0,36"/>
                     <ComboBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="210,26,0,0" VerticalAlignment="Top" Width="171" Height="68" Grid.RowSpan="2">
                         <ComboBoxItem Content="1-Home Release"></ComboBoxItem>
@@ -176,11 +176,10 @@
                     <Label Content="Doctor's name:" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1"/>
                     <ComboBox HorizontalAlignment="Center" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="0,50,0,0"/>
                     <Label Content="Cause of request:" HorizontalAlignment="Center" Margin="0,143,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1" Grid.RowSpan="2"/>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="56,41,56,120" Grid.RowSpan="2" Grid.Row="2"/>
-                    <TextBlock HorizontalAlignment="Center" Margin="0,41,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="137" Width="729" Grid.RowSpan="2" Grid.Row="2"/>
                     <RadioButton Content="Urgent" HorizontalAlignment="Left" Margin="336,99,0,0" VerticalAlignment="Top" Grid.Row="3" FontSize="24" IsChecked="True"/>
                     <Button Content="Cancel" HorizontalAlignment="Left" Margin="56,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114"/>
                     <Button Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114"/>
+                    <TextBox HorizontalAlignment="Left" Margin="56,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="745" Grid.Row="2" Height="150" Grid.RowSpan="2"/>
 
                 </Grid>
             </TabItem>
@@ -238,13 +237,13 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Margin="6,289,897,221" Orientation="Vertical">
+        <StackPanel Margin="6,289,883,221" Orientation="Vertical">
             <Label Content="Name:" Height="40" Width="100" FontSize="20"/>
-            <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18"/>
+            <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Surname:" Height="40" Width="100" FontSize="20"/>
-            <TextBox TextWrapping="Wrap" Text="MyPatient" Height="26" Width="120" FontSize="18"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding PatientSurname}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Date of birth:" Height="40" Width="140" FontSize="20"/>
-            <TextBox TextWrapping="Wrap" Text="BirthDay" Height="26" Width="120" FontSize="18"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding PatientBirthday}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
         </StackPanel>
         <Button Content="Cancel" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
                 Margin="23,609,0,0" VerticalAlignment="Top" Height="63" Width="87" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>

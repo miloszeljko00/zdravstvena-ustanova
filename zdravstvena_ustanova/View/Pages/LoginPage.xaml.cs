@@ -14,7 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
+
+using zdravstvena_ustanova.View.Pages.SecretaryPages;
 using zdravstvena_ustanova.View.Windows.DoctorWindows;
+
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -35,9 +38,6 @@ namespace zdravstvena_ustanova.View.Pages
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Text;
 
-            //TESTING
-            username = "velja";
-            password = "velja";
 
             if (username == null || password == null) return;
 
@@ -49,14 +49,27 @@ namespace zdravstvena_ustanova.View.Pages
             app.LoggedInUser = user;
 
             if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
-            if (app.LoggedInUser is Secretary) { }  // TODO redirect on Secretary homescreen
+            if (app.LoggedInUser is Secretary) 
+            {
+                HomePagePatients hpp = new HomePagePatients(Mw);
+                Mw.Height = 768;
+                Mw.Width = 1024;
+                Mw.Main.Content = hpp;
+               
+
+            }  
             if (app.LoggedInUser is Doctor)
             {
                 var doctorHomePage = new DoctorHomePageWindow();
                 Mw.Close();
                 doctorHomePage.Show();
             }
-            if (app.LoggedInUser is Patient) { }    // TODO redirect on Patient homescreen
+            if (app.LoggedInUser is Patient) 
+            {
+                var pmw = new PatientMainWindow();
+                Mw.Close();
+                pmw.Show();
+            }
 
         }
     }

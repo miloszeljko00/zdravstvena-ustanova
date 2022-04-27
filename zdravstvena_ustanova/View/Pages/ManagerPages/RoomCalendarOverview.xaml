@@ -1,0 +1,53 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.RoomCalendarOverview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages" xmlns:roomscalendar="clr-namespace:zdravstvena_ustanova.View.Controls.RoomsCalendar"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="1280"
+      Title="RoomCalendarOverview">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="128"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" VerticalAlignment="Center">
+            <Button Margin="60,0,0,0" x:Name="GoBackButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="GoBackButton_Click">
+                <WrapPanel>
+                    <Image Width="24" Height="24" Margin="0,0,10,0" Source="/Resources/img/back-icon.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                    <TextBlock Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">Nazad</TextBlock>
+                </WrapPanel>
+            </Button>
+            <Label Margin="14,0,0,0" VerticalContentAlignment="Center" Content="Zauzetost prostorije" FontSize="40"></Label>
+            <Border Margin="14,10,0,10" BorderBrush="Gray" BorderThickness="2px" Width="260" Height="100">
+                <StackPanel>
+                    <WrapPanel Margin="4,4,4,0">
+                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Naziv:"></Label>
+                        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding Room.Name}"></Label>
+                    </WrapPanel>
+                    <WrapPanel Margin="4,0,4,0">
+                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Tip:"></Label>
+                        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding Room.RoomType}"></Label>
+                    </WrapPanel>
+                    <WrapPanel Margin="4,0,4,4">
+                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Sprat:"></Label>
+                        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding Room.Floor}"></Label>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+            <Button Margin="130,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1">
+            <WrapPanel Margin="60, 0, 0, 0" Width="800" Height="450" Name="CalendarContainer">
+
+            </WrapPanel>
+            <Border Margin="60, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="300" Height="450" Grid.Row="1">
+                <StackPanel x:Name="infoPanel">
+                    
+                </StackPanel>
+            </Border>
+        </WrapPanel>
+    </Grid>
+</Page>

@@ -8,7 +8,7 @@ namespace Model.Enums
         LABORATORY,
         INTENSIVE_CARE,
         EMERGENCY_ROOM,
-        PHARMACY
-
+        PHARMACY,
+        REGULAR_APPOINTMENT_ROOM
     }
 }

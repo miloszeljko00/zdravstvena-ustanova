@@ -92,8 +92,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
 
         public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
-
         #endregion
+
 
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
@@ -115,6 +115,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
             Anamnesis = new Anamnesis(-1);
             PrescribedMedicine = new ObservableCollection<PrescribedMedicine>(); 
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

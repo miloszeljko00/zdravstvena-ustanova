@@ -78,13 +78,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
             DateTime todayDate = DateTime.Now;
             DateTime date;
+            date = new DateTime(todayDate.Year, todayDate.Month, todayDate.Day, 8, 0, 0);
             if (todayDate.DayOfWeek == 0)
             {
-                date = new DateTime(todayDate.Year, todayDate.Month, todayDate.Day - 6, 8, 0, 0);
+                date = date.AddDays(6);
             }
             else
             {
-                date = new DateTime(todayDate.Year, todayDate.Month, todayDate.Day - (int)todayDate.DayOfWeek+1, 8, 0, 0);
+                date = date.AddDays(1 -(int)todayDate.DayOfWeek);
             }
             appointmentsWeeklyByHours = new ObservableCollection<AppointmentsWeeklyByHour>();
             dataGridScheduledAppointments.ItemsSource = appointmentsWeeklyByHours;
@@ -93,7 +94,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 appointmentsWeeklyByHours.Add(new AppointmentsWeeklyByHour(new DateTime(date.Year,date.Month,date.Day,date.Hour+i,0,0)));
             }
-            var scheduledAppointments = app.ScheduledAppointmentController.GetFromToDates(date, new DateTime(date.Year, date.Month, date.Day + 6, 21,0,0));
+            DateTime endDateOfWeek = new DateTime(date.Year, date.Month, date.Day, 21, 0, 0);
+            endDateOfWeek = endDateOfWeek.AddDays(6);
+            var scheduledAppointments = app.ScheduledAppointmentController.GetFromToDates(date, endDateOfWeek);
 
             foreach(ScheduledAppointment sa in scheduledAppointments)
             {

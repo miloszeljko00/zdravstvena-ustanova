@@ -22,7 +22,7 @@
                 </WrapPanel>
             </Button>
             <Label FontSize="40" Margin="15,0,0,0" Width="300" Content="{Binding Room.Name}"></Label>
-            <Button Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Zakaži prebacivanje"></Button>
+            <Button Width="150" Height="48" Margin="90,0,0,0" FontSize="14" Content="Zakaži prebacivanje"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="20,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -30,11 +30,12 @@
 
             </TextBox>
 
-            <Image Width="48" Height="48" Margin="26,0,0,0">
+
+            <Image x:Name="RemoveItemToRoomIcon" MouseDown="RemoveItemToRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
-                        <Setter Property="Source" Value="/Resources/img/delete-icon.png"/>
+                        <Setter Property="Source" Value="/Resources/img/minus-icon.png"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <!-- Hover image -->
@@ -45,22 +46,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0">
-                <Image.Resources>
-                    <Style TargetType="{x:Type Image}">
-                        <!-- Default image -->
-                        <Setter Property="Source" Value="/Resources/img/edit-icon.png"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <!-- Hover image -->
-                                <Setter Property="Opacity" Value="0.8"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Resources>
-            </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0">
+            <Image x:Name="AddItemToRoomIcon" MouseDown="AddItemToRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -76,7 +62,7 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Room.ItemRooms}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="roomItemsDataGrid" ItemsSource="{Binding Room.StoredItems}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>

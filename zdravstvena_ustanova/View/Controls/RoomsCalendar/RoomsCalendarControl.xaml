@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.RoomsCalendar.RoomsCalendarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls.RoomsCalendar"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Gray" BorderThickness="2px" Width="800" Height="450">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <WrapPanel  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Width="24" Height="24" Name="PreviousMonthArrowIcon" MouseDown="PreviousMonthArrowIcon_MouseDown">
+                    <Image.Resources>
+                        <Style TargetType="{x:Type Image}">
+                            <!-- Default image -->
+                            <Setter Property="Source" Value="/Resources/img/back-icon.png"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!-- Hover image -->
+                                    <Setter Property="Opacity" Value="0.8"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Resources>
+                </Image>
+                <WrapPanel>
+                    <Label Width="100" HorizontalContentAlignment="Right" Name="MonthLabel" Content="MESEC." VerticalContentAlignment="Center" FontSize="18"></Label>
+                    <Label Width="60" HorizontalContentAlignment="Left" Name="YearLabel" Content="GODINA." VerticalContentAlignment="Center"  FontSize="18"></Label>
+                </WrapPanel>
+                <Image x:Name="NextMonthArrowIcon" Width="24" Height="24" MouseDown="NextMonthArrowIcon_MouseDown">
+                    <Image.Resources>
+                        <Style TargetType="{x:Type Image}">
+                            <!-- Default image -->
+                            <Setter Property="Source" Value="/Resources/img/forward-icon.png"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!-- Hover image -->
+                                    <Setter Property="Opacity" Value="0.8"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Resources>
+                </Image>
+            </WrapPanel>
+            <UniformGrid Rows="1" Columns="7" Width="800" Height="40" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Margin="2,0,0,0" Content="Ponedeljak" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="Utorak" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="Sreda" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="Četvrtak" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="Petak" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="Subota" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Margin="0,0,2,0" Content="Nedelja" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+            </UniformGrid>
+            <WrapPanel Name="daysContainer" Grid.Row="2" Margin="2,0,2,0">
+                
+            </WrapPanel>
+        </Grid>
+    </Border>
+</UserControl>

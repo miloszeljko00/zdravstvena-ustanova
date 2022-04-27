@@ -14,7 +14,7 @@ namespace Model
         }
         public Specialty(long id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 }

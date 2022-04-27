@@ -69,6 +69,11 @@ namespace zdravstvena_ustanova.View
 
         }
 
+        private void timeSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            yes.IsEnabled = true;
+        }
+
         private void changeAppointment(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;

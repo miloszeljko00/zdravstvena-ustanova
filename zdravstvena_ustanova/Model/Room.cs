@@ -10,15 +10,15 @@ namespace Model
         public string Name { get; set; }
         public int Floor { get; set; }
         public RoomType RoomType { get; set; }
-        public List<ItemRoom> ItemRooms { get; set; }
+        public List<StoredItem> StoredItems { get; set; }
 
-        public Room(long id, string name, int floor, RoomType roomType, List<ItemRoom> itemRooms)
+        public Room(long id, string name, int floor, RoomType roomType, List<StoredItem> itemRooms)
         {
             Id = id;
             Name = name;
             Floor = floor;
             RoomType = roomType;
-            ItemRooms = itemRooms;
+            StoredItems = itemRooms;
         }
 
         public Room(long id, string name, int floor, RoomType roomType)
@@ -27,14 +27,14 @@ namespace Model
             Name = name;
             Floor = floor;
             RoomType = roomType;
-            ItemRooms = new List<ItemRoom>();
+            StoredItems = new List<StoredItem>();
         }
         public Room(string name, int floor, RoomType roomType)
         {
             Name = name;
             Floor = floor;
             RoomType = roomType;
-            ItemRooms = new List<ItemRoom>();
+            StoredItems = new List<StoredItem>();
         }
         public Room(long id)
         {

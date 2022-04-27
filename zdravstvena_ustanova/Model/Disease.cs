@@ -12,5 +12,9 @@ namespace Model
             Id = id;
             Name = name;
         }
+        public Disease(long id)
+        {
+            Id = id;
+        }
     }
 }

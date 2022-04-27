@@ -77,7 +77,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Width="32" Height="32" Margin="4,4,4,4">
+                            <Image x:Name="CalendarIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="CalendarIcon_MouseDown">
                                 <Image.Resources>
                                     <Style TargetType="{x:Type Image}">
                                         <!-- Default image -->
@@ -96,7 +96,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj inventara" Binding="{Binding ItemRooms.Count}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj inventara" Binding="{Binding StoredItems.Count}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
