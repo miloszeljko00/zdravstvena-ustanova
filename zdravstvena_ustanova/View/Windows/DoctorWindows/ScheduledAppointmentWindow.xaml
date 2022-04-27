@@ -238,7 +238,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Margin="6,289,897,221" Orientation="Vertical">
+        <StackPanel Margin="6,289,883,221" Orientation="Vertical">
             <Label Content="Name:" Height="40" Width="100" FontSize="20"/>
             <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Surname:" Height="40" Width="100" FontSize="20"/>
