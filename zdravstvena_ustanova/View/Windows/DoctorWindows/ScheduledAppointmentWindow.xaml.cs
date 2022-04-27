@@ -129,27 +129,25 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             addMedicineToTherapy.Show();
         }
 
-        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Button_MouseDoubleClick_AnamnesisDiagnosis(object sender, MouseButtonEventArgs e)
         {
             AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Diagnosis");
             ad.Owner = this;
-            ad.Show();
+            ad.ShowDialog();
             
         }
 
-        private void Button_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void Button_MouseDoubleClick_AnamnesisConclusion(object sender, MouseButtonEventArgs e)
         {
             AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Conclusion");
             ad.Owner = this;
-            ad.Show();
+            ad.ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
 
-            Anamnesis = app.AnamnesisController.Create(Anamnesis);
-            Close();
 
             // TODO Sve iz medical examination
         }
@@ -161,6 +159,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
             }
+            Anamnesis = app.AnamnesisController.Create(Anamnesis);
+            Close();
         }
     }
 }
