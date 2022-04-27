@@ -30,13 +30,13 @@
             </TabItem>
             <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16">
                 <Grid>
-                    <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding ScheduledAppointments}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell"
+                    <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell"
                   AutoGenerateColumns="False" VerticalAlignment="Top" Margin="0,186,-2,0" Height="562" Width="843">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Medicine" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Times per day" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="On hours" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="End date" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Medication.Name}" Header="Medicine" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding TimesPerDay}" Header="Times per day" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding OnHours}"  Header="On hours" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EndDate}" Header="End date" Width="*"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DatePicker HorizontalAlignment="Left" Margin="64,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
@@ -246,9 +246,13 @@
             <TextBox TextWrapping="Wrap" Text="{Binding PatientBirthday}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
         </StackPanel>
         <Button Content="Cancel" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="23,575,0,0" VerticalAlignment="Top" Height="63" Width="87" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        <TextBox HorizontalAlignment="Left" Margin="32,604,0,0" TextWrapping="Wrap" Text="Cancel this appointment" FontSize="11"
+                Margin="23,609,0,0" VerticalAlignment="Top" Height="63" Width="87" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <TextBox HorizontalAlignment="Left" Margin="32,637,0,0" TextWrapping="Wrap" Text="Cancel this appointment" FontSize="11"
                  VerticalAlignment="Top" Width="69" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Rectangle HorizontalAlignment="Left" Height="1" Stroke="Black" VerticalAlignment="Top" Width="1013" Margin="0,1,0,0"/>
+        <Button Content="Submit" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
+            Margin="23,520,0,0" VerticalAlignment="Top" Height="63" Width="87" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_2"/>
+        <TextBox HorizontalAlignment="Left" Margin="32,548,0,0" TextWrapping="Wrap" Text="Submit this appointment" FontSize="11"
+            VerticalAlignment="Top" Width="69" BorderBrush="Transparent" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
     </Grid>
 </Window>

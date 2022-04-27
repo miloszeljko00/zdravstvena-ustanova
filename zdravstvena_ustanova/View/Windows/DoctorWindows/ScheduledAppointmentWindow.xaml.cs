@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -89,6 +90,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
             }
         }
+
+        public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
         #endregion
 
 
@@ -111,16 +114,18 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
             Anamnesis = new Anamnesis(-1);
+            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>(); 
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy();
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
             addMedicineToTherapy.Show();
         }
 
         private void TextBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy();
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
             addMedicineToTherapy.Show();
         }
 
@@ -147,6 +152,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             Close();
 
             // TODO Sve iz medical examination
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+            foreach(PrescribedMedicine pm in PrescribedMedicine)
+            {
+                PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
+            }
         }
     }
 }
