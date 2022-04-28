@@ -33,7 +33,7 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
 
         public List<ScheduledAppointment> ScheduledAppointments { get; set; }
         public RenovationAppointment RenovationAppointment { get; set; }
-        public RoomCalendarOverview RoomCalendarOverview { get; set; }
+        public RoomCalendarOverview? RoomCalendarOverview { get; set; }
 
         public DayFieldCalendar(DateTime date, bool inCurrentMonth, long roomId, RoomCalendarOverview roomCalendarOverview)
         {
@@ -97,10 +97,6 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             if (!InCurrentMonth) return;
 
             WrapPanel wrapPanel = (WrapPanel)Parent;
-            var parent = (Grid)wrapPanel.Parent;
-            var parent2 = (Border)parent.Parent;
-            var parent3 = (RoomsCalendarControl)parent2.Parent;
-            var parent4 = parent3.Parent;
             foreach (DayFieldCalendar dayFieldCalendar in wrapPanel.Children)
             {
                 if (dayFieldCalendar.panel.Background == Brushes.Gray)
@@ -128,12 +124,14 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             }
             if (RenovationAppointment != null) 
             {
+                RoomCalendarOverview.SelectedRenovationAppointment = RenovationAppointment;
                 RoomCalendarOverview.RenovationAppointment = RenovationAppointment;
                 RoomCalendarOverview.infoPanel.Children.Clear();
                 RoomCalendarOverview.infoPanel.Children.Add(new RenovationInfoControl(RoomCalendarOverview));
             }
             else
             {
+                RoomCalendarOverview.SelectedRenovationAppointment = null;
                 RoomCalendarOverview.infoPanel.Children.Clear();
                 RoomCalendarOverview.infoPanel.Children.Add(new SelectedScheduledAppointmentsListControl(RoomCalendarOverview));
             }

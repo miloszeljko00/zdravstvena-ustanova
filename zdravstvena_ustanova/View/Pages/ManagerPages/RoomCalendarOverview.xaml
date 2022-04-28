@@ -37,8 +37,8 @@
                     </WrapPanel>
                 </StackPanel>
             </Border>
-            <Button Margin="30,0,0,0" Content="Otkaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
-            <Button Margin="50,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand"></Button>
+            <Button x:Name="UnScheduleRenovationButton" Margin="30,0,0,0" Content="Otkaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="UnScheduleRenovationButton_Click"></Button>
+            <Button x:Name="ScheduleRenovationButton" Margin="50,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ScheduleRenovationButton_Click"></Button>
         </WrapPanel>
         <WrapPanel Grid.Row="1">
             <WrapPanel Margin="60, 0, 0, 0" Width="800" Height="450" Name="CalendarContainer">

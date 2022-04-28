@@ -38,14 +38,14 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             DisplayCalendarForMonth(DisplayedMonth);
         }
 
-        private void UpdateDisplayedMonth()
+        public void UpdateDisplayedMonth()
         {
             DisplayedMonth = DateTime.Now;
             FirstDayOfMonth = new DateTime(DisplayedMonth.Year, DisplayedMonth.Month, 1, 8, 0, 0);
             LastDayOfMonth = new DateTime(DisplayedMonth.Year, DisplayedMonth.Month,
                 DateTime.DaysInMonth(DisplayedMonth.Year, DisplayedMonth.Month), 21, 0, 0);
         }
-        private void DisplayCalendarForMonth(DateTime date)
+        public void DisplayCalendarForMonth(DateTime date)
         {
             daysContainer.Children.Clear();
 
