@@ -26,6 +26,7 @@ namespace zdravstvena_ustanova
         private readonly string WAREHOUSE_FILE = ProjectPath + "\\Resources\\Data\\Warehouses.csv";
         private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
         private readonly string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
+        private readonly string UNSCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\UnScheduledAppointments.csv";
         private readonly string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
         private readonly string PATIENT_FILE = ProjectPath + "\\Resources\\Data\\Patients.csv";
         private readonly string MANAGER_FILE = ProjectPath + "\\Resources\\Data\\Managers.csv";
@@ -43,6 +44,7 @@ namespace zdravstvena_ustanova
         public WarehouseController WarehouseController { get; set; }
         public RenovationAppointmentController RenovationAppointmentController { get; set; }
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
+        public ScheduledAppointmentController UnScheduledAppointmentController { get; set; }
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
@@ -70,6 +72,7 @@ namespace zdravstvena_ustanova
             var warehouseRepository = new WarehouseRepository(WAREHOUSE_FILE, CSV_DELIMITER);
             var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
+            var unScheduledAppointmentRepository = new ScheduledAppointmentRepository(UNSCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
             var patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
             var accountRepository = new AccountRepository(ACCOUNT_FILE, CSV_DELIMITER);
@@ -93,8 +96,10 @@ namespace zdravstvena_ustanova
             var managerService = new ManagerService(managerRepository, accountRepository);
             var secretaryService = new SecretaryService(secretaryRepository, accountRepository);
             var renovationAppointmentService = new RenovationAppointmentService(renovationAppointmentRepository, roomRepository,
-                storedItemRepository, itemRepository);
-            var ScheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
+                storedItemRepository, itemRepository, scheduledAppointmentRepository, unScheduledAppointmentRepository);
+            var scheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
+                patientRepository, accountRepository);
+            var unScheduledAppointmentService = new ScheduledAppointmentService(unScheduledAppointmentRepository, roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
             var anamnesisService = new AnamnesisService(anamnesisRepository);
@@ -114,7 +119,8 @@ namespace zdravstvena_ustanova
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
             RenovationAppointmentController = new RenovationAppointmentController(renovationAppointmentService);
-            ScheduledAppointmentController = new ScheduledAppointmentController(ScheduledAppointmentService);
+            ScheduledAppointmentController = new ScheduledAppointmentController(scheduledAppointmentService);
+            UnScheduledAppointmentController = new ScheduledAppointmentController(unScheduledAppointmentService);
             AccountController = new AccountController(accountService);
             ManagerController = new ManagerController(managerService);
             SecretaryController = new SecretaryController(secretaryService);

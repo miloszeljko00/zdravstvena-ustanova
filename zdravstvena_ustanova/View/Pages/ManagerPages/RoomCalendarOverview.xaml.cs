@@ -65,6 +65,8 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         #endregion
 
         public Room Room { get; set; }
+        public RoomsCalendarControl RoomsCalendarControl { get; set; }
+        public RenovationAppointment? SelectedRenovationAppointment { get; set; }
 
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
@@ -84,13 +86,30 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             Room = app.RoomController.GetById(roomId);
             InitializeComponent();
             DataContext = this;
-            CalendarContainer.Children.Add(new RoomsCalendarControl(roomId, this));
+            RoomsCalendarControl = new RoomsCalendarControl(roomId, this);
+            CalendarContainer.Children.Add(RoomsCalendarControl);
             infoPanel.Children.Add(new SelectedScheduledAppointmentsListControl(this));
         }
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void ScheduleRenovationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Modal.Content = new ScheduleRenovation(Room, RoomsCalendarControl);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void UnScheduleRenovationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectedRenovationAppointment == null) {
+                MessageBox.Show("Odaberi renoviranje za otkazivanje!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new UnScheduleRenovation(SelectedRenovationAppointment, RoomsCalendarControl);
+            MainWindow.Modal.IsOpen = true;
         }
     }
 }

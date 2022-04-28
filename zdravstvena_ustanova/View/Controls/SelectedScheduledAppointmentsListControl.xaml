@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   
-    <ListView x:Name="selectedDateAppointments" ItemsSource="{Binding Path=ScheduledAppointments}" Width="296" Height="446">
+    <ListView x:Name="selectedDateAppointments" ItemsSource="{Binding Path=ScheduledAppointments}" Width="346" Height="446">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <WrapPanel>
