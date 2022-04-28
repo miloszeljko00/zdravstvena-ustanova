@@ -4,28 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ScheduledAppointmentWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <TabControl TabStripPlacement="Left">
-            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16">
-                <Canvas>
-                    <Label Content="Generals:" Margin="70,35,0,0" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="70,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22" MouseDoubleClick="Button_MouseDoubleClick_AnamnesisDiagnosis"/>
-                    <Label Content="Current diseases:" HorizontalAlignment="Left" Margin="70,213,0,0" VerticalAlignment="Top" Height="37" Width="300"  FontSize="22"/>
-                    <Button Margin="70,258,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
-                    <Label Content="Socio-epidemiological data:" HorizontalAlignment="Left" Margin="530,214,0,0" VerticalAlignment="Top" Height="38" Width="300" FontSize="22"/>
-                    <Button Margin="530,259,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
-                    <Label Content="Family anamnesis:" HorizontalAlignment="Left" Margin="530,35,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="530,80,0,0" Content="Double click to view/change" Background="White"  FontSize="22"/>
-                    <Label Content="Anamnesis conclusion:" HorizontalAlignment="Left" Margin="530,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="530,445,0,0" Content="Double click to view/change" Background="White" FontSize="22" MouseDoubleClick="Button_MouseDoubleClick_AnamnesisConclusion"/>
-                    <Label Content="Earlier diseases:" HorizontalAlignment="Left" Margin="70,410,0,0" VerticalAlignment="Top" Height="37" Width="300" FontSize="22"/>
-                    <Button Margin="70,455,0,0" Content="Double click to view/change" Background="White" FontSize="22"/>
+    <Grid Background="#067c7b">
+        <TabControl TabStripPlacement="Left" Background="#067c7b">
+            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" Background="#067c7b">
+                <Canvas Background="#067c7b">
+                    <Label Content="Diagnosis:" Margin="70,35,0,0" Height="51" Width="300" FontSize="22" Canvas.Top="84" Canvas.Left="-44"/>
+                    <Label Content="Current diseases:" Margin="70,213,0,0" Height="37" Width="300"  FontSize="22" Canvas.Left="-49" Canvas.Top="80"/>
+                    <Label Content="Socio-epidemiological data:" Margin="530,214,0,0" Height="38" Width="300" FontSize="22" Canvas.Left="-12" Canvas.Top="76"/>
+                    <Label Content="Family anamnesis:" Margin="530,35,0,0" Height="37" Width="300" FontSize="22" Canvas.Left="-12" Canvas.Top="82"/>
+                    <Label Content="Anamnesis conclusion:" Margin="530,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Top="51"/>
+                    <Label Content="Earlier diseases:" Margin="70,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Left="-48" Canvas.Top="51"/>
                     <Button Content="Submit" FontSize="18"
-            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-174" Canvas.Top="9" Click="Button_Click_1"/>
+            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-189" Canvas.Top="49" Click="Button_Click_Submit_TabAnamnesis"/>
                     <Button Content="Cancel" FontSize="18"
-            Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-155" Canvas.Top="9"/>
+            Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis"/>
+                    <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox x:Name="AnamnesisConclusionTextBoxInput" TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="512"/>
+                    <Label Content="Anamnesis - Report" FontSize="24" Canvas.Left="262" Canvas.Top="52" Width="316"/>
                 </Canvas>
             </TabItem>
             <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16">
@@ -39,8 +41,9 @@
                             <DataGridTextColumn Binding="{Binding EndDate}" Header="End date" Width="*"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DatePicker HorizontalAlignment="Left" Margin="64,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
-                    <TextBox HorizontalAlignment="Center" Margin="0,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
+                    <DatePicker SelectedDate="{x:Static sys:DateTime.Now}" IsEnabled="False" HorizontalAlignment="Left" Margin="64,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
+
+                    <Label Content="{Binding Username}" HorizontalAlignment="Center" Margin="0,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
                     <Label Content="Date:" HorizontalAlignment="Left" Margin="64,37,0,0" VerticalAlignment="Top" Width="95" FontSize="22"/>
                     <Label Content="Served by:" HorizontalAlignment="Left" Margin="331,37,0,0" VerticalAlignment="Top" Width="112" FontSize="22"/>
                     <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
@@ -197,10 +200,8 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="InsuranceNumber:" HorizontalAlignment="Left" Margin="50,5,0,0" VerticalAlignment="Top" Width="200" Height="35" FontSize="20"/>
-                    <TextBox HorizontalAlignment="Left" Margin="50,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="167" Height="41" FontSize="18"/>
-                    <Label Content="BloodType:" HorizontalAlignment="Left" Margin="60,19,0,0" VerticalAlignment="Top" Width="200" Height="35" FontSize="20" Grid.Row="4" Grid.Column="1"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="60,63,0,0" VerticalAlignment="Top" Width="167" Height="41" FontSize="18" Grid.Row="4" Grid.Column="1">
+                    <Label Content="BloodType:" HorizontalAlignment="Left" Margin="103,42,0,0" VerticalAlignment="Top" Width="200" Height="35" FontSize="20" Grid.Column="1" Grid.Row="4"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="103,86,0,0" VerticalAlignment="Top" Width="167" Height="41" FontSize="18" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
                         <ComboBoxItem Content="AB_NEGATIVE"></ComboBoxItem>
                         <ComboBoxItem Content="AB_POSITIVE"></ComboBoxItem>
                         <ComboBoxItem Content="0_NEGATIVE"></ComboBoxItem>
@@ -210,30 +211,21 @@
                         <ComboBoxItem Content="A_NEGATIVE"></ComboBoxItem>
                         <ComboBoxItem Content="A_POZITIVE"></ComboBoxItem>
                     </ComboBox>
-                    <Label Content="EmploymentStatus:" HorizontalAlignment="Left" Margin="60,16,0,0" VerticalAlignment="Top" Width="200" Height="35" FontSize="20" Grid.Row="5" Grid.Column="1"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="60,56,0,0" VerticalAlignment="Top" Width="167" Height="41" FontSize="18" Grid.Row="5" Grid.Column="1">
-                        <ComboBoxItem Content="EMPLOYED"></ComboBoxItem>
-                        <ComboBoxItem Content="UNEMPLOYED"></ComboBoxItem>
-                        <ComboBoxItem Content="STUDENT"></ComboBoxItem>
-                        <ComboBoxItem Content="PENSIONER"></ComboBoxItem>
-                        <ComboBoxItem Content="CHILD"></ComboBoxItem>
-                    </ComboBox>
-                    <Label Content="Alergens/Alergies:" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Center" Width="200" Height="40" FontSize="20" Grid.Row="3"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,84,177,62" Grid.Row="3" Grid.RowSpan="2"/>
-                    <Label Content="Vaccinations/Imunization:" HorizontalAlignment="Left" Margin="43,71,0,0" VerticalAlignment="Top" Width="239" Height="40" FontSize="20" Grid.Row="4"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,114,177,28" Grid.Row="4" Grid.RowSpan="2"/>
-                    <Label Content="Hospitalization record:" HorizontalAlignment="Left" Margin="60,19,0,0" VerticalAlignment="Top" Width="271" Height="35" FontSize="20" Grid.Column="1"/>
-                    <Button Margin="60,59,90,21" Content="Double click to view/change" Background="White"  FontSize="18" Grid.Column="1"/>
-                    <Label Content="LabAnalysis record:" HorizontalAlignment="Left" Margin="60,19,0,0" VerticalAlignment="Top" Width="271" Height="35" FontSize="20" Grid.Column="1" Grid.Row="1"/>
-                    <Button Margin="60,59,90,20" Content="Double click to view/change" Background="White"  FontSize="18" Grid.Column="1" Grid.Row="1"/>
-                    <Label Content="Earlier diseases:" HorizontalAlignment="Left" Margin="57,7,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20" Grid.Row="2"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,45,177,92" Grid.Row="2" Grid.RowSpan="2"/>
-                    <Label Content="Prescribed Medicines(Therapy):" HorizontalAlignment="Left" Margin="60,20,0,0" VerticalAlignment="Top" Width="290" Height="35" FontSize="20" Grid.Row="2" Grid.Column="1"/>
-                    <Button Margin="60,60,90,21" Content="Double click to view/change" Background="White"  FontSize="18" Grid.Row="2" Grid.Column="1"/>
-                    <Label Content="Anamnesis:" HorizontalAlignment="Left" Margin="60,18,0,0" VerticalAlignment="Top" Width="290" Height="35" FontSize="20" Grid.Row="3" Grid.Column="1"/>
-                    <Button Margin="60,58,90,23" Content="Double click to view/change" Background="White"  FontSize="18" Grid.Row="3" Grid.Column="1"/>
-                    <Label Content="Current diseases:" HorizontalAlignment="Left" Margin="56,105,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20" Grid.RowSpan="2"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,15,177,123" Grid.Row="1" Grid.RowSpan="2"/>
+                    <Label Content="Alergens/Alergies:" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20" Grid.Row="3"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,56,177,90" Grid.Row="3" Grid.RowSpan="2"/>
+                    <Label Content="Vaccinations/Imunization:" HorizontalAlignment="Left" Margin="43,44,0,0" VerticalAlignment="Top" Width="239" Height="40" FontSize="20" Grid.Row="4"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,86,177,56" Grid.Row="4" Grid.RowSpan="2"/>
+                    <Label Content="Hospitalization records:" HorizontalAlignment="Left" Margin="100,76,0,0" VerticalAlignment="Top" Width="271" Height="35" FontSize="20" Grid.Column="1"/>
+                    <Label Content="LabAnalysis records:" HorizontalAlignment="Left" Margin="100,104,0,0" VerticalAlignment="Top" Width="271" Height="35" FontSize="20" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+                    <Label Content="Earlier diseases:" HorizontalAlignment="Left" Margin="57,104,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20" Grid.Row="1" Grid.RowSpan="2"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,17,177,120" Grid.Row="2" Grid.RowSpan="2"/>
+                    <Label Content="Anamnesis:" HorizontalAlignment="Left" Margin="104,13,0,0" VerticalAlignment="Top" Width="290" Height="35" FontSize="20" Grid.Row="3" Grid.Column="1"/>
+                    <Label Content="Current diseases:" HorizontalAlignment="Left" Margin="56,77,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,111,177,27" Grid.RowSpan="2"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="103,109,133,29" Grid.Column="1" Grid.RowSpan="2"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="103,16,133,120" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1"/>
+                    <Label Content="Medical Record" FontSize="24" HorizontalAlignment="Left" Margin="330,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="181"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="103,56,134,81" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -249,6 +241,6 @@
                 Margin="23,624,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Rectangle HorizontalAlignment="Left" Height="1" Stroke="Black" VerticalAlignment="Top" Width="1013" Margin="0,1,0,0"/>
         <Button Content="Final &#x0a;submit" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="23,550,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_2"/>
+            Margin="23,550,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_FinalSubmit"/>
     </Grid>
 </Window>

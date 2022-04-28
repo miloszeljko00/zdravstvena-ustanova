@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using zdravstvena_ustanova.View.Model;
 using Model;
+using zdravstvena_ustanova.View.Pages;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -182,6 +183,19 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 CreateNewAppointment createNewAppointment = new CreateNewAppointment();
                 createNewAppointment.ShowDialog();
             }
+        }
+
+        private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
+        {
+            CreateNewAppointment createNewAppointment = new CreateNewAppointment();
+            createNewAppointment.ShowDialog();
         }
     }
 }
