@@ -134,10 +134,14 @@ namespace zdravstvena_ustanova.View.Controls
 
             if(DeleteItemRadio.IsChecked == true)
             {
+                // TODO validacija pre Create(scheduledItemTransfer)
+                // da se proveri da li je za izabrani item vec zakazano premestanje(u null sobu)
                 app.StoredItemController.ScheduleRemovalFromRoom(storedItem, ItemsForTransfer, scheduleDate);
             }
             else
             {
+                // TODO validacija pre Create(scheduledItemTransfer)
+                // da se proveri da li je za izabrani item vec zakazano premestanje
                 app.StoredItemController.ScheduleTransferFromRoomToWarehouse(storedItem, ItemsForTransfer, scheduleDate);
             }
 
