@@ -38,5 +38,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _healthRecordService.Delete(id);
         }
+
+        public HealthRecord FindHealthRecordByPatient(long patientId)
+        {
+            return _healthRecordService.FindHealthRecordByPatient(patientId);
+        }
     }
 }
