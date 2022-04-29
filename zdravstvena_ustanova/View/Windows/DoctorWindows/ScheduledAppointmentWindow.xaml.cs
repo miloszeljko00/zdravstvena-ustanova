@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model;
+using Model.Enums;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -23,6 +24,22 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     public partial class ScheduledAppointmentWindow : Window, INotifyPropertyChanged
     {
         #region NotifyProperties
+        //private string _doctorsNameSurname;
+        //public string DoctorsNameSurname
+        //{
+        //    get
+        //    {
+        //        return _doctorsNameSurname;
+        //    }
+        //    set
+        //    {
+        //        if(value != _doctorsNameSurname)
+        //        {
+        //            _doctorsNameSurname = value;
+        //            OnPropertyChanged("");
+        //        }
+        //    }
+        //}
         private string _patientName;
         public string PatientName
         {
@@ -40,7 +57,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
-            private string _patientSurname;
+        private string _patientSurname;
         public string PatientSurname
         {
             get
@@ -113,8 +130,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            doctorsName.Content = selectedAppointment.Doctor.Name;
+            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
+
             Anamnesis = new Anamnesis(-1);
-            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>(); 
+            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -129,38 +150,33 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             addMedicineToTherapy.Show();
         }
 
-        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Button_Click_Submit_TabAnamnesis(object sender, RoutedEventArgs e)
         {
-            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Diagnosis");
-            ad.Owner = this;
-            ad.Show();
-            
+            Anamnesis.Diagnosis = new string(AnamnesisDiagnosisTextBoxInput.Text);
+            Anamnesis.Conclusion = new string(AnamnesisConclusionTextBoxInput.Text);
         }
 
-        private void Button_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        private void Button_Click_Cancel_TabAnamnesis(object sender, RoutedEventArgs e)
         {
-            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Conclusion");
-            ad.Owner = this;
-            ad.Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            var app = Application.Current as App;
-
-            Anamnesis = app.AnamnesisController.Create(Anamnesis);
-            Close();
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje Anamneze",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(answer==MessageBoxResult.Yes)
+            {
+                this.AnamnesisConclusionTextBoxInput.Text = "";
+                this.AnamnesisDiagnosisTextBoxInput.Text = "";
+            }
 
             // TODO Sve iz medical examination
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_FinalSubmit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
             foreach(PrescribedMedicine pm in PrescribedMedicine)
             {
                 PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
             }
+            Anamnesis = app.AnamnesisController.Create(Anamnesis);
+            Close();
         }
     }
 }

@@ -106,7 +106,7 @@ namespace zdravstvena_ustanova
                 patientRepository, accountRepository);
             var unScheduledAppointmentService = new ScheduledAppointmentService(unScheduledAppointmentRepository, roomRepository, doctorRepository,
                 patientRepository, accountRepository);
-            var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
+            var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository, roomRepository);
             var anamnesisService = new AnamnesisService(anamnesisRepository);
             var medicationService = new MedicationService(medicationRepository, ingredientRepository);
             var ingredientService = new IngredientService(ingredientRepository);

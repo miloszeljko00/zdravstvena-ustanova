@@ -10,19 +10,22 @@ namespace Service
     public class AccountService
     {
         private readonly AccountRepository _accountRepository;
-        private PatientRepository _patientRepository;
-        private DoctorRepository _doctorRepository;
-        private SecretaryRepository _secretaryRepository;
-        private ManagerRepository _managerRepository;
+        private readonly PatientRepository _patientRepository;
+        private readonly DoctorRepository _doctorRepository;
+        private readonly SecretaryRepository _secretaryRepository;
+        private readonly ManagerRepository _managerRepository;
+        private readonly RoomRepository _roomRepository;
 
-        public AccountService(AccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository, SecretaryRepository secretaryRepository, ManagerRepository managerRepository)
+        public AccountService(AccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository,
+            SecretaryRepository secretaryRepository, ManagerRepository managerRepository, RoomRepository roomRepository)
         {
             _accountRepository = accountsRepository;
             _patientRepository = patientRepository;
             _doctorRepository = doctorRepository;
             _secretaryRepository = secretaryRepository;
             _managerRepository = managerRepository;
-        }
+            _roomRepository = roomRepository;
+    }
 
         public Account Create(Account account)
         {
@@ -85,6 +88,17 @@ namespace Service
 
             return GetById(accountId).Person;
         }
+        private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
+        {
+            rooms.ToList().ForEach(room =>
+            {
+                if (room.Id == doctor.Room.Id)
+                {
+                    doctor.Room = room;
+                    return;
+                }
+            });
+        }
 
         public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
@@ -100,6 +114,8 @@ namespace Service
                     Doctor doctor = FindDoctorById(doctors, account.Person.Id);
                     doctor.Account = account;
                     account.Person = doctor;
+                    var rooms = _roomRepository.GetAll();
+                    BindDoctorWithRoom(rooms, doctor);
                     break;
                 case AccountType.MANAGER:
                     Manager manager = FindManagerById(managers, account.Person.Id);

@@ -35,6 +35,7 @@
     <None Remove="Resources\img\save-icon.png" />
     <None Remove="Resources\img\schedule-icon.png" />
     <None Remove="Resources\img\search-name.png" />
+    <None Remove="Resources\img\slikaUstanove.png" />
     <None Remove="Resources\img\statistic.png" />
     <None Remove="Resources\img\work-time.png" />
     <None Remove="Resources\img\medical-record-icon.png" />
@@ -71,6 +72,7 @@
     <Content Include="Resources\img\search-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\slikaUstanove.png" />
     <Content Include="Resources\img\surveys-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
