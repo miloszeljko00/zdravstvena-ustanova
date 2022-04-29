@@ -65,7 +65,7 @@
         <DataGrid x:Name="dataGridScheduledAppointments"  ItemsSource="{Binding appointmentsWeeklyByHours}" IsReadOnly="True" SelectionUnit="Cell" SelectionMode="Single" 
                   AutoGenerateColumns="False" Margin="10,48,10,0" Height="570" Width="995" Canvas.Top="84" Canvas.Left="-12" Background="#2ac4bd" MinRowHeight="37.5" SelectedCellsChanged="dataGridScheduledAppointments_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="hours" Binding="{Binding  DateOfWeekStart }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="hours" Binding="{Binding  DateOfWeekStart.Hour }" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Monday" Binding="{Binding MondayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tuesday" Binding="{Binding TuesdayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Wednesday" Binding="{Binding WednesdayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>

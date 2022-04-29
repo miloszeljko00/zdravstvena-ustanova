@@ -18,14 +18,23 @@
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <ComboBox HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18"/>
+        <ComboBox x:Name="pComboBox" HorizontalAlignment="Center" SelectedItem="{Binding SelectedPatient}" ItemsSource="{Binding Patients}" Width="160"  Height="30" VerticalAlignment="Top" Margin="0,51,0,0">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Name}"></TextBlock>
+                        <TextBlock Margin="2" Text="{Binding Surname}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label Content="Select patient:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22"/>
         <Label Content="Patient name:" HorizontalAlignment="Left" Margin="120,7,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18"/>
+        <TextBox Text="{Binding SelectedPatient.Name}" HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18"/>
         <Label Content="Patient surname:" HorizontalAlignment="Left" Margin="120,108,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22" Grid.RowSpan="2"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18"/>
+        <TextBox Text="{Binding SelectedPatient.Surname}" HorizontalAlignment="Center" Margin="0,46,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18"/>
         <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.Column="1"/>
-        <ComboBox HorizontalAlignment="Center" Margin="0,46,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" Grid.Column="1">
+        <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Center" Margin="0,46,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" Grid.Column="1">
             <ComboBoxItem Content="8"></ComboBoxItem>
             <ComboBoxItem Content="9"></ComboBoxItem>
             <ComboBoxItem Content="10"></ComboBoxItem>
@@ -41,28 +50,14 @@
             <ComboBoxItem Content="20"></ComboBoxItem>
             <ComboBoxItem Content="21"></ComboBoxItem>
         </ComboBox>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="276,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="276,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="157,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1"/>
         <Label Content="Type of an appointment:" HorizontalAlignment="Left" Margin="105,103,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.RowSpan="2"/>
-        <ComboBox HorizontalAlignment="Center" Text="" VerticalAlignment="Center" Width="160" Grid.Row="3" FontSize="18">
-            <ComboBoxItem Content="8"/>
-            <ComboBoxItem Content="9"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="11"/>
-            <ComboBoxItem Content="12"/>
-            <ComboBoxItem Content="13"/>
-            <ComboBoxItem Content="14"/>
-            <ComboBoxItem Content="15"/>
-            <ComboBoxItem Content="16"/>
-            <ComboBoxItem Content="17"/>
-            <ComboBoxItem Content="18"/>
-            <ComboBoxItem Content="19"/>
-            <ComboBoxItem Content="20"/>
-            <ComboBoxItem Content="21"/>
+        <ComboBox x:Name="typeOfAppointment" HorizontalAlignment="Center" Text="" VerticalAlignment="Center" Width="160" Grid.Row="3" FontSize="18">
         </ComboBox>
-        <ComboBox HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="1"/>
+        <ComboBox x:Name="rComboBox" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" DisplayMemberPath="Name" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="1"/>
         <Label Content="Select room:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22" Grid.Column="1"/>
         <Label Content="Date of an appointment:" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="255" Grid.Row="1" FontSize="22" Grid.Column="1"/>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
+        <DatePicker SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
     </Grid>
 </Window>

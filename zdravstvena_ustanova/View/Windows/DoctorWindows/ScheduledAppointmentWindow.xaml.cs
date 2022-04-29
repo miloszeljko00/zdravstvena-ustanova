@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model;
+using Model.Enums;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -129,8 +130,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            doctorsName.Content = selectedAppointment.Doctor.Name;
+            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
+
             Anamnesis = new Anamnesis(-1);
             PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)

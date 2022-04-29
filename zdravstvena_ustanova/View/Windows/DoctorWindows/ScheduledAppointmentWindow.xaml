@@ -42,8 +42,10 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DatePicker SelectedDate="{x:Static sys:DateTime.Now}" IsEnabled="False" HorizontalAlignment="Left" Margin="64,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
-
-                    <Label Content="{Binding Username}" HorizontalAlignment="Center" Margin="0,76,0,0" VerticalAlignment="Top" Width="180" Height="27" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label HorizontalContentAlignment="Right" x:Name="doctorsName" Content="{Binding Name}" Margin="300,76,0,0" VerticalAlignment="Top" Width="120" Height="30" FontSize="16"/>
+                        <Label HorizontalContentAlignment="Left" x:Name="doctorsSurname" Content="{Binding Surname}" Margin="0,76,0,0" VerticalAlignment="Top" Width="120" Height="30" FontSize="16"/>
+                    </StackPanel>
                     <Label Content="Date:" HorizontalAlignment="Left" Margin="64,37,0,0" VerticalAlignment="Top" Width="95" FontSize="22"/>
                     <Label Content="Served by:" HorizontalAlignment="Left" Margin="331,37,0,0" VerticalAlignment="Top" Width="112" FontSize="22"/>
                     <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
@@ -201,15 +203,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="BloodType:" HorizontalAlignment="Left" Margin="103,42,0,0" VerticalAlignment="Top" Width="200" Height="35" FontSize="20" Grid.Column="1" Grid.Row="4"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="103,86,0,0" VerticalAlignment="Top" Width="167" Height="41" FontSize="18" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
-                        <ComboBoxItem Content="AB_NEGATIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="AB_POSITIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="0_NEGATIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="0_NEGATIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="B_NEGATIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="B_POSITIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="A_NEGATIVE"></ComboBoxItem>
-                        <ComboBoxItem Content="A_POZITIVE"></ComboBoxItem>
+                    <ComboBox x:Name="bloodTypeComboBox" HorizontalAlignment="Left" Margin="103,86,0,0" VerticalAlignment="Top" Width="167" Height="41" FontSize="18" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
                     </ComboBox>
                     <Label Content="Alergens/Alergies:" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top" Width="200" Height="40" FontSize="20" Grid.Row="3"/>
                     <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="57,56,177,90" Grid.Row="3" Grid.RowSpan="2"/>
