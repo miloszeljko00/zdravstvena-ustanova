@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace zdravstvena_ustanova.View.Controls
         public DataGrid RoomItemsDataGrid { get; set; }
         public Item ItemForTransfer { get; set; }
         public Warehouse Warehouse { get; set; }
+        public ObservableCollection<Room> Rooms { get; set; }
 
         #region NotifyProperties
         private int _itemCount;
@@ -104,7 +106,12 @@ namespace zdravstvena_ustanova.View.Controls
             InitializeComponent();
             DataContext = this;
             var app = Application.Current as App;
-
+            Rooms = new ObservableCollection<Room>();
+            var rooms = app.RoomController.GetAll();
+            foreach(var r in rooms)
+            {
+                Rooms.Add(r);
+            }
             StoredItem storedItem = (StoredItem)roomItemsDataGrid.SelectedItem;
             Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
             CurrentRoom = room;
