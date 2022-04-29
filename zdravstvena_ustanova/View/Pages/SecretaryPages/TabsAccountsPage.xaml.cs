@@ -78,7 +78,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             Account account = dataContext as Account;
             if (account != null)
             {
-                _homePagePatients.SecretaryFrame.Content = new SecretaryHealthRecordPage((Patient)account.Person);
+                _homePagePatients.SecretaryFrame.Content = new SecretaryHealthRecordPage((Patient)account.Person, _homePagePatients);
             }
         }
 

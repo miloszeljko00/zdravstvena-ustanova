@@ -36,6 +36,8 @@ namespace zdravstvena_ustanova
         private readonly string MEDICATION_FILE = ProjectPath + "\\Resources\\Data\\Medications.csv";
         private readonly string INGREDIENT_FILE = ProjectPath + "\\Resources\\Data\\Ingredients.csv";
         private readonly string PRESCRIBED_MEDICINE_FILE = ProjectPath + "\\Resources\\Data\\PrescribedMedicine.csv";
+        private readonly string HEALTH_RECORD_FILE = ProjectPath + "\\Resources\\Data\\HealthRecords.csv";
+        private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
 
         public ItemController ItemController { get; set; }
         public StoredItemController StoredItemController { get; set; }
@@ -54,7 +56,9 @@ namespace zdravstvena_ustanova
         public IngredientController IngredientController { get; set; }
         public PrescribedMedicineController PrescribedMedicineController { get; set; }
 
+        public HealthRecordController HealthRecordController { get; set; }
 
+        public AllergensController AllergensController { get; set; }
         public Person LoggedInUser { get; set; }
 
         public Patient Patient { get; set; }
@@ -81,7 +85,8 @@ namespace zdravstvena_ustanova
             var medicationRepository = new MedicationRepository(MEDICATION_FILE, CSV_DELIMITER);
             var ingredientRepository = new IngredientRepository(INGREDIENT_FILE, CSV_DELIMITER);
             var prescribedMedicineRepository = new PrescribedMedicineRepository(PRESCRIBED_MEDICINE_FILE, CSV_DELIMITER);
-
+            var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
+            var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
 
             var itemService = new ItemService(itemRepository);
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -101,12 +106,11 @@ namespace zdravstvena_ustanova
             var medicationService = new MedicationService(medicationRepository, ingredientRepository);
             var ingredientService = new IngredientService(ingredientRepository);
             var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
-
+            var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
+            var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
 
             
             
-
-
             ItemController = new ItemController(itemService);
             StoredItemController = new StoredItemController(storedItemService);
             RoomController = new RoomController(roomService);
@@ -123,7 +127,8 @@ namespace zdravstvena_ustanova
             MedicationController = new MedicationController(medicationService);
             IngredientController = new IngredientController(ingredientService);
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
-
+            AllergensController = new AllergensController(allergenService);
+            HealthRecordController = new HealthRecordController(healthRecordService);
         }
     }
 }

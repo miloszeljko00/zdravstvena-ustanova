@@ -99,7 +99,7 @@ namespace zdravstvena_ustanova.Repository
             string allergens = "";
             for(int i=0;i<healthRecord.Allergens.Count; i++)
             {
-                allergens = string.Join(_delimiter, allergens, healthRecord.PatientDisease[i].Id);
+                allergens = string.Join(_delimiter, allergens, healthRecord.Allergens[i].Id);
             }
 
             string anamnesis = "";
@@ -158,7 +158,7 @@ namespace zdravstvena_ustanova.Repository
                 healthRecord.PatientVaccination.Count,
                 patientVaccinations,
                 healthRecord.Patient.Id
-                );
+                ).Replace(";;", ";");
         }
 
         private void AppendLineToFile(string path, string line)

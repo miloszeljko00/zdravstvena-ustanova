@@ -53,6 +53,13 @@ namespace zdravstvena_ustanova.Service
             _medicationRepository = medicationRepository;
         }
 
+        public HealthRecordService(HealthRecordRepository healthRecordRepository, IngredientRepository ingredientRepository, AllergensRepository allergensRepository)
+        {
+            _healthRecordRepository = healthRecordRepository;
+            _ingredientRepository = ingredientRepository;
+            _allergensRepository = allergensRepository;
+        }
+
         public IEnumerable<HealthRecord> GetAll()
         {
             var healthRecords = _healthRecordRepository.GetAll();
@@ -80,6 +87,16 @@ namespace zdravstvena_ustanova.Service
             BindPatientVaccinationsWithHealthRecords(patientVaccinations, healthRecords, vaccines);
             return healthRecords;
         }
+
+        public IEnumerable<HealthRecord> GetAllOnlyWithAllergens()
+        {
+            var healthRecords = _healthRecordRepository.GetAll();
+            var allergens = _allergensRepository.GetAll();
+            var ingredients = _ingredientRepository.GetAll();
+            BindAllergensWithHealthRecords(allergens, healthRecords, ingredients);
+            return healthRecords;
+        }
+
 
         public HealthRecord GetById(long id)
         {
@@ -382,6 +399,20 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long id)
         {
             return _healthRecordRepository.Delete(id);
+        }
+
+        public HealthRecord FindHealthRecordByPatient(long patientId)
+        {
+            var healthRecords = GetAllOnlyWithAllergens();
+
+            foreach (HealthRecord healthRecord in healthRecords)
+            {
+                if(healthRecord.Patient.Id == patientId)
+                {
+                    return healthRecord;
+                }
+            }
+            return null;
         }
     }
 }
