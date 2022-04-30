@@ -122,6 +122,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             SelectedRoom = ((Doctor)app.LoggedInUser).Room;
             rComboBox.Text = SelectedRoom.Name;
             TimeComboBox.Text = sa.Start.Hour.ToString();
+
         }
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
