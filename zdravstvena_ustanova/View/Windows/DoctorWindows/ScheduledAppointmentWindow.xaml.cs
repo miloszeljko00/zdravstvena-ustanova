@@ -24,22 +24,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     public partial class ScheduledAppointmentWindow : Window, INotifyPropertyChanged
     {
         #region NotifyProperties
-        //private string _doctorsNameSurname;
-        //public string DoctorsNameSurname
-        //{
-        //    get
-        //    {
-        //        return _doctorsNameSurname;
-        //    }
-        //    set
-        //    {
-        //        if(value != _doctorsNameSurname)
-        //        {
-        //            _doctorsNameSurname = value;
-        //            OnPropertyChanged("");
-        //        }
-        //    }
-        //}
         private string _patientName;
         public string PatientName
         {
@@ -91,6 +75,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
+
         private Anamnesis _anamnesis;
         public Anamnesis Anamnesis
         {
@@ -108,8 +93,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
+
         public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
         #endregion
+        public ScheduledAppointment ScheduledAppointment { get; set; }
+        public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
 
 
         #region PropertyChangedNotifier
@@ -132,11 +120,26 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
             doctorsName.Content = selectedAppointment.Doctor.Name;
             doctorsSurname.Content = selectedAppointment.Doctor.Surname;
-
+            ScheduledAppointment = selectedAppointment;
             Anamnesis = new Anamnesis(-1);
             PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
 
+        }
+        public ScheduledAppointmentWindow(ScheduledAppointment selectedAppointment, DoctorHomePageWindow dhpw)
+        {
+            InitializeComponent();
+            DataContext = this;
+            PatientName = selectedAppointment.Patient.Name;
+            PatientSurname = selectedAppointment.Patient.Surname;
+            PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            doctorsName.Content = selectedAppointment.Doctor.Name;
+            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
+            ScheduledAppointment = selectedAppointment;
+            Anamnesis = new Anamnesis(-1);
+            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
+            DoctorHomePageWindow = dhpw;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -177,6 +180,25 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             Anamnesis = app.AnamnesisController.Create(Anamnesis);
             Close();
+        }
+
+        private void Button_Click_Cancel_Appointment(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da otkazete pregled?", "Otkazivanje Pregleda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            { 
+                var app = Application.Current as App;
+                app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
+
+                DoctorHomePageWindow.UpdateCalendar();
+                this.Close();
+            }
+        }
+
+        private void Button_Click_Update_Appointment(object sender, RoutedEventArgs e)
+        {
+            UpdateAppointment ua = new UpdateAppointment(ScheduledAppointment, DoctorHomePageWindow);
+            ua.ShowDialog();
         }
     }
 }
