@@ -54,7 +54,7 @@ namespace Model
             PrescribedMedicine = new List<PrescribedMedicine>();
             PatientDisease = new List<PatientDisease>();
             PatientVaccination = new List<PatientVaccination>();
-            Patient = new Patient(id);
+            Patient = new Patient(patientId);
         }
 
         public HealthRecord(long id, int insuranceNumber, BloodType bloodType, EmploymentStatus employmentStatus,

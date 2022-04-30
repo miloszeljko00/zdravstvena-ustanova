@@ -18,7 +18,13 @@ namespace Model
         public RenovationAppointment()
         {
         }
-
+        public RenovationAppointment(Room room, DateTime startDate, DateTime endDate, string description)
+        {
+            Room = room;
+            StartDate = startDate;
+            EndDate = endDate;
+            Description = description;
+        }
         public RenovationAppointment(long id, Room room, DateTime startDate, DateTime endDate, string description)
         {
             Id = id;

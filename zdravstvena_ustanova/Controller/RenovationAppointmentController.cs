@@ -49,5 +49,20 @@ namespace Controller
         {
             return _renovationAppointmentService.Delete(renovationAppointmentId);
         }
+
+        public RenovationAppointment ScheduleRenovation(RenovationAppointment renovationAppointment)
+        {
+            return _renovationAppointmentService.ScheduleRenovation(renovationAppointment);
+        }
+        public int NumberOfScheduledAppointmentsFromToForRoom(Room room, DateTime from, DateTime to)
+        {
+            return _renovationAppointmentService.NumberOfScheduledAppointmentsFromToForRoom(room, from, to);
+        }
+        public bool HasRenovationFromTo(Room room, DateTime from, DateTime to)
+        {
+            return _renovationAppointmentService.HasRenovationFromTo(room, from, to);
+        }
+
+
     }
 }

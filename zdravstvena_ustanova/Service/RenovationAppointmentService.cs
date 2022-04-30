@@ -15,13 +15,19 @@ namespace Service
         private readonly RoomRepository _roomRepository;
         private readonly StoredItemRepository _itemRoomRepository;
         private readonly ItemRepository _itemRepository;
+        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly ScheduledAppointmentRepository _unScheduledAppointmentRepository;
 
-        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository)
+        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository,
+            StoredItemRepository itemRoomRepository, ItemRepository itemRepository, ScheduledAppointmentRepository scheduledAppointmentRepository,
+            ScheduledAppointmentRepository unScheduledAppointmentRepository)
         {
             _renovationAppointmentRepository = renovationAppointmentRepository;
             _roomRepository = roomRepository;
             _itemRoomRepository = itemRoomRepository;
             _itemRepository = itemRepository;
+            _scheduledAppointmentRepository = scheduledAppointmentRepository;
+            _unScheduledAppointmentRepository = unScheduledAppointmentRepository;
         }
 
         public IEnumerable<RenovationAppointment> GetAll()
@@ -51,6 +57,75 @@ namespace Service
 
             return listOfCorrectAppointments;
         }
+
+        public int NumberOfScheduledAppointmentsFromToForRoom(Room room, DateTime from, DateTime to)
+        {
+            var allScheduledAppointments = _scheduledAppointmentRepository.GetAll();
+
+            List<ScheduledAppointment> scheduledAppointmentsForRequestedRoom = new List<ScheduledAppointment>();
+
+            foreach (var scheduledAppointment in allScheduledAppointments)
+            {
+                if (scheduledAppointment.Room.Id == room.Id)
+                {
+                    if(DatesOverlaping(scheduledAppointment.Start, scheduledAppointment.End, from, to))
+                    {
+                        scheduledAppointmentsForRequestedRoom.Add(scheduledAppointment);
+                    }
+                }
+            }
+            return scheduledAppointmentsForRequestedRoom.Count;
+        }
+
+        public bool HasRenovationFromTo(Room room, DateTime from, DateTime to)
+        {
+            var allRenovationAppointments = GetAll();
+            bool overlap = false;
+
+            foreach (var renovationAppointment in allRenovationAppointments)
+            {
+                if (renovationAppointment.Room.Id == room.Id)
+                {
+                    overlap = DatesOverlaping(renovationAppointment.StartDate, renovationAppointment.EndDate, from, to);
+                    if (overlap) return overlap;
+                }
+            }
+            return overlap;
+        }
+        private bool DatesOverlaping(DateTime aStart, DateTime aEnd, DateTime bStart, DateTime bEnd)
+        {
+            return aStart.CompareTo(bEnd) <= 0 && bStart.CompareTo(aEnd) <= 0;
+        }
+        public RenovationAppointment ScheduleRenovation(RenovationAppointment renovationAppointment)
+        {
+            var allScheduledAppointments = _scheduledAppointmentRepository.GetAll();
+            bool overlap = false;
+            List<ScheduledAppointment> scheduledAppointmentsForRequestedRoom = new List<ScheduledAppointment>();
+
+            foreach (var scheduledAppointment in allScheduledAppointments)
+            {
+                if (scheduledAppointment.Room.Id == renovationAppointment.Room.Id)
+                {
+                    scheduledAppointmentsForRequestedRoom.Add(scheduledAppointment);
+                }
+            }
+
+            foreach (var scheduledAppointment in scheduledAppointmentsForRequestedRoom)
+            {
+                overlap = DatesOverlaping(scheduledAppointment.Start, scheduledAppointment.End,
+                                          renovationAppointment.StartDate, renovationAppointment.EndDate);
+                if (overlap)
+                {
+                    _unScheduledAppointmentRepository.Create(scheduledAppointment);
+                    _scheduledAppointmentRepository.Delete(scheduledAppointment.Id);
+                }
+            }
+
+            renovationAppointment = _renovationAppointmentRepository.Create(renovationAppointment);
+
+            return renovationAppointment;
+        }
+
         public IEnumerable<RenovationAppointment> GetIfContainsDateForRoom(DateTime date, long roomId)
         {
             var listOfAppointments = GetAll();

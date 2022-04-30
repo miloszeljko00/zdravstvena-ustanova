@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
+    <StackPanel Width="346" Height="446">
         <WrapPanel Margin="10,0,10,0">
             <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
             <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.StartDate}"></Label>
