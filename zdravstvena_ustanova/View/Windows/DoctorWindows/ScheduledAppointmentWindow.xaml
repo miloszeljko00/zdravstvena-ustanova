@@ -223,7 +223,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Margin="6,289,860,221" Orientation="Vertical">
+        <StackPanel Margin="6,235,860,275" Orientation="Vertical">
             <Label Content="Name:" Height="40" Width="100" FontSize="20"/>
             <TextBox x:Name="patientName" TextWrapping="Wrap" Text="{Binding PatientName}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
             <Label Content="Surname:" Height="40" Width="100" FontSize="20"/>
@@ -232,9 +232,11 @@
             <TextBox TextWrapping="Wrap" Text="{Binding PatientBirthday}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
         </StackPanel>
         <Button Content="Cancel &#x0a;this appointment" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="23,624,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                Margin="23,653,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Cancel_Appointment"/>
         <Rectangle HorizontalAlignment="Left" Height="1" Stroke="Black" VerticalAlignment="Top" Width="1013" Margin="0,1,0,0"/>
         <Button Content="Final &#x0a;submit" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="23,550,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_FinalSubmit"/>
+            Margin="23,502,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_FinalSubmit"/>
+        <Button Content="Update&#xA;source data" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
+            Margin="23,577,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Update_Appointment" />
     </Grid>
 </Window>

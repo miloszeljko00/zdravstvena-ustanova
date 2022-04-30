@@ -176,7 +176,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
             if (sa != null)
             {
-                ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa);
+                ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa, this);
                 scheduledAppointmentWindow.ShowDialog();
             } else
             {

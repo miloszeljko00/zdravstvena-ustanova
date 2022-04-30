@@ -40,5 +40,9 @@ namespace Model
         {
             Id=id;
         }
+        public Room()
+        {
+
+        }
     }
 }
