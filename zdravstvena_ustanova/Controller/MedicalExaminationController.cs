@@ -37,5 +37,9 @@ namespace zdravstvena_ustanova.Controller
         {
             return _medicalExaminationService.Delete(id);
         }
+        public MedicalExamination FindByScheduledAppointmentId(long id)
+        {
+            return _medicalExaminationService.FindByScheduledAppointmentId(id);
+        }
     }
 }

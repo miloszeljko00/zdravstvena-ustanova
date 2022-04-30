@@ -98,6 +98,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         #endregion
         public ScheduledAppointment ScheduledAppointment { get; set; }
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
+        public MedicalExamination MedicalExamination { get; set; }
 
 
         #region PropertyChangedNotifier
@@ -140,6 +141,22 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
             DoctorHomePageWindow = dhpw;
+            var app = Application.Current as App;
+            MedicalExamination me = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
+            if(me==null)
+            {
+                MedicalExamination = new MedicalExamination();
+                MedicalExamination.ScheduledAppointment = selectedAppointment;
+            }
+            else
+            {
+                MedicalExamination = me;
+                foreach (PrescribedMedicine pe in me.PrescribedMedicine)
+                {
+                    PrescribedMedicine.Add(pe);
+                }
+            }
+          
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -174,11 +191,35 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void Button_Click_FinalSubmit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
+            MedicalExamination.PrescribedMedicine.Clear();
+            
             foreach(PrescribedMedicine pm in PrescribedMedicine)
             {
-                PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
+                if(pm.Id==-1)
+                {
+                    PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
+                    MedicalExamination.PrescribedMedicine.Add(preMed);
+                }
+                else
+                {
+                    app.PrescribedMedicineController.Update(pm);
+                    MedicalExamination.PrescribedMedicine.Add(pm);
+                }
+                
             }
             Anamnesis = app.AnamnesisController.Create(Anamnesis);
+            MedicalExamination.Anamnesis = Anamnesis;
+
+            if(MedicalExamination.Id==-1)
+            {
+                
+                MedicalExamination = app.MedicalExaminationController.Create(MedicalExamination);
+
+            }
+            else
+            {
+                app.MedicalExaminationController.Update(MedicalExamination);
+            }
             Close();
         }
 

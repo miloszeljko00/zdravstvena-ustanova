@@ -32,7 +32,7 @@
             </TabItem>
             <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16">
                 <Grid>
-                    <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell"
+                    <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single"
                   AutoGenerateColumns="False" VerticalAlignment="Top" Margin="0,186,-2,0" Height="562" Width="843">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Medication.Name}" Header="Medicine" Width="*"></DataGridTextColumn>

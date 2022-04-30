@@ -38,5 +38,15 @@ namespace Model
             PrescribedMedicine = prescribedMedicines;
         }
 
+        public MedicalExamination ()
+        {
+            Id = -1;
+            ScheduledAppointment = new ScheduledAppointment(-1);
+            SpecialistRequest = new SpecialistRequest(-1);
+            LabAnalysisRequest = new LabAnalysisRequest(-1);
+            HospitalizationRequest = new HospitalizationRequest(-1);
+            PrescribedMedicine = new List<PrescribedMedicine>();
+        }
+
     }
 }

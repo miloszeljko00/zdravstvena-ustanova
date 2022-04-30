@@ -50,7 +50,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             DateTime ed = (DateTime)endDate.SelectedDate;
             string desc = description.Text;
             var app = Application.Current as App;
-            PrescribedMedicine.Add(new PrescribedMedicine(0, tpd, oh, ed, desc, med));
+            PrescribedMedicine.Add(new PrescribedMedicine(-1, tpd, oh, ed, desc, med));
             this.Close();
 
 
