@@ -1,4 +1,5 @@
 ﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -22,9 +23,20 @@ namespace zdravstvena_ustanova.View
                 }
             }
             time.Text = ScheduledAppointment.Start.Hour + ":00";
+            if(!(DateTime.Compare(ScheduledAppointment.Start.Date,DateTime.Now.Date)<=0 || DateTime.Compare(ScheduledAppointment.Start.Date, DateTime.Now.AddDays(1).Date) == 0))
+            {
+                change.IsEnabled = true;
+                delete.IsEnabled = true;
+            }
+            else
+            {
+                change.IsEnabled = false;
+                delete.IsEnabled = false;
+            }
         }
 
         private void goToChangeAppointment(object sender, RoutedEventArgs e)
+
         {
             this.Close();
             ChangeAppointment ca = new ChangeAppointment(ScheduledAppointment);
