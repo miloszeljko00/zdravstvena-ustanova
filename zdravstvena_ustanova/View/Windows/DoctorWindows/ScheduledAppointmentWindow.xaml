@@ -21,19 +21,19 @@
             Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-189" Canvas.Top="49" Click="Button_Click_Submit_TabAnamnesis"/>
                     <Button Content="Cancel" FontSize="18"
             Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis"/>
-                    <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
+                    <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Diagnosis}" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
                     <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
-                    <TextBox x:Name="AnamnesisConclusionTextBoxInput" TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="512"/>
+                    <TextBox x:Name="AnamnesisConclusionTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Conclusion}" Width="340" Height="110" Canvas.Left="490" Canvas.Top="512"/>
                     <Label Content="Anamnesis - Report" FontSize="24" Canvas.Left="262" Canvas.Top="52" Width="316"/>
                 </Canvas>
             </TabItem>
             <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16">
                 <Grid>
-                    <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single"
-                  AutoGenerateColumns="False" VerticalAlignment="Top" Margin="0,186,-2,0" Height="562" Width="843">
+                    <DataGrid x:Name="dataGridTherapy" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single"
+                  AutoGenerateColumns="False" VerticalAlignment="Top" Margin="0,186,-2,0" Height="562" Width="700" HorizontalAlignment="Left">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Medication.Name}" Header="Medicine" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding TimesPerDay}" Header="Times per day" Width="*"></DataGridTextColumn>
@@ -49,8 +49,8 @@
                     <Label Content="Date:" HorizontalAlignment="Left" Margin="64,37,0,0" VerticalAlignment="Top" Width="95" FontSize="22"/>
                     <Label Content="Served by:" HorizontalAlignment="Left" Margin="331,37,0,0" VerticalAlignment="Top" Width="112" FontSize="22"/>
                     <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="659,43,0,0" VerticalAlignment="Top" Height="77" Width="121" 
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click">
+                Margin="710,180,0,0" VerticalAlignment="Top" Height="77" Width="121" 
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Add_Therapy">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -60,6 +60,34 @@
                             <Label Content="ADD" FontSize="16" Margin="15,5,-15,-5"></Label>
                             <Label Content="add medicine" FontSize="12" Margin="0,32,0,-32"/>
                             <Label Content="to therapy" FontSize="12" Margin="0,46,0,-46"></Label>
+                        </Grid>
+                    </Button>
+                    <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
+                Margin="710,267,0,0" VerticalAlignment="Top" Height="77" Width="121" 
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Edit_Therapy">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                        <Grid>
+                            <Label Content="EDIT" FontSize="16" Margin="15,5,-15,-5"></Label>
+                            <Label Content="edit current" FontSize="12" Margin="0,32,0,-32"/>
+                            <Label Content="medicine" FontSize="12" Margin="0,46,0,-46"></Label>
+                        </Grid>
+                    </Button>
+                    <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
+                Margin="710,355,0,0" VerticalAlignment="Top" Height="77" Width="121" 
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Remove_Therapy">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                        <Grid>
+                            <Label Content="REMOVE" FontSize="16" Margin="15,5,-15,-5"></Label>
+                            <Label Content="selected" FontSize="12" Margin="0,32,0,-32"/>
+                            <Label Content="medicine" FontSize="12" Margin="0,46,0,-46"></Label>
                         </Grid>
                     </Button>
                 </Grid>

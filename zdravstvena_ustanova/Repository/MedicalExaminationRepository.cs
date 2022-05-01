@@ -66,7 +66,7 @@ namespace zdravstvena_ustanova.Repository
                     me.SpecialistRequest = medicalExamination.SpecialistRequest;
                     me.LabAnalysisRequest = medicalExamination.LabAnalysisRequest;
                     me.HospitalizationRequest = medicalExamination.HospitalizationRequest;
-                    me.PrescribedMedicine = me.PrescribedMedicine;
+                    me.PrescribedMedicine = medicalExamination.PrescribedMedicine;
                     WriteLinesToFile(_path, MedicalExaminationsToCSVFormat((List<MedicalExamination>)medicalExaminations));
                     return true;
                 }

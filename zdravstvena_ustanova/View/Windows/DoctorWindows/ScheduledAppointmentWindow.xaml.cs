@@ -131,17 +131,31 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
+            var app = Application.Current as App;
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
             doctorsName.Content = selectedAppointment.Doctor.Name;
             doctorsSurname.Content = selectedAppointment.Doctor.Surname;
             ScheduledAppointment = selectedAppointment;
-            Anamnesis = new Anamnesis(-1);
+            var me1 = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
+            if(me1==null)
+            {
+                Anamnesis = new Anamnesis(-1);
+
+            }
+            else if (me1.Anamnesis==null)
+            {
+                Anamnesis = new Anamnesis(-1);
+            }
+            else
+            {
+                Anamnesis=me1.Anamnesis;
+            }
             PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
             DoctorHomePageWindow = dhpw;
-            var app = Application.Current as App;
+            
             MedicalExamination me = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
             if(me==null)
             {
@@ -158,17 +172,13 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
           
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
-            addMedicineToTherapy.Show();
-        }
+        
 
-        private void TextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
-            addMedicineToTherapy.Show();
-        }
+        //private void TextBox_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
+        //    addMedicineToTherapy.Show();
+        //}
 
         private void Button_Click_Submit_TabAnamnesis(object sender, RoutedEventArgs e)
         {
@@ -181,8 +191,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje Anamneze",MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(answer==MessageBoxResult.Yes)
             {
-                this.AnamnesisConclusionTextBoxInput.Text = "";
-                this.AnamnesisDiagnosisTextBoxInput.Text = "";
+                var app = Application.Current as App;
+                Anamnesis = app.AnamnesisController.GetById(Anamnesis.Id);
             }
 
             // TODO Sve iz medical examination
@@ -207,8 +217,16 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
                 
             }
-            Anamnesis = app.AnamnesisController.Create(Anamnesis);
-            MedicalExamination.Anamnesis = Anamnesis;
+            if (Anamnesis.Id == -1)
+            {
+                Anamnesis = app.AnamnesisController.Create(Anamnesis);
+                MedicalExamination.Anamnesis = Anamnesis;
+            }
+            else
+            {
+                app.AnamnesisController.Update(Anamnesis);
+                MedicalExamination.Anamnesis=Anamnesis;
+            }
 
             if(MedicalExamination.Id==-1)
             {
@@ -218,6 +236,24 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             else
             {
+                var brojac = 0;
+                var count = MedicalExamination.PrescribedMedicine.Count();
+                var me = app.MedicalExaminationController.GetById(MedicalExamination.Id);
+                foreach(PrescribedMedicine pmFromDataBase in me.PrescribedMedicine)
+                {
+                    foreach(PrescribedMedicine pmFromProperty in MedicalExamination.PrescribedMedicine)
+                    {
+                        if(pmFromProperty.Id == pmFromDataBase.Id)
+                        {
+                            break;
+                        }
+                        if(brojac == count)
+                        {
+                            app.PrescribedMedicineController.Delete(pmFromDataBase.Id);
+                        }
+                        brojac++;
+                    }
+                }
                 app.MedicalExaminationController.Update(MedicalExamination);
             }
             Close();
@@ -235,11 +271,27 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 this.Close();
             }
         }
+        private void Button_Click_Add_Therapy(object sender, RoutedEventArgs e)
+        {
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
+            addMedicineToTherapy.Show();
+        }
 
         private void Button_Click_Update_Appointment(object sender, RoutedEventArgs e)
         {
             UpdateAppointment ua = new UpdateAppointment(ScheduledAppointment, DoctorHomePageWindow);
             ua.ShowDialog();
+        }
+
+        private void Button_Click_Edit_Therapy(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Remove_Therapy(object sender, RoutedEventArgs e)
+        {
+            PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
+            PrescribedMedicine.Remove(pm);
         }
     }
 }
