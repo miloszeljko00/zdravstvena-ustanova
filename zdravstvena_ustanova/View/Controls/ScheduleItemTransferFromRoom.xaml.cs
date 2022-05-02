@@ -161,13 +161,20 @@ namespace zdravstvena_ustanova.View.Controls
 
                 scheduledItemTransfer =
                     new ScheduledItemTransfer(ItemForTransfer, ItemsForTransfer, CurrentRoom, Warehouse, (DateTime)TransferDate);
+
+                
             }
 
             var app = Application.Current as App;
 
-            // TODO validacija pre Create(scheduledItemTransfer)
-            // da se proveri da li je za izabrani item vec zakazano premestanje
-            app.ScheduledItemTransferController.ScheduleItemTransferFromRoomToWarehouse(scheduledItemTransfer);
+            var sit = app.ScheduledItemTransferController.ScheduleItemTransferFromRoom(scheduledItemTransfer);
+
+            if (sit is null)
+            {
+                int count = app.ScheduledItemTransferController.GetItemUnderTransferCountForRoom(scheduledItemTransfer);
+                MessageBox.Show("Postoji već zakazano premeštanje za " + count + " datih predmeta!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;

@@ -47,6 +47,18 @@ namespace Model
             SourceRoom = sourceRoom;
             DestinationRoom = destinationRoom;
         }
+        public ScheduledItemTransfer(Item item, int itemsForTransfer, Room sourceRoom,
+           DateTime transferDate)
+        {
+            Item = item;
+            ItemsForTransfer = itemsForTransfer;
+            TransferDate = transferDate;
+
+            SourceStorageType = StorageType.ROOM;
+            DestinationStorageType = StorageType.VOID;
+
+            SourceRoom = sourceRoom;
+        }
         public ScheduledItemTransfer(long id, Item item, int itemsForTransfer, Warehouse sourceWarehouse,
            Room destinationRoom, DateTime transferDate)
         {
@@ -113,10 +125,10 @@ namespace Model
             DestinationStorageType = destinationStorageType;
 
             if (SourceStorageType == StorageType.ROOM) SourceRoom = new Room(sourceStorageId);
-            else SourceWarehouse = new Warehouse(sourceStorageId);
+            else if(SourceStorageType == StorageType.WAREHOUSE) SourceWarehouse = new Warehouse(sourceStorageId);
 
             if (DestinationStorageType == StorageType.ROOM) DestinationRoom = new Room(destinationStorageId);
-            else DestinationWarehouse = new Warehouse(destinationStorageId);
+            else if (DestinationStorageType == StorageType.WAREHOUSE) DestinationWarehouse = new Warehouse(destinationStorageId);
         }
         public ScheduledItemTransfer(long itemId, int itemsForTransfer, StorageType sourceStorageType, long sourceStorageId,
            StorageType destinationStorageType, long destinationStorageId, DateTime transferDate)
@@ -129,10 +141,10 @@ namespace Model
             DestinationStorageType = destinationStorageType;
 
             if (SourceStorageType == StorageType.ROOM) SourceRoom = new Room(sourceStorageId);
-            else SourceWarehouse = new Warehouse(sourceStorageId);
+            else if (SourceStorageType == StorageType.WAREHOUSE)  SourceWarehouse = new Warehouse(sourceStorageId);
 
             if (DestinationStorageType == StorageType.ROOM) DestinationRoom = new Room(destinationStorageId);
-            else DestinationWarehouse = new Warehouse(destinationStorageId);
+            else if (SourceStorageType == StorageType.WAREHOUSE)  DestinationWarehouse = new Warehouse(destinationStorageId);
         }
     }
 }

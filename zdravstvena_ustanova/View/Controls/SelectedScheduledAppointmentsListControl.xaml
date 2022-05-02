@@ -11,10 +11,8 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <WrapPanel>
-                    <TextBlock Text="{Binding Start.Hour}" FontWeight="Bold" />
-                    <TextBlock Text=":" />
-                    <TextBlock Text="{Binding Start.Minute}" FontWeight="Bold" />
-                    <TextBlock Text="h   Doktor: " />
+                    <TextBlock Text="{Binding Start, StringFormat=\{0:HH:mm\}}" FontWeight="Bold" />
+                    <TextBlock Text="   Doktor: " />
                     <TextBlock Text="{Binding Doctor.Name}" FontWeight="Bold" />
                     <TextBlock Text=" " FontWeight="Bold" />
                     <TextBlock Text="{Binding Doctor.Surname}" FontWeight="Bold" />

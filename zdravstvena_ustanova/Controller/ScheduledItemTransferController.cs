@@ -37,9 +37,14 @@ namespace zdravstvena_ustanova.Controller
             _scheduledItemTransferService.Delete(scheduledItemTransferId);
         }
 
-        public void ScheduleItemTransferFromRoomToWarehouse(ScheduledItemTransfer scheduledItemTransfer)
+        public ScheduledItemTransfer ScheduleItemTransferFromRoom(ScheduledItemTransfer scheduledItemTransfer)
         {
-            _scheduledItemTransferService.ScheduleItemTransferFromRoomToWarehouse(scheduledItemTransfer);
+            return _scheduledItemTransferService.ScheduleItemTransferFromRoom(scheduledItemTransfer);
+        }
+
+        public int GetItemUnderTransferCountForRoom(ScheduledItemTransfer scheduledItemTransfer)
+        {
+            return _scheduledItemTransferService.GetItemUnderTransferCountForRoom(scheduledItemTransfer);
         }
     }
 }

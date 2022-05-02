@@ -9,11 +9,11 @@
     <StackPanel Width="346" Height="446">
         <WrapPanel Margin="10,0,10,0">
             <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
-            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.StartDate}"></Label>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.StartDate, StringFormat=\{0:dd.MM.yyyy\}}"></Label>
         </WrapPanel>
         <WrapPanel Margin="10,0,10,0">
             <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Do:"></Label>
-            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.EndDate}"></Label>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="180" Content="{Binding RenovationAppointment.EndDate, StringFormat=\{0:dd.MM.yyyy\}}"></Label>
         </WrapPanel>
         <StackPanel Margin="10,0,10,0">
             <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Razlog renoviranja:"></Label>

@@ -102,11 +102,13 @@ namespace Repository
             StorageType sourceStorageType = scheduledItemTransfer.SourceStorageType;
             StorageType destinationStorageType = scheduledItemTransfer.DestinationStorageType;
 
-            long sourceStorageId = sourceStorageType == StorageType.ROOM ?
-                scheduledItemTransfer.SourceRoom.Id : scheduledItemTransfer.SourceWarehouse.Id;
+            long sourceStorageId = -1;
+            if (sourceStorageType == StorageType.ROOM) sourceStorageId = scheduledItemTransfer.SourceRoom.Id;
+            else if(sourceStorageType == StorageType.WAREHOUSE) sourceStorageId = scheduledItemTransfer.SourceWarehouse.Id;
 
-            long destinationStorageId = destinationStorageType == StorageType.ROOM ?
-                scheduledItemTransfer.DestinationRoom.Id : scheduledItemTransfer.DestinationWarehouse.Id;
+            long destinationStorageId = -1;
+            if (destinationStorageType == StorageType.ROOM) destinationStorageId = scheduledItemTransfer.DestinationRoom.Id;
+            else if(destinationStorageType == StorageType.WAREHOUSE) destinationStorageId = scheduledItemTransfer.DestinationWarehouse.Id;
 
             return string.Join(_delimiter, 
                 scheduledItemTransfer.Id,
@@ -137,7 +139,7 @@ namespace Repository
             var timeFormat = "dd.MM.yyyy.";
             DateTime transferDate;
 
-            DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
+            DateTime.TryParseExact(tokens[7], timeFormat, CultureInfo.InvariantCulture
                                                 , DateTimeStyles.None
                                                 , out transferDate);
 

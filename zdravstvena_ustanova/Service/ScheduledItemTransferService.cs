@@ -42,9 +42,64 @@ namespace Service
             return scheduledItemTransfers;
         }
 
-        public void ScheduleItemTransferFromRoomToWarehouse(ScheduledItemTransfer scheduledItemTransfer)
+        public int GetItemUnderTransferCountForRoom(ScheduledItemTransfer scheduledItemTransfer)
         {
-            throw new NotImplementedException();
+            var sourceRoomScheduledItemTransfers = GetBySourceRoomId(scheduledItemTransfer.SourceRoom.Id);
+            int numberOfItemsUnderTransport = 0;
+
+            foreach (var sit in sourceRoomScheduledItemTransfers)
+            {
+                if (sit.Item.Id == scheduledItemTransfer.Item.Id)
+                {
+                    numberOfItemsUnderTransport += sit.ItemsForTransfer;
+                }
+            }
+            return numberOfItemsUnderTransport;
+        }
+        private int GetNumberOfItemsInSourceRoom(ScheduledItemTransfer scheduledItemTransfer)
+        {
+            var storedItemsInSourceRoom = scheduledItemTransfer.SourceRoom.StoredItems;
+            int itemCount = 0;
+            foreach (var storedItem in storedItemsInSourceRoom)
+            {
+                if (storedItem.Id == scheduledItemTransfer.Item.Id)
+                {
+                    itemCount = storedItem.Quantity;
+                    break;
+                }
+            }
+            return itemCount;
+        }
+
+        public ScheduledItemTransfer ScheduleItemTransferFromRoom(ScheduledItemTransfer scheduledItemTransfer)
+        {
+            int alreadyUnderTransfer = GetItemUnderTransferCountForRoom(scheduledItemTransfer);
+            int numberOfItemsInSourceRoom = GetNumberOfItemsInSourceRoom(scheduledItemTransfer);
+
+            if(alreadyUnderTransfer + scheduledItemTransfer.ItemsForTransfer > numberOfItemsInSourceRoom)
+            {
+                return null;
+            }
+
+            scheduledItemTransfer = Create(scheduledItemTransfer);
+            return scheduledItemTransfer;
+        }
+
+        private IEnumerable<ScheduledItemTransfer> GetBySourceRoomId(long id)
+        {
+            var scheduledItemTransfers = GetAll();
+            List<ScheduledItemTransfer> sourceRoomScheduledItemTransfers = new List<ScheduledItemTransfer>();
+            foreach (var scheduledItemTransfer in scheduledItemTransfers)
+            {
+                if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+                {
+                    if (scheduledItemTransfer.SourceRoom.Id == id)
+                    {
+                        sourceRoomScheduledItemTransfers.Add(scheduledItemTransfer);
+                    }
+                }
+            }
+            return sourceRoomScheduledItemTransfers;
         }
 
         public ScheduledItemTransfer GetById(long id)
@@ -78,7 +133,7 @@ namespace Service
             {
                 scheduledItemTransfer.SourceRoom = FindRoomById(rooms, scheduledItemTransfer.SourceRoom.Id);
             }
-            else
+            else if(scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
             {
                 scheduledItemTransfer.SourceWarehouse = FindWarehouseById(warehouses, scheduledItemTransfer.SourceWarehouse.Id);
             }
@@ -87,7 +142,7 @@ namespace Service
             {
                 scheduledItemTransfer.DestinationRoom = FindRoomById(rooms, scheduledItemTransfer.DestinationRoom.Id);
             }
-            else
+            else if(scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
             {
                 scheduledItemTransfer.DestinationWarehouse = FindWarehouseById(warehouses, scheduledItemTransfer.DestinationWarehouse.Id);
             }
@@ -102,7 +157,7 @@ namespace Service
                         storedItem.Room = FindRoomById(rooms, storedItem.Room.Id);
                         storedItem.Room.StoredItems.Add(storedItem);
                     }
-                    else
+                    else if(storedItem.StorageType == StorageType.WAREHOUSE)
                     {
                         storedItem.Warehouse = FindWarehouseById(warehouses, storedItem.Warehouse.Id);
                         storedItem.Warehouse.StoredItems.Add(storedItem);

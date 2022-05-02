@@ -23,6 +23,8 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         public ManagerMainPage()
         {
             InitializeComponent();
+            AccountsDropDown.Visibility = Visibility.Hidden;
+            ReportsDropDown.Visibility = Visibility.Hidden;
         }
 
 
@@ -67,6 +69,63 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
 
             ManagerMain.Content = new WarehouseInventoryOverviewPage();
+        }
+
+        private void reportsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(ReportsDropDown.Visibility == Visibility.Hidden)
+            {
+                ReportsDropDown.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ReportsDropDown.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void accountButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AccountsDropDown.Visibility == Visibility.Hidden)
+            {
+                AccountsDropDown.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AccountsDropDown.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void ItemTransferReportsButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            ReportsDropDown.Visibility = Visibility.Hidden;
+
+            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
+            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+
+            ManagerMain.Content = new ItemTransferReportsPage();
+        }
+
+        private void RenovationReportsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReportsDropDown.Visibility = Visibility.Hidden;
+
+            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
+            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+
+            ManagerMain.Content = new RenovationReportsPage();
         }
     }
 }

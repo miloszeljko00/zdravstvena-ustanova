@@ -1,0 +1,48 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.ItemTransferReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      mc:Ignorable="d"
+      d:DesignHeight="640" d:DesignWidth="1280"
+      Title="ItemTransferReportsPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="128"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
+            <Label FontSize="40" Margin="15,0,0,0" Width="300" Content="Premeštanja"></Label>
+            <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="195,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center">
+                <TextBox.Background>
+                    <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
+                </TextBox.Background>
+
+            </TextBox>
+            <Button x:Name="RescheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Content="Izaberi novi datum" Cursor="Hand" Click="RescheduleNewDateButton_Click"></Button>
+            
+            <Button x:Name="UnscheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Cursor="Hand" Click="UnscheduleNewDateButton_Click">
+                <WrapPanel HorizontalAlignment="Center">
+                    <Image Source="/Resources/img/delete-icon.png" Width="24" Height="24" Margin="-5,0,0,0"></Image>
+                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0">Otkaži</TextBlock>
+                </WrapPanel>
+            </Button>
+
+
+
+        </StackPanel>
+        <DataGrid x:Name="roomItemsDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Predmet" Binding="{Binding ScheduledItemTransfer.Item.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Količina" Binding="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Iz prostorije" Binding="{Binding SourceStorageName}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="U prostoriju" Binding="{Binding DestinationStorageName}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum zakazanog premeštanja" Binding="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
