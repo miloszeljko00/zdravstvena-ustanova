@@ -181,8 +181,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             } else
             {
                 CreateNewAppointment createNewAppointment = new CreateNewAppointment(this);
-                createNewAppointment.ShowDialog();
             }
+            dataGridScheduledAppointments.SelectedCells.Clear();
         }
 
         private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
