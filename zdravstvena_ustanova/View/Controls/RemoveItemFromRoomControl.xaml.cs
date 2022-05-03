@@ -132,15 +132,24 @@ namespace zdravstvena_ustanova.View.Controls
             StoredItem storedItem = (StoredItem)RoomItemsDataGrid.SelectedItem;
             DateTime scheduleDate = (DateTime)ScheduleDatePicker.SelectedDate;
 
-            if(DeleteItemRadio.IsChecked == true)
+            ScheduledItemTransfer scheduledItemTransfer;
+            if (DeleteItemRadio.IsChecked == true)
             {
-                app.StoredItemController.ScheduleRemovalFromRoom(storedItem, ItemsForTransfer, scheduleDate);
+                scheduledItemTransfer = new ScheduledItemTransfer(storedItem.Item, ItemsForTransfer, Room, scheduleDate);
             }
             else
             {
-                app.StoredItemController.ScheduleTransferFromRoomToWarehouse(storedItem, ItemsForTransfer, scheduleDate);
+                scheduledItemTransfer = new ScheduledItemTransfer(storedItem.Item, ItemsForTransfer, Room, Warehouse, scheduleDate);
             }
 
+            var sit = app.ScheduledItemTransferController.ScheduleItemTransferFromRoom(scheduledItemTransfer);
+
+            if (sit is null)
+            {
+                int count = app.ScheduledItemTransferController.GetItemUnderTransferCountForRoom(scheduledItemTransfer);
+                MessageBox.Show("Postoji već zakazano premeštanje za " + count + " datih predmeta!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             CollectionViewSource.GetDefaultView(RoomItemsDataGrid.ItemsSource).Refresh();
 
             MainWindow.Modal.IsOpen = false;

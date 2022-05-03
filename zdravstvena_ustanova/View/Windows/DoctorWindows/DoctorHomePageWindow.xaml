@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
         mc:Ignorable="d"
-        Title="ZDRAVO" Height="720" Width="1280" WindowStyle="SingleBorderWindow" SizeToContent="Manual" Background="#99ff33" WindowStartupLocation="CenterScreen">
+        Title="ZDRAVO" Height="720" Width="1280" WindowStyle="SingleBorderWindow" SizeToContent="Manual" Background="#067c7b" WindowStartupLocation="CenterScreen">
     <Canvas>
-        <Menu Margin="0,0,129,77" Background="#ff9933">
+        <Menu Margin="0,0,129,77" Background="#2ac4bd">
             <MenuItem Header="LOCATIONS">
                 <MenuItem Header="Serbia">
                     <MenuItem Header="Beograd"></MenuItem>
@@ -35,26 +35,27 @@
             </MenuItem>
             <MenuItem Header="PROFILE DATA">
             </MenuItem>
-            <MenuItem Header="LOGOUT">
+            <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout">
             </MenuItem>
         </Menu>
+        <Image Source="\Resources\img\logo.png" Height="100" Width="100" Canvas.Left="1119" Canvas.Top="580"/>
         <Label Content="Welcome to your home page - " Margin="27,52,0,0" Width="324" FontSize="22" Canvas.Top="-21"/>
         <Label Content="{Binding Username}" Margin="351,52,0,0" Width="270" FontSize="22" Height="39" Canvas.Left="-11" Canvas.Top="-21"/>
-        <Button FontSize="20" Canvas.Top="310" Content="Make an appointment" Canvas.Left="1020" Height="60" Background="#ff9933">
+        <Button FontSize="20" Canvas.Top="310" Content="Medical supply inventory" Canvas.Left="1020" Height="60" Background="#2ac4bd">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button FontSize="20" Canvas.Top="439" Content="Make an appointment" Canvas.Left="1020" Height="60" Background="#ff9933">
+        <Button FontSize="20" Canvas.Top="439" Content="Print your schedule" Canvas.Left="1020" Height="60" Background="#2ac4bd" Width="225">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button FontSize="20" Canvas.Top="186" Content="Appointment review" Canvas.Left="1020" Height="60" Background="#ff9933" Click="Button_Click">
+        <Button FontSize="20" Canvas.Top="186" Content="Make an appointment" Canvas.Left="1020" Height="60" Background="#2ac4bd" Width="225" Click="Button_Click_Make_An_Appointment">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -62,9 +63,9 @@
             </Button.Resources>
         </Button>
         <DataGrid x:Name="dataGridScheduledAppointments"  ItemsSource="{Binding appointmentsWeeklyByHours}" IsReadOnly="True" SelectionUnit="Cell" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Margin="10,48,10,0" Height="570" Width="995" Canvas.Top="84" Canvas.Left="-12" Background="#ff9933" MinRowHeight="37.5" SelectedCellsChanged="dataGridScheduledAppointments_SelectionChanged">
+                  AutoGenerateColumns="False" Margin="10,48,10,0" Height="570" Width="995" Canvas.Top="84" Canvas.Left="-12" Background="#2ac4bd" MinRowHeight="37.5" SelectedCellsChanged="dataGridScheduledAppointments_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="hours" Binding="{Binding  DateOfWeekStart }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="hours" Binding="{Binding  DateOfWeekStart.Hour }" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Monday" Binding="{Binding MondayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tuesday" Binding="{Binding TuesdayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Wednesday" Binding="{Binding WednesdayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>

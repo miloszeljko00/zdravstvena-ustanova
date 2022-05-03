@@ -55,5 +55,9 @@ namespace Model
         {
             Id = id;
         }
+        public Person()
+        {
+
+        }
     }
 }

@@ -103,5 +103,16 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             MainWindow.Modal.Content = new RemoveItemFromWarehouse(WarehouseItemsDataGrid, StoredItems, Warehouse);
             MainWindow.Modal.IsOpen = true;
         }
+
+        private void ScheduleItemTransferButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WarehouseItemsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new ScheduleItemTransferFromWarehouse(Warehouse, WarehouseItemsDataGrid);
+            MainWindow.Modal.IsOpen = true;
+        }
     }
 }

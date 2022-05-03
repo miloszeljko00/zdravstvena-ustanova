@@ -73,9 +73,21 @@ namespace zdravstvena_ustanova.View
         private void createAppointment(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
-            string dat = (string)list1.SelectedItem;
-            DateTime date = Convert.ToDateTime(dat);
-            DateTime startDate = date;
+            string dat;
+            DateTime date;
+            DateTime startDate;
+            if (timeCmbBox.SelectedItem == null)
+            {
+                dat = (string)list1.SelectedItem;
+                date = Convert.ToDateTime(dat);
+                startDate = date;
+            }
+            else
+            {
+                dat = ((DateTime)datePicker.SelectedDate).ToString("dd.MM.yyyy.") + " " + (string)timeCmbBox.Text;
+                date = Convert.ToDateTime(dat);
+                startDate = date;
+            }
             DateTime endDate = date.AddHours(1);
             long docId = 0;
             long docRoom = 0;
@@ -121,9 +133,65 @@ namespace zdravstvena_ustanova.View
             Ok.IsEnabled = false;
         }
 
-        private void chosen(object sender, SelectionChangedEventArgs e)
+        private void selectedDate(object sender, SelectionChangedEventArgs e)
+        {
+            timeCmbBox.SelectedItem = null;
+            Ok.IsEnabled = false;
+            timeCmbBox.IsEnabled = true;
+            string[] time = {"07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+                                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" };
+            List<string> times = new List<string>();
+            foreach (string s in time)
+            {
+                times.Add(s);
+            }
+            var app = Application.Current as App;
+            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            DateTime dat = (DateTime)datePicker.SelectedDate;
+            if(DateTime.Compare(dat.Date, DateTime.Now.Date) < 0)
+            {
+                timeCmbBox.IsEnabled = false;
+                return;
+            }
+            foreach (ScheduledAppointment sapp in sa)
+            {
+                if (app.LoggedInUser.Id == sapp.Patient.Id)
+                {
+                    continue;
+                }
+                if (sapp.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
+                {
+                    times.Remove(sapp.Start.ToString("HH:mm"));
+                }
+            }
+            foreach (ScheduledAppointment sapp in sa)
+            {
+                if (app.LoggedInUser.Id == sapp.Patient.Id && sapp.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
+                {
+                    timeCmbBox.IsEnabled = false;
+                }
+            }
+
+            timeCmbBox.ItemsSource = times;
+        }
+
+        private void selectedTime(object sender, SelectionChangedEventArgs e)
         {
             Ok.IsEnabled = true;
+        }
+
+        private void chosenItem(object sender, SelectionChangedEventArgs e)
+        {
+            Ok.IsEnabled = true;
+            if (list1.SelectedItem != null)
+            {
+                timeCmbBox.SelectedItem = null;
+            }
+        }
+
+        private void chosenDate(object sender, EventArgs e)
+        {
+            list1.SelectedItem = null;
         }
     }
 }

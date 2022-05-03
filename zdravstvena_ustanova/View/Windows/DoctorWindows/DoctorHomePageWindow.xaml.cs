@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using zdravstvena_ustanova.View.Model;
 using Model;
+using zdravstvena_ustanova.View.Pages;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -61,21 +62,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             DataContext = this;
             var app = Application.Current as App;
             Username = app.LoggedInUser.Name;
+            UpdateCalendar();
+        }
 
-            //AppointmentsWeeklyByHour proba1 = new AppointmentsWeeklyByHour();
-            //List<ScheduledAppointment> proba2 = (List<ScheduledAppointment>)app.ScheduledAppointmentController.GetAll();
-            //proba1.DateOfWeekStart = proba2.First().Start;
-            //proba1.MondayAppointment = proba2.First();
-            //proba2.Remove(proba2.First());
-            //proba1.TuesdayAppointment = proba2.First();
-            //proba2.Remove(proba2.First());
-            //proba1.WednesdayAppointment = proba2.First();
-            //proba2.Remove(proba2.First());
-            //proba1.ThursdayAppointment = proba2.First();
-            //proba2.Remove(proba2.First());
-            //appointmentsWeeklyByHours = new ObservableCollection<AppointmentsWeeklyByHour>();
-            //appointmentsWeeklyByHours.Add(proba1);
-
+        public void UpdateCalendar()
+        {
+            var app = Application.Current as App;
             DateTime todayDate = DateTime.Now;
             DateTime date;
             date = new DateTime(todayDate.Year, todayDate.Month, todayDate.Day, 8, 0, 0);
@@ -85,71 +77,80 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             else
             {
-                date = date.AddDays(1 -(int)todayDate.DayOfWeek);
+                date = date.AddDays(1 - (int)todayDate.DayOfWeek);
             }
-            appointmentsWeeklyByHours = new ObservableCollection<AppointmentsWeeklyByHour>();
-            dataGridScheduledAppointments.ItemsSource = appointmentsWeeklyByHours;
-            appointmentsWeeklyByHours.Add(new AppointmentsWeeklyByHour(date));
-            for(int i = 1;i<14;i++)
-            {
-                appointmentsWeeklyByHours.Add(new AppointmentsWeeklyByHour(new DateTime(date.Year,date.Month,date.Day,date.Hour+i,0,0)));
-            }
-            DateTime endDateOfWeek = new DateTime(date.Year, date.Month, date.Day, 21, 0, 0);
-            endDateOfWeek = endDateOfWeek.AddDays(6);
-            var scheduledAppointments = app.ScheduledAppointmentController.GetFromToDates(date, endDateOfWeek);
-
-            foreach(ScheduledAppointment sa in scheduledAppointments)
-            {
-                foreach(AppointmentsWeeklyByHour awbh in appointmentsWeeklyByHours)
+                appointmentsWeeklyByHours = new ObservableCollection<AppointmentsWeeklyByHour>();
+                dataGridScheduledAppointments.ItemsSource = appointmentsWeeklyByHours;
+                appointmentsWeeklyByHours.Add(new AppointmentsWeeklyByHour(date));
+                for (int i = 1; i < 14; i++)
                 {
-                    if(sa.Start.Hour==awbh.DateOfWeekStart.Hour)
+                    appointmentsWeeklyByHours.Add(new AppointmentsWeeklyByHour(new DateTime(date.Year, date.Month, date.Day, date.Hour + i, 0, 0)));
+                }
+                DateTime endDateOfWeek = new DateTime(date.Year, date.Month, date.Day, 21, 0, 0);
+                endDateOfWeek = endDateOfWeek.AddDays(6);
+                var scheduledAppointments = new List<ScheduledAppointment>();
+                var scheduledAppointmentsFromTo = app.ScheduledAppointmentController.GetFromToDates(date, endDateOfWeek);
+
+
+                foreach (ScheduledAppointment sa in scheduledAppointmentsFromTo)
+                {
+                    if (sa.Doctor.Id == app.LoggedInUser.Id)
                     {
-                        if(sa.Start.Day==awbh.DateOfWeekStart.Day)
+                        scheduledAppointments.Add(sa);
+                    }
+                }
+
+                foreach (ScheduledAppointment sa in scheduledAppointments)
+                {
+                    foreach (AppointmentsWeeklyByHour awbh in appointmentsWeeklyByHours)
+                    {
+                        if (sa.Start.Hour == awbh.DateOfWeekStart.Hour)
                         {
-                            awbh.MondayAppointment = sa;
-                        } else if (sa.Start.Day==awbh.DateOfWeekStart.Day+1)
-                        {
-                            awbh.TuesdayAppointment = sa;
-                        }
-                        else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 2)
-                        {
-                            awbh.WednesdayAppointment = sa;
-                        }
-                        else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 3)
-                        {
-                            awbh.ThursdayAppointment = sa;
-                        }
-                        else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 4)
-                        {
-                            awbh.FridayAppointment = sa;
-                        }
-                        else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 5)
-                        {
-                            awbh.SaturdayAppointment = sa;
-                        }
-                        else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 6)
-                        {
-                            awbh.SundayAppointment = sa;
+                            if (sa.Start.Day == awbh.DateOfWeekStart.Day)
+                            {
+                                awbh.MondayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 1)
+                            {
+                                awbh.TuesdayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 2)
+                            {
+                                awbh.WednesdayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 3)
+                            {
+                                awbh.ThursdayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 4)
+                            {
+                                awbh.FridayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 5)
+                            {
+                                awbh.SaturdayAppointment = sa;
+                            }
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 6)
+                            {
+                                awbh.SundayAppointment = sa;
+                            }
                         }
                     }
                 }
-            }
-            CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
+                CollectionViewSource.GetDefaultView(dataGridScheduledAppointments.ItemsSource).Refresh();
+            
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void dataGridScheduledAppointments_SelectionChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            if (dataGridScheduledAppointments.SelectedCells.Count == 0) return;
             var selectedCellIndex = (int)dataGridScheduledAppointments.SelectedCells[0].Column.DisplayIndex;
             AppointmentsWeeklyByHour awbh = (AppointmentsWeeklyByHour)dataGridScheduledAppointments.SelectedCells[0].Item;
             ScheduledAppointment sa = null;
 
             switch (selectedCellIndex)
             {
+                case 0:
+                    return;
                 case 1:
                     sa = awbh.MondayAppointment;
                     break;
@@ -175,13 +176,26 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
             if (sa != null)
             {
-                ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa);
-                scheduledAppointmentWindow.Show();
+                ScheduledAppointmentWindow scheduledAppointmentWindow = new ScheduledAppointmentWindow(sa, this);
+                scheduledAppointmentWindow.ShowDialog();
             } else
             {
-                CreateNewAppointment createNewAppointment = new CreateNewAppointment();
-                createNewAppointment.Show();
+                CreateNewAppointment createNewAppointment = new CreateNewAppointment(this);
             }
+            dataGridScheduledAppointments.SelectedCells.Clear();
+        }
+
+        private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
+        {
+            CreateNewAppointment createNewAppointment = new CreateNewAppointment();
+            createNewAppointment.ShowDialog();
         }
     }
 }

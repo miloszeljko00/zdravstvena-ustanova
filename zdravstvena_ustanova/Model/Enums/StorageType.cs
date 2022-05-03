@@ -3,6 +3,7 @@
     public enum StorageType
     {
         ROOM,
-        WAREHOUSE
+        WAREHOUSE,
+        VOID
     }
 }

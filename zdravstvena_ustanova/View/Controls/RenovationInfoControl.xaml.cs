@@ -27,6 +27,7 @@ namespace zdravstvena_ustanova.View.Controls
         {
             RoomCalendarOverview = roomCalendarOverview;
             InitializeComponent();
+            DataContext = RoomCalendarOverview;
         }
     }
 }

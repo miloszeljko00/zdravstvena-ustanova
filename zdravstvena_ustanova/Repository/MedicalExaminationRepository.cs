@@ -66,7 +66,7 @@ namespace zdravstvena_ustanova.Repository
                     me.SpecialistRequest = medicalExamination.SpecialistRequest;
                     me.LabAnalysisRequest = medicalExamination.LabAnalysisRequest;
                     me.HospitalizationRequest = medicalExamination.HospitalizationRequest;
-                    me.PrescribedMedicine = me.PrescribedMedicine;
+                    me.PrescribedMedicine = medicalExamination.PrescribedMedicine;
                     WriteLinesToFile(_path, MedicalExaminationsToCSVFormat((List<MedicalExamination>)medicalExaminations));
                     return true;
                 }
@@ -92,13 +92,15 @@ namespace zdravstvena_ustanova.Repository
         private string MedicalExaminationToCSVFormat(MedicalExamination medicalExamination)
         {
             int count = medicalExamination.PrescribedMedicine.Count;
-            string prescribedMedicines = "";
-            for (int i = 0; i < medicalExamination.PrescribedMedicine.Count; i++)
+            string prescribedMedicines;
+            if (count > 0)
             {
-                prescribedMedicines = string.Join(_delimiter, prescribedMedicines, medicalExamination.PrescribedMedicine[i].Id);
-            }
-
-            return string.Join(_delimiter,
+                prescribedMedicines = medicalExamination.PrescribedMedicine[0].Id.ToString();
+                for (int i = 1; i < medicalExamination.PrescribedMedicine.Count; i++)
+                {
+                    prescribedMedicines = string.Join(_delimiter, prescribedMedicines, medicalExamination.PrescribedMedicine[i].Id);
+                }
+                return string.Join(_delimiter,
                 medicalExamination.Id,
                 medicalExamination.ScheduledAppointment.Id,
                 medicalExamination.Anamnesis.Id,
@@ -108,6 +110,18 @@ namespace zdravstvena_ustanova.Repository
                 count,
                 prescribedMedicines
                 );
+            }
+            return string.Join(_delimiter,
+                medicalExamination.Id,
+                medicalExamination.ScheduledAppointment.Id,
+                medicalExamination.Anamnesis.Id,
+                medicalExamination.SpecialistRequest.Id,
+                medicalExamination.LabAnalysisRequest.Id,
+                medicalExamination.HospitalizationRequest.Id,
+                count
+                );
+
+
         }
 
         private void AppendLineToFile(string path, string line)

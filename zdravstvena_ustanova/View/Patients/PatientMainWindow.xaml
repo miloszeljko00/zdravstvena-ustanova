@@ -44,7 +44,7 @@
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToMedicalReports">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
             <WrapPanel>
                 <Image Source="/Resources/img/medical-report-icon.png" Height="28" Width="28"/>
                 <Label Content="Izveštaji pregleda"/>
@@ -65,7 +65,7 @@
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,382,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,382,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToNotis">
             <WrapPanel>
                 <Image Source="/Resources/img/Apps-Notifications-icon.png" Height="28" Width="28"/>
                 <Label Content="Notifikacije"/>

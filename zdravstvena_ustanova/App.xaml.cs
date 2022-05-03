@@ -27,6 +27,7 @@ namespace zdravstvena_ustanova
         private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
         private readonly string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
         private readonly string UNSCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\UnScheduledAppointments.csv";
+        private readonly string SCHEDULED_ITEM_TRANSFER_FILE = ProjectPath + "\\Resources\\Data\\ScheduledItemTransfers.csv";
         private readonly string DOCTOR_FILE = ProjectPath + "\\Resources\\Data\\Doctors.csv";
         private readonly string PATIENT_FILE = ProjectPath + "\\Resources\\Data\\Patients.csv";
         private readonly string MANAGER_FILE = ProjectPath + "\\Resources\\Data\\Managers.csv";
@@ -37,9 +38,16 @@ namespace zdravstvena_ustanova
         private readonly string MEDICATION_FILE = ProjectPath + "\\Resources\\Data\\Medications.csv";
         private readonly string INGREDIENT_FILE = ProjectPath + "\\Resources\\Data\\Ingredients.csv";
         private readonly string PRESCRIBED_MEDICINE_FILE = ProjectPath + "\\Resources\\Data\\PrescribedMedicine.csv";
+        
+        private readonly string MEDICAL_EXAMINATION_FILE = ProjectPath + "\\Resources\\Data\\MedicalExamination.csv";
+        private readonly string SPECIALIST_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\SpecialistRequest.csv";
+        private readonly string LAB_ANALYSIS_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\LabAnalysisRequest.csv";
+        private readonly string HOSPITALIZATION_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\HospitalizationRequest.csv";
+        private readonly string LAB_ANALYSIS_COMPONENT_FILE = ProjectPath + "\\Resources\\Data\\LabAnalysisComponent.csv";
+
         private readonly string HEALTH_RECORD_FILE = ProjectPath + "\\Resources\\Data\\HealthRecords.csv";
         private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
-
+        
         public ItemController ItemController { get; set; }
         public StoredItemController StoredItemController { get; set; }
         public RoomController RoomController { get; set; }
@@ -47,6 +55,7 @@ namespace zdravstvena_ustanova
         public RenovationAppointmentController RenovationAppointmentController { get; set; }
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
         public ScheduledAppointmentController UnScheduledAppointmentController { get; set; }
+        public ScheduledItemTransferController ScheduledItemTransferController { get; set; }
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
         public AccountController AccountController { get; set; }
@@ -57,11 +66,20 @@ namespace zdravstvena_ustanova
         public MedicationController MedicationController { get; set; }
         public IngredientController IngredientController { get; set; }
         public PrescribedMedicineController PrescribedMedicineController { get; set; }
+        public MedicalExaminationController MedicalExaminationController { get; set; }
+        public SpecialistRequestController SpecialistRequestController { get; set; }
+        public LabAnalysisRequestController LabAnalysisRequestController { get; set; }
+        public HospitalizationRequestController HospitalizationRequestController { get; set; }
+        public LabAnalysisComponentController LabAnalysisComponentController { get; set; }
 
         public HealthRecordController HealthRecordController { get; set; }
 
         public AllergensController AllergensController { get; set; }
-        public Person LoggedInUser { get; set; }
+
+        public SystemController SystemController { get; set; }
+
+
+        public Person? LoggedInUser { get; set; }
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }
@@ -77,6 +95,7 @@ namespace zdravstvena_ustanova
             var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var unScheduledAppointmentRepository = new ScheduledAppointmentRepository(UNSCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
+            var ScheduledItemTransferRepository = new ScheduledItemTransferRepository(SCHEDULED_ITEM_TRANSFER_FILE, CSV_DELIMITER);
             var doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
             var patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
             var accountRepository = new AccountRepository(ACCOUNT_FILE, CSV_DELIMITER);
@@ -88,8 +107,16 @@ namespace zdravstvena_ustanova
             var medicationRepository = new MedicationRepository(MEDICATION_FILE, CSV_DELIMITER);
             var ingredientRepository = new IngredientRepository(INGREDIENT_FILE, CSV_DELIMITER);
             var prescribedMedicineRepository = new PrescribedMedicineRepository(PRESCRIBED_MEDICINE_FILE, CSV_DELIMITER);
+
+            var medicalExaminationRepository = new MedicalExaminationRepository(MEDICAL_EXAMINATION_FILE, CSV_DELIMITER);
+            var specialistRequestRepository = new SpecialistRequestRepository(SPECIALIST_REQUEST_FILE, CSV_DELIMITER);
+            var labAnalysisRequestRepository = new LabAnalysisRequestRepository(LAB_ANALYSIS_REQUEST_FILE, CSV_DELIMITER);
+            var hospitalizationRequestRepository = new HospitalizationRequestRepository(HOSPITALIZATION_REQUEST_FILE, CSV_DELIMITER);
+            var labAnalysisComponentRepository = new LabAnalysisComponentRepository(LAB_ANALYSIS_COMPONENT_FILE, CSV_DELIMITER);
+
             var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
             var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
+
 
             var itemService = new ItemService(itemRepository);
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -106,13 +133,28 @@ namespace zdravstvena_ustanova
                 patientRepository, accountRepository);
             var unScheduledAppointmentService = new ScheduledAppointmentService(unScheduledAppointmentRepository, roomRepository, doctorRepository,
                 patientRepository, accountRepository);
-            var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository);
+            var scheduledItemTransferService = new ScheduledItemTransferService(ScheduledItemTransferRepository, roomRepository, warehouseRepository,
+                itemRepository, storedItemRepository);
+
+            var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository, roomRepository);
+
             var anamnesisService = new AnamnesisService(anamnesisRepository);
             var medicationService = new MedicationService(medicationRepository, ingredientRepository);
             var ingredientService = new IngredientService(ingredientRepository);
             var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
+
+            var medicalExaminationService = new MedicalExaminationService(medicalExaminationRepository, scheduledAppointmentRepository,
+             anamnesisRepository, specialistRequestRepository,
+             labAnalysisRequestRepository, hospitalizationRequestRepository,
+             prescribedMedicineRepository, doctorRepository, patientRepository,
+             roomRepository, accountRepository, specialtyRepository, labAnalysisComponentRepository,
+             medicationRepository, ingredientRepository);
+
+
             var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
             var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
+
+            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
 
             
             
@@ -125,6 +167,7 @@ namespace zdravstvena_ustanova
             RenovationAppointmentController = new RenovationAppointmentController(renovationAppointmentService);
             ScheduledAppointmentController = new ScheduledAppointmentController(scheduledAppointmentService);
             UnScheduledAppointmentController = new ScheduledAppointmentController(unScheduledAppointmentService);
+            ScheduledItemTransferController = new ScheduledItemTransferController(scheduledItemTransferService);
             AccountController = new AccountController(accountService);
             ManagerController = new ManagerController(managerService);
             SecretaryController = new SecretaryController(secretaryService);
@@ -133,8 +176,16 @@ namespace zdravstvena_ustanova
             MedicationController = new MedicationController(medicationService);
             IngredientController = new IngredientController(ingredientService);
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
+
+            MedicalExaminationController = new MedicalExaminationController(medicalExaminationService);
+
+
             AllergensController = new AllergensController(allergenService);
             HealthRecordController = new HealthRecordController(healthRecordService);
+
+            SystemController = new SystemController(systemService);
+            SystemController.StartCheckingForScheduledItemTransfers(300);
+
         }
     }
 }

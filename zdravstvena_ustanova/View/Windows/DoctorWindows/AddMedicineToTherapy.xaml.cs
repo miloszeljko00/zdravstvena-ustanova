@@ -38,7 +38,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Medication med = (Medication)medComboBox.SelectedItem;
-            serial.Text = med.Id.ToString();
+            medIdTextBox.Text = med.Id.ToString();
         }
 
         private void createPrescribedMedicine(object sender, RoutedEventArgs e)
@@ -49,11 +49,19 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             int oh = int.Parse(onHours.Text);
             DateTime ed = (DateTime)endDate.SelectedDate;
             string desc = description.Text;
-            var app = Application.Current as App;
-            PrescribedMedicine.Add(new PrescribedMedicine(0, tpd, oh, ed, desc, med));
+            PrescribedMedicine.Add(new PrescribedMedicine(-1, tpd, oh, ed, desc, med));
             this.Close();
 
 
+        }
+
+        private void Button_Click_Cancel_Adding_Medicine_In_Therapy(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Izmena terapije", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }
