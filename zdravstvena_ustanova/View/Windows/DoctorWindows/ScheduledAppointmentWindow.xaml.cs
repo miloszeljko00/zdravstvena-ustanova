@@ -112,21 +112,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-        public ScheduledAppointmentWindow(ScheduledAppointment selectedAppointment)
-        {
-            InitializeComponent();
-            DataContext = this;
-            PatientName = selectedAppointment.Patient.Name;
-            PatientSurname = selectedAppointment.Patient.Surname;
-            PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
-            doctorsName.Content = selectedAppointment.Doctor.Name;
-            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
-            ScheduledAppointment = selectedAppointment;
-            Anamnesis = new Anamnesis(-1);
-            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
-            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
-
-        }
+       
         public ScheduledAppointmentWindow(ScheduledAppointment selectedAppointment, DoctorHomePageWindow dhpw)
         {
             InitializeComponent();
@@ -281,6 +267,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             else
             {
                 app.AnamnesisController.Delete(Anamnesis.Id);
+                MedicalExamination.Anamnesis = new Anamnesis(-1);
+                app.MedicalExaminationController.Update(MedicalExamination);
             }
             ///////////////////////////////////////////////////////////
             Close();
@@ -312,9 +300,16 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_Edit_Therapy(object sender, RoutedEventArgs e)
         {
+            if (dataGridTherapy.SelectedItem == null)
+            {
+                MessageBox.Show("Niste selektovali lek");
+                return;
+            }
             PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
-            UpdateMedicineInTherapy updateMedicineInTherapy = new UpdateMedicineInTherapy(PrescribedMedicine, pm); 
+            UpdateMedicineInTherapy updateMedicineInTherapy = new UpdateMedicineInTherapy(PrescribedMedicine, pm);
             updateMedicineInTherapy.ShowDialog();
+          
+            
         }
 
         private void Button_Click_Remove_Therapy(object sender, RoutedEventArgs e)
