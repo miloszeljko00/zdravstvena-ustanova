@@ -39,12 +39,12 @@ namespace zdravstvena_ustanova.Controller
 
         public ScheduledItemTransfer ScheduleItemTransferFromRoom(ScheduledItemTransfer scheduledItemTransfer)
         {
-            return _scheduledItemTransferService.ScheduleItemTransferFromRoom(scheduledItemTransfer);
+            return _scheduledItemTransferService.ScheduleItemTransfer(scheduledItemTransfer);
         }
 
         public int GetItemUnderTransferCountForRoom(ScheduledItemTransfer scheduledItemTransfer)
         {
-            return _scheduledItemTransferService.GetItemUnderTransferCountForRoom(scheduledItemTransfer);
+            return _scheduledItemTransferService.GetItemUnderTransferCountForSourceStorage(scheduledItemTransfer);
         }
     }
 }

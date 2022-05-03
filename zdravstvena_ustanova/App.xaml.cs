@@ -63,7 +63,11 @@ namespace zdravstvena_ustanova
         public HealthRecordController HealthRecordController { get; set; }
 
         public AllergensController AllergensController { get; set; }
-        public Person LoggedInUser { get; set; }
+
+        public SystemController SystemController { get; set; }
+
+
+        public Person? LoggedInUser { get; set; }
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }
@@ -117,7 +121,7 @@ namespace zdravstvena_ustanova
             var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
             var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
             var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
-
+            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
             
             
             ItemController = new ItemController(itemService);
@@ -140,6 +144,8 @@ namespace zdravstvena_ustanova
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
             AllergensController = new AllergensController(allergenService);
             HealthRecordController = new HealthRecordController(healthRecordService);
+            SystemController = new SystemController(systemService);
+            SystemController.StartCheckingForScheduledItemTransfers(300);
         }
     }
 }

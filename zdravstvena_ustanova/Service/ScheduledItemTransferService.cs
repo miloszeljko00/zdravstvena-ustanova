@@ -42,12 +42,20 @@ namespace Service
             return scheduledItemTransfers;
         }
 
-        public int GetItemUnderTransferCountForRoom(ScheduledItemTransfer scheduledItemTransfer)
+        public int GetItemUnderTransferCountForSourceStorage(ScheduledItemTransfer scheduledItemTransfer)
         {
-            var sourceRoomScheduledItemTransfers = GetBySourceRoomId(scheduledItemTransfer.SourceRoom.Id);
+            List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers = new List<ScheduledItemTransfer>();
+            if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+            {
+                sourceStorageScheduledItemTransfers = (List<ScheduledItemTransfer>)GetBySourceStorageId(scheduledItemTransfer.SourceRoom.Id);
+            }else if(scheduledItemTransfer.SourceStorageType == StorageType.WAREHOUSE)
+            {
+                sourceStorageScheduledItemTransfers = (List<ScheduledItemTransfer>)GetBySourceStorageId(scheduledItemTransfer.SourceWarehouse.Id);
+            }
+
             int numberOfItemsUnderTransport = 0;
 
-            foreach (var sit in sourceRoomScheduledItemTransfers)
+            foreach (var sit in sourceStorageScheduledItemTransfers)
             {
                 if (sit.Item.Id == scheduledItemTransfer.Item.Id)
                 {
@@ -56,13 +64,22 @@ namespace Service
             }
             return numberOfItemsUnderTransport;
         }
-        private int GetNumberOfItemsInSourceRoom(ScheduledItemTransfer scheduledItemTransfer)
+        private int GetNumberOfItemsInSourceStorage(ScheduledItemTransfer scheduledItemTransfer)
         {
-            var storedItemsInSourceRoom = scheduledItemTransfer.SourceRoom.StoredItems;
-            int itemCount = 0;
-            foreach (var storedItem in storedItemsInSourceRoom)
+            List<StoredItem> storedItemsInSourceStorage = new List<StoredItem>();
+            if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
             {
-                if (storedItem.Id == scheduledItemTransfer.Item.Id)
+                storedItemsInSourceStorage = scheduledItemTransfer.SourceRoom.StoredItems;
+            }
+            else if(scheduledItemTransfer.SourceStorageType == StorageType.WAREHOUSE)
+            {
+                storedItemsInSourceStorage = scheduledItemTransfer.SourceWarehouse.StoredItems;
+            }
+
+            int itemCount = 0;
+            foreach (var storedItem in storedItemsInSourceStorage)
+            {
+                if (storedItem.Item.Id == scheduledItemTransfer.Item.Id)
                 {
                     itemCount = storedItem.Quantity;
                     break;
@@ -71,12 +88,13 @@ namespace Service
             return itemCount;
         }
 
-        public ScheduledItemTransfer ScheduleItemTransferFromRoom(ScheduledItemTransfer scheduledItemTransfer)
+        public ScheduledItemTransfer ScheduleItemTransfer(ScheduledItemTransfer scheduledItemTransfer)
         {
-            int alreadyUnderTransfer = GetItemUnderTransferCountForRoom(scheduledItemTransfer);
-            int numberOfItemsInSourceRoom = GetNumberOfItemsInSourceRoom(scheduledItemTransfer);
+            int alreadyUnderTransfer = GetItemUnderTransferCountForSourceStorage(scheduledItemTransfer);
+            int numberOfItemsInSourceStorage = GetNumberOfItemsInSourceStorage(scheduledItemTransfer);
 
-            if(alreadyUnderTransfer + scheduledItemTransfer.ItemsForTransfer > numberOfItemsInSourceRoom)
+         
+            if(alreadyUnderTransfer + scheduledItemTransfer.ItemsForTransfer > numberOfItemsInSourceStorage)
             {
                 return null;
             }
@@ -85,22 +103,29 @@ namespace Service
             return scheduledItemTransfer;
         }
 
-        private IEnumerable<ScheduledItemTransfer> GetBySourceRoomId(long id)
+        private IEnumerable<ScheduledItemTransfer> GetBySourceStorageId(long id)
         {
             var scheduledItemTransfers = GetAll();
-            List<ScheduledItemTransfer> sourceRoomScheduledItemTransfers = new List<ScheduledItemTransfer>();
+            List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers = new List<ScheduledItemTransfer>();
             foreach (var scheduledItemTransfer in scheduledItemTransfers)
             {
                 if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
                 {
                     if (scheduledItemTransfer.SourceRoom.Id == id)
                     {
-                        sourceRoomScheduledItemTransfers.Add(scheduledItemTransfer);
+                        sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
+                    }
+                }else if(scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+                {
+                    if (scheduledItemTransfer.SourceWarehouse.Id == id)
+                    {
+                        sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
                     }
                 }
             }
-            return sourceRoomScheduledItemTransfers;
+            return sourceStorageScheduledItemTransfers;
         }
+       
 
         public ScheduledItemTransfer GetById(long id)
         {

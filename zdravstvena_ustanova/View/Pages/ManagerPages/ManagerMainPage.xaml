@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Cursor="Hand">
             <Button Name="homeButton" Width="160" Height="64" FontSize="18" Background="#FF61A4BC">Početna</Button>
-            <Button Click="reportsButton_Click"  Name="reportsButton" Width="160" Height="64" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FFF7E2E2">
+            <Button MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Name="reportsButton" Width="160" Height="64" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FFF7E2E2">
                 <WrapPanel>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Izveštaji</TextBlock>
                     <Image Margin="5,5,0,0" Width="20" Height="20" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
@@ -22,7 +22,7 @@
             <Button Name="itemsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="itemsButton_Click">Predmeti</Button>
             <Button Name="drugsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Lekovi</Button>
             <Button Name="pollsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Ankete</Button>
-            <Button Name="accountButton" Click="accountButton_Click" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">
+            <Button Name="accountButton" MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">
                 <WrapPanel>
                     <Image Width="40" Height="40" Source="/Resources/img/profile-picture.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Nalog</TextBlock>
@@ -30,19 +30,19 @@
                 </WrapPanel>
             </Button>
         </StackPanel>
-        <StackPanel Panel.ZIndex="100" Name="ReportsDropDown" VerticalAlignment="Top" Width="160" Margin="-800,64,0,0" Cursor="Hand">
+        <StackPanel MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Panel.ZIndex="100" Name="ReportsDropDown" VerticalAlignment="Top" Width="160" Margin="-800,64,0,0" Cursor="Hand">
             <Button Name="DoctorReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Zauzetost lekara</Button>
             <Button Name="RoomReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Zauzetost prostorija</Button>
             <Button Name="RenovationReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="RenovationReportsButton_Click">Renoviranja</Button>
             <Button Name="ItemTransferReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="ItemTransferReportsButton_Click">Premestanja</Button>
             <Button Name="MedicationOrdersReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Narudzbine</Button>
         </StackPanel>
-        <StackPanel Panel.ZIndex="100" Name="AccountsDropDown" VerticalAlignment="Top" Width="160" Margin="1120,64,0,0" Cursor="Hand">
+        <StackPanel MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Panel.ZIndex="100" Name="AccountsDropDown" VerticalAlignment="Top" Width="160" Margin="1120,64,0,0" Cursor="Hand">
             <Button Name="AccountInfoButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Informacije</Button>
             <Button Name="AccountRequestsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Zahtevi</Button>
             <Button Name="DarkModeButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Tamni rezim</Button>
             <Button Name="LanguangeButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Jezik: srpski</Button>
-            <Button Name="LogoutReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Odjava</Button>
+            <Button Name="LogoutButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="LogoutButton_Click">Odjava</Button>
         </StackPanel>
         <Frame x:Name="ManagerMain" Panel.ZIndex="1" Margin="0,64,0,0"></Frame>
     </Grid>

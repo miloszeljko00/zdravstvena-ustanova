@@ -15,7 +15,7 @@
                 <Label Margin="0,10,0,0" HorizontalContentAlignment="Center" FontSize="14">Korisničko ime:</Label>
                 <TextBox x:Name="usernameTextBox" Height="28" Width="200"></TextBox>
                 <Label Margin="0,10,0,0" HorizontalContentAlignment="Center" FontSize="14">Lozinka:</Label>
-                <TextBox x:Name="passwordTextBox" Height="28" Width="200"></TextBox>
+                <PasswordBox x:Name="passwordTextBox" Height="28" Width="200"></PasswordBox>
                 <TextBlock HorizontalAlignment="Center">
                     <Hyperlink Command="{Binding ClearCommand}">Zaboravljena lozinka?</Hyperlink>
                 </TextBlock>

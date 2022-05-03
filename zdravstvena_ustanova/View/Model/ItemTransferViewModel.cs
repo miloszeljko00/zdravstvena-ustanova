@@ -22,7 +22,7 @@ namespace zdravstvena_ustanova.View.Model
             else SourceStorageName = "OTPIS ROBE";
 
             if (ScheduledItemTransfer.DestinationStorageType == StorageType.ROOM) DestinationStorageName = ScheduledItemTransfer.DestinationRoom.Name;
-            else if (ScheduledItemTransfer.SourceStorageType == StorageType.WAREHOUSE) DestinationStorageName = ScheduledItemTransfer.DestinationWarehouse.Name;
+            else if (ScheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE) DestinationStorageName = ScheduledItemTransfer.DestinationWarehouse.Name;
             else DestinationStorageName = "OTPIS ROBE";
         }
     }

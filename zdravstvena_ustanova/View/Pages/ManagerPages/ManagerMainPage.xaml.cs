@@ -71,30 +71,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             ManagerMain.Content = new WarehouseInventoryOverviewPage();
         }
 
-        private void reportsButton_Click(object sender, RoutedEventArgs e)
-        {
-            if(ReportsDropDown.Visibility == Visibility.Hidden)
-            {
-                ReportsDropDown.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ReportsDropDown.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void accountButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (AccountsDropDown.Visibility == Visibility.Hidden)
-            {
-                AccountsDropDown.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AccountsDropDown.Visibility = Visibility.Hidden;
-            }
-        }
-
         private void ItemTransferReportsButton_Click(object sender, RoutedEventArgs e)
         {
             
@@ -126,6 +102,33 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
 
             ManagerMain.Content = new RenovationReportsPage();
+        }
+
+        private void reportsButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ReportsDropDown.Visibility = Visibility.Hidden;
+        }
+
+        private void reportsButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ReportsDropDown.Visibility = Visibility.Visible;
+        }
+
+        private void accountButton_GotFocus(object sender, RoutedEventArgs e)
+        {
+            AccountsDropDown.Visibility = Visibility.Visible;
+        }
+
+        private void accountButton_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AccountsDropDown.Visibility = Visibility.Hidden;
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+            app.LoggedInUser = null;
+            NavigationService.GoBack();
         }
     }
 }
