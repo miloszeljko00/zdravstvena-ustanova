@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,45 +16,53 @@ using System.Windows.Shapes;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
-    /// <summary>
-    /// Interaction logic for AddMedicineToTherapy.xaml
-    /// </summary>
-    public partial class AddMedicineToTherapy : Window
+    public partial class UpdateMedicineInTherapy : Window
     {
-        public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
         public ObservableCollection<Medication> Medications { get; set; }
-        public AddMedicineToTherapy(ObservableCollection<PrescribedMedicine> pm)
+        public PrescribedMedicine PrescribedMedicineSelected { get; set; }
+        public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
+        public UpdateMedicineInTherapy(ObservableCollection<PrescribedMedicine> pms, PrescribedMedicine pm)
         {
             InitializeComponent();
             DataContext = this;
             var app = Application.Current as App;
             Medications = new ObservableCollection<Medication>(app.MedicationController.GetAll());
+            PrescribedMedicine = pms;
+            PrescribedMedicineSelected = pm;
             medComboBox.ItemsSource = Medications;
-            PrescribedMedicine = pm;
-
+            medComboBox.Text = pm.Medication.Name;
+            medIdTextBox.Text = pm.Medication.Id.ToString();
+            timesPerDay.Text = pm.TimesPerDay.ToString();
+            quantity.Text = timesPerDay.Text;
+            onHours.Text = pm.OnHours.ToString();
+            endDate.Text = pm.EndDate.Date.ToString();
+            description.Text = pm.Description;
+            
         }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Medication med = (Medication)medComboBox.SelectedItem;
             medIdTextBox.Text = med.Id.ToString();
         }
-
-        private void createPrescribedMedicine(object sender, RoutedEventArgs e)
+        private void updatePrescribedMedicine(object sender, RoutedEventArgs e)
         {
-            //public PrescribedMedicine(long id, int timesPerDay, int onHours, DateTime endDate, string description, Medication medication)
             Medication med = (Medication)medComboBox.SelectedItem;
             int tpd = int.Parse(timesPerDay.Text);
             int oh = int.Parse(onHours.Text);
             DateTime ed = (DateTime)endDate.SelectedDate;
             string desc = description.Text;
-            PrescribedMedicine.Add(new PrescribedMedicine(-1, tpd, oh, ed, desc, med));
+            foreach (PrescribedMedicine pmPomocni in PrescribedMedicine)
+            {
+                if (pmPomocni.Id == PrescribedMedicineSelected.Id)
+                {
+                    PrescribedMedicine.Remove(pmPomocni);
+                    break;
+                }
+            }
+            PrescribedMedicine.Add(new PrescribedMedicine(PrescribedMedicineSelected.Id, tpd, oh, ed, desc, med));
             this.Close();
-
-
         }
-
-        private void Button_Click_Cancel_Adding_Medicine_In_Therapy(object sender, RoutedEventArgs e)
+        private void Button_Click_Cancel_Updating_Medicine_In_Therapy(object sender, RoutedEventArgs e)
         {
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Izmena terapije", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model;
+using Model.Enums;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -40,7 +41,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
-            private string _patientSurname;
+        private string _patientSurname;
         public string PatientSurname
         {
             get
@@ -74,6 +75,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
+
         private Anamnesis _anamnesis;
         public Anamnesis Anamnesis
         {
@@ -91,8 +93,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
+
         public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
         #endregion
+        public ScheduledAppointment ScheduledAppointment { get; set; }
+        public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
+        public MedicalExamination MedicalExamination { get; set; }
 
 
         #region PropertyChangedNotifier
@@ -113,54 +119,208 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
             PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            doctorsName.Content = selectedAppointment.Doctor.Name;
+            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
+            ScheduledAppointment = selectedAppointment;
             Anamnesis = new Anamnesis(-1);
-            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>(); 
+            PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public ScheduledAppointmentWindow(ScheduledAppointment selectedAppointment, DoctorHomePageWindow dhpw)
         {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
-            addMedicineToTherapy.Show();
-        }
-
-        private void TextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
-            addMedicineToTherapy.Show();
-        }
-
-        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Diagnosis");
-            ad.Owner = this;
-            ad.Show();
-            
-        }
-
-        private void Button_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
-            AnamnesisTextBoxInput ad = new AnamnesisTextBoxInput(this, "Anamnesis Conclusion");
-            ad.Owner = this;
-            ad.Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+            InitializeComponent();
+            DataContext = this;
             var app = Application.Current as App;
+            PatientName = selectedAppointment.Patient.Name;
+            PatientSurname = selectedAppointment.Patient.Surname;
+            PatientBirthday = selectedAppointment.Patient.DateOfBirth.ToString();
+            doctorsName.Content = selectedAppointment.Doctor.Name;
+            doctorsSurname.Content = selectedAppointment.Doctor.Surname;
+            ScheduledAppointment = selectedAppointment;
+            bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
+            DoctorHomePageWindow = dhpw;
+            var me1 = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
+            if(me1==null)
+            {
+                Anamnesis = new Anamnesis(-1);
+                MedicalExamination = new MedicalExamination();
+                PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+                MedicalExamination.ScheduledAppointment = selectedAppointment;
 
-            Anamnesis = app.AnamnesisController.Create(Anamnesis);
-            Close();
+            }
+            else
+            {
+                MedicalExamination = me1;
+                if (me1.Anamnesis == null)
+                {
+                    Anamnesis = new Anamnesis(-1);
+                } else
+                {
+                    Anamnesis = me1.Anamnesis;
+                }
+
+                if (me1.PrescribedMedicine == null)
+                {
+                    PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+                } else
+                {
+                    PrescribedMedicine = new ObservableCollection<PrescribedMedicine>();
+                    foreach (PrescribedMedicine pm in me1.PrescribedMedicine)
+                    {
+                        PrescribedMedicine.Add(pm);
+                    }
+                }
+            }
+           
+                   
+        }
+
+        private void Button_Click_Submit_TabAnamnesis(object sender, RoutedEventArgs e)
+        {
+            if (AnamnesisDiagnosisTextBoxInput.Text != "")
+            {
+                Anamnesis.Diagnosis = new string(AnamnesisDiagnosisTextBoxInput.Text);
+            }
+            if(AnamnesisConclusionTextBoxInput.Text != "")
+            {
+                Anamnesis.Conclusion = new string(AnamnesisConclusionTextBoxInput.Text);
+            }
+        }
+
+        private void Button_Click_Cancel_TabAnamnesis(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje Anamneze",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(answer==MessageBoxResult.Yes)
+            {
+                var app = Application.Current as App;
+                if (app.AnamnesisController.GetById(Anamnesis.Id) != null)
+                {
+                    Anamnesis = app.AnamnesisController.GetById(Anamnesis.Id);
+                }
+                
+            }
 
             // TODO Sve iz medical examination
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Click_FinalSubmit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
-            foreach(PrescribedMedicine pm in PrescribedMedicine)
+            
+            List<PrescribedMedicine> prescribedMedicineBeforeRemoving = new List<PrescribedMedicine>();
+            foreach(PrescribedMedicine pm in MedicalExamination.PrescribedMedicine)
             {
-                PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
+                prescribedMedicineBeforeRemoving.Add(pm);
             }
+            MedicalExamination.PrescribedMedicine.Clear();
+            /////////////////////////////////////////////////////
+            foreach (PrescribedMedicine pm in PrescribedMedicine)
+            {
+                if(pm.Id==-1)
+                {
+                    PrescribedMedicine preMed = app.PrescribedMedicineController.Create(pm);
+                    MedicalExamination.PrescribedMedicine.Add(preMed);
+                }
+                else
+                {
+                    app.PrescribedMedicineController.Update(pm);
+                    MedicalExamination.PrescribedMedicine.Add(pm);
+                }
+                
+            }
+            /////////////////////////////////////////////////////
+            if (Anamnesis.Id == -1)
+            {
+                Anamnesis = app.AnamnesisController.Create(Anamnesis);
+                MedicalExamination.Anamnesis = Anamnesis;
+            }
+            else
+            {
+                app.AnamnesisController.Update(Anamnesis);
+                MedicalExamination.Anamnesis=Anamnesis;
+            }
+            /////////////////////////////////////////////////////
+            if (MedicalExamination.Id==-1)
+            {
+                
+                MedicalExamination = app.MedicalExaminationController.Create(MedicalExamination);
+
+            }
+            else
+            {
+                var brojac = 0;
+                var count = PrescribedMedicine.Count();
+                foreach(PrescribedMedicine pm1 in prescribedMedicineBeforeRemoving)
+                {
+                    brojac = 0;
+                    foreach(PrescribedMedicine pmFromProperty in PrescribedMedicine)
+                    {
+                        if(pmFromProperty.Id == pm1.Id)
+                        {
+                            break;
+                        }
+                        if(++brojac == count)
+                        {
+                            app.PrescribedMedicineController.Delete(pm1.Id);
+
+                        }
+                    }
+                }
+                app.MedicalExaminationController.Update(MedicalExamination);
+            }
+            /////////////////////////////////////////////////////
+            if (AnamnesisDiagnosisTextBoxInput.Text != "")
+            {
+                Anamnesis.Diagnosis = new string(AnamnesisDiagnosisTextBoxInput.Text);
+            }
+            else if (AnamnesisConclusionTextBoxInput.Text != "")
+            {
+                Anamnesis.Conclusion = new string(AnamnesisConclusionTextBoxInput.Text);
+            }
+            else
+            {
+                app.AnamnesisController.Delete(Anamnesis.Id);
+            }
+            ///////////////////////////////////////////////////////////
+            Close();
+        }
+
+        private void Button_Click_Cancel_Appointment(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da otkazete pregled?", "Otkazivanje Pregleda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            { 
+                var app = Application.Current as App;
+                app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
+
+                DoctorHomePageWindow.UpdateCalendar();
+                this.Close();
+            }
+        }
+      
+
+        private void Button_Click_Update_Appointment(object sender, RoutedEventArgs e)
+        {
+            UpdateAppointment ua = new UpdateAppointment(ScheduledAppointment, DoctorHomePageWindow);
+            ua.ShowDialog();
+        }
+        private void Button_Click_Add_Therapy(object sender, RoutedEventArgs e)
+        {
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
+            addMedicineToTherapy.ShowDialog();
+        }
+        private void Button_Click_Edit_Therapy(object sender, RoutedEventArgs e)
+        {
+            PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
+            UpdateMedicineInTherapy updateMedicineInTherapy = new UpdateMedicineInTherapy(PrescribedMedicine, pm); 
+            updateMedicineInTherapy.ShowDialog();
+        }
+
+        private void Button_Click_Remove_Therapy(object sender, RoutedEventArgs e)
+        {
+            PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
+            PrescribedMedicine.Remove(pm);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿<Window x:Class="zdravstvena_ustanova.View.Windows.DoctorWindows.CreateNewAppointment"
+﻿<Window x:Class="zdravstvena_ustanova.View.Windows.DoctorWindows.UpdateAppointment"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
         mc:Ignorable="d"
-        Title="CreateNewAppointment" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#067c7b">
+        Title="UpdateAppointment" Height="450" Width="800" Background="#067c7b" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -30,9 +30,9 @@
         </ComboBox>
         <Label Content="Select patient:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22"/>
         <Label Content="Patient name:" HorizontalAlignment="Left" Margin="120,7,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22"/>
-        <TextBox Text="{Binding SelectedPatient.Name}" HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18"/>
+        <TextBox x:Name="PatientNameTextBox" Text="{Binding SelectedPatient.Name}" HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18"/>
         <Label Content="Patient surname:" HorizontalAlignment="Left" Margin="120,108,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22" Grid.RowSpan="2"/>
-        <TextBox Text="{Binding SelectedPatient.Surname}" HorizontalAlignment="Center" Margin="0,46,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18"/>
+        <TextBox x:Name="PatientSurnameTextBox" Text="{Binding SelectedPatient.Surname}" HorizontalAlignment="Center" Margin="0,46,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18"/>
         <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.Column="1"/>
         <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Center" Margin="0,46,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" Grid.Column="1">
             <ComboBoxItem Content="8"></ComboBoxItem>
@@ -58,6 +58,6 @@
         <ComboBox x:Name="rComboBox" Text="" SelectedIndex="0" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" DisplayMemberPath="Name" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="1"/>
         <Label Content="Select room:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22" Grid.Column="1"/>
         <Label Content="Date of an appointment:" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="255" Grid.Row="1" FontSize="22" Grid.Column="1"/>
-        <DatePicker SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
+        <DatePicker x:Name="DateOfAppointmentDatePicker" Text="" SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
     </Grid>
 </Window>

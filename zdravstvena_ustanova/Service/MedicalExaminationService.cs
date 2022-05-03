@@ -107,23 +107,23 @@ namespace zdravstvena_ustanova.Service
         private void BindScheduledAppointmentWithMedicalExamination(MedicalExamination medicalExamination,
             IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients, IEnumerable<Room> rooms, IEnumerable<Account> accounts)
         {
-            foreach(ScheduledAppointment sa in scheduledAppointments)
+            foreach (ScheduledAppointment sa in scheduledAppointments)
             {
-                if(medicalExamination.ScheduledAppointment.Id==sa.Id)
+                if (medicalExamination.ScheduledAppointment.Id == sa.Id)
                 {
-                    medicalExamination.ScheduledAppointment=sa;
+                    medicalExamination.ScheduledAppointment = sa;
                     break;
                 }
             }
 
-            foreach(Doctor d in doctors)
+            foreach (Doctor d in doctors)
             {
                 if (medicalExamination.ScheduledAppointment.Doctor.Id == d.Id)
                 {
                     medicalExamination.ScheduledAppointment.Doctor = d;
-                    foreach(Account a in accounts)
+                    foreach (Account a in accounts)
                     {
-                        if(medicalExamination.ScheduledAppointment.Doctor.Account.Id==a.Id)
+                        if (medicalExamination.ScheduledAppointment.Doctor.Account.Id == a.Id)
                         {
                             medicalExamination.ScheduledAppointment.Doctor.Account = a;
                             break;
@@ -132,14 +132,14 @@ namespace zdravstvena_ustanova.Service
                     break;
                 }
             }
-            foreach(Patient p in patients)
+            foreach (Patient p in patients)
             {
-                if(medicalExamination.ScheduledAppointment.Patient.Id==p.Id)
+                if (medicalExamination.ScheduledAppointment.Patient.Id == p.Id)
                 {
                     medicalExamination.ScheduledAppointment.Patient = p;
-                    foreach(Account a in accounts)
+                    foreach (Account a in accounts)
                     {
-                        if(medicalExamination.ScheduledAppointment.Patient.Account.Id==a.Id)
+                        if (medicalExamination.ScheduledAppointment.Patient.Account.Id == a.Id)
                         {
                             medicalExamination.ScheduledAppointment.Patient.Account = a;
                             break;
@@ -148,9 +148,9 @@ namespace zdravstvena_ustanova.Service
                     break;
                 }
             }
-            foreach(Room r in rooms)
+            foreach (Room r in rooms)
             {
-                if(medicalExamination.ScheduledAppointment.Room.Id==r.Id)
+                if (medicalExamination.ScheduledAppointment.Room.Id == r.Id)
                 {
                     medicalExamination.ScheduledAppointment.Room = r;
                     break;
@@ -298,7 +298,7 @@ namespace zdravstvena_ustanova.Service
                         }
                     }
                 }
-                pm4.Medication.Ingredients =new List<Ingredient>(ingredientsBinded);
+                pm4.Medication.Ingredients = new List<Ingredient>(ingredientsBinded);
                 ingredientsBinded.Clear();
             }
             medicalExamination.PrescribedMedicine = prescribedMedicinesBinded;
@@ -322,6 +322,17 @@ namespace zdravstvena_ustanova.Service
         {
             return _medicalExaminationRepository.Delete(id);
         }
-
+        public MedicalExamination FindByScheduledAppointmentId(long id)
+        {
+            var medicalExaminations = GetAll();
+            foreach(MedicalExamination me in medicalExaminations)
+            {
+                if(me.ScheduledAppointment.Id==id)
+                {
+                    return me;
+                }               
+            }
+            return null;
+        }
     }
 }

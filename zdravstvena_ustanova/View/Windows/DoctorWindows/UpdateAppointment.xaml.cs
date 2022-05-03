@@ -15,19 +15,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
-    /// <summary>
-    /// Interaction logic for CreateNewAppointment.xaml
-    /// </summary>
-    public partial class CreateNewAppointment : Window, INotifyPropertyChanged
+    public partial class UpdateAppointment : Window, INotifyPropertyChanged
     {
+        public ScheduledAppointment ScheduledAppointment { get; set; }
+        public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public ObservableCollection<Patient> Patients { get; set; }
         public ObservableCollection<Room> Rooms { get; set; }
-        public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
-
 
         #region NotifyProperties
         private Patient _selectedPatient;
@@ -78,7 +74,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
             }
         }
-
         #endregion
 
         #region PropertyChangedNotifier
@@ -93,111 +88,55 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public CreateNewAppointment()
+        public UpdateAppointment(ScheduledAppointment sa, DoctorHomePageWindow dhpw)
         {
             InitializeComponent();
             DataContext = this;
-            Patients = new ObservableCollection<Patient>();
+
             var app = Application.Current as App;
+            Patients = new ObservableCollection<Patient>();
             var patients = app.PatientController.GetAll();
             foreach(Patient p in patients)
             {
                 Patients.Add(p);
             }
-          
             Rooms = new ObservableCollection<Room>();
             var rooms = app.RoomController.GetAll();
-            foreach (Room r in rooms)
+            foreach(Room r in rooms)
             {
                 Rooms.Add(r);
             }
-            SelectedRoom = ((Doctor)app.LoggedInUser).Room;
-            rComboBox.Text = SelectedRoom.Name;
 
             typeOfAppointment.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
-        }
-        public CreateNewAppointment(DoctorHomePageWindow dhpw)
-        {
-            InitializeComponent();
-            DataContext = this;
+            ScheduledAppointment = sa;
             DoctorHomePageWindow = dhpw;
-            Patients = new ObservableCollection<Patient>();
-            var app = Application.Current as App;
-            var patients = app.PatientController.GetAll();
-            var dg = dhpw.dataGridScheduledAppointments;
-            foreach (Patient p in patients)
+            SelectedPatient = new Patient();
+            SelectedPatient = sa.Patient;
+            SelectedPatient.Name = sa.Patient.Name;
+            SelectedPatient.Surname = sa.Patient.Surname;
+            SelectedDate = sa.Start.Date;
+            if(SelectedDate.Year < DateTime.Now.Year)
             {
-                Patients.Add(p);
+                DateOfAppointmentDatePicker.IsEnabled = false;
+                TimeComboBox.IsEnabled = false;
             }
-
-            Rooms = new ObservableCollection<Room>();
-            var rooms = app.RoomController.GetAll();
-            foreach (Room r in rooms)
+            else if(SelectedDate.Month < DateTime.Now.Month)
             {
-                Rooms.Add(r);
+                DateOfAppointmentDatePicker.IsEnabled = false;
+                TimeComboBox.IsEnabled = false;
             }
+            else if(SelectedDate.Day < DateTime.Now.Day)
+            {
+                DateOfAppointmentDatePicker.IsEnabled = false;
+                TimeComboBox.IsEnabled = false;
+            }
+            typeOfAppointment.SelectedItem = sa.AppointmentType;
+            SelectedRoom = new Room();
             SelectedRoom = ((Doctor)app.LoggedInUser).Room;
             rComboBox.Text = SelectedRoom.Name;
+            TimeComboBox.Text = sa.Start.Hour.ToString();
 
-            typeOfAppointment.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
-
-            var selectedCellIndex = (int)dg.SelectedCells[0].Column.DisplayIndex;
-            AppointmentsWeeklyByHour awbh = (AppointmentsWeeklyByHour)dg.SelectedCells[0].Item;
-            DateTime date;
-
-
-            switch (selectedCellIndex)
-            {
-                case 0:
-                    return;
-                case 1:
-                    date = awbh.DateOfWeekStart;
-                    break;
-                case 2:
-                    date = awbh.DateOfWeekStart.AddDays(1);
-                    break;
-                case 3:
-                    date = awbh.DateOfWeekStart.AddDays(2);
-                    break;
-                case 4:
-                    date = awbh.DateOfWeekStart.AddDays(3);
-                    break;
-                case 5:
-                    date = awbh.DateOfWeekStart.AddDays(4);
-                    break;
-                case 6:
-                    date = awbh.DateOfWeekStart.AddDays(5);
-                    break;
-                case 7:
-                    date = awbh.DateOfWeekStart.AddDays(6);
-                    break;
-                default:
-                    return;
-            }
-            SelectedDate = new DateTime(date.Year, date.Month, date.Day);
-            TimeComboBox.Text = date.Hour.ToString();
-            var currentDateTime = DateTime.Now;
-            if(SelectedDate.Year<currentDateTime.Year)
-            {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                Close();
-                return;
-            } else if(SelectedDate.Month<currentDateTime.Month)
-            {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                Close();
-                return;
-            } else if (SelectedDate.Day < currentDateTime.Month)
-            {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                Close();
-                return;
-            } else
-            {
-                this.ShowDialog();
-            }
         }
-
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
@@ -206,9 +145,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             int endTime = int.Parse(selectedTime) + 1;
             DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
             DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
-            if(SelectedPatient==null)
+            if (SelectedPatient == null)
             {
-                if(typeOfAppointment.SelectedItem==null)
+                if (typeOfAppointment.SelectedItem == null)
                 {
                     MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
                     return;
@@ -216,28 +155,25 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 MessageBox.Show("Morate odabrati pacijenta!");
                 return;
             }
-            else if(typeOfAppointment.SelectedItem==null)
+            else if (typeOfAppointment.SelectedItem == null)
             {
                 MessageBox.Show("Morate odabrati tip pregleda!");
                 return;
             }
             else
             {
-                ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
-                sa = app.ScheduledAppointmentController.Create(sa);
+                ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate,
+                 (AppointmentType)typeOfAppointment.SelectedItem, ScheduledAppointment.Id, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                app.ScheduledAppointmentController.Update(sa);
             }
-
-
             DoctorHomePageWindow.UpdateCalendar();
-            
             this.Close();
             
         }
-
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(answer==MessageBoxResult.Yes)
+            if (answer == MessageBoxResult.Yes)
             {
                 this.Close();
             }
