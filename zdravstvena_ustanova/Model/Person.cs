@@ -54,6 +54,8 @@ namespace Model
         public Person(long id)
         {
             Id = id;
+            Address = new Address("", "", "", "");
+            Account = new Account(-1);
         }
         public Person()
         {

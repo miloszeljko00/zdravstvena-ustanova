@@ -174,5 +174,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             MainWindow.Modal.Content = new CancelAppointmentControl(ScheduledAppointments, dataGridScheduledAppointments);
             MainWindow.Modal.IsOpen = true;
         }
+
+        private void New_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _homePagePatients.SecretaryFrame.Content = new NewAppointment(_homePagePatients);
+        }
     }
 }

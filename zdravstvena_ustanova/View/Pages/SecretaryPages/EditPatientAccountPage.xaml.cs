@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Model.Enums;
+
 
 namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 {
@@ -32,7 +34,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             passwordTB.Text = account.Password;
             nameTB.Text = account.Person.Name;
             surnameTB.Text = account.Person.Surname;
-            dateDP.SelectedDate = account.Person.DateOfBirth;
+            if (account.AccountType == AccountType.GUEST)
+                dateDP.SelectedDate = null;
+            else
+                dateDP.SelectedDate = account.Person.DateOfBirth;
             emailTB.Text = account.Person.Email;
             phoneTB.Text = account.Person.PhoneNumber;
             jmbgTB.Text = Convert.ToString(account.Person.Id);

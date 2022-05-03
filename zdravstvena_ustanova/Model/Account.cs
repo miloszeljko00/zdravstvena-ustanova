@@ -42,6 +42,7 @@ namespace Model
 
             switch (AccountType)
             {
+                case AccountType.GUEST:
                 case AccountType.PATIENT:
                     Person = new Patient(personId);
                     break;

@@ -45,7 +45,7 @@ namespace Controller
             _scheduledAppointmentService.Delete(scheduledAppointmentId);
         }
 
-        public List<string> GetAppropriateTimes(DateTime dateTime, Doctor doctor, Patient patient, Room room)
+        public List<string> GetAppropriateTimes(DateTime dateTime, long doctorId,long patientId, long roomId, int shift)
         {
             string[] times = {"08:00", "09:00", "10:00", "11:00", "12:00",
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
@@ -56,21 +56,21 @@ namespace Controller
             {
                 if(sa.Start.Date == dateTime)
                 {
-                    if(sa.Doctor.Id == doctor.Id)
+                    if(sa.Doctor.Id == doctorId)
                     {
                         int time = sa.Start.Hour;
                         time -= 8;
                         times[time] = "-1";
                         continue;
                     }
-                    if(sa.Room.Id == room.Id)
+                    if(sa.Room.Id == roomId)
                     {
                         int time = sa.Start.Hour;
                         time -= 8;
                         times[time] = "-1";
                         continue;
                     }
-                    if(sa.Patient.Id == patient.Id)
+                    if(sa.Patient.Id == patientId)
                     {
                         int time = sa.Start.Hour;
                         time -= 8;
@@ -81,7 +81,19 @@ namespace Controller
             List<string> t = new List<string>();
             for (int i=0; i<14; i++)
             {
+                
+                if(doctorId != -1 && shift == 1)
+                {
+                    if (i >= 7)
+                        break;
+                }
+                else if(doctorId != -1 && shift == 2)
+                {
+                    if (i < 7)
+                        continue;
+                }
                 if (String.Compare(times[i], "-1") != 0)
+                    
                     t.Add(times[i]);
             }
             return t;

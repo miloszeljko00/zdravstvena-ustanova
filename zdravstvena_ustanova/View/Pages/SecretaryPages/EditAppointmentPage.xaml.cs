@@ -47,7 +47,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
             Times = new ObservableCollection<string>(times);
             Rooms = new ObservableCollection<Room>(app.RoomController.GetAll());
-            roomCB.ItemsSource = Rooms;
             typeCB.Text = _scheduledAppointment.AppointmentType.ToString();
 
             patientTB.Text = _scheduledAppointment.Patient.Name + " " + _scheduledAppointment.Patient.Surname;
@@ -94,7 +93,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             }
             var app = Application.Current as App;
             var r = roomCB.SelectedItem as Room;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, r);
+            long roomId = -1;
+            if (r != null)
+                roomId = r.Id;
+            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift);
             timeCB.ItemsSource = times;
         }
 
@@ -102,7 +104,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             var app = Application.Current as App;
             var r = roomCB.SelectedItem as Room;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, r);
+            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, r.Id, (int)_scheduledAppointment.Doctor.Shift);
             timeCB.ItemsSource = times;
         }
 
