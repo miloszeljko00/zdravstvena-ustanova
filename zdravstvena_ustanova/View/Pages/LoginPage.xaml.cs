@@ -36,8 +36,10 @@ namespace zdravstvena_ustanova.View.Pages
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = usernameTextBox.Text;
-            string password = passwordTextBox.Text;
+            string password = passwordTextBox.Password;
 
+            username = "upravnik";
+            password = "upravnik";
 
             if (username == null || password == null) return;
 

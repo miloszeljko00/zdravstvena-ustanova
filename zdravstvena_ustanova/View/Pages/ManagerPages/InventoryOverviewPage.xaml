@@ -22,7 +22,7 @@
                 </WrapPanel>
             </Button>
             <Label FontSize="40" Margin="15,0,0,0" Width="300" Content="{Binding Room.Name}"></Label>
-            <Button Width="150" Height="48" Margin="90,0,0,0" FontSize="14" Content="Zakaži prebacivanje"></Button>
+            <Button x:Name="ScheduleItemTransferButton" Width="150" Height="48" Margin="90,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="ScheduleItemTransferButton_Click"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="20,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -31,7 +31,7 @@
             </TextBox>
 
 
-            <Image x:Name="RemoveItemToRoomIcon" MouseDown="RemoveItemToRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
+            <Image x:Name="RemoveItemToRoomIcon" MouseDown="RemoveItemFromRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->

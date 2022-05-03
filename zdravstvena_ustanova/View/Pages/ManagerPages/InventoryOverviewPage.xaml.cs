@@ -93,7 +93,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             MainWindow.Modal.IsOpen = true;
         }
 
-        private void RemoveItemToRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void RemoveItemFromRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (roomItemsDataGrid.SelectedItem == null)
             {
@@ -101,6 +101,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 return;
             }
             MainWindow.Modal.Content = new RemoveItemFromRoomControl(Room, roomItemsDataGrid);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void ScheduleItemTransferButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (roomItemsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new ScheduleItemTransferFromRoom(Room, roomItemsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
     }
