@@ -13,6 +13,7 @@ namespace zdravstvena_ustanova.View
 {
     public partial class TimePriority : Window
     {
+        public ObservableCollection<ScheduledAppointment> sa;
         public ObservableCollection<string> dates;
         public TimePriority()
         {
@@ -43,7 +44,7 @@ namespace zdravstvena_ustanova.View
                 today = today.AddHours(1);
             }
             var app = Application.Current as App;
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
             foreach(ScheduledAppointment sapp in sa)
             {
                 dates.Remove(sapp.Start.ToString("dd.MM.yyyy. HH:mm"));
@@ -146,7 +147,7 @@ namespace zdravstvena_ustanova.View
                 times.Add(s);
             }
             var app = Application.Current as App;
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
             DateTime dat = (DateTime)datePicker.SelectedDate;
             if(DateTime.Compare(dat.Date, DateTime.Now.Date) < 0)
             {

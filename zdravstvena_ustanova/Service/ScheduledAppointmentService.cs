@@ -30,9 +30,9 @@ namespace Service
             var doctors = _doctorRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
-            var scheduledAppointmets = _scheduledAppointmentRepository.GetAll();
-            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointmets, accounts);
-            return scheduledAppointmets;
+            var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
+            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointments, accounts);
+            return scheduledAppointments;
         }
         public ScheduledAppointment GetById(long Id)
         {
@@ -40,9 +40,9 @@ namespace Service
             var doctors = _doctorRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
-            var scheduledAppointmet = _scheduledAppointmentRepository.Get(Id);
-            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet, accounts);
-            return scheduledAppointmet;
+            var scheduledAppointment = _scheduledAppointmentRepository.Get(Id);
+            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointment, accounts);
+            return scheduledAppointment;
         }
         public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
         {
