@@ -80,7 +80,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 patientAllergens.Add((Allergens)allergensCB.SelectedItem);
             }
         }
-
         private void Delete_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(allergensList.SelectedItem != null)
