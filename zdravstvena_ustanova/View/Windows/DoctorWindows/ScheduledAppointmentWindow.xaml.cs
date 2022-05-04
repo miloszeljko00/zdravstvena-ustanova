@@ -24,6 +24,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     /// </summary>
     public partial class ScheduledAppointmentWindow : Window, INotifyPropertyChanged
     {
+        //Drag&Drop
+        Point startPoint = new Point();
+        //\Drag&Drop
         #region NotifyProperties
         private string _patientName;
         public string PatientName
@@ -101,6 +104,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
         public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents {get;set;}
+        public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents2 { get; set; }
+        public LabAnalysisComponent LabAnalysisComponent { get; set; }
 
 
         #region PropertyChangedNotifier
@@ -127,12 +132,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             doctorsSurname.Content = selectedAppointment.Doctor.Surname;
             ScheduledAppointment = selectedAppointment;
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
-            LabAnalysisComponents = new ObservableCollection<LabAnalysisComponent>();
-            var components = app.LabAnalysisComponentController.GetAll();
-            foreach(LabAnalysisComponent lac in components)
-            {
-                LabAnalysisComponents.Add(lac);
-            }
             DoctorHomePageWindow = dhpw;
             var me1 = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
             if(me1==null)
@@ -166,8 +165,16 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     }
                 }
             }
-           
-                   
+            //Drag&Drop
+            LabAnalysisComponents = new ObservableCollection<LabAnalysisComponent>();
+            var components = app.LabAnalysisComponentController.GetAll();
+            foreach (LabAnalysisComponent lac in components)
+            {
+                LabAnalysisComponents.Add(lac);
+            }
+            //\Drag&Drop
+
+
         }
 
         private void Button_Click_Submit_TabAnamnesis(object sender, RoutedEventArgs e)
@@ -325,5 +332,68 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
             PrescribedMedicine.Remove(pm);
         }
+        //Drag&Drop
+        private void ListView_DragOver(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent(typeof(LabAnalysisComponent)) || e.Source == sender)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(LabAnalysisComponent)))
+            {
+                LabAnalysisComponent labAnalysisComponent = e.Data.GetData(typeof(LabAnalysisComponent)) as LabAnalysisComponent;
+                LabAnalysisComponents.Remove(labAnalysisComponent);
+                LabAnalysisComponents2.Add(labAnalysisComponent);
+            }
+        }
+
+        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void ListView_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+               (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+               Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem =
+                    FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                if (listViewItem == null) return;
+
+                // Find the data behind the ListViewItem
+                LabAnalysisComponent labAnalysisComponent = (LabAnalysisComponent)listView.ItemContainerGenerator.
+                    ItemFromContainer(listViewItem);
+
+                // Initialize the drag & drop operation
+                DataObject dragData = new DataObject(typeof(LabAnalysisComponent), labAnalysisComponent);
+                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Copy);
+            }
+        }
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+        //\Drag&Drop
     }
 }
