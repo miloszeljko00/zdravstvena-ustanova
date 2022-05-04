@@ -46,11 +46,65 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void updatePrescribedMedicine(object sender, RoutedEventArgs e)
         {
+            if (medComboBox.SelectedItem == null)
+            {
+                if (timesPerDay.Text == null || timesPerDay.Text == "" || onHours.Text == null || onHours.Text == "")
+                {
+                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+                    return;
+                }
+                MessageBox.Show("Morate odabrati lek!");
+                return;
+            }
             Medication med = (Medication)medComboBox.SelectedItem;
+            if (timesPerDay.Text == null || timesPerDay.Text == "")
+            {
+                if (onHours.Text == null || onHours.Text == "" || medComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+                    return;
+                }
+                MessageBox.Show("Morate uneti tpd podatak");
+                return;
+            }
             int tpd = int.Parse(timesPerDay.Text);
+            if (onHours.Text == null || onHours.Text == "")
+            {
+                if (timesPerDay.Text == null || timesPerDay.Text == "" || medComboBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+                    return;
+                }
+                MessageBox.Show("Morate uneti oh podatak");
+                return;
+            }
             int oh = int.Parse(onHours.Text);
             DateTime ed = (DateTime)endDate.SelectedDate;
-            string desc = description.Text;
+            if (ed.Year < DateTime.Now.Year)
+            {
+                MessageBox.Show("Izabrali ste termin u proslosti!");
+                return;
+            }
+            else if (ed.Month < DateTime.Now.Month)
+            {
+                MessageBox.Show("Izabrali ste termin u proslosti!");
+                return;
+            }
+            else if (ed.Day < DateTime.Now.Day)
+            {
+                MessageBox.Show("Izabrali ste termin u proslosti!");
+                return;
+            }
+            string desc;
+            if (description.Text == null)
+            {
+                desc = "";
+            }
+            else
+            {
+                desc = description.Text;
+            }
+
             foreach (PrescribedMedicine pmPomocni in PrescribedMedicine)
             {
                 if (pmPomocni.Id == PrescribedMedicineSelected.Id)
