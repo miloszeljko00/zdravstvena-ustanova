@@ -24,7 +24,7 @@
                             <DataGridTextColumn Header="Ime" Binding="{Binding Person.Name}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding Person.Surname}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Korisnicko ime" Binding="{Binding Username}" Width="*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Sifra" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Lozinka" Binding="{Binding Password}" Width="*"></DataGridTextColumn>
                             <DataGridTextColumn Header="Tip naloga" Binding="{Binding AccountType}" Width="*"></DataGridTextColumn>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>

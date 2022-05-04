@@ -1,12 +1,12 @@
-﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.WarehouseInventoryOverviewPage"
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.RenovationReportsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="640" d:DesignWidth="1280"
-      Title="WarehouseInventoryOverviewPage">
+      Title="RenovationReportsPage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,22 +15,19 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            
-            <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="{Binding Warehouse.Name}"></Label>
-            <Button x:Name="ScheduleItemTransferButton" Width="150" Height="48" Margin="255,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="ScheduleItemTransferButton_Click"></Button>
-            <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="20,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
+            <Label FontSize="40" Margin="15,0,0,0" Width="240" Content="Renoviranja"></Label>
+            <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="395,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
                 </TextBox.Background>
 
             </TextBox>
 
-            
-            <Image Name="RemoveItemIcon" MouseDown="RemoveItemIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
+            <Image Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
-                        <Setter Property="Source" Value="/Resources/img/minus-icon.png"/>
+                        <Setter Property="Source" Value="/Resources/img/delete-icon.png"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <!-- Hover image -->
@@ -41,7 +38,22 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image x:Name="AddNewItemIcon" MouseDown="AddNewItemIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
+            <Image Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditIcon_MouseDown">
+                <Image.Resources>
+                    <Style TargetType="{x:Type Image}">
+                        <!-- Default image -->
+                        <Setter Property="Source" Value="/Resources/img/edit-icon.png"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Hover image -->
+                                <Setter Property="Opacity" Value="0.8"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Resources>
+            </Image>
+            <Image Name="AddIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="AddIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -57,12 +69,13 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="WarehouseItemsDataGrid" ItemsSource="{Binding StoredItems}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="RenovationAppointmentsDataGrid" ItemsSource="{Binding RenovationAppointments}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Room.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding Room.RoomType}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum početka renoviranja" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum završetka renoviranja" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -105,6 +105,7 @@ namespace Service
             if (account.Person == null) return;
             switch(account.AccountType)
             {
+                case AccountType.GUEST:
                 case AccountType.PATIENT:
                     Patient patient = FindPatientById(patients, account.Person.Id);
                     patient.Account = account;
