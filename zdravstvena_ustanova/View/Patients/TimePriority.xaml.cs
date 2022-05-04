@@ -147,7 +147,6 @@ namespace zdravstvena_ustanova.View
                 times.Add(s);
             }
             var app = Application.Current as App;
-            sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
             DateTime dat = (DateTime)datePicker.SelectedDate;
             if(DateTime.Compare(dat.Date, DateTime.Now.Date) < 0)
             {
