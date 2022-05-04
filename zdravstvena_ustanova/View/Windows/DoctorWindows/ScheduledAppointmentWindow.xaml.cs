@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model;
 using Model.Enums;
+using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -58,7 +59,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
-            private string _patientBirthday;
+        private string _patientBirthday;
         public string PatientBirthday
         {
             get
@@ -99,6 +100,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ScheduledAppointment ScheduledAppointment { get; set; }
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
+        public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents {get;set;}
 
 
         #region PropertyChangedNotifier
@@ -125,6 +127,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             doctorsSurname.Content = selectedAppointment.Doctor.Surname;
             ScheduledAppointment = selectedAppointment;
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
+            LabAnalysisComponents = new ObservableCollection<LabAnalysisComponent>();
+            var components = app.LabAnalysisComponentController.GetAll();
+            foreach(LabAnalysisComponent lac in components)
+            {
+                LabAnalysisComponents.Add(lac);
+            }
             DoctorHomePageWindow = dhpw;
             var me1 = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
             if(me1==null)

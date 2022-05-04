@@ -133,6 +133,7 @@ namespace zdravstvena_ustanova
             var medicationService = new MedicationService(medicationRepository, ingredientRepository);
             var ingredientService = new IngredientService(ingredientRepository);
             var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
+            var labAnalysisComponentService = new LabAnalysisComponentService(labAnalysisComponentRepository);
 
             var medicalExaminationService = new MedicalExaminationService(medicalExaminationRepository, scheduledAppointmentRepository,
              anamnesisRepository, specialistRequestRepository,
@@ -165,6 +166,7 @@ namespace zdravstvena_ustanova
             MedicationController = new MedicationController(medicationService);
             IngredientController = new IngredientController(ingredientService);
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
+            LabAnalysisComponentController = new LabAnalysisComponentController(labAnalysisComponentService);
 
             MedicalExaminationController = new MedicalExaminationController(medicalExaminationService);
 
