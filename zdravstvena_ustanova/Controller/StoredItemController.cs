@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Model;
-using Service;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
    public class StoredItemController
    {

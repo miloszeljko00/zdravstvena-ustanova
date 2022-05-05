@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Model;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
    public class MedicalExamination
    {

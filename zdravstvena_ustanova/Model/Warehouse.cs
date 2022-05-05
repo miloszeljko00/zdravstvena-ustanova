@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
     public class Warehouse
     {

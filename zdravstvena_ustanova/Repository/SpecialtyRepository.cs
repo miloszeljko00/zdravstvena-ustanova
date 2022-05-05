@@ -1,12 +1,12 @@
 using zdravstvena_ustanova.Exception;
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class SpecialtyRepository
     {

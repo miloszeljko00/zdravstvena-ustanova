@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
    public class StoredItemRepository
    {

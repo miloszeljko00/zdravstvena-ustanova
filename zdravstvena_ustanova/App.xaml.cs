@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Windows;
-using Controller;
-using Repository;
-using Service;
-using Model;
-using zdravstvena_ustanova.Controller;
+using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Controller;
 
 namespace zdravstvena_ustanova
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static string ProjectPath { get; set; } = System.Reflection.Assembly.GetExecutingAssembly().Location

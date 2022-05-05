@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
-
 using zdravstvena_ustanova.View.Pages.SecretaryPages;
 using zdravstvena_ustanova.View.Windows.DoctorWindows;
 
@@ -35,10 +34,13 @@ namespace zdravstvena_ustanova.View.Pages
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            //string username = usernameTextBox.Text;
-            //string password = passwordTextBox.Text;
-            string username = "velja";
-            string password = "velja";
+            string username = usernameTextBox.Text;
+            string password = passwordTextBox.Password;
+            //string username = "velja";
+            //string password = "velja";
+
+            username = "upravnik";
+            password = "upravnik";
 
             if (username == null || password == null) return;
 
@@ -49,7 +51,7 @@ namespace zdravstvena_ustanova.View.Pages
 
             app.LoggedInUser = user;
 
-            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
+            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage(this));
             if (app.LoggedInUser is Secretary) 
             {
                 HomePagePatients hpp = new HomePagePatients(Mw);

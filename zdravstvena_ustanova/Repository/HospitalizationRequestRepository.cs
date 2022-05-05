@@ -1,13 +1,12 @@
-﻿using Model;
+﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
-using zdravstvena_ustanova.Model;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class HospitalizationRequestRepository
     {

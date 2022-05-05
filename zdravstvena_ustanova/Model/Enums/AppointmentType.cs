@@ -1,4 +1,4 @@
-namespace Model.Enums
+namespace zdravstvena_ustanova.Model.Enums
 {
     public enum AppointmentType
     {

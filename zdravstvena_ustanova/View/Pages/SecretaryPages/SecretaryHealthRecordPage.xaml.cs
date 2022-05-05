@@ -13,8 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 {
@@ -80,7 +80,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 patientAllergens.Add((Allergens)allergensCB.SelectedItem);
             }
         }
-
         private void Delete_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(allergensList.SelectedItem != null)

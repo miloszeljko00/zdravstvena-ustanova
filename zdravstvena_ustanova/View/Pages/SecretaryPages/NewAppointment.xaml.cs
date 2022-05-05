@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Model.Enums;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 {
@@ -271,29 +271,23 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             _scheduledAppointment.Room = r;
             _scheduledAppointment.Doctor = d;
 
-            if(guest == false)
+            if(guest)
             {
-                _scheduledAppointment.Patient = p;
-                _scheduledAppointment.AppointmentType = (AppointmentType)typeCB.SelectedItem;
-                _scheduledAppointment = app.ScheduledAppointmentController.Create(_scheduledAppointment);
-                _homePagePatients.SecretaryFrame.Content = new SecretaryAppointmentPage(_homePagePatients);
-                return;
+                Patient patient = new Patient(-1);
+                patient.Name = guestNameTB.Text;
+                patient.Surname = guestSurnameTB.Text;
+                patient = app.PatientController.Create(patient);
+                Account account = new Account(username.Text, password.Text, true, patient, AccountType.GUEST);
+                account = app.AccountController.Create(account);
+                patient.Account = account;
+                app.PatientController.Update(patient);
+                p = patient;
             }
 
-            Patient patient = new Patient(-1);
-            patient.Name = guestNameTB.Text;
-            patient.Surname = guestSurnameTB.Text;
-            patient = app.PatientController.Create(patient);
-            Account account = new Account(username.Text, password.Text, true, patient, AccountType.GUEST);
-            account = app.AccountController.Create(account);
-            patient.Account = account;
-            app.PatientController.Update(patient);
-
-            _scheduledAppointment.Patient = patient;
+            _scheduledAppointment.Patient = p;
             _scheduledAppointment.AppointmentType = (AppointmentType)typeCB.SelectedItem;
             _scheduledAppointment = app.ScheduledAppointmentController.Create(_scheduledAppointment);
             _homePagePatients.SecretaryFrame.Content = new SecretaryAppointmentPage(_homePagePatients);
-            return;
 
         }
     }

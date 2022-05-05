@@ -1,11 +1,11 @@
-    using Model;
+using zdravstvena_ustanova.Model;
 using System;
-using Repository;
+using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Model.Enums;
+using zdravstvena_ustanova.Model.Enums;
 
-namespace Service
+namespace zdravstvena_ustanova.Service
 {
     public class WarehouseService
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Service;
+using zdravstvena_ustanova.Service;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
     public class SystemController
     {

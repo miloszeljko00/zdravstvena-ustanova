@@ -1,10 +1,10 @@
-using Model;
+using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
-using Repository;
+using zdravstvena_ustanova.Repository;
 using System.Linq;
 
-namespace Service
+namespace zdravstvena_ustanova.Service
 {
     public class PatientService
     {

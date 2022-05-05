@@ -1,10 +1,10 @@
 using System;
-using Service;
-using Model;
+using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
    public class ScheduledAppointmentController
    {
@@ -51,7 +51,7 @@ namespace Controller
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
             
 
-            var _scheduledAppointments = GetAll();
+            var _scheduledAppointments = _scheduledAppointmentService.GetAll();
             foreach(ScheduledAppointment sa in _scheduledAppointments)
             {
                 if(sa.Start.Date == dateTime)

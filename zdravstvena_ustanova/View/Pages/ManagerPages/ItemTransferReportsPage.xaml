@@ -34,14 +34,14 @@
 
 
         </StackPanel>
-        <DataGrid x:Name="roomItemsDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="ItemTransfersDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Predmet" Binding="{Binding ScheduledItemTransfer.Item.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Količina" Binding="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Iz prostorije" Binding="{Binding SourceStorageName}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="U prostoriju" Binding="{Binding DestinationStorageName}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum zakazanog premeštanja" Binding="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum premeštanja" Binding="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
