@@ -27,6 +27,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ObservableCollection<Patient> Patients { get; set; }
         public ObservableCollection<Room> Rooms { get; set; }
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
+        public int ConstructorCheck { get; set; }
 
 
         #region NotifyProperties
@@ -97,14 +98,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
+            ConstructorCheck = 0;
             Patients = new ObservableCollection<Patient>();
             var app = Application.Current as App;
             var patients = app.PatientController.GetAll();
-            foreach(Patient p in patients)
+            foreach (Patient p in patients)
             {
                 Patients.Add(p);
             }
-          
+
             Rooms = new ObservableCollection<Room>();
             var rooms = app.RoomController.GetAll();
             foreach (Room r in rooms)
@@ -113,15 +115,18 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             SelectedRoom = ((Doctor)app.LoggedInUser).Room;
             rComboBox.Text = SelectedRoom.Name;
-
             typeOfAppointment.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
+            this.ShowDialog();
         }
         public CreateNewAppointment(DoctorHomePageWindow dhpw)
         {
             InitializeComponent();
+            ConstructorCheck = 1;
             DataContext = this;
             DoctorHomePageWindow = dhpw;
             Patients = new ObservableCollection<Patient>();
+            datePickerCreateNewAppointment.IsEnabled = false;
+            TimeComboBox.IsEnabled = false;
             var app = Application.Current as App;
             var patients = app.PatientController.GetAll();
             var dg = dhpw.dataGridScheduledAppointments;
@@ -174,7 +179,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 default:
                     return;
             }
-            SelectedDate = new DateTime(date.Year, date.Month, date.Day);
+            SelectedDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, 0);
             TimeComboBox.Text = date.Hour.ToString();
             var currentDateTime = DateTime.Now;
             if(SelectedDate.Year<currentDateTime.Year)
@@ -182,17 +187,23 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 MessageBox.Show("Ne mozete zakazivati termine u proslost!");
                 Close();
                 return;
-            } else if(SelectedDate.Month<currentDateTime.Month)
+            } else if(SelectedDate.Year == currentDateTime.Year && SelectedDate.Month<currentDateTime.Month)
             {
                 MessageBox.Show("Ne mozete zakazivati termine u proslost!");
                 Close();
                 return;
-            } else if (SelectedDate.Day < currentDateTime.Month)
+            } else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
             {
                 MessageBox.Show("Ne mozete zakazivati termine u proslost!");
                 Close();
                 return;
-            } else
+            } else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && SelectedDate.Hour < currentDateTime.Hour)
+            {
+                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                Close();
+                return;
+            }
+            else
             {
                 this.ShowDialog();
             }
@@ -201,32 +212,126 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
-            string selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
-            int startTime = int.Parse(selectedTime);
-            int endTime = int.Parse(selectedTime) + 1;
-            DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
-            DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
-            if(SelectedPatient==null)
+            if (ConstructorCheck == 0)
             {
-                if(typeOfAppointment.SelectedItem==null)
+                if (TimeComboBox.Text == "")
                 {
-                    MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
+                    if (SelectedPatient == null || typeOfAppointment.SelectedItem == null)
+                    {
+                        MessageBox.Show("Niste uneli neophodne podatke!");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Morate uneti vreme pregleda!");
+                        return;
+                    }
+                }
+                string selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
+                int startTime = int.Parse(selectedTime);
+                int endTime = int.Parse(selectedTime) + 1;
+                if ((DateTime)datePickerCreateNewAppointment.SelectedDate == null)
+                {
+                    MessageBox.Show("Morate izabrati datum");
                     return;
                 }
-                MessageBox.Show("Morate odabrati pacijenta!");
-                return;
-            }
-            else if(typeOfAppointment.SelectedItem==null)
-            {
-                MessageBox.Show("Morate odabrati tip pregleda!");
-                return;
+                SelectedDate = (DateTime)datePickerCreateNewAppointment.SelectedDate;
+                DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
+                DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
+                var currentDateTime = DateTime.Now;
+                if (SelectedDate.Year < currentDateTime.Year)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month < currentDateTime.Month)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && int.Parse(TimeComboBox.Text) <= currentDateTime.Hour)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                if (SelectedPatient == null)
+                {
+                    if (typeOfAppointment.SelectedItem == null)
+                    {
+                        MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
+                        return;
+                    }
+                    MessageBox.Show("Morate odabrati pacijenta!");
+                    return;
+                }
+                else if (typeOfAppointment.SelectedItem == null)
+                {
+                    MessageBox.Show("Morate odabrati tip pregleda!");
+                    return;
+                }
+                else
+                {
+                    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                    sa = app.ScheduledAppointmentController.Create(sa);
+                }
             }
             else
             {
-                ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
-                sa = app.ScheduledAppointmentController.Create(sa);
-            }
+               
+                string selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
+                int startTime = int.Parse(selectedTime);
+                int endTime = int.Parse(selectedTime) + 1;
+                DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
+                DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
 
+                var currentDateTime = DateTime.Now;
+                if (SelectedDate.Year < currentDateTime.Year)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month < currentDateTime.Month)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && int.Parse(TimeComboBox.Text) <= currentDateTime.Hour)
+                {
+                    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                    return;
+                }
+                if (SelectedPatient == null)
+                {
+                    if (typeOfAppointment.SelectedItem == null)
+                    {
+                        MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
+                        return;
+                    }
+                    MessageBox.Show("Morate odabrati pacijenta!");
+                    return;
+                }
+                else if (typeOfAppointment.SelectedItem == null)
+                {
+                    MessageBox.Show("Morate odabrati tip pregleda!");
+                    return;
+                }
+                else
+                {
+                    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                    sa = app.ScheduledAppointmentController.Create(sa);
+                }
+            }
+            //////////////////////////////////
 
             DoctorHomePageWindow.UpdateCalendar();
             

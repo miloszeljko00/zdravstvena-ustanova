@@ -58,6 +58,6 @@
         <ComboBox x:Name="rComboBox" Text="" SelectedIndex="0" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" DisplayMemberPath="Name" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="1"/>
         <Label Content="Select room:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22" Grid.Column="1"/>
         <Label Content="Date of an appointment:" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="255" Grid.Row="1" FontSize="22" Grid.Column="1"/>
-        <DatePicker SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
+        <DatePicker x:Name="datePickerCreateNewAppointment" SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24"/>
     </Grid>
 </Window>
