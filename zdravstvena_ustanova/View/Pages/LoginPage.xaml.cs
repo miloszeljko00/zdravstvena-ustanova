@@ -51,7 +51,7 @@ namespace zdravstvena_ustanova.View.Pages
 
             app.LoggedInUser = user;
 
-            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage());
+            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage(this));
             if (app.LoggedInUser is Secretary) 
             {
                 HomePagePatients hpp = new HomePagePatients(Mw);

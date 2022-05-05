@@ -20,9 +20,11 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
     /// </summary>
     public partial class ManagerMainPage : Page
     {
-        public ManagerMainPage()
+        public LoginPage LoginPage { get; set; }
+        public ManagerMainPage(LoginPage loginPage)
         {
             InitializeComponent();
+            LoginPage = loginPage;
             AccountsDropDown.Visibility = Visibility.Hidden;
             ReportsDropDown.Visibility = Visibility.Hidden;
         }
@@ -128,7 +130,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
             var app = Application.Current as App;
             app.LoggedInUser = null;
-            NavigationService.GoBack();
+            NavigationService.Navigate(LoginPage);
         }
     }
 }
