@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.SecretaryControls.CancelAppointmentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls.SecretaryControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Width="400" Height="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="1" Margin="20,0,20,0" Fill="#FF52BBE0"/>
+        <Label Margin="50,0,0,0" Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Pacijent:"/>
+        <Label  Margin="0,0,50,0" FontSize="18" Content="{Binding PatientName}" VerticalContentAlignment="Center" x:Name="roomNameTextBox" Width="150" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+        <Label  Margin="50,0,0,0" Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="left" VerticalAlignment="Center" Content="Doktor:"/>
+        <Label Margin="0,0,50,0" FontSize="18" Content="{Binding DoctorName}" VerticalContentAlignment="Center" Name="roomTypeComboBox" Grid.Column="1" Grid.Row="2" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+        <Label  Margin="50,0,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="left" VerticalAlignment="Center" Content="Termin:"/>
+        <Label Margin="0,0,50,0" FontSize="18" Content="{Binding AppointmentDate}" VerticalContentAlignment="Center" x:Name="roomFloorTextBox" Grid.Column="1" Grid.Row="3" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+        <Button x:Name="OkButton" Margin="0,10,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,10,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+        <TextBlock Grid.ColumnSpan ="2" HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="Da li ste sigurni da želite da oktažete ovaj termin?" VerticalAlignment="Center" Width="380" FontSize="24"/>
+        <CheckBox Content="Pošalji obaveštenje" HorizontalAlignment="Left" Margin="49,5,0,0" Grid.Row="4" VerticalAlignment="Top" RenderTransformOrigin="0.248,0.861" FontSize="14" Width="140"/>
+        <Image HorizontalAlignment="Left" Height="20" Margin="24,3,0,0" Grid.Row="4" VerticalAlignment="Top" Width="20" Source="/Resources/img/icons8-notification.png"/>
+    </Grid>
+</UserControl>

@@ -12,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Model;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.View
 {
@@ -56,7 +57,7 @@ namespace zdravstvena_ustanova.View
             long specialityId = 1; //TODO NAPRAVITI UNOS SA XAML FORME!!!!
             if(type == 0)
             {
-                Doctor doctor = new Doctor(licenceNumber, roomId, specialityId, emplDate, experience, name, surname, id, phone, email, date1, address, -1);
+                Doctor doctor = new Doctor(licenceNumber, roomId, specialityId, emplDate, experience, name, surname, id, phone, email, date1, address, -1, Shift.FIRST);
                 var app = Application.Current as App;
                 doctor = app.DoctorController.Create(doctor);
                 app.Doctor = doctor;

@@ -1,5 +1,5 @@
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using zdravstvena_ustanova.Exception;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class AccountRepository
     {
@@ -45,6 +45,17 @@ namespace Repository
             catch (ArgumentException)
             {
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
+            }
+        }
+        public Account GetByUsername(string username)
+        {
+            try
+            {
+                return GetAll().SingleOrDefault(account => account.Username == username);
+            }
+            catch (ArgumentException)
+            {
+                throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "username", username));
             }
         }
 

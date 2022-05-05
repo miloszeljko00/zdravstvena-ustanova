@@ -1,4 +1,4 @@
-namespace Model.Enums
+namespace zdravstvena_ustanova.Model.Enums
 {
     public enum RoomType
     {
@@ -8,7 +8,7 @@ namespace Model.Enums
         LABORATORY,
         INTENSIVE_CARE,
         EMERGENCY_ROOM,
-        PHARMACY
-
+        PHARMACY,
+        REGULAR_APPOINTMENT_ROOM
     }
 }

@@ -1,0 +1,101 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.PatientMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+        mc:Ignorable="d"
+        Title="Zdravstvena ustanova" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Separator HorizontalAlignment="Left" Margin="-88,254,0,0" VerticalAlignment="Top" Height="66" Width="584" Background="Black" RenderTransformOrigin="0.5,0.5">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <Label HorizontalAlignment="Left" Margin="31,29,0,0" VerticalAlignment="Top" FontSize="15" Height="133">
+            <Label.Content>
+                <StackPanel>
+                    <Image Source="\Resources\img\user-icon.png" Height="100" Width="100"/>
+                    <Label Content="Pozdrav, Korisniče!"/>
+                </StackPanel>
+            </Label.Content>
+        </Label>
+        <Button Content="Pomoć" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Click="goToHelp"/>
+        <Button Content="Demo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Margin="102,0,0,0"/>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,167,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToAppointments" >
+            <Button.Content>
+                <WrapPanel>
+                    <Image Source="/Resources/img/clock-icon.png" Height="28" Width="28"/>
+                    <Label Content="Termini"/>
+                </WrapPanel>
+            </Button.Content>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,210,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" >
+            <WrapPanel>
+                <Image Source="/Resources/img/medical-record-icon.png" Height="28" Width="28"/>
+                <Label Content="Moj karton"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+            <WrapPanel>
+                <Image Source="/Resources/img/medical-report-icon.png" Height="28" Width="28"/>
+                <Label Content="Izveštaji pregleda"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,296,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+            <WrapPanel>
+                <Image Source="/Resources/img/surveys-icon.png" Height="28" Width="28"/>
+                <Label Content="Aktivne ankete"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,339,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+            <WrapPanel>
+                <Image Source="/Resources/img/notes-icon.png" Height="28" Width="28"/>
+                <Label Content="Beleške"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,382,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToNotis">
+            <WrapPanel>
+                <Image Source="/Resources/img/Apps-Notifications-icon.png" Height="28" Width="28"/>
+                <Label Content="Notifikacije"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,427,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+            <WrapPanel>
+                <Image Source="/Resources/img/Edit-Document-icon.png" Height="28" Width="28"/>
+                <Label Content="Zahtev za opravdanje"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,470,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+            <WrapPanel>
+                <Image Source="/Resources/img/user-man-info-icon.png" Height="28" Width="28"/>
+                <Label Content="Nalog"/>
+            </WrapPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,523,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToLogin">
+            <WrapPanel>
+                <Image Source="/Resources/img/User-Interface-Logout-icon.png" Height="28" Width="28"/>
+                <Label Content="Izloguj se"/>
+            </WrapPanel>
+        </Button>
+        
+        
+        <ContentControl x:Name="content" HorizontalAlignment="Left" Margin="204,0,0,0" VerticalAlignment="Center" Width="596" Height="584"/>
+
+
+    </Grid>
+</Window>

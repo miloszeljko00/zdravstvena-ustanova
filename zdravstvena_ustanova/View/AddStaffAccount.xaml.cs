@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Model;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.View
 {
@@ -44,7 +45,7 @@ namespace zdravstvena_ustanova.View
             DateTime emplDate = (DateTime)dateOfEmployment.SelectedDate;
             if(type == 0)
             {
-                Manager manager = new Manager(name, surname, id, phone, email, date1, address, -1, emplDate, experience);
+                Manager manager = new Manager(name, surname, id, phone, email, date1, address, -1, emplDate, experience, Shift.FIRST);
                 var app = Application.Current as App;
                 manager = app.ManagerController.Create(manager);
                 app.Manager = manager;
@@ -52,7 +53,7 @@ namespace zdravstvena_ustanova.View
             }
             else
             {
-                Secretary secretary = new Secretary(name, surname, id, phone, email, date1, address, -1, emplDate, experience);
+                Secretary secretary = new Secretary(name, surname, id, phone, email, date1, address, -1, emplDate, experience, Shift.FIRST);
                 var app = Application.Current as App;
                 secretary = app.SecretaryController.Create(secretary);
                 app.Secretary = secretary;

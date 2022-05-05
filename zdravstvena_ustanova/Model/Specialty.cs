@@ -1,5 +1,5 @@
 using System;
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
 
     public class Specialty
@@ -14,7 +14,7 @@ namespace Model
         }
         public Specialty(long id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 }

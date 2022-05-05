@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.ScheduleItemTransferFromRoom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid Width="500" Height="500">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Zakazivanje premeštanja" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+        <TextBox Text="{Binding ItemForTransfer.Name}" IsEnabled="False" VerticalContentAlignment="Center" x:Name="ItemForTransferTextBox" Width="200" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+        
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Trenutna prostorija:</Label>
+        <TextBox Text="{Binding CurrentRoom.Name}" IsEnabled="False" VerticalContentAlignment="Center" x:Name="CurrentRoomTextBox" Width="200" Height="28" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Odredište:</Label>
+        <UniformGrid Width="200" Columns="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1">
+            <RadioButton x:Name="RoomTransfer" GroupName="ItemDestination" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Margin="5,0,0,0" IsChecked="True" Checked="RoomTransfer_Checked">Prostorija</RadioButton>
+            <RadioButton x:Name="WarehouseTransfer" GroupName="ItemDestination" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="18"  Margin="10,0,0,0" Checked="WarehouseTransfer_Checked">Magacin</RadioButton>
+        </UniformGrid>
+        
+        <Label Name="DestinationRoomLabel" Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Prostorija:</Label>
+        <ComboBox SelectedItem="{Binding DestinationRoom}" VerticalContentAlignment="Center" Name="DestinationRoomComboBox" DisplayMemberPath="Name" ItemsSource="{Binding Rooms}" Grid.Column="1" Grid.Row="4" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="5" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
+        <Slider Minimum="0" Maximum="{Binding ItemCount}" Value="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"></Slider>
+        <TextBox Text="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="155,0,0,0" PreviewTextInput="QuantityTextBox_PreviewTextInput"  VerticalContentAlignment="Center" x:Name="QuantityTextBox" Grid.Column="1" Grid.Row="5" Width="45" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="6" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Datum premeštanja:</Label>
+        <DatePicker SelectedDate="{Binding TransferDate, Mode=OneWayToSource}" Grid.Column="1" Grid.Row="6" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" ></DatePicker>
+
+        <Button x:Name="OkButton" Margin="0,0,0,0" Grid.Column="1" Grid.Row="7" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,0,0,0" Grid.Column="0" Grid.Row="7" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+    </Grid>
+</UserControl>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
  
     public abstract class Person
@@ -54,6 +54,12 @@ namespace Model
         public Person(long id)
         {
             Id = id;
+            Address = new Address("", "", "", "");
+            Account = new Account(-1);
+        }
+        public Person()
+        {
+
         }
     }
 }

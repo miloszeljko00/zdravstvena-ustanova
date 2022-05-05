@@ -1,0 +1,38 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.Windows.DoctorWindows.UpdateMedicineInTherapy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
+        mc:Ignorable="d"
+        Title="UpdateMedicineInTherapy" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="On hours:" HorizontalAlignment="Left" Margin="47,19,0,0" VerticalAlignment="Top" Width="106" FontSize="22" Grid.Column="1"/>
+        <TextBox x:Name="onHours" HorizontalAlignment="Left" Margin="47,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Column="1"/>
+        <Label Content="Medicine:" HorizontalAlignment="Left" Margin="47,16,0,0" VerticalAlignment="Top" Width="109" FontSize="22"/>
+        <Label Content="Times per day:" HorizontalAlignment="Left" Margin="37,16,0,0" VerticalAlignment="Top" Width="153" FontSize="22" Grid.Row="2"/>
+        <TextBox x:Name="timesPerDay" HorizontalAlignment="Left" Margin="47,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="2"/>
+        <Label Content="End date:" HorizontalAlignment="Left" Margin="47,10,0,0" VerticalAlignment="Top" Width="106" FontSize="22" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="47,19,0,0" VerticalAlignment="Top" Width="129" FontSize="22" Grid.Column="1" Grid.Row="2"/>
+        <TextBox x:Name="description" HorizontalAlignment="Left" Margin="20,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="370" FontSize="18" Grid.Column="1" Grid.Row="2" Height="177" Grid.RowSpan="3" BorderBrush="Black"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Click="Button_Click_Cancel_Updating_Medicine_In_Therapy"/>
+        <Button Click ="updatePrescribedMedicine" Content="Submit" HorizontalAlignment="Left" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Margin="166,0,0,0"/>
+        <Label Content="Serial number:" HorizontalAlignment="Left" Margin="47,10,0,0" VerticalAlignment="Top" Width="153" FontSize="22" Grid.Row="1"/>
+        <TextBox x:Name="medIdTextBox" IsEnabled="false" HorizontalAlignment="Left" Margin="47,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="1"/>
+        <ComboBox x:Name="medComboBox" DisplayMemberPath="Name" ItemsSource="{Binding Medications}"  HorizontalAlignment="Left" Margin="54,53,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+        <Label Content="Quantity:" HorizontalAlignment="Left" Margin="37,13,0,0" VerticalAlignment="Top" Width="153" FontSize="22" Grid.Row="3"/>
+        <TextBox x:Name="quantity" HorizontalAlignment="Left" Margin="45,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="3"/>
+        <DatePicker x:Name="endDate" Grid.Column="1" HorizontalAlignment="Left" Margin="47,50,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="120"/>
+    </Grid>
+</Window>

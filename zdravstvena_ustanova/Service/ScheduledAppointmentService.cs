@@ -1,10 +1,10 @@
-using Model;
+using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
-using Repository;
+using zdravstvena_ustanova.Repository;
 using System.Linq;
 
-namespace Service
+namespace zdravstvena_ustanova.Service
 {
     public class ScheduledAppointmentService
     {
@@ -30,9 +30,9 @@ namespace Service
             var doctors = _doctorRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
-            var scheduledAppointmets = _scheduledAppointmentRepository.GetAll();
-            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointmets, accounts);
-            return scheduledAppointmets;
+            var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
+            BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointments, accounts);
+            return scheduledAppointments;
         }
         public ScheduledAppointment GetById(long Id)
         {
@@ -40,9 +40,37 @@ namespace Service
             var doctors = _doctorRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var accounts = _accountRepository.GetAll();
-            var scheduledAppointmet = _scheduledAppointmentRepository.Get(Id);
-            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointmet, accounts);
-            return scheduledAppointmet;
+            var scheduledAppointment = _scheduledAppointmentRepository.Get(Id);
+            BindPatientDoctorRoomWithScheduledAppointment(patients, doctors, rooms, scheduledAppointment, accounts);
+            return scheduledAppointment;
+        }
+        public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start >= start && sa.Start <= end)
+                {
+                    listOfCorrectAppointments.Add(sa);
+                }
+            }
+
+            return listOfCorrectAppointments;
+        }
+        public IEnumerable<ScheduledAppointment> GetFromToDatesForRoom(DateTime start, DateTime end, long roomId)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start >= start && sa.Start <= end)
+                {
+                    if(sa.Room.Id == roomId) listOfCorrectAppointments.Add(sa);
+                }
+            }
+
+            return listOfCorrectAppointments;
         }
         private void BindPatientDoctorRoomWithScheduledAppointment(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors,
             IEnumerable<Room> rooms, ScheduledAppointment scheduledAppointment, IEnumerable<Account> accounts)

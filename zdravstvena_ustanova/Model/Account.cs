@@ -1,14 +1,13 @@
-using Model.Enums;
-using System;
+using zdravstvena_ustanova.Model.Enums;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
     public class Account
     {
         public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public bool IsEnabled { get; set; } = true;
+        public bool IsEnabled { get; set; }
 
         public Person Person { get; set; }
 
@@ -42,6 +41,7 @@ namespace Model
 
             switch (AccountType)
             {
+                case AccountType.GUEST:
                 case AccountType.PATIENT:
                     Person = new Patient(personId);
                     break;

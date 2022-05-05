@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Service;
-using Model;
+using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Model;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
     public class AccountController
     {
@@ -49,6 +49,10 @@ namespace Controller
         {
             account.IsEnabled = false;
             Update(account);
+        }
+        public Person Login(string username, string password)
+        {
+            return _accountService.Login(username, password);
         }
     }
 }

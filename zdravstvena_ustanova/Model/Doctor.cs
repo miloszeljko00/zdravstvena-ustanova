@@ -1,7 +1,8 @@
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
     public class Doctor : Staff
     {
@@ -11,8 +12,8 @@ namespace Model
 
         public Doctor(string licenceNumber, Room room, Specialty specialty, DateTime dateOfEmployment, int experience,
             string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth,
-            Address address, Account account) : base(dateOfEmployment, experience, name, surname, id,
-                phoneNumber, email, dateOfBirth, address, account)
+            Address address, Account account, Shift shift) : base(dateOfEmployment, experience, name, surname, id,
+                phoneNumber, email, dateOfBirth, address, account, shift)
         {
             LicenseNumber = licenceNumber;
             Room = room;
@@ -21,8 +22,8 @@ namespace Model
 
         public Doctor(string licenceNumber, long roomId, long specialityId, DateTime dateOfEmployment, int experience,
             string name, string surname, long id, string phoneNumber, string email, DateTime dateOfBirth,
-            Address address, long accountId) : base(dateOfEmployment, experience, name, surname, id,
-                phoneNumber, email, dateOfBirth, address, accountId)
+            Address address, long accountId, Shift shift) : base(dateOfEmployment, experience, name, surname, id,
+                phoneNumber, email, dateOfBirth, address, accountId, shift)
         {
             LicenseNumber = licenceNumber;
             Room = new Room(roomId);
