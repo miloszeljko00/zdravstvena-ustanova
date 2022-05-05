@@ -47,11 +47,28 @@ namespace zdravstvena_ustanova.View.Controls
                 MessageBox.Show("Popuni prvo sva polja!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
+            
             DateTime startDate = (DateTime)StartDatePicker.SelectedDate;
             startDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, 8, 0, 0);
             DateTime endDate = (DateTime)EndDatePicker.SelectedDate;
             endDate = new DateTime(endDate.Year, endDate.Month, endDate.Day, 21, 0, 0);
+
+            if (startDate.CompareTo(DateTime.Now) <= 0)
+            {
+                MessageBox.Show("Datum početka renoviranja ne može biti u prošlosti!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (endDate.CompareTo(DateTime.Now) <= 0)
+            {
+                MessageBox.Show("Datum završetka renoviranja ne može biti u prošlosti!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (endDate.CompareTo(startDate) <= 0)
+            {
+                MessageBox.Show("Renoviranje mora početi pre nego što se završi!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             string description = RenovationDescriptionTextBox.Text;
             var app = Application.Current as App;
 

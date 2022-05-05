@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Controls.UnscheduleItemTransferControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             mc:Ignorable="d" 
+              d:DesignHeight="500" d:DesignWidth="800">
+    <Grid Width="500" Height="500">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Otkazivanje premeštanja" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="5" Grid.Row="1" Margin="20,0,20,0" Fill="#FF61A4BC"/>
+        <Label Margin="75,0,0,0" Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center">Naziv:</Label>
+        <TextBlock Text="{Binding ScheduledItemTransfer.Item.Name}" Width="200" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
+
+        <Label Margin="75,0,0,0" Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center">Količina:</Label>
+        <TextBlock Text="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="200" Height="28" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
+
+        <Label Margin="75,0,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center">Iz:</Label>
+        <TextBlock Text="{Binding SourceStorageName}" Width="200" Height="28" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
+
+        <Label Margin="75,0,0,0" Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center">U:</Label>
+        <TextBlock Text="{Binding DestinationStorageName}" Width="200" Height="28" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
+
+        <Label Margin="75,0,0,0" Grid.Column="0" Grid.Row="5" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center">Datum premeštanja:</Label>
+        <TextBlock Text="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="200" Height="28" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Right"></TextBlock>
+
+
+        <Button x:Name="OkButton" Margin="0,0,0,0" Grid.Column="1" Grid.Row="7" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,0,0,0" Grid.Column="0" Grid.Row="7" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+    </Grid>
+</UserControl>
