@@ -36,11 +36,7 @@ namespace zdravstvena_ustanova.View.Pages
         {
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Password;
-            //string username = "velja";
-            //string password = "velja";
 
-            username = "upravnik";
-            password = "upravnik";
 
             if (username == null || password == null) return;
 

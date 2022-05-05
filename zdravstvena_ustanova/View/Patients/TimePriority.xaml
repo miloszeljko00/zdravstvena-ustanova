@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View"
         mc:Ignorable="d"
-        Title="Zakazivanje termina" Height="395" Width="320" WindowStartupLocation="CenterScreen">
+        Title="Zakazivanje termina" Height="395" Width="320" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <ListView x:Name="list1" Margin="31,160,34,67" SelectionChanged="chosenItem">
             <ListView.View>

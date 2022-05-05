@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View"
         mc:Ignorable="d"
-        Title="Zdravstvena ustanova" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Zdravstvena ustanova" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Separator HorizontalAlignment="Left" Margin="-88,254,0,0" VerticalAlignment="Top" Height="66" Width="584" Background="Black" RenderTransformOrigin="0.5,0.5">
             <Separator.RenderTransform>
