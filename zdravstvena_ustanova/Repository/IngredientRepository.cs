@@ -1,11 +1,11 @@
-﻿using Model;
+﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class IngredientRepository
     {

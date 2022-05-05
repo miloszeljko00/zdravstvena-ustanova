@@ -1,5 +1,5 @@
 using System;
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
 
     public class Specialty

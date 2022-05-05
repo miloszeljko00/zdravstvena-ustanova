@@ -1,5 +1,5 @@
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using zdravstvena_ustanova.Exception;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class AccountRepository
     {

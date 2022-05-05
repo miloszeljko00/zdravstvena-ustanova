@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Collections.ObjectModel;
 using zdravstvena_ustanova.View.Model;
-using Model;
+using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.View.Pages;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
