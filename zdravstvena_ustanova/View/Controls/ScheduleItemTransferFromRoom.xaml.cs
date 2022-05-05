@@ -147,6 +147,11 @@ namespace zdravstvena_ustanova.View.Controls
                     MessageBox.Show("Popuni sva polja!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                if (((DateTime)TransferDate).CompareTo(DateTime.Now) <= 0)
+                {
+                    MessageBox.Show("Datum ne može biti u prošlosti!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 scheduledItemTransfer =
                     new ScheduledItemTransfer(ItemForTransfer, ItemsForTransfer, CurrentRoom, DestinationRoom, (DateTime)TransferDate);
@@ -158,7 +163,11 @@ namespace zdravstvena_ustanova.View.Controls
                     MessageBox.Show("Popuni sva polja!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
+                if (((DateTime)TransferDate).CompareTo(DateTime.Now) <= 0)
+                {
+                    MessageBox.Show("Datum ne može biti u prošlosti!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 scheduledItemTransfer =
                     new ScheduledItemTransfer(ItemForTransfer, ItemsForTransfer, CurrentRoom, Warehouse, (DateTime)TransferDate);
 

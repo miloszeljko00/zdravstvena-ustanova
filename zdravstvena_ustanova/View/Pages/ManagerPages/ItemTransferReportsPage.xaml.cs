@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.Controls;
 using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
@@ -40,12 +41,26 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void RescheduleNewDateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ItemTransferViewModel itvm = (ItemTransferViewModel)ItemTransfersDataGrid.SelectedItem;
+            if (itvm == null)
+            {
+                MessageBox.Show("Odaberi zakazano premeštanje!", "Ništa nije odabrano", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new RescheduleItemTransfer(itvm, ItemTransferViewModels);
+            MainWindow.Modal.IsOpen = true;
         }
 
         private void UnscheduleNewDateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ItemTransferViewModel itvm = (ItemTransferViewModel)ItemTransfersDataGrid.SelectedItem;
+            if(itvm == null)
+            {
+                MessageBox.Show("Odaberi zakazano premeštanje!", "Ništa nije odabrano", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MainWindow.Modal.Content = new UnscheduleItemTransferControl(itvm, ItemTransferViewModels);
+            MainWindow.Modal.IsOpen = true;
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)

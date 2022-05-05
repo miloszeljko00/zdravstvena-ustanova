@@ -128,9 +128,18 @@ namespace zdravstvena_ustanova.View.Controls
                 return;
             }
 
+           
+
             var app = App.Current as App;
             StoredItem storedItem = (StoredItem)RoomItemsDataGrid.SelectedItem;
             DateTime scheduleDate = (DateTime)ScheduleDatePicker.SelectedDate;
+
+            if (scheduleDate.CompareTo(DateTime.Now) <= 0)
+            {
+                MessageBox.Show("Datum ne može biti u prošlosti!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
 
             ScheduledItemTransfer scheduledItemTransfer;
             if (DeleteItemRadio.IsChecked == true)
