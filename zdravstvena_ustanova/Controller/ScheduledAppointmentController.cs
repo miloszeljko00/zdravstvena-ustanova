@@ -19,6 +19,11 @@ namespace zdravstvena_ustanova.Controller
         {
             return _scheduledAppointmentService.GetAll();
         }
+        public IEnumerable<ScheduledAppointment> GetAllUnbound()
+        {
+            return _scheduledAppointmentService.GetAllUnbound();
+        }
+
         public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
         {
             return _scheduledAppointmentService.GetFromToDates(start, end);
@@ -45,13 +50,14 @@ namespace zdravstvena_ustanova.Controller
             _scheduledAppointmentService.Delete(scheduledAppointmentId);
         }
 
+
         public List<string> GetAppropriateTimes(DateTime dateTime, long doctorId,long patientId, long roomId, int shift)
         {
             string[] times = {"08:00", "09:00", "10:00", "11:00", "12:00",
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
             
 
-            var _scheduledAppointments = _scheduledAppointmentService.GetAll();
+            var _scheduledAppointments = _scheduledAppointmentService.GetAllUnbound();
             foreach(ScheduledAppointment sa in _scheduledAppointments)
             {
                 if(sa.Start.Date == dateTime)

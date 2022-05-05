@@ -99,7 +99,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             long roomId = -1;
             if (r != null)
                 roomId = r.Id;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift);
+            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
             timeCB.ItemsSource = times;
         }
 
@@ -110,7 +110,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             long roomId = -1;
             if (r != null)
                 roomId = r.Id;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift);
+            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
             timeCB.ItemsSource = times;
         }
 

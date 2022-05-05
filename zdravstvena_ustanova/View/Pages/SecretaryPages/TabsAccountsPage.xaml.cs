@@ -31,7 +31,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private HomePagePatients _homePagePatients;
 
-        private bool da;
         public TabsAccountsPage(HomePagePatients hpp)
         {
             InitializeComponent();
@@ -43,7 +42,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             PatientsAccounts.Filter = acc => ((Account)acc).AccountType == AccountType.PATIENT || ((Account)acc).AccountType == AccountType.GUEST;
             StaffAccounts = new CollectionViewSource { Source = Accounts }.View;
             StaffAccounts.Filter = acc => ((Account)acc).AccountType != AccountType.PATIENT && ((Account)acc).AccountType != AccountType.GUEST;
-            da = true;
         }
 
 
@@ -78,6 +76,8 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             Account account = dataContext as Account;
             if (account != null)
             {
+                if (account.AccountType == AccountType.GUEST)
+                    return;
                 _homePagePatients.SecretaryFrame.Content = new SecretaryHealthRecordPage((Patient)account.Person, _homePagePatients);
             }
         }

@@ -59,6 +59,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 account.IsEnabled = !(bool)isDisabledCheckBox.IsChecked; 
                 app.AccountController.Update(account);
             }
+            if(account.AccountType == AccountType.GUEST)
+            {
+                account.AccountType = AccountType.PATIENT;
+            }
             account.Person.Name = nameTB.Text;
             account.Person.Surname = surnameTB.Text;
             account.Person.DateOfBirth = (DateTime)dateDP.SelectedDate;

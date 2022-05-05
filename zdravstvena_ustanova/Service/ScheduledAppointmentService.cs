@@ -34,6 +34,12 @@ namespace zdravstvena_ustanova.Service
             BindPatientDoctorRoomWithScheduledAppointments(patients, doctors, rooms, scheduledAppointments, accounts);
             return scheduledAppointments;
         }
+
+        public IEnumerable<ScheduledAppointment> GetAllUnbound()
+        { 
+            return _scheduledAppointmentRepository.GetAll();
+            
+        }
         public ScheduledAppointment GetById(long Id)
         {
             var patients = _patientRepository.GetAll();
