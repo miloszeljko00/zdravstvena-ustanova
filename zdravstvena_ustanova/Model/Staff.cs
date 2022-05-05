@@ -1,7 +1,7 @@
-using Model.Enums;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
     public abstract class Staff : Person
     {

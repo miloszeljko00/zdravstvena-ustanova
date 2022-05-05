@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
-using Model;
 
 
 namespace zdravstvena_ustanova.Controller

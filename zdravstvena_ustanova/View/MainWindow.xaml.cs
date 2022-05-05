@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using ModalControl;
-using Model;
+using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.View.Pages;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
 

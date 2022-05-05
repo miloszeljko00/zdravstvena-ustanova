@@ -1,5 +1,5 @@
-﻿using Model;
-using Model.Enums;
+﻿using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class ScheduledItemTransferRepository
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Model;
-using Model.Enums;
-using Service;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Service;
 
 namespace zdravstvena_ustanova.View
 {

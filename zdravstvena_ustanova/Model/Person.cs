@@ -1,6 +1,6 @@
 using System;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
  
     public abstract class Person

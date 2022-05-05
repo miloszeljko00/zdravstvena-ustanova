@@ -1,11 +1,4 @@
-// File:    AccountType.cs
-// Author:  miloszeljko00
-// Created: nedelja, 10. april 2022. 10:57:29
-// Purpose: Definition of Enum AccountType
-
-using System;
-
-namespace Model.Enums
+namespace zdravstvena_ustanova.Model.Enums
 {
    public enum ReleaseKind
    {

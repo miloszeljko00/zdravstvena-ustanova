@@ -1,10 +1,10 @@
 using System;
-using Service;
-using Model;
+using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
    public class ScheduledAppointmentController
    {

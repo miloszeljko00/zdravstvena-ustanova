@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Service;
-using Model;
+using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.Controller
 {

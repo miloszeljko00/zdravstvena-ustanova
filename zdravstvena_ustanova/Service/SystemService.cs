@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Repository;
-using Model;
-using Model.Enums;
+using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System.Threading;
 
-namespace Service
+namespace zdravstvena_ustanova.Service
 {
     public class SystemService
     {
         private readonly ScheduledItemTransferRepository _scheduledItemTransferRepository;
         private readonly StoredItemRepository _storedItemRepository;
-        private Timer timer;
+
         public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository)
         {
             _scheduledItemTransferRepository = scheduledItemTransferRepository;

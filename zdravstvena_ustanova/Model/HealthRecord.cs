@@ -1,8 +1,8 @@
-using Model.Enums;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Model
+namespace zdravstvena_ustanova.Model
 {
    public class HealthRecord
    {

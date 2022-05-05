@@ -1,9 +1,9 @@
 using System;
-using Service;
-using Model;
+using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 
-namespace Controller
+namespace zdravstvena_ustanova.Controller
 {
    public class SpecialtyController
    {

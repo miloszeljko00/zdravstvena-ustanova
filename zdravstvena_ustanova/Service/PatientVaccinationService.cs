@@ -1,10 +1,9 @@
-﻿using Model;
+﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 
 namespace zdravstvena_ustanova.Service

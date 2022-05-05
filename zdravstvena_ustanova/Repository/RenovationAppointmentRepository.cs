@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model;
+using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Exception;
 
-namespace Repository
+namespace zdravstvena_ustanova.Repository
 {
     public class RenovationAppointmentRepository
     {

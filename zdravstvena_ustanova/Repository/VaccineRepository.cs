@@ -1,5 +1,5 @@
-﻿using Model;
-using Model.Enums;
+﻿using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
-using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.Repository
 {
