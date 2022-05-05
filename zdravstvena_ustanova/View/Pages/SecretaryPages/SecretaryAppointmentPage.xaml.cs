@@ -163,7 +163,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
             if (sa != null)
             {
-                _homePagePatients.SecretaryFrame.Content = new EditAppointmentPage(sa, _homePagePatients);
+                _homePagePatients.SecretaryFrame.Content = new EditAppointmentPage(sa, _homePagePatients, false);
             }
         }
 
@@ -171,13 +171,18 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             if (dataGridScheduledAppointments.SelectedItem == null)
                 return;
-            MainWindow.Modal.Content = new CancelAppointmentControl(ScheduledAppointments, dataGridScheduledAppointments);
+            MainWindow.Modal.Content = new CancelAppointmentControl(ScheduledAppointments, dataGridScheduledAppointments, false);
             MainWindow.Modal.IsOpen = true;
         }
 
         private void New_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _homePagePatients.SecretaryFrame.Content = new NewAppointment(_homePagePatients);
+        }
+
+        private void unscheduled_Click(object sender, RoutedEventArgs e)
+        {
+            _homePagePatients.SecretaryFrame.Content = new UnscheduledAppointmentsPage(_homePagePatients);
         }
     }
 }

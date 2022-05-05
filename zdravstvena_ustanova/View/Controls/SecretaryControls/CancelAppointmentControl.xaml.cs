@@ -26,7 +26,9 @@ namespace zdravstvena_ustanova.View.Controls.SecretaryControls
 
         public DataGrid AppointmentsDataGrid { get; set; }
 
-        ObservableCollection<ScheduledAppointment> ScheduledAppointments { get; set; }
+        public ObservableCollection<ScheduledAppointment> ScheduledAppointments { get; set; }
+
+        private bool isUnscheduled;
          #region NotifyProperties
         private string _patientName;
         public string PatientName
@@ -89,12 +91,13 @@ namespace zdravstvena_ustanova.View.Controls.SecretaryControls
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public CancelAppointmentControl(ObservableCollection<ScheduledAppointment> scheduledAppointments, DataGrid appointmentsDataGrid)
+        public CancelAppointmentControl(ObservableCollection<ScheduledAppointment> scheduledAppointments, DataGrid appointmentsDataGrid, bool isUnscheduled)
         {
             InitializeComponent();
             DataContext = this;
             AppointmentsDataGrid = appointmentsDataGrid;
             ScheduledAppointments = scheduledAppointments;
+            this.isUnscheduled = isUnscheduled;
             ScheduledAppointment sa = AppointmentsDataGrid.SelectedItem as ScheduledAppointment;
             PatientName = sa.Patient.Name + " " + sa.Patient.Surname;
             DoctorName = sa.Doctor.Name + " " + sa.Doctor.Surname;
@@ -118,7 +121,11 @@ namespace zdravstvena_ustanova.View.Controls.SecretaryControls
 
             var app = Application.Current as App;
 
-            app.ScheduledAppointmentController.Delete(appointment.Id);
+            if(isUnscheduled)
+                app.UnScheduledAppointmentController.Delete(appointment.Id);
+            else
+                app.ScheduledAppointmentController.Delete(appointment.Id);
+
             ScheduledAppointments.Remove(appointment);
 
             CollectionViewSource.GetDefaultView(AppointmentsDataGrid.ItemsSource).Refresh();
