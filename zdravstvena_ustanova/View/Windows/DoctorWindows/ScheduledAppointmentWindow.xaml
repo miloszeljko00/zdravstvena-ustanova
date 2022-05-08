@@ -205,15 +205,44 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="Required specialization:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
-                    <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" Width="362"/>
-                    <Label Content="Doctor's name:" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1"/>
-                    <ComboBox HorizontalAlignment="Center" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="0,50,0,0"/>
-                    <Label Content="Cause of request:" HorizontalAlignment="Center" Margin="0,143,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1" Grid.RowSpan="2"/>
-                    <RadioButton Content="Urgent" HorizontalAlignment="Left" Margin="336,99,0,0" VerticalAlignment="Top" Grid.Row="3" FontSize="24" IsChecked="True"/>
-                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="56,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114"/>
-                    <TextBox HorizontalAlignment="Left" Margin="56,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="745" Grid.Row="2" Height="150" Grid.RowSpan="2"/>
+                    <Label Content="Required specialization:" HorizontalAlignment="Left" Margin="68,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
+                    <ComboBox x:Name="specialtiesComboBox" ItemsSource="{Binding Specialties}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Margin="20,137,0,0" Grid.RowSpan="2" SelectionChanged="specialtiesComboBox_SelectionChanged"/>
+                    <Label Content="Doctor's name:" HorizontalAlignment="Left" Margin="68,45,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1"/>
+                    <ComboBox x:Name="doctorsBySpecialtyComboBox" ItemsSource="{Binding DoctorsBySpecialty}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="20,93,0,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="2" Text="{Binding Name}"></TextBlock>
+                                    <TextBlock Margin="2" Text="{Binding Surname}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label Content="Cause of request:" HorizontalAlignment="Left" Margin="106,8,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="2"/>
+                    <RadioButton Content="Urgent" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Grid.Row="2" FontSize="24" IsChecked="True"/>
+                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="56,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel_Request_For_Specialist"/>
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist"/>
+                    <TextBox x:Name="causeForSpecialistTextBox" HorizontalAlignment="Left" Margin="20,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="362" Grid.Row="2" Height="150" Grid.RowSpan="2"/>
+                    <DatePicker x:Name="requestForSpecialistDataPicker" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Width="355" Grid.RowSpan="2"/>
+                    <Label Content="Start:" HorizontalAlignment="Left" Margin="558,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
+                    <Label Content="REQUEST FOR SPECIALIST:" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Width="297" FontSize="24"/>
+                    <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="516,47,0,0" VerticalAlignment="Top" Width="270" Grid.Row="1" FontSize="22"/>
+                    <ComboBox x:Name="TimeForSpecialistComboBox" HorizontalAlignment="Left" Margin="469,91,0,0" Text="" VerticalAlignment="Top" Width="362" Grid.Row="1" FontSize="18">
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                    </ComboBox>
 
                 </Grid>
             </TabItem>
