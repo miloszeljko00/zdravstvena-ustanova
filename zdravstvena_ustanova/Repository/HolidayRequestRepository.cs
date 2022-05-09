@@ -56,22 +56,46 @@ namespace zdravstvena_ustanova.Repository
 
         public bool Update(HolidayRequest holidayRequest)
         {
+            bool returnValue = false;
             var holidayRequests = GetAll();
-
+            var holidayRequestFromCollection = GetHolidayRequestById(holidayRequests, holidayRequest.Id);
+            if (DoesHolidayRequestExist(holidayRequestFromCollection))
+            {
+                CopyValuesFromHolidayRequest(holidayRequest, holidayRequestFromCollection);
+                WriteLinesToFile(_path, HolidayRequestsToCSVFormat((List<HolidayRequest>)holidayRequests));
+                returnValue = true;
+            }
+            return returnValue;
+        }
+        public bool DoesHolidayRequestExist(HolidayRequest holidayRequest)
+        {
+            return holidayRequest is not null;
+        }
+        public HolidayRequest? GetHolidayRequestById(IEnumerable<HolidayRequest> holidayRequests, long id)
+        {
+            HolidayRequest holidayRequestReturnValue = null;
             foreach (HolidayRequest hr in holidayRequests)
             {
-                if(hr.Id == holidayRequest.Id)
+                if (AreIdsEquals(hr.Id, id))
                 {
-                    hr.Cause = holidayRequest.Cause;
-                    hr.StartDate = holidayRequest.StartDate;
-                    hr.EndDate = holidayRequest.EndDate;
-                    hr.HolidayRequestStatus=holidayRequest.HolidayRequestStatus;
-                    WriteLinesToFile(_path, HolidayRequestsToCSVFormat((List<HolidayRequest>)holidayRequests));
-                    return true;
+                    holidayRequestReturnValue = hr;
+                    break;
                 }
             }
+            return holidayRequestReturnValue;
+        }
 
-            return false;
+        public bool AreIdsEquals(long firstHolidayRequestId, long secondHolidayRequestId)
+        {
+            return firstHolidayRequestId == secondHolidayRequestId;
+        }
+        public void CopyValuesFromHolidayRequest(HolidayRequest sourceHolidayRequest, HolidayRequest destinationHolidayRequest)
+        {
+            destinationHolidayRequest.Cause = sourceHolidayRequest.Cause;
+            destinationHolidayRequest.StartDate = sourceHolidayRequest.StartDate;
+            destinationHolidayRequest.EndDate = sourceHolidayRequest.EndDate;
+            destinationHolidayRequest.HolidayRequestStatus = sourceHolidayRequest.HolidayRequestStatus;
+            destinationHolidayRequest.IsUrgent = sourceHolidayRequest.IsUrgent;
         }
         public bool Delete(long holidayRequestId)
         {
@@ -87,7 +111,7 @@ namespace zdravstvena_ustanova.Repository
                 }
             }
             return false;
-           
+
         }
 
         private string HolidayRequestToCSVFormat(HolidayRequest holidayRequest)
@@ -95,9 +119,11 @@ namespace zdravstvena_ustanova.Repository
             return string.Join(_delimiter,
                 holidayRequest.Id,
                 holidayRequest.Cause,
-                holidayRequest.StartDate.ToString("dd.MM.yyyy. HH:mm"),
-                holidayRequest.EndDate.ToString("dd.MM.yyyy. HH:mm"),
-                (int)holidayRequest.HolidayRequestStatus
+                ((DateTime)holidayRequest.StartDate).ToString("dd.MM.yyyy. HH:mm"),
+                ((DateTime)holidayRequest.EndDate).ToString("dd.MM.yyyy. HH:mm"),
+                (int)holidayRequest.HolidayRequestStatus,
+                holidayRequest.IsUrgent,
+                holidayRequest.Doctor.Id
                 );
         }
 
@@ -130,7 +156,9 @@ namespace zdravstvena_ustanova.Repository
                tokens[1],
                startTime,
                endTime,
-               (HolidayRequestStatus)int.Parse(tokens[4])
+               (HolidayRequestStatus)int.Parse(tokens[4]),
+               bool.Parse(tokens[5]),
+               long.Parse(tokens[6])
                 );
         }
 

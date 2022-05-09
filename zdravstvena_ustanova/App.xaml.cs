@@ -41,6 +41,8 @@ namespace zdravstvena_ustanova
 
         private readonly string HEALTH_RECORD_FILE = ProjectPath + "\\Resources\\Data\\HealthRecords.csv";
         private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
+
+        private readonly string HOLIDAY_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\HolidayRequest.csv";
         
         public ItemController ItemController { get; set; }
         public StoredItemController StoredItemController { get; set; }
@@ -71,6 +73,8 @@ namespace zdravstvena_ustanova
         public AllergensController AllergensController { get; set; }
 
         public SystemController SystemController { get; set; }
+
+        public HolidayRequestController HolidayRequestController { get; set; }
 
 
         public Person? LoggedInUser { get; set; }
@@ -111,6 +115,8 @@ namespace zdravstvena_ustanova
             var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
             var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
 
+            var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
+
 
             var itemService = new ItemService(itemRepository);
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -149,6 +155,8 @@ namespace zdravstvena_ustanova
             var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
             var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
 
+            var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
+
             var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
 
             
@@ -178,6 +186,8 @@ namespace zdravstvena_ustanova
 
             AllergensController = new AllergensController(allergenService);
             HealthRecordController = new HealthRecordController(healthRecordService);
+
+            HolidayRequestController = new HolidayRequestController(holidayRequestService);
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
