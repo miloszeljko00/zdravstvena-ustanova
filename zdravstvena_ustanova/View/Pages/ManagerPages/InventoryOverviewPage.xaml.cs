@@ -76,14 +76,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                     );
                 textImageBrush.AlignmentX = AlignmentX.Left;
                 textImageBrush.Stretch = Stretch.None;
-
+                var app = App.Current as App;
+                Room = app.RoomController.GetById(Room.Id);
                 // Use the brush to paint the button's background.
                 SearchTextBox.Background = textImageBrush;
             }
             else
-            {
-
+            { 
                 SearchTextBox.Background = null;
+                var app = Application.Current as App;
+                string searchText = SearchTextBox.Text;
+                Room = app.RoomController.FilterStoredItemsByName(Room.Id, searchText);
             }
         }
 
