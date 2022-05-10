@@ -195,7 +195,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
         {
             CreateNewAppointment createNewAppointment = new CreateNewAppointment();
-            createNewAppointment.ShowDialog();
         }
     }
 }

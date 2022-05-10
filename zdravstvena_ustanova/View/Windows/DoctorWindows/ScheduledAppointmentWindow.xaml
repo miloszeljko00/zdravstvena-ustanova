@@ -187,7 +187,7 @@
                               PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
                     </ListView>
                     <ListView ItemsSource="{Binding LabAnalysisComponents2}" DisplayMemberPath="Name" Margin="10,149,10,22" Grid.RowSpan="5" Grid.Column="2"
-                              AllowDrop="True" DragOver="ListView_DragOver" Drop="ListView_Drop">
+                              AllowDrop="True" DragOver="ListView_DragOver" Drop="ListView_Drop" Panel.ZIndex="10">
                     </ListView>
                     <Label Content="Blood components:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="39" Width="205" FontSize="22" Grid.Column="1" Grid.Row="0"/>
                     <Label Content="Selected components:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="39" Width="233" FontSize="22" Grid.Column="2" Grid.Row="0"/>

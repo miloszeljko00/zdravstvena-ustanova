@@ -123,6 +123,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
+            //NEBITNE STVARI
+            LabAnalysisComponents2 = new ObservableCollection<LabAnalysisComponent>();
+            //\NEBTINE STVARI
             var app = Application.Current as App;
             PatientName = selectedAppointment.Patient.Name;
             PatientSurname = selectedAppointment.Patient.Surname;
@@ -345,7 +348,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (e.Data.GetDataPresent(typeof(LabAnalysisComponent)))
             {
                 LabAnalysisComponent labAnalysisComponent = e.Data.GetData(typeof(LabAnalysisComponent)) as LabAnalysisComponent;
-                LabAnalysisComponents.Remove(labAnalysisComponent);
+                //LabAnalysisComponents.Remove(labAnalysisComponent);
                 LabAnalysisComponents2.Add(labAnalysisComponent);
             }
         }
@@ -377,7 +380,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
                 // Initialize the drag & drop operation
                 DataObject dragData = new DataObject(typeof(LabAnalysisComponent), labAnalysisComponent);
-                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Copy);
+                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
             }
         }
         private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject

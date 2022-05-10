@@ -76,16 +76,21 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 return;
             }
             int oh = int.Parse(onHours.Text);
+            if(((DateTime?)endDate.SelectedDate) == null)
+            {
+                MessageBox.Show("Morate izabrati end date!");
+                return;
+            }
             DateTime ed = (DateTime)endDate.SelectedDate;
             if(ed.Year<DateTime.Now.Year)
             {
                 MessageBox.Show("Izabrali ste termin u proslosti!");
                 return;
-            } else if(ed.Month<DateTime.Now.Month)
+            } else if(ed.Year == DateTime.Now.Year && ed.Month<DateTime.Now.Month)
             {
                 MessageBox.Show("Izabrali ste termin u proslosti!");
                 return;
-            } else if(ed.Day<DateTime.Now.Day)
+            } else if(ed.Year == DateTime.Now.Year && ed.Month == DateTime.Now.Month && ed.Day<DateTime.Now.Day)
             {
                 MessageBox.Show("Izabrali ste termin u proslosti!");
                 return;
