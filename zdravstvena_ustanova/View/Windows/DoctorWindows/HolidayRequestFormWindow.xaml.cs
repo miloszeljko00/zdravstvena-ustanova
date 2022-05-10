@@ -89,6 +89,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     }
                 }
             }
+            if(endDate<=startDate)
+            {
+                MessageBox.Show("Niste uneli validne vremenske intervale!");
+                return;
+            }
             HolidayRequest = new HolidayRequest(cause, startDate, endDate, zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ONHOLD, isUrgent, myDoctor);
             app = Application.Current as App;
             app.HolidayRequestController.Create(HolidayRequest);
