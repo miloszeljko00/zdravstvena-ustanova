@@ -7,7 +7,9 @@ namespace zdravstvena_ustanova.Model
     {
         public long Id { get; set; }
         public string Name { get; set; }
-
+        public MedicationType MedicationType { get; set; }
+        public int Quantity { get; set; }
+        public bool IsApproved { get; set; }
         public List<Ingredient> Ingredients { get; set; }
 
         public Medication(long id, string name)
