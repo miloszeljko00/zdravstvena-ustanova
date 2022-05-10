@@ -13,6 +13,7 @@ namespace zdravstvena_ustanova.Model
         public Medication Medication { get; set; }
         public Doctor ApprovingDoctor { get; set; }
         public string RequestMessage { get; set; }
+        public string ResponseMessage { get; set; }
         public RequestStatus RequestStatus { get; set; }
     }
 }
