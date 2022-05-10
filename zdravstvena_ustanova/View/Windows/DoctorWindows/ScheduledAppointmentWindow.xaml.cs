@@ -326,9 +326,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 app.MedicalExaminationController.Update(MedicalExamination);
             }
             ///////////////////////////////////////////////////////////
-            SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
-            DoctorHomePageWindow.UpdateCalendar();
-            ////////////////////////
             Close();
         }
 
@@ -443,21 +440,39 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             var app = Application.Current as App;
             Patient patient = ScheduledAppointment.Patient;
-            //16.05.2022. 13:00;16.05.2022. 14:00;
+            if(specialtiesComboBox.SelectedItem == null || doctorsBySpecialtyComboBox.SelectedItem==null)
+            {
+                MessageBox.Show("Morate odabrati specijalnost i lekara!");
+                return;
+            }
             SelectedDoctor = (Doctor)doctorsBySpecialtyComboBox.SelectedItem;
+            if(TimeForSpecialistComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati vreme");
+                    return;
+            }
             string selectedTime = ((ComboBoxItem)TimeForSpecialistComboBox.SelectedItem).Content.ToString();
             int startTime = int.Parse(selectedTime);
             int endTime = int.Parse(selectedTime) + 1;
-            if ((DateTime)requestForSpecialistDataPicker.SelectedDate == null)
+            if (requestForSpecialistDataPicker.SelectedDate == null)
             {
                 MessageBox.Show("Morate izabrati datum");
                 return;
+            }
+            if(requestForSpecialistDataPicker.SelectedDate <= DateTime.Now)
+            {
+                MessageBox.Show("Ne mozete zakazati termin u proslost!");
+                return;
+
             }
             DateTime selectedDate = (DateTime)requestForSpecialistDataPicker.SelectedDate;
             DateTime startDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, startTime, 0, 0);
             DateTime endDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, endTime, 0, 0);
             SpecialistScheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.SPECIALIST_APPOINTMENT, ScheduledAppointment.Patient.Id,
                 SelectedDoctor.Id, SelectedDoctor.Room.Id);
+            SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
+            DoctorHomePageWindow.UpdateCalendar();
+            this.Close();
         }
 
         private void Button_Click_Cancel_Request_For_Specialist(object sender, RoutedEventArgs e)
@@ -465,9 +480,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje zahteva", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
-                specialtiesComboBox.SelectedItem = null;
-                doctorsBySpecialtyComboBox.SelectedItem = null;
-                causeForSpecialistTextBox.Text = "";
+                this.Close();
+                return;
             }
             
         }
