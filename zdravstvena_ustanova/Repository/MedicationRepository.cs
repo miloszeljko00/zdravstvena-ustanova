@@ -64,6 +64,9 @@ namespace zdravstvena_ustanova.Repository
                 if (m.Id == medication.Id)
                 {
                     m.Name = medication.Name;
+                    m.MedicationType = medication.MedicationType;
+                    m.Quantity = medication.Quantity;
+                    m.IsApproved = medication.IsApproved;
                     m.Ingredients = medication.Ingredients;
                     WriteLinesToFile(_path, MedicationsToCSVFormat((List<Medication>)medications));
                     return true;
