@@ -30,6 +30,9 @@ namespace zdravstvena_ustanova.View.Controls
             InitializeComponent();
             DataContext = this;
             ItemViewModels = itemViewModel;
+            var app = Application.Current as App;
+
+            ItemTypeComboBox.ItemsSource = app.ItemTypeController.GetAll();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -40,7 +43,7 @@ namespace zdravstvena_ustanova.View.Controls
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ItemNameTextBox.Text == "" || ItemDescriptionTextBox.Text == "")
+            if (ItemNameTextBox.Text == "" || ItemDescriptionTextBox.Text == "" || ItemTypeComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -51,7 +54,7 @@ namespace zdravstvena_ustanova.View.Controls
             string itemName = ItemNameTextBox.Text;
             string itemDescription = ItemDescriptionTextBox.Text;
 
-            var item = new Item(itemName, itemDescription);
+            var item = new Item(itemName, itemDescription, (ItemType)ItemTypeComboBox.SelectedItem);
 
             item = app.ItemController.Create(item);
 

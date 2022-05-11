@@ -12,20 +12,25 @@ namespace zdravstvena_ustanova.Service
         private readonly RoomRepository _roomRepository;
         private readonly StoredItemRepository _storedItemRepository;
         private readonly ItemRepository _itemRepository;
+        private readonly ItemTypeRepository _itemTypeRepository;
 
-        public RoomService(RoomRepository roomRepository, StoredItemRepository storedItemRepository, ItemRepository itemRepository)
+
+        public RoomService(RoomRepository roomRepository, StoredItemRepository storedItemRepository, ItemRepository itemRepository,
+            ItemTypeRepository itemTypeRepository)
         {
             _roomRepository = roomRepository;
             _storedItemRepository = storedItemRepository;
             _itemRepository = itemRepository;
+            _itemTypeRepository = itemTypeRepository;
         }
 
         public IEnumerable<Room> GetAll()
         {
             var items = _itemRepository.GetAll();
+            var itemTypes = _itemTypeRepository.GetAll();
             var storedItems = _storedItemRepository.GetAll();
             var rooms = _roomRepository.GetAll();
-
+            BindItemsWithItemTypes(items, itemTypes);
             BindItemsWithStoredItems(items, storedItems);
             BindStoredItemsWithRooms(storedItems, rooms);
             return rooms;
@@ -35,7 +40,7 @@ namespace zdravstvena_ustanova.Service
         {
             Room room = GetById(roomId);
 
-            List<StoredItem> storedItems = (List<StoredItem>)room.StoredItems.FindAll(
+            List<StoredItem> storedItems = room.StoredItems.FindAll(
                 storedItem => storedItem.Item.Name.Contains(searchText));
             room.StoredItems = storedItems;
             return room;
@@ -44,12 +49,30 @@ namespace zdravstvena_ustanova.Service
         public Room GetById(long id)
         {
             var items = _itemRepository.GetAll();
+            var itemTypes = _itemTypeRepository.GetAll();
             var storedItems = _storedItemRepository.GetAll();
             var room = _roomRepository.Get(id);
-
+            BindItemsWithItemTypes(items,itemTypes);
             BindItemsWithStoredItems(items, storedItems);
             BindStoredItemsWithRoom(storedItems, room);
             return room;
+        }
+        private void BindItemsWithItemTypes(IEnumerable<Item> items, IEnumerable<ItemType> itemTypes)
+        {
+            foreach (var item in items)
+            {
+                BindItemWithItemTypes(item, itemTypes);
+            }
+        }
+
+        private void BindItemWithItemTypes(Item item, IEnumerable<ItemType> itemTypes)
+        {
+            item.ItemType = FindItemTypeById(itemTypes, item.ItemType.Id);
+        }
+
+        private ItemType FindItemTypeById(IEnumerable<ItemType> itemTypes, long id)
+        {
+            return itemTypes.SingleOrDefault(itemType => itemType.Id == id);
         }
         private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> storedItems)
         {

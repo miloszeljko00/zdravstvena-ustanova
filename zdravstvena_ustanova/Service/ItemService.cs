@@ -9,20 +9,46 @@ namespace zdravstvena_ustanova.Service
     public class ItemService
     {
         private readonly ItemRepository _itemRepository;
+        private readonly ItemTypeRepository _itemTypeRepository;
 
-        public ItemService(ItemRepository itemRepository)
+        public ItemService(ItemRepository itemRepository, ItemTypeRepository itemTypeRepository)
         {
             _itemRepository = itemRepository;
+            _itemTypeRepository = itemTypeRepository;
         }
 
         public IEnumerable<Item> GetAll()
         {
-            return _itemRepository.GetAll();
+            var items = _itemRepository.GetAll();
+            var itemTypes = _itemTypeRepository.GetAll();
+            BindItemsWithItemTypes(items, itemTypes);
+            return items;
         }
 
-        private Item FindItemById(IEnumerable<Item> items, long id)
+        private void BindItemsWithItemTypes(IEnumerable<Item> items, IEnumerable<ItemType> itemTypes)
+        {
+            foreach(var item in items)
+            {
+                BindItemWithItemTypes(item, itemTypes);
+            }
+        }
+
+        private void BindItemWithItemTypes(Item item, IEnumerable<ItemType> itemTypes)
+        {
+            item.ItemType = FindItemTypeById(itemTypes, item.ItemType.Id);
+        }
+
+        private ItemType FindItemTypeById(IEnumerable<ItemType> itemTypes, long id)
+        {
+            return itemTypes.SingleOrDefault(itemType => itemType.Id == id);
+        }
+
+        public Item GetById(long id)
         { 
-            return items.SingleOrDefault(item => item.Id == id);
+            var item = _itemRepository.GetById(id);
+            var itemTypes = _itemTypeRepository.GetAll();
+            BindItemWithItemTypes(item, itemTypes);
+            return item;
         }
 
         public Item Create(Item item)
