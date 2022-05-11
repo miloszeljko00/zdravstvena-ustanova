@@ -21,5 +21,9 @@ namespace zdravstvena_ustanova.Model
         {
             Name = name;
         }
+        public MedicationType(long id)
+        {
+            Id = id;
+        }
     }
 }

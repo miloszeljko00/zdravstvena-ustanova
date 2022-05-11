@@ -31,5 +31,41 @@ namespace zdravstvena_ustanova.Model
             Name = name;
             Ingredients = ingredients;
         }
+
+        public Medication(long id, string name, MedicationType medicationType, int quantity,
+            bool isApproved, List<Ingredient> ingredients) : this(id, name)
+        {
+            MedicationType = medicationType;
+            Quantity = quantity;
+            IsApproved = isApproved;
+            Ingredients = ingredients;
+        }
+
+        public Medication(string name, MedicationType medicationType, int quantity, bool isApproved, List<Ingredient> ingredients)
+        {
+            Name = name;
+            MedicationType = medicationType;
+            Quantity = quantity;
+            IsApproved = isApproved;
+            Ingredients = ingredients;
+        }
+        public Medication(long id, string name, long medicationTypeId, int quantity,
+            bool isApproved, List<Ingredient> ingredients) : this(id, name)
+        {
+            MedicationType = new MedicationType(medicationTypeId);
+            Quantity = quantity;
+            IsApproved = isApproved;
+            Ingredients = ingredients;
+        }
+
+        public Medication(string name, long medicationTypeId, int quantity, bool isApproved, List<Ingredient> ingredients)
+        {
+            Name = name;
+            MedicationType = new MedicationType(medicationTypeId);
+            Quantity = quantity;
+            IsApproved = isApproved;
+            Ingredients = ingredients;
+        }
+
     }
 }

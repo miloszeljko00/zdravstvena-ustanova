@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Repository
 {
@@ -24,13 +25,13 @@ namespace zdravstvena_ustanova.Repository
         }
         private long GetMaxId(IEnumerable<MedicationApprovalRequest> medicationApprovalRequests)
         {
-            return medicationApprovalRequests.Count() == 0 ? 0 : medicationApprovalRequests.Max(storedItem => storedItem.Id);
+            return medicationApprovalRequests.Count() == 0 ? 0 : medicationApprovalRequests.Max(medicationApprovalRequest => medicationApprovalRequest.Id);
         }
 
         public IEnumerable<MedicationApprovalRequest> GetAll()
         {
             return File.ReadAllLines(_path)
-                .Select(CSVFormatToStoredItem)
+                .Select(CSVFormatToMedicationApprovalRequest)
                 .ToList();
         }
 
@@ -56,78 +57,72 @@ namespace zdravstvena_ustanova.Repository
 
         public bool Update(MedicationApprovalRequest medicationApprovalRequest)
         {
-            var medicationApprovalRequests = GetAll();
+            var medicationApprovalRequests = (List<MedicationApprovalRequest>)GetAll();
 
             foreach (MedicationApprovalRequest mar in medicationApprovalRequests)
             {
                 if (mar.Id == medicationApprovalRequest.Id)
                 {
-                    mar.Item = medicationApprovalRequest.Item;
-                    mar.Quantity = medicationApprovalRequest.Quantity;
-                    mar.StorageType = medicationApprovalRequest.StorageType;
-                    mar.Room = medicationApprovalRequest.Room;
-                    mar.Warehouse = medicationApprovalRequest.Warehouse;
-                    WriteLinesToFile(_path, StoredItemsToCSVFormat((List<StoredItem>)medicationApprovalRequests));
+                    mar.Medication = medicationApprovalRequest.Medication;
+                    mar.ApprovingDoctor = medicationApprovalRequest.ApprovingDoctor;
+                    mar.RequestMessage = medicationApprovalRequest.RequestMessage;
+                    mar.ResponseMessage = medicationApprovalRequest.ResponseMessage;
+                    mar.RequestStatus = medicationApprovalRequest.RequestStatus;
+
+                    WriteLinesToFile(_path, MedicationApprovalRequestsToCSVFormat(medicationApprovalRequests));
                     return true;
                 }
             }
             return false;
         }
-        public bool Delete(long storedItemId)
+        public bool Delete(long medicationApprovalRequestId)
         {
-            var storedItems = (List<StoredItem>)GetAll();
+            var medicationApprovalRequests = (List<MedicationApprovalRequest>)GetAll();
 
-            foreach (StoredItem si in storedItems)
+            foreach (MedicationApprovalRequest mar in medicationApprovalRequests)
             {
-                if (si.Id == storedItemId)
+                if (mar.Id == medicationApprovalRequestId)
                 {
-                    storedItems.Remove(si);
-                    WriteLinesToFile(_path, StoredItemsToCSVFormat((List<StoredItem>)storedItems));
+                    medicationApprovalRequests.Remove(mar);
+                    WriteLinesToFile(_path, MedicationApprovalRequestsToCSVFormat(medicationApprovalRequests));
                     return true;
                 }
             }
             return false;
         }
 
-        private string StoredItemToCSVFormat(StoredItem storedItem)
+        private string MedicationApprovalRequestToCSVFormat(MedicationApprovalRequest medicationApprovalRequest)
         {
-            if (storedItem.StorageType == StorageType.ROOM)
-            {
-                return string.Join(_delimiter,
-                                   storedItem.Id,
-                                   storedItem.Item.Id,
-                                   storedItem.Quantity,
-                                   (int)storedItem.StorageType,
-                                   storedItem.Room.Id);
-            }
             return string.Join(_delimiter,
-                                   storedItem.Id,
-                                   storedItem.Item.Id,
-                                   storedItem.Quantity,
-                                   (int)storedItem.StorageType,
-                                   storedItem.Warehouse.Id);
-        }
-        private List<string> StoredItemsToCSVFormat(List<StoredItem> storedItems)
+                                   medicationApprovalRequest.Id,
+                                   medicationApprovalRequest.Medication.Id,
+                                   medicationApprovalRequest.ApprovingDoctor.Id,
+                                   medicationApprovalRequest.RequestMessage,
+                                   medicationApprovalRequest.ResponseMessage,
+                                   (int)medicationApprovalRequest.RequestStatus);
+    }
+        private List<string> MedicationApprovalRequestsToCSVFormat(List<MedicationApprovalRequest> medicationApprovalRequests)
         {
             List<string> lines = new List<string>();
 
-            foreach (StoredItem storedItem in storedItems)
+            foreach (MedicationApprovalRequest medicationApprovalRequest in medicationApprovalRequests)
             {
-                lines.Add(StoredItemToCSVFormat(storedItem));
+                lines.Add(MedicationApprovalRequestToCSVFormat(medicationApprovalRequest));
             }
             return lines;
         }
 
-        private StoredItem CSVFormatToStoredItem(string itemCSVFormat)
+        private MedicationApprovalRequest CSVFormatToMedicationApprovalRequest(string itemCSVFormat)
         {
             var tokens = itemCSVFormat.Split(_delimiter.ToCharArray());
 
-            return new StoredItem(
+            return new MedicationApprovalRequest(
                 long.Parse(tokens[0]),
                 long.Parse(tokens[1]),
-                int.Parse(tokens[2]),
-                (StorageType)int.Parse(tokens[3]),
-                long.Parse(tokens[4]));
+                long.Parse(tokens[2]),
+                tokens[3],
+                tokens[4],
+                (RequestStatus)int.Parse(tokens[5]));
         }
         private void AppendLineToFile(string path, string line)
         {

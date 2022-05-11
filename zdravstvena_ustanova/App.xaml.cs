@@ -41,7 +41,10 @@ namespace zdravstvena_ustanova
 
         private readonly string HEALTH_RECORD_FILE = ProjectPath + "\\Resources\\Data\\HealthRecords.csv";
         private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
-        
+
+        private readonly string MEDICATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\MedicationTypes.csv";
+        private readonly string MEDICATION_APPROVAL_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\MedicationApprovalRequests.csv";
+
         public ItemController ItemController { get; set; }
         public StoredItemController StoredItemController { get; set; }
         public RoomController RoomController { get; set; }
@@ -58,6 +61,8 @@ namespace zdravstvena_ustanova
         public SpecialtyController SpecialtyController { get; set; }
         public AnamnesisController AnamnesisController { get; set; }
         public MedicationController MedicationController { get; set; }
+        public MedicationTypeController MedicationTypeController { get; set; }
+        public MedicationApprovalRequestController MedicationApprovalRequestController { get; set; }
         public IngredientController IngredientController { get; set; }
         public PrescribedMedicineController PrescribedMedicineController { get; set; }
         public MedicalExaminationController MedicalExaminationController { get; set; }
@@ -100,6 +105,9 @@ namespace zdravstvena_ustanova
 
             var medicationRepository = new MedicationRepository(MEDICATION_FILE, CSV_DELIMITER);
             var ingredientRepository = new IngredientRepository(INGREDIENT_FILE, CSV_DELIMITER);
+            var medicationTypeRepository = new MedicationTypeRepository(MEDICATION_TYPE_FILE, CSV_DELIMITER);
+            var medicationApprovalRequestRepository = new MedicationApprovalRequestRepository(MEDICATION_APPROVAL_REQUEST_FILE, CSV_DELIMITER);
+
             var prescribedMedicineRepository = new PrescribedMedicineRepository(PRESCRIBED_MEDICINE_FILE, CSV_DELIMITER);
 
             var medicalExaminationRepository = new MedicalExaminationRepository(MEDICAL_EXAMINATION_FILE, CSV_DELIMITER);
@@ -133,9 +141,13 @@ namespace zdravstvena_ustanova
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository, roomRepository);
 
             var anamnesisService = new AnamnesisService(anamnesisRepository);
-            var medicationService = new MedicationService(medicationRepository, ingredientRepository);
+            var medicationService = new MedicationService(medicationRepository, ingredientRepository, medicationTypeRepository);
+            var medicationTypeService = new MedicationTypeService(medicationTypeRepository);
+            var medicationApprovalRequestService = new MedicationApprovalRequestService(medicationApprovalRequestRepository,
+                medicationRepository,ingredientRepository,medicationTypeRepository,doctorRepository);
+
             var ingredientService = new IngredientService(ingredientRepository);
-            var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
+            var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, medicationTypeRepository, ingredientRepository);
             var labAnalysisComponentService = new LabAnalysisComponentService(labAnalysisComponentRepository);
 
             var medicalExaminationService = new MedicalExaminationService(medicalExaminationRepository, scheduledAppointmentRepository,
@@ -168,7 +180,10 @@ namespace zdravstvena_ustanova
             SecretaryController = new SecretaryController(secretaryService);
             SpecialtyController = new SpecialtyController(specialtyService);
             AnamnesisController = new AnamnesisController(anamnesisService);
-            MedicationController = new MedicationController(medicationService);
+            MedicationController = new MedicationController(medicationService); 
+            MedicationTypeController = new MedicationTypeController(medicationTypeService);
+            MedicationApprovalRequestController = new MedicationApprovalRequestController(medicationApprovalRequestService);
+
             IngredientController = new IngredientController(ingredientService);
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
             LabAnalysisComponentController = new LabAnalysisComponentController(labAnalysisComponentService);
