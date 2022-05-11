@@ -30,6 +30,17 @@ namespace zdravstvena_ustanova.Service
             BindStoredItemsWithRooms(storedItems, rooms);
             return rooms;
         }
+
+        public Room FilterStoredItemsByName(long roomId, string searchText)
+        {
+            Room room = GetById(roomId);
+
+            List<StoredItem> storedItems = (List<StoredItem>)room.StoredItems.FindAll(
+                storedItem => storedItem.Item.Name.Contains(searchText));
+            room.StoredItems = storedItems;
+            return room;
+        }
+
         public Room GetById(long id)
         {
             var items = _itemRepository.GetAll();
