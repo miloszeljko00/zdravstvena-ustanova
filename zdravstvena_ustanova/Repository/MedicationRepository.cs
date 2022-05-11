@@ -105,12 +105,17 @@ namespace zdravstvena_ustanova.Repository
                 ingredients = string.Join(_delimiter, ingredients, medication.Ingredients[i].Id);
             }
 
+
+
             return string.Join(_delimiter,
                 medication.Id,
                 medication.Name,
+                medication.MedicationType.Id,
+                medication.Quantity,
+                medication.IsApproved,
                 count,
                 ingredients
-                );
+                ); ;
         }
         private List<string> MedicationsToCSVFormat(List<Medication> medications)
         {
@@ -128,7 +133,7 @@ namespace zdravstvena_ustanova.Repository
             var tokens = medicationCSVFormat.Split(_delimiter.ToCharArray());
 
             List<Ingredient> ingredients = new List<Ingredient>();
-            for(int i = 2 + 1; i < 2 + 1 + int.Parse(tokens[2]); i++)
+            for(int i = 6; i < 6 + int.Parse(tokens[5]); i++)
             {
                 var ingredient = new Ingredient(int.Parse(tokens[i]));
                 ingredients.Add(ingredient);
@@ -137,6 +142,9 @@ namespace zdravstvena_ustanova.Repository
             return new Medication(
                 long.Parse(tokens[0]),
                 tokens[1],
+                long.Parse(tokens[2]),
+                int.Parse(tokens[3]),
+                bool.Parse(tokens[4]),
                 ingredients
                 );
         }
