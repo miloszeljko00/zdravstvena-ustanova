@@ -45,25 +45,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             var app = Application.Current as App;
 
-            bool isUrgent = (bool)isUrgent_comboBox.IsChecked;
-            Doctor myDoctor = (Doctor)app.LoggedInUser;
-            if (!isUrgent) {
-                List<HolidayRequest> holidayRequestsFromBase = app.HolidayRequestController.GetAll().ToList();
-                foreach (HolidayRequest hr in holidayRequestsFromBase)
-                {
-                    if (hr.Doctor.Specialty.Id == myDoctor.Specialty.Id)
-                    {
-                        if(hr.HolidayRequestStatus==zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ONHOLD || hr.HolidayRequestStatus== zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ACCEPTED)
-                        {
-                            MessageBox.Show("Nazalost trenutno ne mozete zakazati odmor. " +
-                           "Kolega vase specijalnosti je vec zatrazio odmor.");
-                            return;
-                        }
-                       
-                    }
-                }
-            }
-
             if (startDate_datePicker.SelectedDate == null || endDate_datePicker.SelectedDate == null)
             {
                 MessageBox.Show("Morate uneti vremenski interval!");
@@ -93,6 +74,27 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 MessageBox.Show("Niste uneli validne vremenske intervale!");
                 return;
+            }
+            bool isUrgent = (bool)isUrgent_comboBox.IsChecked;
+            Doctor myDoctor = (Doctor)app.LoggedInUser;
+            if (!isUrgent)
+            {
+                List<HolidayRequest> holidayRequestsFromBase = app.HolidayRequestController.GetAll().ToList();
+                foreach (HolidayRequest hr in holidayRequestsFromBase)
+                {
+                    if (hr.Doctor.Specialty.Id == myDoctor.Specialty.Id)
+                    {
+                        if ((hr.StartDate < startDate && startDate < hr.EndDate) || (hr.StartDate < endDate && endDate < hr.EndDate) || (hr.StartDate < startDate && endDate < hr.EndDate))
+                        {
+                            if (hr.HolidayRequestStatus == zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ONHOLD || hr.HolidayRequestStatus == zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ACCEPTED)
+                            {
+                                MessageBox.Show("Nazalost trenutno ne mozete zakazati odmor. " +
+                               "Kolega vase specijalnosti je vec zatrazio odmor u tom vremenskom periodu.");
+                                return;
+                            }
+                        }
+                    }
+                }
             }
             HolidayRequest = new HolidayRequest(cause, startDate, endDate, zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ONHOLD, isUrgent, myDoctor);
             app = Application.Current as App;
