@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="500" Height="450">
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid Width="500" Height="500">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="150"></RowDefinition>
@@ -23,10 +24,14 @@
         <DatePicker x:Name="StartDatePicker" Width="200" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></DatePicker>
         <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Datum završetka:</Label>
         <DatePicker x:Name="EndDatePicker" Width="200" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"></DatePicker>
-        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top">Opis:</Label>
+
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">tip renoviranja:</Label>
+        <ComboBox DisplayMemberPath="Name" VerticalContentAlignment="Center" Name="RenovationTypeComboBox" Width="200" Height="28" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="RenovationTypeComboBox_SelectionChanged"></ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top">Opis:</Label>
         <TextBox Text="" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
-                 x:Name="RenovationDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
-        <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Columns="2" VerticalAlignment="Center">
+                 x:Name="RenovationDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+        <UniformGrid Grid.Row="5" Grid.ColumnSpan="2" Columns="2" VerticalAlignment="Center">
             <Button x:Name="CancelButton" Margin="0,0,0,0"  Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
             <Button x:Name="OkButton" Margin="0,0,0,0" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
         </UniformGrid>

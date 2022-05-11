@@ -89,7 +89,7 @@ namespace zdravstvena_ustanova.Repository
 
         private string RenovationAppointmentToCSVFormat(RenovationAppointment renovationAppointment)
         {
-            if(renovationAppointment.RenovationType.Name == "standardno")
+            if(renovationAppointment.RenovationType.Id == 1)
             {
                 return string.Join(_delimiter,
                    renovationAppointment.Id,
@@ -131,14 +131,15 @@ namespace zdravstvena_ustanova.Repository
             DateTime startTime;
             DateTime endTime;
 
-            DateTime.TryParseExact(tokens[3], timeFormat, CultureInfo.InvariantCulture
-                                                , DateTimeStyles.None
-                                                , out startTime);
-            DateTime.TryParseExact(tokens[4], timeFormat, CultureInfo.InvariantCulture
-                                                , DateTimeStyles.None
-                                                , out endTime);
+           
             if(tokens.Length == 6)
             {
+                DateTime.TryParseExact(tokens[2], timeFormat, CultureInfo.InvariantCulture
+                                                  , DateTimeStyles.None
+                                                  , out startTime);
+                DateTime.TryParseExact(tokens[3], timeFormat, CultureInfo.InvariantCulture
+                                                    , DateTimeStyles.None
+                                                    , out endTime);
                 return new RenovationAppointment(
                     long.Parse(tokens[0]),
                     long.Parse(tokens[1]),
@@ -149,6 +150,12 @@ namespace zdravstvena_ustanova.Repository
             }
             else
             {
+                DateTime.TryParseExact(tokens[3], timeFormat, CultureInfo.InvariantCulture
+                                                  , DateTimeStyles.None
+                                                  , out startTime);
+                DateTime.TryParseExact(tokens[4], timeFormat, CultureInfo.InvariantCulture
+                                                    , DateTimeStyles.None
+                                                    , out endTime);
                 return new RenovationAppointment(
                     long.Parse(tokens[0]),
                     long.Parse(tokens[1]),
