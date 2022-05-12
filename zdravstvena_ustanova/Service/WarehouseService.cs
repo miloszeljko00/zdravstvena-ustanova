@@ -11,23 +11,26 @@ namespace zdravstvena_ustanova.Service
     {
         private readonly WarehouseRepository _warehouseRepository;
         private readonly ItemRepository _itemRepository;
+        private readonly ItemTypeRepository _itemTypeRepository;
         private readonly StoredItemRepository _storedItemRepository;
 
 
         public WarehouseService(WarehouseRepository warehouseRepository, ItemRepository itemRepository,
-            StoredItemRepository storedItemRepository)
+            StoredItemRepository storedItemRepository, ItemTypeRepository itemTypeRepository)
         {
             _warehouseRepository = warehouseRepository;
             _itemRepository = itemRepository;
             _storedItemRepository = storedItemRepository;
+            _itemTypeRepository = itemTypeRepository;
         }
 
         public IEnumerable<Warehouse> GetAll()
         {
             var items = _itemRepository.GetAll();
+            var itemTypes = _itemTypeRepository.GetAll();
             var storedItems = _storedItemRepository.GetAll();
             var warehouses = _warehouseRepository.GetAll();
-
+            BindItemsWithItemTypes(items, itemTypes);
             BindItemsWithStoredItems(items, storedItems);
             BindStoredItemsWithWarehouses(storedItems, warehouses);
             return warehouses;
@@ -35,14 +38,31 @@ namespace zdravstvena_ustanova.Service
         public Warehouse GetById(long id)
         {
             var items = _itemRepository.GetAll();
+            var itemTypes = _itemTypeRepository.GetAll();
             var storedItems = _storedItemRepository.GetAll();
             var warehouse = _warehouseRepository.Get(id);
-
+            BindItemsWithItemTypes(items, itemTypes);
             BindItemsWithStoredItems(items, storedItems);
             BindStoredItemsWithWarehouse(storedItems, warehouse);
             return warehouse;
         }
+        private void BindItemsWithItemTypes(IEnumerable<Item> items, IEnumerable<ItemType> itemTypes)
+        {
+            foreach (var item in items)
+            {
+                BindItemWithItemTypes(item, itemTypes);
+            }
+        }
 
+        private void BindItemWithItemTypes(Item item, IEnumerable<ItemType> itemTypes)
+        {
+            item.ItemType = FindItemTypeById(itemTypes, item.ItemType.Id);
+        }
+
+        private ItemType FindItemTypeById(IEnumerable<ItemType> itemTypes, long id)
+        {
+            return itemTypes.SingleOrDefault(itemType => itemType.Id == id);
+        }
         private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> storedItems)
         {
             storedItems.ToList().ForEach(storedItem =>

@@ -33,7 +33,12 @@
             </MenuItem>
             <MenuItem Header="HELP">
             </MenuItem>
-            <MenuItem Header="PROFILE DATA">
+            <MenuItem Header="PROFILE DATA" Click="MenuItem_ProfileData_Click">
+            </MenuItem>
+            <MenuItem Header="NOTIFICATIONS" Click="Proba_Click">
+                <Menu ItemsSource="{Binding MedicationApprovalRequests}">
+                    
+                </Menu>
             </MenuItem>
             <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout">
             </MenuItem>

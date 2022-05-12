@@ -35,5 +35,9 @@ namespace zdravstvena_ustanova.Controller
         {
             _specialtyService.Delete(specialtyId);
         }
+        public List<Doctor> GetDoctorsBySpecialty(Specialty specialty, IEnumerable<Doctor> doctors)
+        {
+            return _specialtyService.GetDoctorsBySpecialty(specialty, doctors);
+        }
     }
 }

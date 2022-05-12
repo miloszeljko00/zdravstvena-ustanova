@@ -12,7 +12,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -20,9 +21,11 @@
         <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Izmena predmeta" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
         <TextBox Text="{Binding ItemName}" VerticalContentAlignment="Center" x:Name="ItemNameTextBox" Width="200" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top">Opis:</Label>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Tip predmeta:</Label>
+        <ComboBox SelectedItem="{Binding ItemType}" DisplayMemberPath="Name" VerticalContentAlignment="Center" Name="ItemTypeComboBox" Width="200" Height="28" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top">Opis:</Label>
         <TextBox Text="{Binding ItemDescription}" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
-                 x:Name="ItemDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+                 x:Name="ItemDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
         <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Columns="2" VerticalAlignment="Center">
             <Button x:Name="CancelButton" Margin="0,0,0,0"  Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
             <Button x:Name="OkButton" Margin="0,0,0,0" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
