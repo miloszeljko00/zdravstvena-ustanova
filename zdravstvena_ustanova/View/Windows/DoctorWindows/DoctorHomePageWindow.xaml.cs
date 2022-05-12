@@ -26,6 +26,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     public partial class DoctorHomePageWindow : Window, INotifyPropertyChanged
     {
         public ObservableCollection <AppointmentsWeeklyByHour> appointmentsWeeklyByHours { get; set; }
+
+        public ObservableCollection <MedicationApprovalRequest> MedicationApprovalRequests { get; set; }
         #region NotifyProperties
         private string _name;
         public string Username
@@ -200,10 +202,16 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void MenuItem_ProfileData_Click(object sender, RoutedEventArgs e)
         {
 
-            
-
             HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
             holidayRequest.ShowDialog();
+        }
+        private void Proba_Click(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+            MedicationApprovalRequest medicationApprovalRequest = app.MedicationApprovalRequestController.GetById(1);
+            MedicationApprovalRequestWindow medicationApprovalRequestWindow = new MedicationApprovalRequestWindow(medicationApprovalRequest);
+            medicationApprovalRequestWindow.ShowDialog();
+
         }
     }
 }

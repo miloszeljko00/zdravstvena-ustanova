@@ -133,10 +133,10 @@ namespace zdravstvena_ustanova
             var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
 
 
-            var itemService = new ItemService(itemRepository);
-            var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
-            var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository);
-            var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository);
+            //var itemService = new ItemService(itemRepository);
+            //var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
+            //var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository);
+            //var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository);
 
             var itemService = new ItemService(itemRepository, itemTypeRepository);
             var itemTypeService = new ItemTypeService(itemTypeRepository);
