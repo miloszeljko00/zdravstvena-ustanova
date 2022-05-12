@@ -67,6 +67,11 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             SecretaryFrame.Content = new ProfilePage(mainWindow);
         }
+
+        private void orders_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SecretaryFrame.Content = new OrdersPage();
+        }
     }
 
 }
