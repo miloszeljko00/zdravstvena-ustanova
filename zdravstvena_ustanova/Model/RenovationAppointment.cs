@@ -10,36 +10,53 @@ namespace zdravstvena_ustanova.Model
     public class RenovationAppointment
     {
         public long Id { get; set; }
-        public Room Room { get; set; }
+        public Room FirstRoom { get; set; }
+        public Room SecondRoom { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
+        public RenovationType RenovationType { get; set; }
 
-        public RenovationAppointment()
+        public RenovationAppointment(Room room, DateTime startDate, DateTime endDate, 
+            string description, RenovationType renovationType)
         {
-        }
-        public RenovationAppointment(Room room, DateTime startDate, DateTime endDate, string description)
-        {
-            Room = room;
+            FirstRoom = room;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
+            RenovationType = renovationType;
         }
-        public RenovationAppointment(long id, Room room, DateTime startDate, DateTime endDate, string description)
+        public RenovationAppointment(long id, long roomId, DateTime startDate, DateTime endDate, 
+            string description, long renovationTypeId)
         {
             Id = id;
-            Room = room;
+            FirstRoom = new Room(roomId);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
+            RenovationType = new RenovationType(renovationTypeId);
         }
-        public RenovationAppointment(long id, long roomId, DateTime startDate, DateTime endDate, string description)
+
+        public RenovationAppointment(Room firstRoom, Room secondRoom, DateTime startDate,
+            DateTime endDate, string description, RenovationType renovationType)
+        {
+            FirstRoom = firstRoom;
+            SecondRoom = secondRoom;
+            StartDate = startDate;
+            EndDate = endDate;
+            Description = description;
+            RenovationType = renovationType;
+        }
+        public RenovationAppointment(long id, long firstRoomId, long secondRoomId, DateTime startDate,
+            DateTime endDate, string description, long renovationTypeId)
         {
             Id = id;
-            Room = new Room(roomId);
+            FirstRoom = new Room(firstRoomId);
+            SecondRoom = new Room(secondRoomId);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
+            RenovationType = new RenovationType(renovationTypeId);
         }
     }
 }

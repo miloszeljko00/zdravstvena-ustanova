@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+//using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -102,10 +102,45 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ScheduledAppointment ScheduledAppointment { get; set; }
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
+        public ScheduledAppointment SpecialistScheduledAppointment { get; set; }
         public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents {get;set;}
         public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents2 { get; set; }
         public LabAnalysisComponent LabAnalysisComponent { get; set; }
+        public ObservableCollection<Specialty> Specialties { get; set; }
+        public Doctor SelectedDoctor;
 
+        private Specialty _selectedSpecialty;
+        public Specialty SelectedSpecialty
+        {
+            get
+            {
+                return _selectedSpecialty;
+            }
+            set
+            {
+                if (value != _selectedSpecialty)
+                {
+                    _selectedSpecialty = value;
+                    OnPropertyChanged("SelectedSpecialty");
+                }
+            }
+        }
+        private List<Doctor> _doctorsBySpecialty { get; set; }
+        public List<Doctor> DoctorsBySpecialty
+        {
+            get
+            {
+                return _doctorsBySpecialty;
+            }
+            set
+            {
+                if (value != _doctorsBySpecialty)
+                {
+                    _doctorsBySpecialty = value;
+                    OnPropertyChanged("DoctorsBySpecialty");
+                }
+            }
+        }
 
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
@@ -133,6 +168,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             doctorsName.Content = selectedAppointment.Doctor.Name;
             doctorsSurname.Content = selectedAppointment.Doctor.Surname;
             ScheduledAppointment = selectedAppointment;
+            //SpecialistScheduledAppointment = new ScheduledAppointment(-1);
+            var specialties = app.SpecialtyController.GetAll();
+            Specialties = new ObservableCollection<Specialty>(specialties);
             bloodTypeComboBox.ItemsSource = Enum.GetValues(typeof(BloodType)).Cast<BloodType>();
             DoctorHomePageWindow = dhpw;
             var me1 = app.MedicalExaminationController.FindByScheduledAppointmentId(selectedAppointment.Id);
@@ -175,7 +213,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 LabAnalysisComponents.Add(lac);
             }
             //\Drag&Drop
-
+            //\
 
         }
 
@@ -396,6 +434,66 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             while (current != null);
             return null;
         }
+        //\Drag&Drop
+
+        private void Button_Click_Submit_Request_For_Specialist(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+            Patient patient = ScheduledAppointment.Patient;
+            if(specialtiesComboBox.SelectedItem == null || doctorsBySpecialtyComboBox.SelectedItem==null)
+            {
+                MessageBox.Show("Morate odabrati specijalnost i lekara!");
+                return;
+            }
+            SelectedDoctor = (Doctor)doctorsBySpecialtyComboBox.SelectedItem;
+            if(TimeForSpecialistComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati vreme");
+                    return;
+            }
+            string selectedTime = ((ComboBoxItem)TimeForSpecialistComboBox.SelectedItem).Content.ToString();
+            int startTime = int.Parse(selectedTime);
+            int endTime = int.Parse(selectedTime) + 1;
+            if (requestForSpecialistDataPicker.SelectedDate == null)
+            {
+                MessageBox.Show("Morate izabrati datum");
+                return;
+            }
+            if(requestForSpecialistDataPicker.SelectedDate <= DateTime.Now)
+            {
+                MessageBox.Show("Ne mozete zakazati termin u proslost!");
+                return;
+
+            }
+            DateTime selectedDate = (DateTime)requestForSpecialistDataPicker.SelectedDate;
+            DateTime startDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, startTime, 0, 0);
+            DateTime endDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, endTime, 0, 0);
+            SpecialistScheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.SPECIALIST_APPOINTMENT, ScheduledAppointment.Patient.Id,
+                SelectedDoctor.Id, SelectedDoctor.Room.Id);
+            SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
+            DoctorHomePageWindow.UpdateCalendar();
+            this.Close();
+        }
+
+        private void Button_Click_Cancel_Request_For_Specialist(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje zahteva", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                this.Close();
+                return;
+            }
+            
+        }
+
+        private void specialtiesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var app = Application.Current as App;
+            var doctors = app.DoctorController.GetAll();
+            SelectedSpecialty = (Specialty)specialtiesComboBox.SelectedItem;
+            DoctorsBySpecialty = app.SpecialtyController.GetDoctorsBySpecialty(SelectedSpecialty, doctors);
+        }
+
         //\Drag&Drop
     }
 }

@@ -34,5 +34,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _roomService.Delete(roomId);
         }
+
+        public Room FilterStoredItemsByName(long roomId, string searchText)
+        {
+            return _roomService.FilterStoredItemsByName(roomId, searchText);
+        }
     }
 }

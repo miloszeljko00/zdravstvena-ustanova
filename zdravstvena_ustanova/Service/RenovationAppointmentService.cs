@@ -17,10 +17,12 @@ namespace zdravstvena_ustanova.Service
         private readonly ItemRepository _itemRepository;
         private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
         private readonly ScheduledAppointmentRepository _unScheduledAppointmentRepository;
+        private readonly RenovationTypeRepository _renovationTypeRepository;
 
-        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository,
-            StoredItemRepository itemRoomRepository, ItemRepository itemRepository, ScheduledAppointmentRepository scheduledAppointmentRepository,
-            ScheduledAppointmentRepository unScheduledAppointmentRepository)
+        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository,
+            RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository, 
+            ScheduledAppointmentRepository scheduledAppointmentRepository,
+            ScheduledAppointmentRepository unScheduledAppointmentRepository, RenovationTypeRepository renovationTypeRepository)
         {
             _renovationAppointmentRepository = renovationAppointmentRepository;
             _roomRepository = roomRepository;
@@ -28,6 +30,7 @@ namespace zdravstvena_ustanova.Service
             _itemRepository = itemRepository;
             _scheduledAppointmentRepository = scheduledAppointmentRepository;
             _unScheduledAppointmentRepository = unScheduledAppointmentRepository;
+            _renovationTypeRepository = renovationTypeRepository;
         }
 
         public IEnumerable<RenovationAppointment> GetAll()
@@ -36,13 +39,34 @@ namespace zdravstvena_ustanova.Service
             var itemRooms = _itemRoomRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var renovationAppointments = _renovationAppointmentRepository.GetAll();
-
+            var renovationTypes = _renovationTypeRepository.GetAll();
+            BindRenovationAppointmentsWithRenovationTypes(renovationAppointments, renovationTypes);
             BindItemsWithItemRooms(items, itemRooms);
             BindStoredItemsWithRooms(itemRooms, rooms);
             BindRoomWithRenovationAppointments(renovationAppointments, rooms);
 
             return renovationAppointments;
         }
+
+        private void BindRenovationAppointmentsWithRenovationTypes(IEnumerable<RenovationAppointment> renovationAppointments,
+            IEnumerable<RenovationType> renovationTypes)
+        {
+            foreach(var renovationAppointment in renovationAppointments)
+            {
+                BindRenovationAppointmentWithRenovationTypes(renovationAppointment, renovationTypes);
+            }
+        }
+
+        private void BindRenovationAppointmentWithRenovationTypes(RenovationAppointment renovationAppointment, IEnumerable<RenovationType> renovationTypes)
+        {
+            renovationAppointment.RenovationType = FindRenovationTypeById(renovationTypes, renovationAppointment.RenovationType.Id);
+        }
+
+        private RenovationType FindRenovationTypeById(IEnumerable<RenovationType> renovationTypes, long id)
+        {
+            return renovationTypes.SingleOrDefault(renovationType => renovationType.Id == id);
+        }
+
         public IEnumerable<RenovationAppointment> GetFromToDates(DateTime start, DateTime end)
         {
             var listOfAppointments = GetAll();
@@ -84,7 +108,7 @@ namespace zdravstvena_ustanova.Service
 
             foreach (var renovationAppointment in allRenovationAppointments)
             {
-                if (renovationAppointment.Room.Id == room.Id)
+                if (renovationAppointment.FirstRoom.Id == room.Id)
                 {
                     overlap = DatesOverlaping(renovationAppointment.StartDate, renovationAppointment.EndDate, from, to);
                     if (overlap) return overlap;
@@ -104,7 +128,7 @@ namespace zdravstvena_ustanova.Service
 
             foreach (var scheduledAppointment in allScheduledAppointments)
             {
-                if (scheduledAppointment.Room.Id == renovationAppointment.Room.Id)
+                if (scheduledAppointment.Room.Id == renovationAppointment.FirstRoom.Id)
                 {
                     scheduledAppointmentsForRequestedRoom.Add(scheduledAppointment);
                 }
@@ -134,7 +158,7 @@ namespace zdravstvena_ustanova.Service
             {
                 if (ra.StartDate.CompareTo(date) <= 0 && ra.EndDate.CompareTo(date) >= 0)
                 {
-                    if(ra.Room.Id == roomId) listOfCorrectAppointments.Add(ra);
+                    if(ra.FirstRoom.Id == roomId) listOfCorrectAppointments.Add(ra);
                 }
             }
 
@@ -159,7 +183,7 @@ namespace zdravstvena_ustanova.Service
         {
             renovationAppointments.ToList().ForEach(renovationAppointment =>
             {
-                renovationAppointment.Room = FindRoomById(rooms, renovationAppointment.Room.Id);
+                renovationAppointment.FirstRoom = FindRoomById(rooms, renovationAppointment.FirstRoom.Id);
             });
         }
 
@@ -169,7 +193,8 @@ namespace zdravstvena_ustanova.Service
             var itemRooms = _itemRoomRepository.GetAll();
             var rooms = _roomRepository.GetAll();
             var renovationAppointment = _renovationAppointmentRepository.Get(id);
-
+            var renovationTypes = _renovationTypeRepository.GetAll();
+            BindRenovationAppointmentWithRenovationTypes(renovationAppointment, renovationTypes);
             BindItemsWithItemRooms(items, itemRooms);
             BindStoredItemsWithRooms(itemRooms, rooms);
             BindRoomWithRenovationAppointment(renovationAppointment, rooms);
@@ -182,9 +207,9 @@ namespace zdravstvena_ustanova.Service
             {
                 if (room != null)
                 {
-                    if (room.Id == renovationAppointment.Room.Id)
+                    if (room.Id == renovationAppointment.FirstRoom.Id)
                     {
-                        renovationAppointment.Room = room;
+                        renovationAppointment.FirstRoom = room;
                     }
                 }
             });

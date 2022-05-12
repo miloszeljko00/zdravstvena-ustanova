@@ -60,6 +60,22 @@ namespace zdravstvena_ustanova.View.Controls
                 }
             }
         }
+        private ItemType _itemType;
+        public ItemType ItemType
+        {
+            get
+            {
+                return _itemType;
+            }
+            set
+            {
+                if (value != _itemType)
+                {
+                    _itemType = value;
+                    OnPropertyChanged("ItemType");
+                }
+            }
+        }
         #endregion
         #region PropertyChangedNotifier
         protected virtual void OnPropertyChanged(string name)
@@ -78,11 +94,21 @@ namespace zdravstvena_ustanova.View.Controls
             DataContext = this;
             ItemViewModels = itemViewModels;
             ItemsDataGrid = itemsDataGrid;
-
+            var app = Application.Current as App;
+            var itemTypes = app.ItemTypeController.GetAll();
+            ItemTypeComboBox.ItemsSource = itemTypes;
+            foreach (var itemType in itemTypes)
+            {
+                if(itemType.Id == ((ItemViewModel)ItemsDataGrid.SelectedItem).Item.ItemType.Id)
+                {
+                    ItemTypeComboBox.SelectedItem = itemType;
+                    ItemType = itemType;
+                }
+            }
             var selectedItem = ((ItemViewModel)ItemsDataGrid.SelectedItem).Item;
-
             ItemName = selectedItem.Name;
             ItemDescription = selectedItem.Description;
+            ItemType = selectedItem.ItemType;
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +136,7 @@ namespace zdravstvena_ustanova.View.Controls
 
             selectedItem.Name = ItemNameTextBox.Text;
             selectedItem.Description = ItemDescriptionTextBox.Text;
+            selectedItem.ItemType = (ItemType)ItemTypeComboBox.SelectedItem;
 
             app.ItemController.Update(selectedItem);
 

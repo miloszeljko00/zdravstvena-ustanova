@@ -10,22 +10,43 @@ namespace zdravstvena_ustanova.Service
     {
         private readonly MedicationRepository _medicationRepository;
         private readonly IngredientRepository _ingredientRepository;
+        private readonly MedicationTypeRepository _medicationTypeRepository;
 
 
-        public MedicationService(MedicationRepository medicationRepository, IngredientRepository ingredientRepository)
+        public MedicationService(MedicationRepository medicationRepository, IngredientRepository ingredientRepository,
+            MedicationTypeRepository medicationTypeRepository)
         {
             _medicationRepository = medicationRepository;
             _ingredientRepository = ingredientRepository;
+            _medicationTypeRepository = medicationTypeRepository;
         }
 
         public IEnumerable<Medication> GetAll()
         {
             var medications = _medicationRepository.GetAll();
             var ingredients = _ingredientRepository.GetAll();
+            var medicationTypes = _medicationTypeRepository.GetAll();
             BindMedicationsWithIngredients(medications, ingredients);
+            BindMedicationsWithMedicationTypes(medications, medicationTypes);
             return medications;
         }
 
+        private void BindMedicationsWithMedicationTypes(IEnumerable<Medication> medications, IEnumerable<MedicationType> medicationTypes)
+        {
+            foreach (Medication medication in medications)
+            {
+                BindMedicationWithMedicationTypes(medication, medicationTypes);
+            }
+        }
+
+        private void BindMedicationWithMedicationTypes(Medication medication, IEnumerable<MedicationType> medicationTypes)
+        {
+            medication.MedicationType = FindMedicationTypeById(medicationTypes, medication.MedicationType.Id);
+        }
+        private MedicationType FindMedicationTypeById(IEnumerable<MedicationType> medicationTypes, long medicationTypeId)
+        {
+            return medicationTypes.SingleOrDefault(medicationType => medicationType.Id == medicationTypeId);
+        }
         private void BindMedicationsWithIngredients(IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
         {
             foreach (Medication m in medications)
@@ -38,7 +59,9 @@ namespace zdravstvena_ustanova.Service
         {
             var medication = _medicationRepository.Get(id);
             var ingredients = _ingredientRepository.GetAll();
+            var medicationTypes = _medicationTypeRepository.GetAll();
             BindMedicationWithIngredients(medication, ingredients);
+            BindMedicationWithMedicationTypes(medication, medicationTypes);
             return medication;
         }
 

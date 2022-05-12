@@ -115,6 +115,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             SelectedRoom = ((Doctor)app.LoggedInUser).Room;
             rComboBox.Text = SelectedRoom.Name;
+            rComboBox.ItemsSource = Rooms;
             typeOfAppointment.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
             this.ShowDialog();
         }
@@ -143,7 +144,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             SelectedRoom = ((Doctor)app.LoggedInUser).Room;
             rComboBox.Text = SelectedRoom.Name;
-
+            rComboBox.ItemsSource = Rooms;
             typeOfAppointment.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
 
             var selectedCellIndex = (int)dg.SelectedCells[0].Column.DisplayIndex;

@@ -53,7 +53,7 @@ namespace zdravstvena_ustanova.View
         }
 
         private void Button_Click_Delete_Account(object sender, RoutedEventArgs e)
-        {
+        {/*
             string itemName = name.Text;
             string itemDescription = surname.Text;
             Item item = new Item(itemName, itemDescription);
@@ -69,7 +69,7 @@ namespace zdravstvena_ustanova.View
             {
                 list.Items.Add(itm.Name + " | " + itm.Description);
             }
-
+         */
         }
 
         private void Button_Click_Update_Account(object sender, RoutedEventArgs e)

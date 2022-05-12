@@ -33,6 +33,10 @@ namespace zdravstvena_ustanova.View.Controls
             DataContext = this;
             Room = room;
             RoomsCalendarControl = roomsCalendarControl;
+
+            var app = Application.Current as App;
+
+            RenovationTypeComboBox.ItemsSource = app.RenovationTypeController.GetAll();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -43,7 +47,8 @@ namespace zdravstvena_ustanova.View.Controls
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if(RenovationDescriptionTextBox.Text == "" || StartDatePicker.SelectedDate == null || EndDatePicker.SelectedDate == null){
+            if(RenovationDescriptionTextBox.Text == "" || StartDatePicker.SelectedDate == null ||
+                EndDatePicker.SelectedDate == null || RenovationTypeComboBox.SelectedItem == null){
                 MessageBox.Show("Popuni prvo sva polja!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -52,6 +57,7 @@ namespace zdravstvena_ustanova.View.Controls
             startDate = new DateTime(startDate.Year, startDate.Month, startDate.Day, 8, 0, 0);
             DateTime endDate = (DateTime)EndDatePicker.SelectedDate;
             endDate = new DateTime(endDate.Year, endDate.Month, endDate.Day, 21, 0, 0);
+            var renovationType = (RenovationType)RenovationTypeComboBox.SelectedItem;
 
             if (startDate.CompareTo(DateTime.Now) <= 0)
             {
@@ -91,15 +97,39 @@ namespace zdravstvena_ustanova.View.Controls
                 if (answer == MessageBoxResult.No) return;
             }
 
-            RenovationAppointment renovationAppointment = new RenovationAppointment(Room, startDate, endDate, description);
+            if(renovationType.Id == 1)
+            {
+                RenovationAppointment renovationAppointment = new RenovationAppointment(Room, startDate, endDate, description, renovationType);
+                renovationAppointment = app.RenovationAppointmentController.ScheduleRenovation(renovationAppointment);
+
+                RoomsCalendarControl.DisplayCalendarForMonth(RoomsCalendarControl.DisplayedMonth);
+
+                MainWindow.Modal.IsOpen = false;
+                MainWindow.Modal.Content = null;
+            }
+            else if(renovationType.Id == 2)
+            {
+                //TODO display new content in control for room merging
+
+            }else if(renovationType.Id == 3)
+            {
+                //TODO display new content in tontrol for room splitting
+            }
 
 
-            renovationAppointment = app.RenovationAppointmentController.ScheduleRenovation(renovationAppointment);
+            
+        }
 
-            RoomsCalendarControl.DisplayCalendarForMonth(RoomsCalendarControl.DisplayedMonth);
-
-            MainWindow.Modal.IsOpen = false;
-            MainWindow.Modal.Content = null;
+        private void RenovationTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(((RenovationType)RenovationTypeComboBox.SelectedItem).Id == 1)
+            {
+                OkButton.Content = "Potvrdi";
+            }
+            else
+            {
+                OkButton.Content = "Dalje";
+            }
         }
     }
 }

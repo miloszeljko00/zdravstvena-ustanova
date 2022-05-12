@@ -26,12 +26,13 @@ namespace zdravstvena_ustanova.Service
         private readonly VaccineRepository _vaccineRepository;
         private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
         private readonly MedicationRepository _medicationRepository;
+        private readonly MedicationTypeRepository _medicationTypeRepository;
         public HealthRecordService(HealthRecordRepository healthRecordRepository, PatientRepository patientRepository, AllergensRepository allergensRepository,
             AnamnesisRepository anamnesisRepository, LabAnalysisRecordRepository labAnalysisRecordRepository, HospitalizationRecordRepository hospitalizationRecordRepository,
             PrescribedMedicineRepository prescribedMedicineRepository, PatientDiseaseRepository patientDiseaseRepository,
             PatientVaccinationRepository patientVaccinationRepository, RoomRepository roomRepository, AccountRepository accountRepository,
             IngredientRepository ingredientRepository, DiseaseRepository diseaseRepository, VaccineRepository vaccineRepository,
-            LabAnalysisComponentRepository labAnalysisComponent, MedicationRepository medicationRepository)
+            LabAnalysisComponentRepository labAnalysisComponent, MedicationRepository medicationRepository, MedicationTypeRepository medicationTypeRepository)
         {
             _healthRecordRepository = healthRecordRepository;
             _patientRepository = patientRepository;
@@ -49,6 +50,7 @@ namespace zdravstvena_ustanova.Service
             _vaccineRepository = vaccineRepository;
             _labAnalysisComponentRepository = labAnalysisComponent;
             _medicationRepository = medicationRepository;
+            _medicationTypeRepository = medicationTypeRepository;
         }
 
         public HealthRecordService(HealthRecordRepository healthRecordRepository, IngredientRepository ingredientRepository, AllergensRepository allergensRepository)
@@ -73,9 +75,11 @@ namespace zdravstvena_ustanova.Service
             var accounts = _accountRepository.GetAll();
             var ingredients = _ingredientRepository.GetAll();
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
-            var medications = _medicationRepository.GetAll();
+            var medications = _medicationRepository.GetAll(); 
+            var medicationTypes = _medicationTypeRepository.GetAll();
             var diseases = _diseaseRepository.GetAll();
             var vaccines = _vaccineRepository.GetAll();
+            BindMedicationsWithMedicationTypes(medications, medicationTypes);
             BindAllergensWithHealthRecords(allergens, healthRecords, ingredients);
             BindAnamnesissWithHealthRecords(anamnesiss, healthRecords);
             BindLabAnalysisRecordsWithHealthRecords(labAnalysisRecords, healthRecords, labAnalysisComponents);
@@ -112,8 +116,10 @@ namespace zdravstvena_ustanova.Service
             var ingredients = _ingredientRepository.GetAll();
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
             var medications = _medicationRepository.GetAll();
+            var medicationTypes = _medicationTypeRepository.GetAll();
             var diseases = _diseaseRepository.GetAll();
             var vaccines = _vaccineRepository.GetAll();
+            BindMedicationsWithMedicationTypes(medications, medicationTypes);
             BindAllergensWithHealthRecord(allergens, healthRecord, ingredients);
             BindAnamnesissWithHealthRecord(anamnesiss, healthRecord);
             BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, healthRecord, labAnalysisComponents);
@@ -122,6 +128,22 @@ namespace zdravstvena_ustanova.Service
             BindPatientDiseasesWithHealthRecord(patientDiseases, healthRecord, diseases);
             BindPatientVaccinationsWithHealthRecord(patientVaccinations, healthRecord, vaccines);
             return healthRecord;
+        }
+        private void BindMedicationsWithMedicationTypes(IEnumerable<Medication> medications, IEnumerable<MedicationType> medicationTypes)
+        {
+            foreach (Medication medication in medications)
+            {
+                BindMedicationWithMedicationTypes(medication, medicationTypes);
+            }
+        }
+
+        private void BindMedicationWithMedicationTypes(Medication medication, IEnumerable<MedicationType> medicationTypes)
+        {
+            medication.MedicationType = FindMedicationTypeById(medicationTypes, medication.MedicationType.Id);
+        }
+        private MedicationType FindMedicationTypeById(IEnumerable<MedicationType> medicationTypes, long medicationTypeId)
+        {
+            return medicationTypes.SingleOrDefault(medicationType => medicationType.Id == medicationTypeId);
         }
         private void BindAllergensWithHealthRecord(IEnumerable<Allergens> allergens, HealthRecord healthRecord, IEnumerable<Ingredient> ingredients)
         {

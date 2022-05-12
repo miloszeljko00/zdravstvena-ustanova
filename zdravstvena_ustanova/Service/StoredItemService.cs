@@ -11,31 +11,52 @@ namespace zdravstvena_ustanova.Service
    {
 
         private readonly ItemRepository _itemRepository;
+        private readonly ItemTypeRepository _itemTypeRepository;
         private readonly StoredItemRepository _itemRoomRepository;
 
-        public StoredItemService(StoredItemRepository itemRoomRepository, ItemRepository itemRepository)
+        public StoredItemService(StoredItemRepository itemRoomRepository, ItemRepository itemRepository,
+            ItemTypeRepository itemTypeRepository)
         {
             _itemRepository = itemRepository;
             _itemRoomRepository = itemRoomRepository;
+            _itemTypeRepository = itemTypeRepository;
         }
 
         public IEnumerable<StoredItem> GetAll()
         {
             var items = _itemRepository.GetAll();
-            var itemRooms = _itemRoomRepository.GetAll();
-            BindItemsWithItemRooms(items, itemRooms);
-
-            return itemRooms;
+            var itemTypes = _itemTypeRepository.GetAll();
+            var storedItems = _itemRoomRepository.GetAll();
+            BindItemsWithStoredItems(items, storedItems);
+            BindItemsWithItemTypes(items, itemTypes);
+            return storedItems;
         }
         public StoredItem GetById(long id)
         {
             var items = _itemRepository.GetAll();
-            var itemRoom = _itemRoomRepository.Get(id);
-            BindItemWithItemRoom(items, itemRoom);
-
-            return itemRoom;
+            var itemTypes = _itemTypeRepository.GetAll();
+            var storedItem = _itemRoomRepository.Get(id);
+            BindItemWithStoredItem(items, storedItem);
+            BindItemsWithItemTypes(items, itemTypes);
+            return storedItem;
+        }
+        private void BindItemsWithItemTypes(IEnumerable<Item> items, IEnumerable<ItemType> itemTypes)
+        {
+            foreach (var item in items)
+            {
+                BindItemWithItemTypes(item, itemTypes);
+            }
         }
 
+        private void BindItemWithItemTypes(Item item, IEnumerable<ItemType> itemTypes)
+        {
+            item.ItemType = FindItemTypeById(itemTypes, item.ItemType.Id);
+        }
+
+        private ItemType FindItemTypeById(IEnumerable<ItemType> itemTypes, long id)
+        {
+            return itemTypes.SingleOrDefault(itemType => itemType.Id == id);
+        }
         public int GetTotalItemCount(Item item)
         {
             int totalCount = 0;
@@ -153,14 +174,14 @@ namespace zdravstvena_ustanova.Service
             }
             return false;
         }
-        private void BindItemsWithItemRooms(IEnumerable<Item> items, IEnumerable<StoredItem> itemRooms)
+        private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> itemRooms)
         {
             itemRooms.ToList().ForEach(itemRoom =>
             {
-                BindItemWithItemRoom(items, itemRoom);
+                BindItemWithStoredItem(items, itemRoom);
             });
         }
-        private void BindItemWithItemRoom(IEnumerable<Item> items, StoredItem itemRoom)
+        private void BindItemWithStoredItem(IEnumerable<Item> items, StoredItem itemRoom)
         {
             itemRoom.Item = FindItemById(items, itemRoom.Item.Id);
         }
