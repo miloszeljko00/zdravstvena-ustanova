@@ -44,6 +44,8 @@ namespace zdravstvena_ustanova
         private readonly string HEALTH_RECORD_FILE = ProjectPath + "\\Resources\\Data\\HealthRecords.csv";
         private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
 
+        private readonly string HOLIDAY_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\HolidayRequest.csv";
+
         private readonly string MEDICATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\MedicationTypes.csv";
         private readonly string MEDICATION_APPROVAL_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\MedicationApprovalRequests.csv";
 
@@ -80,6 +82,8 @@ namespace zdravstvena_ustanova
         public AllergensController AllergensController { get; set; }
 
         public SystemController SystemController { get; set; }
+
+        public HolidayRequestController HolidayRequestController { get; set; }
 
 
         public Person? LoggedInUser { get; set; }
@@ -125,11 +129,21 @@ namespace zdravstvena_ustanova
             var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
             var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
 
+
+            var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
+
+
+            var itemService = new ItemService(itemRepository);
+            var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
+            var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository);
+            var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository);
+
             var itemService = new ItemService(itemRepository, itemTypeRepository);
             var itemTypeService = new ItemTypeService(itemTypeRepository);
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository, itemTypeRepository);
             var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository, itemTypeRepository);
             var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository, itemTypeRepository);
+
             var doctorService = new DoctorService(doctorRepository, roomRepository, accountRepository, specialtyRepository);
             var specialtyService = new SpecialtyService(specialtyRepository);
             var patientService = new PatientService(patientRepository, accountRepository);
@@ -168,6 +182,8 @@ namespace zdravstvena_ustanova
             var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
             var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
 
+            var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
+
             var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
 
             
@@ -202,6 +218,8 @@ namespace zdravstvena_ustanova
 
             AllergensController = new AllergensController(allergenService);
             HealthRecordController = new HealthRecordController(healthRecordService);
+
+            HolidayRequestController = new HolidayRequestController(holidayRequestService);
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);

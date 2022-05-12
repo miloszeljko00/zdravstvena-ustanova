@@ -30,6 +30,19 @@ namespace zdravstvena_ustanova.Service
             return specialties.SingleOrDefault(specialty => specialty.Id == specialtyId);
         }
 
+        public List<Doctor> GetDoctorsBySpecialty(Specialty specialty, IEnumerable<Doctor> doctors)
+        {
+            var doctorsBySpecialty = new List<Doctor>();
+            foreach (var doctor in doctors)
+            {
+                if (doctor.Specialty.Id == specialty.Id)
+                {
+                    doctorsBySpecialty.Add(doctor);
+                }
+            }
+            return doctorsBySpecialty;
+        }
+
         public Specialty Create(Specialty specialty)
         {
             return _specialtyRepository.Create(specialty);

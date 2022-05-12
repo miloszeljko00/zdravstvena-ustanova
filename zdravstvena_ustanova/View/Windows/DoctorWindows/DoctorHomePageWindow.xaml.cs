@@ -196,5 +196,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             CreateNewAppointment createNewAppointment = new CreateNewAppointment();
         }
+
+        private void MenuItem_ProfileData_Click(object sender, RoutedEventArgs e)
+        {
+
+            
+
+            HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
+            holidayRequest.ShowDialog();
+        }
     }
 }
