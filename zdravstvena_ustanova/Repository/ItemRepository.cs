@@ -60,6 +60,7 @@ namespace zdravstvena_ustanova.Repository
                 {
                     i.Name = item.Name;
                     i.Description = item.Description;
+                    i.ItemType = item.ItemType;
                     WriteLinesToFile(_path, ItemsToCSVFormat((List<Item>)items));
                     return true;
                 }
@@ -86,7 +87,8 @@ namespace zdravstvena_ustanova.Repository
             return string.Join(_delimiter,
                 item.Id,
                 item.Name,
-                item.Description);
+                item.Description,
+                item.ItemType.Id);
         }
 
         private Item CSVFormatToItem(string itemCSVFormat)
@@ -94,7 +96,9 @@ namespace zdravstvena_ustanova.Repository
             var tokens = itemCSVFormat.Split(_delimiter.ToCharArray());
             return new Item(
                 long.Parse(tokens[0]),
-                tokens[1], tokens[2]);
+                tokens[1],
+                tokens[2],
+                long.Parse(tokens[3]));
         }
         private List<string> ItemsToCSVFormat(List<Item> items)
         {

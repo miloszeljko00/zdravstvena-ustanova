@@ -15,10 +15,12 @@ namespace zdravstvena_ustanova
         private const string CSV_DELIMITER = ";";
 
         private readonly string ITEM_FILE = ProjectPath + "\\Resources\\Data\\Items.csv";
+        private readonly string ITEM_TYPE_FILE = ProjectPath + "\\Resources\\Data\\ItemTypes.csv";
         private readonly string STORED_ITEM_FILE = ProjectPath + "\\Resources\\Data\\StoredItems.csv";
         private readonly string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
         private readonly string WAREHOUSE_FILE = ProjectPath + "\\Resources\\Data\\Warehouses.csv";
         private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
+        private readonly string RENOVATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\RenovationTypes.csv";
         private readonly string SCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\ScheduledAppointments.csv";
         private readonly string UNSCHEDULED_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\UnScheduledAppointments.csv";
         private readonly string SCHEDULED_ITEM_TRANSFER_FILE = ProjectPath + "\\Resources\\Data\\ScheduledItemTransfers.csv";
@@ -43,12 +45,17 @@ namespace zdravstvena_ustanova
         private readonly string ALLERGEN_FILE = ProjectPath + "\\Resources\\Data\\Allergens.csv";
 
         private readonly string HOLIDAY_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\HolidayRequest.csv";
-        
+
+        private readonly string MEDICATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\MedicationTypes.csv";
+        private readonly string MEDICATION_APPROVAL_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\MedicationApprovalRequests.csv";
+
         public ItemController ItemController { get; set; }
+        public ItemTypeController ItemTypeController { get; set; }
         public StoredItemController StoredItemController { get; set; }
         public RoomController RoomController { get; set; }
         public WarehouseController WarehouseController { get; set; }
         public RenovationAppointmentController RenovationAppointmentController { get; set; }
+        public RenovationTypeController RenovationTypeController { get; set; }
         public ScheduledAppointmentController ScheduledAppointmentController { get; set; }
         public ScheduledAppointmentController UnScheduledAppointmentController { get; set; }
         public ScheduledItemTransferController ScheduledItemTransferController { get; set; }
@@ -60,6 +67,8 @@ namespace zdravstvena_ustanova
         public SpecialtyController SpecialtyController { get; set; }
         public AnamnesisController AnamnesisController { get; set; }
         public MedicationController MedicationController { get; set; }
+        public MedicationTypeController MedicationTypeController { get; set; }
+        public MedicationApprovalRequestController MedicationApprovalRequestController { get; set; }
         public IngredientController IngredientController { get; set; }
         public PrescribedMedicineController PrescribedMedicineController { get; set; }
         public MedicalExaminationController MedicalExaminationController { get; set; }
@@ -87,10 +96,12 @@ namespace zdravstvena_ustanova
         public App()
         {
             var itemRepository = new ItemRepository(ITEM_FILE, CSV_DELIMITER);
+            var itemTypeRepository = new ItemTypeRepository(ITEM_TYPE_FILE, CSV_DELIMITER);
             var storedItemRepository = new StoredItemRepository(STORED_ITEM_FILE, CSV_DELIMITER);
             var roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
             var warehouseRepository = new WarehouseRepository(WAREHOUSE_FILE, CSV_DELIMITER);
             var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
+            var renovationTypeRepository = new RenovationTypeRepository(RENOVATION_TYPE_FILE, CSV_DELIMITER);
             var scheduledAppointmentRepository = new ScheduledAppointmentRepository(SCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var unScheduledAppointmentRepository = new ScheduledAppointmentRepository(UNSCHEDULED_APPOINTMENT_FILE, CSV_DELIMITER);
             var ScheduledItemTransferRepository = new ScheduledItemTransferRepository(SCHEDULED_ITEM_TRANSFER_FILE, CSV_DELIMITER);
@@ -104,6 +115,9 @@ namespace zdravstvena_ustanova
 
             var medicationRepository = new MedicationRepository(MEDICATION_FILE, CSV_DELIMITER);
             var ingredientRepository = new IngredientRepository(INGREDIENT_FILE, CSV_DELIMITER);
+            var medicationTypeRepository = new MedicationTypeRepository(MEDICATION_TYPE_FILE, CSV_DELIMITER);
+            var medicationApprovalRequestRepository = new MedicationApprovalRequestRepository(MEDICATION_APPROVAL_REQUEST_FILE, CSV_DELIMITER);
+
             var prescribedMedicineRepository = new PrescribedMedicineRepository(PRESCRIBED_MEDICINE_FILE, CSV_DELIMITER);
 
             var medicalExaminationRepository = new MedicalExaminationRepository(MEDICAL_EXAMINATION_FILE, CSV_DELIMITER);
@@ -115,6 +129,7 @@ namespace zdravstvena_ustanova
             var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
             var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
 
+
             var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
 
 
@@ -122,26 +137,38 @@ namespace zdravstvena_ustanova
             var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
             var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository);
             var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository);
+
+            var itemService = new ItemService(itemRepository, itemTypeRepository);
+            var itemTypeService = new ItemTypeService(itemTypeRepository);
+            var storedItemService = new StoredItemService(storedItemRepository, itemRepository, itemTypeRepository);
+            var roomService = new RoomService(roomRepository, storedItemRepository, itemRepository, itemTypeRepository);
+            var warehouseService = new WarehouseService(warehouseRepository, itemRepository, storedItemRepository, itemTypeRepository);
+
             var doctorService = new DoctorService(doctorRepository, roomRepository, accountRepository, specialtyRepository);
             var specialtyService = new SpecialtyService(specialtyRepository);
             var patientService = new PatientService(patientRepository, accountRepository);
             var managerService = new ManagerService(managerRepository, accountRepository);
             var secretaryService = new SecretaryService(secretaryRepository, accountRepository);
             var renovationAppointmentService = new RenovationAppointmentService(renovationAppointmentRepository, roomRepository,
-                storedItemRepository, itemRepository, scheduledAppointmentRepository, unScheduledAppointmentRepository);
+                storedItemRepository, itemRepository, scheduledAppointmentRepository, unScheduledAppointmentRepository, renovationTypeRepository);
+            var renovationTypeService = new RenovationTypeService(renovationTypeRepository);
             var scheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var unScheduledAppointmentService = new ScheduledAppointmentService(unScheduledAppointmentRepository, roomRepository, doctorRepository,
                 patientRepository, accountRepository);
             var scheduledItemTransferService = new ScheduledItemTransferService(ScheduledItemTransferRepository, roomRepository, warehouseRepository,
-                itemRepository, storedItemRepository);
+                itemRepository, storedItemRepository, itemTypeRepository);
 
             var accountService = new AccountService(accountRepository, patientRepository, doctorRepository, secretaryRepository, managerRepository, roomRepository);
 
             var anamnesisService = new AnamnesisService(anamnesisRepository);
-            var medicationService = new MedicationService(medicationRepository, ingredientRepository);
+            var medicationService = new MedicationService(medicationRepository, ingredientRepository, medicationTypeRepository);
+            var medicationTypeService = new MedicationTypeService(medicationTypeRepository);
+            var medicationApprovalRequestService = new MedicationApprovalRequestService(medicationApprovalRequestRepository,
+                medicationRepository,ingredientRepository,medicationTypeRepository,doctorRepository);
+
             var ingredientService = new IngredientService(ingredientRepository);
-            var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, ingredientRepository);
+            var prescribedMedicineService = new PrescribedMedicineService(prescribedMedicineRepository, medicationRepository, medicationTypeRepository, ingredientRepository);
             var labAnalysisComponentService = new LabAnalysisComponentService(labAnalysisComponentRepository);
 
             var medicalExaminationService = new MedicalExaminationService(medicalExaminationRepository, scheduledAppointmentRepository,
@@ -162,12 +189,14 @@ namespace zdravstvena_ustanova
             
             
             ItemController = new ItemController(itemService);
+            ItemTypeController = new ItemTypeController(itemTypeService);
             StoredItemController = new StoredItemController(storedItemService);
             RoomController = new RoomController(roomService);
             WarehouseController = new WarehouseController(warehouseService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
             RenovationAppointmentController = new RenovationAppointmentController(renovationAppointmentService);
+            RenovationTypeController = new RenovationTypeController(renovationTypeService);
             ScheduledAppointmentController = new ScheduledAppointmentController(scheduledAppointmentService);
             UnScheduledAppointmentController = new ScheduledAppointmentController(unScheduledAppointmentService);
             ScheduledItemTransferController = new ScheduledItemTransferController(scheduledItemTransferService);
@@ -176,7 +205,10 @@ namespace zdravstvena_ustanova
             SecretaryController = new SecretaryController(secretaryService);
             SpecialtyController = new SpecialtyController(specialtyService);
             AnamnesisController = new AnamnesisController(anamnesisService);
-            MedicationController = new MedicationController(medicationService);
+            MedicationController = new MedicationController(medicationService); 
+            MedicationTypeController = new MedicationTypeController(medicationTypeService);
+            MedicationApprovalRequestController = new MedicationApprovalRequestController(medicationApprovalRequestService);
+
             IngredientController = new IngredientController(ingredientService);
             PrescribedMedicineController = new PrescribedMedicineController(prescribedMedicineService);
             LabAnalysisComponentController = new LabAnalysisComponentController(labAnalysisComponentService);
