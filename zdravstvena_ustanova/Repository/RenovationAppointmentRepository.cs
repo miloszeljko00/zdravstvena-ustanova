@@ -89,20 +89,23 @@ namespace zdravstvena_ustanova.Repository
 
         private string RenovationAppointmentToCSVFormat(RenovationAppointment renovationAppointment)
         {
+            string renovationAppointmentInCSVFormat = "";
+
             if(renovationAppointment.RenovationType.Id == 1)
             {
-                return string.Join(_delimiter,
+                renovationAppointmentInCSVFormat = string.Join(_delimiter,
                    renovationAppointment.Id,
-                   renovationAppointment.FirstRoom.Id,
+                   renovationAppointment.Room.Id,
                    renovationAppointment.StartDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.EndDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.Description,
                    renovationAppointment.RenovationType.Id);
             }
-            else
+            else if(renovationAppointment.RenovationType.Id == 2 || renovationAppointment.RenovationType.Id == 3)
             {
-                return string.Join(_delimiter,
+                renovationAppointmentInCSVFormat = string.Join(_delimiter,
                    renovationAppointment.Id,
+                   renovationAppointment.Room.Id,
                    renovationAppointment.FirstRoom.Id,
                    renovationAppointment.SecondRoom.Id,
                    renovationAppointment.StartDate.ToString("dd.MM.yyyy."),
@@ -110,7 +113,8 @@ namespace zdravstvena_ustanova.Repository
                    renovationAppointment.Description,
                    renovationAppointment.RenovationType.Id);
             }
-            
+
+            return renovationAppointmentInCSVFormat;
         }
 
         private void AppendLineToFile(string path, string line)
@@ -150,20 +154,21 @@ namespace zdravstvena_ustanova.Repository
             }
             else
             {
-                DateTime.TryParseExact(tokens[3], timeFormat, CultureInfo.InvariantCulture
+                DateTime.TryParseExact(tokens[4], timeFormat, CultureInfo.InvariantCulture
                                                   , DateTimeStyles.None
                                                   , out startTime);
-                DateTime.TryParseExact(tokens[4], timeFormat, CultureInfo.InvariantCulture
+                DateTime.TryParseExact(tokens[5], timeFormat, CultureInfo.InvariantCulture
                                                     , DateTimeStyles.None
                                                     , out endTime);
                 return new RenovationAppointment(
                     long.Parse(tokens[0]),
                     long.Parse(tokens[1]),
                     long.Parse(tokens[2]),
+                    long.Parse(tokens[3]),
                     startTime,
                     endTime,
-                    tokens[5],
-                    long.Parse(tokens[6]));
+                    tokens[6],
+                    long.Parse(tokens[7]));
             }
         }
 

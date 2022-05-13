@@ -35,9 +35,14 @@ namespace zdravstvena_ustanova.Controller
             return _roomService.Delete(roomId);
         }
 
-        public Room FilterStoredItemsByName(long roomId, string searchText)
+        public IEnumerable<StoredItem> FilterStoredItemsByName(long roomId, string searchText)
         {
             return _roomService.FilterStoredItemsByName(roomId, searchText);
+        }
+
+        public IEnumerable<StoredItem> FilterStoredItemsByType(long roomId, ItemType itemType)
+        {
+            return _roomService.FilterStoredItemsByType(roomId, itemType);
         }
     }
 }

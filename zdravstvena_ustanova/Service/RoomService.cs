@@ -36,14 +36,18 @@ namespace zdravstvena_ustanova.Service
             return rooms;
         }
 
-        public Room FilterStoredItemsByName(long roomId, string searchText)
+        public IEnumerable<StoredItem> FilterStoredItemsByType(long roomId, ItemType itemType)
         {
             Room room = GetById(roomId);
 
-            List<StoredItem> storedItems = room.StoredItems.FindAll(
-                storedItem => storedItem.Item.Name.Contains(searchText));
-            room.StoredItems = storedItems;
-            return room;
+            return room.StoredItems.FindAll(storedItem => storedItem.Item.ItemType.Id == itemType.Id);
+        }
+
+        public IEnumerable<StoredItem> FilterStoredItemsByName(long roomId, string searchText)
+        {
+            Room room = GetById(roomId);
+
+            return room.StoredItems.FindAll(storedItem => storedItem.Item.Name.Contains(searchText));
         }
 
         public Room GetById(long id)
