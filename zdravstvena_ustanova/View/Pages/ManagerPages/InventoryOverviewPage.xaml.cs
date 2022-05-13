@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Controls;
+using System.Collections.ObjectModel;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -23,6 +24,10 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
     /// </summary>
     public partial class InventoryOverviewPage : Page, INotifyPropertyChanged
     {
+        public ObservableCollection<ItemType> ItemTypes { get; set; }
+        public ItemType AllItemTypes { get; set; }
+        public ObservableCollection<StoredItem> StoredItems { get; set; }
+
         #region NotifyProperties
         private Room _room;
         public Room Room 
@@ -36,6 +41,22 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 {
                     _room = value;
                     OnPropertyChanged("Room");
+                }
+            }
+        }
+        private ItemType _selectedItemType;
+        public ItemType SelectedItemType
+        {
+            get
+            {
+                return _selectedItemType;
+            }
+            set
+            {
+                if (value != _selectedItemType)
+                {
+                    _selectedItemType = value;
+                    OnPropertyChanged("ItemType");
                 }
             }
         }
@@ -55,9 +76,26 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         public InventoryOverviewPage(Room room)
         {
+            var app = Application.Current as App;
             Room = room;
             InitializeComponent();
             DataContext = this;
+            ItemTypes = new ObservableCollection<ItemType>();
+            AllItemTypes = new ItemType(-1, "Svi");
+            ItemTypes.Add(AllItemTypes);
+
+            var itemTypes = app.ItemTypeController.GetAll();
+            foreach (var itemType in itemTypes)
+            {
+                ItemTypes.Add(itemType);
+            }
+            SelectedItemType = AllItemTypes;
+
+            StoredItems = new ObservableCollection<StoredItem>();
+            foreach (var storedItem in Room.StoredItems)
+            {
+                StoredItems.Add(storedItem);
+            }
         }
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
@@ -76,8 +114,13 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                     );
                 textImageBrush.AlignmentX = AlignmentX.Left;
                 textImageBrush.Stretch = Stretch.None;
-                var app = App.Current as App;
-                Room = app.RoomController.GetById(Room.Id);
+
+                StoredItems.Clear();
+                foreach(var storedItem in Room.StoredItems)
+                {
+                    StoredItems.Add(storedItem);
+                }
+
                 // Use the brush to paint the button's background.
                 SearchTextBox.Background = textImageBrush;
             }
@@ -86,7 +129,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 SearchTextBox.Background = null;
                 var app = Application.Current as App;
                 string searchText = SearchTextBox.Text;
-                Room = app.RoomController.FilterStoredItemsByName(Room.Id, searchText);
+                var searchedStoredItems = app.RoomController.FilterStoredItemsByName(Room.Id, searchText);
+                StoredItems.Clear();
+                foreach(var storedItem in searchedStoredItems)
+                {
+                    StoredItems.Add(storedItem);
+                }
             }
         }
 
@@ -116,6 +164,30 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             }
             MainWindow.Modal.Content = new ScheduleItemTransferFromRoom(Room, roomItemsDataGrid);
             MainWindow.Modal.IsOpen = true;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedItemType.Id == AllItemTypes.Id)
+            {
+                StoredItems.Clear();
+                foreach(var storedItem in Room.StoredItems)
+                {
+                    StoredItems.Add(storedItem);
+                }
+            }
+            else
+            {
+                var app = Application.Current as App;
+
+                var filteredStoredItems = app.RoomController.FilterStoredItemsByType(Room.Id, SelectedItemType);
+
+                StoredItems.Clear();
+                foreach(var storedItem in filteredStoredItems)
+                {
+                    StoredItems.Add(storedItem);
+                }
+            }
         }
     }
 }
