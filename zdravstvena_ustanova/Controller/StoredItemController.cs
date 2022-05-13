@@ -50,5 +50,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _storedItemService.MoveItemFromTo(fromRoom, toWarehouse, item, quantity);
         }
+
+        public StoredItem GetByWarehouseItemId(long id)
+        {
+            return _storedItemService.GetByWarehouseItemId(id);
+        }
     }
 }

@@ -20,6 +20,8 @@
     <None Remove="Resources\img\Edit-Document-icon.png" />
     <None Remove="Resources\img\edit-icon.png" />
     <None Remove="Resources\img\forward-icon.png" />
+    <None Remove="Resources\img\icons8-delivered.png" />
+    <None Remove="Resources\img\icons8-new.png" />
     <None Remove="Resources\img\minus-icon.png" />
     <None Remove="Resources\img\icons8-add.png" />
     <None Remove="Resources\img\icons8-back.png" />
@@ -72,6 +74,8 @@
     <Content Include="Resources\img\search-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\icons8-delivered.png" />
+    <Resource Include="Resources\img\icons8-new.png" />
     <Resource Include="Resources\img\slikaUstanove.png" />
     <Content Include="Resources\img\surveys-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

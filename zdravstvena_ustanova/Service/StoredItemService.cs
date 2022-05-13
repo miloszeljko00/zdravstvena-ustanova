@@ -40,6 +40,18 @@ namespace zdravstvena_ustanova.Service
             BindItemsWithItemTypes(items, itemTypes);
             return storedItem;
         }
+
+        public StoredItem GetByWarehouseItemId(long id)
+        {
+            var storedItems = GetAll();
+            StoredItem ret = null;
+            foreach (StoredItem storedItem in storedItems)
+            {
+                if(storedItem.Item.Id == id && storedItem.StorageType == StorageType.WAREHOUSE)
+                    ret = storedItem;
+            }
+            return ret;
+        }
         private void BindItemsWithItemTypes(IEnumerable<Item> items, IEnumerable<ItemType> itemTypes)
         {
             foreach (var item in items)
