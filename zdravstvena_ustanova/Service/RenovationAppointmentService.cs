@@ -53,6 +53,26 @@ namespace zdravstvena_ustanova.Service
             return renovationAppointments;
         }
 
+        public IEnumerable<RenovationAppointment> GetRenovationAppointmentsByMergeRoomForMergeRenovation(long roomId)
+        {
+            var renovationAppointments = (List<RenovationAppointment>)GetAll();
+            renovationAppointments = GetAllMergeRenovations(renovationAppointments);
+            renovationAppointments = GetByMergeRoomId(roomId, renovationAppointments);
+            return renovationAppointments;
+        }
+
+        private static List<RenovationAppointment> GetByMergeRoomId(long roomId, List<RenovationAppointment> renovationAppointments)
+        {
+            renovationAppointments = renovationAppointments.FindAll(renovationAppointment => renovationAppointment.FirstRoom.Id == roomId);
+            return renovationAppointments;
+        }
+
+        private static List<RenovationAppointment> GetAllMergeRenovations(List<RenovationAppointment> renovationAppointments)
+        {
+            renovationAppointments = renovationAppointments.FindAll(renovationAppointment => renovationAppointment.RenovationType.Id == 2);
+            return renovationAppointments;
+        }
+
         private void BindRenovationAppointmentsWithRoomsUnderRenovation(IEnumerable<RenovationAppointment> renovationAppointments, IEnumerable<Room> roomsUnderRenovation, IEnumerable<Room> rooms)
         {
             foreach(var renovationAppointment in renovationAppointments)
