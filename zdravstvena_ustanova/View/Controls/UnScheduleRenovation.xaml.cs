@@ -125,9 +125,9 @@ namespace zdravstvena_ustanova.View.Controls
             SelectedRenovationAppointment = selectedRenovationAppointment;
             RoomsCalendarControl = roomsCalendarControl;
 
-            RoomName = SelectedRenovationAppointment.FirstRoom.Name;
-            RoomType = SelectedRenovationAppointment.FirstRoom.RoomType.ToString();
-            RoomFloor = SelectedRenovationAppointment.FirstRoom.Floor.ToString();
+            RoomName = SelectedRenovationAppointment.Room.Name;
+            RoomType = SelectedRenovationAppointment.Room.RoomType.ToString();
+            RoomFloor = SelectedRenovationAppointment.Room.Floor.ToString();
             RenovationStart = SelectedRenovationAppointment.StartDate.ToString("dd.MM.yyyy");
             RenovationEnd = SelectedRenovationAppointment.EndDate.ToString("dd.MM.yyyy");
         }

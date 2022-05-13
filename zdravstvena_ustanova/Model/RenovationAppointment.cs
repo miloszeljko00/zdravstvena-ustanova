@@ -10,6 +10,7 @@ namespace zdravstvena_ustanova.Model
     public class RenovationAppointment
     {
         public long Id { get; set; }
+        public Room Room { get; set; }
         public Room FirstRoom { get; set; }
         public Room SecondRoom { get; set; }
         public DateTime StartDate { get; set; }
@@ -20,7 +21,7 @@ namespace zdravstvena_ustanova.Model
         public RenovationAppointment(Room room, DateTime startDate, DateTime endDate, 
             string description, RenovationType renovationType)
         {
-            FirstRoom = room;
+            Room = room;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -30,16 +31,17 @@ namespace zdravstvena_ustanova.Model
             string description, long renovationTypeId)
         {
             Id = id;
-            FirstRoom = new Room(roomId);
+            Room = new Room(roomId);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
             RenovationType = new RenovationType(renovationTypeId);
         }
 
-        public RenovationAppointment(Room firstRoom, Room secondRoom, DateTime startDate,
+        public RenovationAppointment(Room room, Room firstRoom, Room secondRoom, DateTime startDate,
             DateTime endDate, string description, RenovationType renovationType)
         {
+            Room = room;
             FirstRoom = firstRoom;
             SecondRoom = secondRoom;
             StartDate = startDate;
@@ -47,10 +49,12 @@ namespace zdravstvena_ustanova.Model
             Description = description;
             RenovationType = renovationType;
         }
-        public RenovationAppointment(long id, long firstRoomId, long secondRoomId, DateTime startDate,
+
+        public RenovationAppointment(long id, long roomId, long firstRoomId, long secondRoomId, DateTime startDate,
             DateTime endDate, string description, long renovationTypeId)
         {
             Id = id;
+            Room = new Room(roomId);
             FirstRoom = new Room(firstRoomId);
             SecondRoom = new Room(secondRoomId);
             StartDate = startDate;

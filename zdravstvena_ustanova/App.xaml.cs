@@ -18,6 +18,7 @@ namespace zdravstvena_ustanova
         private readonly string ITEM_TYPE_FILE = ProjectPath + "\\Resources\\Data\\ItemTypes.csv";
         private readonly string STORED_ITEM_FILE = ProjectPath + "\\Resources\\Data\\StoredItems.csv";
         private readonly string ROOM_FILE = ProjectPath + "\\Resources\\Data\\Rooms.csv";
+        private readonly string ROOM_UNDER_RENOVATION_FILE = ProjectPath + "\\Resources\\Data\\RoomsUnderRenovation.csv";        
         private readonly string WAREHOUSE_FILE = ProjectPath + "\\Resources\\Data\\Warehouses.csv";
         private readonly string RENOVATION_APPOINTMENT_FILE = ProjectPath + "\\Resources\\Data\\RenovationAppointments.csv";
         private readonly string RENOVATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\RenovationTypes.csv";
@@ -99,6 +100,7 @@ namespace zdravstvena_ustanova
             var itemTypeRepository = new ItemTypeRepository(ITEM_TYPE_FILE, CSV_DELIMITER);
             var storedItemRepository = new StoredItemRepository(STORED_ITEM_FILE, CSV_DELIMITER);
             var roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
+            var roomUnderRenovationRepository = new RoomRepository(ROOM_UNDER_RENOVATION_FILE, CSV_DELIMITER);
             var warehouseRepository = new WarehouseRepository(WAREHOUSE_FILE, CSV_DELIMITER);
             var renovationAppointmentRepository = new RenovationAppointmentRepository(RENOVATION_APPOINTMENT_FILE, CSV_DELIMITER);
             var renovationTypeRepository = new RenovationTypeRepository(RENOVATION_TYPE_FILE, CSV_DELIMITER);
@@ -150,7 +152,7 @@ namespace zdravstvena_ustanova
             var managerService = new ManagerService(managerRepository, accountRepository);
             var secretaryService = new SecretaryService(secretaryRepository, accountRepository);
             var renovationAppointmentService = new RenovationAppointmentService(renovationAppointmentRepository, roomRepository,
-                storedItemRepository, itemRepository, scheduledAppointmentRepository, unScheduledAppointmentRepository, renovationTypeRepository);
+                storedItemRepository, itemRepository, scheduledAppointmentRepository, unScheduledAppointmentRepository, renovationTypeRepository, roomUnderRenovationRepository);
             var renovationTypeService = new RenovationTypeService(renovationTypeRepository);
             var scheduledAppointmentService = new ScheduledAppointmentService(scheduledAppointmentRepository,roomRepository, doctorRepository,
                 patientRepository, accountRepository);
