@@ -17,6 +17,8 @@ using System.Collections.ObjectModel;
 using zdravstvena_ustanova.View.Model;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.View.Pages;
+using zdravstvena_ustanova.Model.Enums;
+using System.Threading;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -45,6 +47,22 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 }
             }
         }
+        private int _numberOfUnSeenRequests;
+        public int NumberOfUnSeenRequests
+        {
+            get
+            {
+                return _numberOfUnSeenRequests;
+            }
+            set
+            {
+                if (value != _numberOfUnSeenRequests)
+                {
+                    _numberOfUnSeenRequests = value;
+                    OnPropertyChanged("NumberOfUnSeenRequests");
+                }
+            }
+        }
         #endregion
 
         #region PropertyChangedNotifier
@@ -62,8 +80,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
+            NumberOfUnSeenRequests = 0;
             var app = Application.Current as App;
             Username = app.LoggedInUser.Name;
+            MedicationApprovalRequests = new ObservableCollection<MedicationApprovalRequest>();
+            CheckForNewMedicationApprovalRequest();
+            StartCheckingForNewMedicationApprovalRequest(20);
             UpdateCalendar();
         }
 
@@ -205,13 +227,55 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
             holidayRequest.ShowDialog();
         }
-        private void Proba_Click(object sender, RoutedEventArgs e)
+
+        private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MedicationApprovalRequestsListView.Visibility = Visibility.Visible;
+
+        }
+
+        private void MenuItem_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MedicationApprovalRequestsListView.Visibility = Visibility.Hidden;
+        }
+
+        private void MedicationNameTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var medicationApprovalRequestTextBlock = (TextBlock)e.OriginalSource;
+            var medicationApprovalRequest = (MedicationApprovalRequest)medicationApprovalRequestTextBlock.DataContext;
+            medicationApprovalRequest.IsSeenByDoctor = true;
+            MedicationApprovalRequests.Remove(medicationApprovalRequest);
+            MedicationApprovalRequests.Add(medicationApprovalRequest);
+            var app = Application.Current as App;
+            app.MedicationApprovalRequestController.Update(medicationApprovalRequest);
+            MedicationApprovalRequestWindow medicationApprovalRequestWindow = new MedicationApprovalRequestWindow(medicationApprovalRequest, MedicationApprovalRequests);
+            medicationApprovalRequestWindow.ShowDialog();
+        }
+        public async void StartCheckingForNewMedicationApprovalRequest(int numberOfSecondsBetweenTwoChecks)
+        {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(numberOfSecondsBetweenTwoChecks));
+            while (await timer.WaitForNextTickAsync())
+            {
+                CheckForNewMedicationApprovalRequest();
+            }
+        }
+        private void CheckForNewMedicationApprovalRequest()
         {
             var app = Application.Current as App;
-            MedicationApprovalRequest medicationApprovalRequest = app.MedicationApprovalRequestController.GetById(1);
-            MedicationApprovalRequestWindow medicationApprovalRequestWindow = new MedicationApprovalRequestWindow(medicationApprovalRequest);
-            medicationApprovalRequestWindow.ShowDialog();
-
+            List<MedicationApprovalRequest> medicationApprovalRequests2 = (List<MedicationApprovalRequest>)app.MedicationApprovalRequestController.GetAll();
+            MedicationApprovalRequests.Clear();
+            NumberOfUnSeenRequests = 0;
+            foreach (MedicationApprovalRequest medicationApprovalRequest in medicationApprovalRequests2)
+            {
+                if (medicationApprovalRequest.RequestStatus == RequestStatus.WAITING_FOR_APPROVAL)
+                {
+                    MedicationApprovalRequests.Add(medicationApprovalRequest);
+                    if (medicationApprovalRequest.IsSeenByDoctor == false)
+                    {
+                        NumberOfUnSeenRequests++;
+                    }
+                }
+            }
         }
     }
 }

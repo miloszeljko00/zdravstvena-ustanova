@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
     using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Controller
 {
@@ -40,6 +41,11 @@ namespace zdravstvena_ustanova.Controller
         public bool Delete(long medicationApprovalRequestId)
         {
             return _medicationApprovalRequestService.Delete(medicationApprovalRequestId);
+        }
+
+        public IEnumerable<MedicationApprovalRequest> GetByRequestStatus(RequestStatus requestStatus)
+        {
+            return _medicationApprovalRequestService.GetByRequestStatus(requestStatus);
         }
     }
 }

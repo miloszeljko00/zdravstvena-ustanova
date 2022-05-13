@@ -14,7 +14,6 @@ namespace zdravstvena_ustanova.Service
     {
         private readonly ScheduledItemTransferRepository _scheduledItemTransferRepository;
         private readonly StoredItemRepository _storedItemRepository;
-
         public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository)
         {
             _scheduledItemTransferRepository = scheduledItemTransferRepository;

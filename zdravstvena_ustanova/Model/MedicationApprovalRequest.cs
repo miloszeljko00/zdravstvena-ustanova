@@ -15,9 +15,11 @@ namespace zdravstvena_ustanova.Model
         public string RequestMessage { get; set; }
         public string ResponseMessage { get; set; }
         public RequestStatus RequestStatus { get; set; }
+        public bool IsSeenByDoctor { get; set; }
+        public bool IsSeenByManager { get; set; }
 
         public MedicationApprovalRequest(long id, Medication medication, Doctor approvingDoctor,
-            string requestMessage, string responseMessage, RequestStatus requestStatus)
+            string requestMessage, string responseMessage, RequestStatus requestStatus, bool isSeenByDoctor, bool isSeenByManager)
         {
             Id = id;
             Medication = medication;
@@ -25,9 +27,11 @@ namespace zdravstvena_ustanova.Model
             RequestMessage = requestMessage;
             ResponseMessage = responseMessage;
             RequestStatus = requestStatus;
+            IsSeenByDoctor = isSeenByDoctor;
+            IsSeenByManager = isSeenByManager;
         }
         public MedicationApprovalRequest(long id, long medicationId, long approvingDoctorId,
-            string requestMessage, string responseMessage, RequestStatus requestStatus)
+            string requestMessage, string responseMessage, RequestStatus requestStatus, bool isSeenByDoctor, bool isSeenByManager)
         {
             Id = id;
             Medication = new Medication(medicationId);
@@ -35,6 +39,8 @@ namespace zdravstvena_ustanova.Model
             RequestMessage = requestMessage;
             ResponseMessage = responseMessage;
             RequestStatus = requestStatus;
+            IsSeenByDoctor = isSeenByDoctor;
+            IsSeenByManager = isSeenByManager;
         }
 
         public MedicationApprovalRequest(long id)

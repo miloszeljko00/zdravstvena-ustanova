@@ -35,10 +35,8 @@
             </MenuItem>
             <MenuItem Header="PROFILE DATA" Click="MenuItem_ProfileData_Click">
             </MenuItem>
-            <MenuItem Header="NOTIFICATIONS" Click="Proba_Click">
-                <Menu ItemsSource="{Binding MedicationApprovalRequests}">
-                    
-                </Menu>
+            <MenuItem Header="NOTIFICATIONS       " MouseEnter="MenuItem_MouseEnter" MouseLeave="MenuItem_MouseLeave">
+                <Label Content="Label"/>
             </MenuItem>
             <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout">
             </MenuItem>
@@ -80,5 +78,21 @@
                 <DataGridTextColumn Header="Sunday" Binding="{Binding SundayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <ListView x:Name="MedicationApprovalRequestsListView" Height="141" Width="105" ItemsSource="{Binding Path=MedicationApprovalRequests}" Canvas.Left="433" Canvas.Top="18" Visibility="Hidden" MouseEnter="MenuItem_MouseEnter" MouseLeave="MenuItem_MouseLeave">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Name="MedicationNameTextBlock" Text="{Binding Medication.Name}" MouseDown="MedicationNameTextBlock_MouseDown"/>
+                    </WrapPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsSeenByDoctor}" Value="False">
+                            <Setter TargetName="MedicationNameTextBlock" Property="FontWeight" Value="Bold"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        <Label Canvas.Left="534" Width="30" Height="26" FontSize="12" Content="{Binding NumberOfUnSeenRequests}" FontWeight="Bold" Foreground="Red" Canvas.Top="-5"/>
     </Canvas>
 </Window>

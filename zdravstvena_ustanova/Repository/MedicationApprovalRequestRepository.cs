@@ -68,6 +68,8 @@ namespace zdravstvena_ustanova.Repository
                     mar.RequestMessage = medicationApprovalRequest.RequestMessage;
                     mar.ResponseMessage = medicationApprovalRequest.ResponseMessage;
                     mar.RequestStatus = medicationApprovalRequest.RequestStatus;
+                    mar.IsSeenByDoctor = medicationApprovalRequest.IsSeenByDoctor;
+                    mar.IsSeenByManager = medicationApprovalRequest.IsSeenByManager;
 
                     WriteLinesToFile(_path, MedicationApprovalRequestsToCSVFormat(medicationApprovalRequests));
                     return true;
@@ -99,7 +101,9 @@ namespace zdravstvena_ustanova.Repository
                                    medicationApprovalRequest.ApprovingDoctor.Id,
                                    medicationApprovalRequest.RequestMessage,
                                    medicationApprovalRequest.ResponseMessage,
-                                   (int)medicationApprovalRequest.RequestStatus);
+                                   (int)medicationApprovalRequest.RequestStatus,
+                                   medicationApprovalRequest.IsSeenByDoctor,
+                                   medicationApprovalRequest.IsSeenByManager);
     }
         private List<string> MedicationApprovalRequestsToCSVFormat(List<MedicationApprovalRequest> medicationApprovalRequests)
         {
@@ -122,7 +126,9 @@ namespace zdravstvena_ustanova.Repository
                 long.Parse(tokens[2]),
                 tokens[3],
                 tokens[4],
-                (RequestStatus)int.Parse(tokens[5]));
+                (RequestStatus)int.Parse(tokens[5]),
+                bool.Parse(tokens[6]),
+                bool.Parse(tokens[7]));
         }
         private void AppendLineToFile(string path, string line)
         {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Service
 {
@@ -41,6 +42,16 @@ namespace zdravstvena_ustanova.Service
             BindMedicationApprovalRequestsWithMedications(medicationApprovalRequests, medications);
             return medicationApprovalRequests;
         }
+
+        public IEnumerable<MedicationApprovalRequest> GetByRequestStatus(RequestStatus requestStatus)
+        {
+            var medicationApprovalRequests = GetAll();
+
+            return (from medicationApprovalRequest in medicationApprovalRequests
+                    where medicationApprovalRequest.RequestStatus == requestStatus
+                    select medicationApprovalRequest).ToList();
+        }
+
         public IEnumerable<MedicationApprovalRequest> GetAllByApprovingDoctorId(long doctorId)
         {
             var medicationApprovalRequests = GetAll();

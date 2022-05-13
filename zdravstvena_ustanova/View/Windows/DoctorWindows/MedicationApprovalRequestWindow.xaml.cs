@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +37,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         #endregion
         public MedicationApprovalRequest MedicationApprovalRequest { get; set; }
         public List<Ingredient> ListOfIngredientsForExactMedication { get; set; }
+        public ObservableCollection<MedicationApprovalRequest> MedicationApprovalRequests { get; set; }
         #region NotifyProperties
         private RequestStatus _selectedRequestStatus;
         public RequestStatus SelectedRequestStatus
@@ -53,10 +56,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
         #endregion
-        public MedicationApprovalRequestWindow(MedicationApprovalRequest medicationApprovalRequest)
+        public MedicationApprovalRequestWindow(MedicationApprovalRequest medicationApprovalRequest, ObservableCollection<MedicationApprovalRequest> medicationApprovalRequests)
         {
             InitializeComponent();
             DataContext = this;
+            MedicationApprovalRequests = medicationApprovalRequests;
             MedicationApprovalRequest = medicationApprovalRequest;
             MedicationNameTextBox.Text = MedicationApprovalRequest.Medication.Name;
             RequestMessageTextBox.Text = medicationApprovalRequest.RequestMessage;
@@ -90,7 +94,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
-            if((RequestStatus)RequestStatusComboBox.SelectedItem == RequestStatus.DISAPPROVED)
+            if ((RequestStatus)RequestStatusComboBox.SelectedItem == RequestStatus.DISAPPROVED)
             {
                 if (ResponseMessageTextBox.Text == "")
                 {
@@ -100,10 +104,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             string response = ResponseMessageTextBox.Text;
             RequestStatus requestStatus = (RequestStatus)RequestStatusComboBox.SelectedItem;
+
+            if (requestStatus == RequestStatus.WAITING_FOR_APPROVAL) return;
+           
             MedicationApprovalRequest.RequestStatus = requestStatus;
             MedicationApprovalRequest.ResponseMessage = response;
             app.MedicationApprovalRequestController.Update(MedicationApprovalRequest);
+            MedicationApprovalRequests.Remove(MedicationApprovalRequest);
             this.Close();
         }
+       
     }
 }
