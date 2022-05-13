@@ -34,6 +34,7 @@ namespace zdravstvena_ustanova
         private readonly string MEDICATION_FILE = ProjectPath + "\\Resources\\Data\\Medications.csv";
         private readonly string INGREDIENT_FILE = ProjectPath + "\\Resources\\Data\\Ingredients.csv";
         private readonly string PRESCRIBED_MEDICINE_FILE = ProjectPath + "\\Resources\\Data\\PrescribedMedicine.csv";
+        private readonly string ORDERED_ITEM_FILE = ProjectPath + "\\Resources\\Data\\OrderedItems.csv";
         
         private readonly string MEDICAL_EXAMINATION_FILE = ProjectPath + "\\Resources\\Data\\MedicalExamination.csv";
         private readonly string SPECIALIST_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\SpecialistRequest.csv";
@@ -85,6 +86,7 @@ namespace zdravstvena_ustanova
 
         public HolidayRequestController HolidayRequestController { get; set; }
 
+        public StoredItemController OrderedItemController { get; set; }
 
         public Person? LoggedInUser { get; set; }
 
@@ -131,7 +133,7 @@ namespace zdravstvena_ustanova
 
 
             var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
-
+            var OrderedItemRepository = new StoredItemRepository(ORDERED_ITEM_FILE, CSV_DELIMITER);
 
             //var itemService = new ItemService(itemRepository);
             //var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -185,7 +187,7 @@ namespace zdravstvena_ustanova
             var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
 
             var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
-
+            var orderedItemService = new StoredItemService(OrderedItemRepository, itemRepository, itemTypeRepository);
             
             
             ItemController = new ItemController(itemService);
@@ -223,6 +225,8 @@ namespace zdravstvena_ustanova
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
+
+            OrderedItemController = new StoredItemController(orderedItemService);
 
         }
     }

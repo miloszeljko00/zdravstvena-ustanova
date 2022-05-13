@@ -12,12 +12,12 @@
 
     <Grid>
 
-        <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding AppointmentView}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="dataGridOrderedItems" ItemsSource="{Binding OrderedItems}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,116,30,0" Height="317" FontSize="16"  SelectedIndex="-1" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Start}" Width="1.5*"/>
-                <DataGridTextColumn Header="Opis" Binding="{Binding End}" Width="1.5*"/>
-                <DataGridTextColumn Header="Količina" Binding="{Binding AppointmentType}" Width="2*"/>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="1.5*"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="1.5*"/>
+                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="2*"/>
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -46,12 +46,20 @@
 
         <Image x:Name="Delete" HorizontalAlignment="Left" Height="85" Margin="556,444,0,0" VerticalAlignment="Top" Width="84" Source="/Resources/img/delete-icon.png" />
         <Label Content="Poništi" HorizontalAlignment="Left" Margin="557,537,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Image x:Name="New" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-delivered.png" />
+        <Image x:Name="Delivered" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-delivered.png" MouseDown="Delivered_MouseDown"/>
         <Label Content="Isporučeno" HorizontalAlignment="Left" Margin="366,537,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Button x:Name="unscheduled" Content="Pregled magacina" HorizontalAlignment="Left" Margin="39,458,0,0" VerticalAlignment="Top" FontSize="16" Height="70" Width="180" />
-        <ComboBox HorizontalAlignment="Left" Margin="84,48,0,0" VerticalAlignment="Top" Width="240" FontSize="24" Height="38"/>
-        <TextBox HorizontalAlignment="Left" Margin="392,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="24" Height="38"/>
-        <Image HorizontalAlignment="Left" Height="40" Margin="577,46,0,0" VerticalAlignment="Top" Width="40" Source="/Resources/img/icons8-add.png"/>
+        <Button x:Name="Warehouse" Content="Pregled magacina" HorizontalAlignment="Left" Margin="39,458,0,0" VerticalAlignment="Top" FontSize="16" Height="70" Width="180" Click="Warehouse_Click" />
+        <ComboBox x:Name="itemsCB" ItemsSource="{Binding}" SelectedValuePath="Id" HorizontalAlignment="Left" Margin="84,48,0,0" VerticalAlignment="Top" Width="240" FontSize="24" Height="38">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox x:Name="quantityTB" HorizontalAlignment="Left" Margin="392,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" FontSize="24" Height="38"/>
+        <Image x:Name="add" HorizontalAlignment="Left" Height="40" Margin="577,46,0,0" VerticalAlignment="Top" Width="40" Source="/Resources/img/icons8-add.png" MouseDown="add_MouseDown"/>
         <Label Content="Količina" HorizontalAlignment="Left" Margin="425,8,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Label Content="Predmet" HorizontalAlignment="Left" Margin="129,11,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Label Content="Dodaj" HorizontalAlignment="Left" Margin="566,9,0,0" VerticalAlignment="Top" FontSize="24"/>

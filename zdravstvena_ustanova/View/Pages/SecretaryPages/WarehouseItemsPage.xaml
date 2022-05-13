@@ -1,0 +1,25 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.WarehouseItemsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Height="620" Width="1024"
+      Title="WarehouseItemsPage">
+
+    <Grid>
+        <DataGrid x:Name="dataGridOrderedItems" ItemsSource="{Binding ItemsView}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,116,30,0" Height="317" FontSize="16"  SelectedIndex="-1" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="1.5*"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="1.5*"/>
+                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Image x:Name="Back" HorizontalAlignment="Left" Height="85" Margin="475,441,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown"/>
+        <Label Content="Nazad" HorizontalAlignment="Left" Margin="480,527,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Pregled predmeta u Magacinu:" HorizontalAlignment="Left" Margin="47,56,0,0" VerticalAlignment="Top" FontSize="24"/>
+    </Grid>
+</Page>

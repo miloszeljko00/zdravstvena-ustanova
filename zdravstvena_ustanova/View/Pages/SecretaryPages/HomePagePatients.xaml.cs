@@ -70,7 +70,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void orders_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            SecretaryFrame.Content = new OrdersPage();
+            SecretaryFrame.Content = new OrdersPage(this);
         }
     }
 

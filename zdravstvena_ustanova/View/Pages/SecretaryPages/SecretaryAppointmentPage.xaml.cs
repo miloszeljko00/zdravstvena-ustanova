@@ -30,8 +30,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         public ObservableCollection<Room> Rooms { get; set; }
         public ICollectionView AppointmentView { get; set; }
 
-        private bool da;
-
         private int selectedType;
 
         public int selectedDoctor;
@@ -46,7 +44,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 this.selectedDoctor = value;
                 if (AppointmentView != null)
                 {
-                    da = true;
                     AppointmentView.Refresh(); 
                 }
                     
@@ -65,7 +62,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 this.selectedRoom = value;
                 if (AppointmentView != null)
                 {
-                    da = true;
                     AppointmentView.Refresh();
                     
                 }
@@ -80,7 +76,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             }
             set
             {
-                da = true;
+                
                 this.selectedType = value;
                 if (AppointmentView != null)
                 {
@@ -100,7 +96,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             selectedType = -1;
             this.DataContext = this;
             var app = Application.Current as App;
-            da = true;
+            
             _homePagePatients = hpp;
 
             typeComboBox.ItemsSource = Enum.GetValues(typeof(AppointmentType)).Cast<AppointmentType>();
