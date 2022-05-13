@@ -202,6 +202,8 @@ namespace zdravstvena_ustanova.Service
 
             UnscheduleAllOverlappingScheduledAppointments(renovationAppointment, scheduledAppointmentsForRoomInSplitRenovation);
 
+            renovationAppointment.FirstRoom = _roomUnderRenovationRepository.Create(renovationAppointment.FirstRoom);
+            renovationAppointment.SecondRoom = _roomUnderRenovationRepository.Create(renovationAppointment.SecondRoom);
             renovationAppointment = Create(renovationAppointment);
 
             return renovationAppointment;
@@ -221,6 +223,7 @@ namespace zdravstvena_ustanova.Service
             var scheduledAppointmentsForFirstRoomInMerge = GetAllScheduledAppointmentsByRoomId(renovationAppointment.Room.Id);
             UnscheduleAllOverlappingScheduledAppointments(renovationAppointment, scheduledAppointmentsForFirstRoomInMerge);
 
+            renovationAppointment.SecondRoom = _roomUnderRenovationRepository.Create(renovationAppointment.SecondRoom);
             renovationAppointment = Create(renovationAppointment);
             return renovationAppointment;
         }

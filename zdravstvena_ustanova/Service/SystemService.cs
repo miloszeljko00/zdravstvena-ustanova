@@ -14,10 +14,17 @@ namespace zdravstvena_ustanova.Service
     {
         private readonly ScheduledItemTransferRepository _scheduledItemTransferRepository;
         private readonly StoredItemRepository _storedItemRepository;
-        public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository)
+        private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
+        private readonly RoomRepository _roomRepository;
+        private readonly RoomRepository _roomUnderRenovationRepository;
+        public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository,
+            RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, RoomRepository roomUnderRenovationRepository)
         {
             _scheduledItemTransferRepository = scheduledItemTransferRepository;
             _storedItemRepository = storedItemRepository;
+            _renovationAppointmentRepository = renovationAppointmentRepository;
+            _roomRepository = roomRepository;
+            _roomUnderRenovationRepository = roomUnderRenovationRepository;
         }
 
         public async void StartCheckingForScheduledItemTransfers(int numberOfSecondsBetweenTwoChecks)
@@ -111,6 +118,113 @@ namespace zdravstvena_ustanova.Service
                     scheduledItemTransfer.DestinationStorageType, scheduledItemTransfer.DestinationWarehouse.Id);
 
                 _storedItemRepository.Create(transferedItemStored);
+            }
+        }
+        public async void StartCheckingForRenovationAppointments(int numberOfSecondsBetweenTwoChecks)
+        {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(numberOfSecondsBetweenTwoChecks));
+
+            while (await timer.WaitForNextTickAsync())
+            {
+                CheckForRenovationAppointments();
+            }
+        }
+
+        private void CheckForRenovationAppointments()
+        {
+            List<RenovationAppointment> renovationAppointments = (List<RenovationAppointment>)_renovationAppointmentRepository.GetAll();
+
+            foreach (RenovationAppointment renovationAppointment in renovationAppointments)
+            {
+                if (renovationAppointment.EndDate.CompareTo(DateTime.Now) <= 0)
+                {
+                    ExecuteRenovation(renovationAppointment);
+                }
+            }
+        }
+
+        private void ExecuteRenovation(RenovationAppointment renovationAppointment)
+        {
+            if(renovationAppointment.RenovationType.Id == 2)
+            {
+                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.SecondRoom.Id);
+                _roomUnderRenovationRepository.Delete(secondRoom.Id);
+                renovationAppointment.SecondRoom = _roomRepository.Create(secondRoom);
+
+                MoveStoredItemsFromFirstRoomNewRoom(renovationAppointment);
+                MoveStoredItemsFromSecondRoomToNewRoom(renovationAppointment);
+
+                _roomRepository.Delete(renovationAppointment.Room.Id);
+                _roomRepository.Delete(renovationAppointment.FirstRoom.Id);
+
+                _renovationAppointmentRepository.Delete(renovationAppointment.Id);
+                var renovationAppointments = (List<RenovationAppointment>)_renovationAppointmentRepository.GetAll();
+                renovationAppointments = renovationAppointments.FindAll(ra => ra.RenovationType.Id == 1);
+                renovationAppointments = renovationAppointments.FindAll(ra => ra.Room.Id == renovationAppointment.FirstRoom.Id);
+                renovationAppointments = renovationAppointments.FindAll(ra => ra.StartDate.CompareTo(renovationAppointment.StartDate) >= 0);
+                foreach(var ra in renovationAppointments)
+                {
+                    _renovationAppointmentRepository.Delete(ra.Id);
+                }
+            }
+            else if(renovationAppointment.RenovationType.Id == 3)
+            {
+                var firstRoom = _roomUnderRenovationRepository.Get(renovationAppointment.FirstRoom.Id);
+                _roomUnderRenovationRepository.Delete(firstRoom.Id);
+                renovationAppointment.FirstRoom = _roomRepository.Create(firstRoom);
+
+                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.SecondRoom.Id);
+                _roomUnderRenovationRepository.Delete(secondRoom.Id);
+                renovationAppointment.SecondRoom = _roomRepository.Create(secondRoom);
+
+                MoveStoredItemsToFirstNewRoom(renovationAppointment);
+
+                _roomRepository.Delete(renovationAppointment.Room.Id);
+
+                _renovationAppointmentRepository.Delete(renovationAppointment.Id);
+            }
+        }
+
+        private void MoveStoredItemsToFirstNewRoom(RenovationAppointment renovationAppointment)
+        {
+            var storedItems = (List<StoredItem>)_storedItemRepository.GetAll();
+
+            storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
+
+            storedItems = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.Room.Id);
+
+            foreach (var storedItem in storedItems)
+            {
+                storedItem.Room = renovationAppointment.FirstRoom;
+                _storedItemRepository.Update(storedItem);
+            }
+        }
+
+        private void MoveStoredItemsFromSecondRoomToNewRoom(RenovationAppointment renovationAppointment)
+        {
+            var storedItems = (List<StoredItem>)_storedItemRepository.GetAll();
+
+            storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
+            var storedItemsFromSecondRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.FirstRoom.Id);
+
+            foreach (var storedItem in storedItemsFromSecondRoom)
+            {
+                storedItem.Room = renovationAppointment.SecondRoom;
+                _storedItemRepository.Update(storedItem);
+            }
+        }
+
+        private void MoveStoredItemsFromFirstRoomNewRoom(RenovationAppointment renovationAppointment)
+        {
+            var storedItems = (List<StoredItem>)_storedItemRepository.GetAll();
+
+            storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
+            var storedItemsFromFirstRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.Room.Id);
+
+            foreach (var storedItem in storedItemsFromFirstRoom)
+            {
+                storedItem.Room = renovationAppointment.FirstRoom;
+                _storedItemRepository.Update(storedItem);
             }
         }
     }
