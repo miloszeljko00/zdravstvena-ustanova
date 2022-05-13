@@ -63,6 +63,9 @@ namespace zdravstvena_ustanova.Controller
             return _renovationAppointmentService.HasRenovationFromTo(room, from, to);
         }
 
-
+        public IEnumerable<RenovationAppointment> GetRenovationAppointmentsByMergeRoomForMergeRenovation(long roomId)
+        {
+            return _renovationAppointmentService.GetRenovationAppointmentsByMergeRoomForMergeRenovation(roomId);
+        }
     }
 }

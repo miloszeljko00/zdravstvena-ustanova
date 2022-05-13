@@ -143,6 +143,30 @@ namespace zdravstvena_ustanova.View.Controls
             if(SelectedRenovationAppointment != null)
             {
                 var app = Application.Current as App;
+                if(SelectedRenovationAppointment.RenovationType.Id == 1)
+                {
+                    var renovationAppointmentsWithSelectedRoomAsMergingRoom = (List<RenovationAppointment>)app.RenovationAppointmentController.
+                                                                        GetRenovationAppointmentsByMergeRoomForMergeRenovation(SelectedRenovationAppointment.Room.Id); ;
+                    if(renovationAppointmentsWithSelectedRoomAsMergingRoom != null && renovationAppointmentsWithSelectedRoomAsMergingRoom.Count > 0)
+                    {
+                        foreach(var renovation in renovationAppointmentsWithSelectedRoomAsMergingRoom)
+                        {
+                            app.RenovationAppointmentController.Delete(renovation.Id);
+                        }
+                    }
+                }
+                else if(SelectedRenovationAppointment.RenovationType.Id == 2)
+                {
+                    var room = SelectedRenovationAppointment.FirstRoom;
+                    var renovationAppointmentOfMergedRoom = (List<RenovationAppointment>)app.RenovationAppointmentController.
+                                                            GetIfContainsDateForRoom(SelectedRenovationAppointment.StartDate, room.Id);
+                    
+                    foreach(var renovationAppointment in renovationAppointmentOfMergedRoom)
+                    {
+                        app.RenovationAppointmentController.Delete(renovationAppointment.Id);
+                    }
+
+                }
                 app.RenovationAppointmentController.Delete(SelectedRenovationAppointment.Id);
             }
             RoomsCalendarControl.DisplayCalendarForMonth(RoomsCalendarControl.DisplayedMonth);
