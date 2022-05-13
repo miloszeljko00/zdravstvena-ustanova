@@ -188,7 +188,8 @@ namespace zdravstvena_ustanova
 
             var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
 
-            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
+            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository,
+                renovationAppointmentRepository, roomRepository, roomUnderRenovationRepository);
             var orderedItemService = new StoredItemService(OrderedItemRepository, itemRepository, itemTypeRepository);
             
             
@@ -227,6 +228,7 @@ namespace zdravstvena_ustanova
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
+            SystemController.StartCheckingForRenovationAppointments(10);
 
             OrderedItemController = new StoredItemController(orderedItemService);
 
