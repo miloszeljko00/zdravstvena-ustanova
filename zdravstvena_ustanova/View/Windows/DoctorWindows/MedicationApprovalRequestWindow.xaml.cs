@@ -60,6 +60,20 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             MedicationApprovalRequest = medicationApprovalRequest;
             MedicationNameTextBox.Text = MedicationApprovalRequest.Medication.Name;
             RequestMessageTextBox.Text = medicationApprovalRequest.RequestMessage;
+            RequestStatusComboBox.Text = medicationApprovalRequest.RequestStatus.ToString();
+            if(RequestStatusComboBox.Text == "WAITING_FOR_APPROVAL")
+            {
+                RequestStatusComboBox.SelectedIndex = 0;
+            }
+            else if(RequestStatusComboBox.Text == "APPROVED")
+            {
+                RequestStatusComboBox.SelectedIndex = 1;
+            }
+            else
+            {
+                RequestStatusComboBox.SelectedIndex = 2;
+            }
+            ResponseMessageTextBox.Text = medicationApprovalRequest.ResponseMessage;
             ListOfIngredientsForExactMedication = new List<Ingredient>();
             foreach(Ingredient i in MedicationApprovalRequest.Medication.Ingredients)
             {
@@ -75,7 +89,21 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
-
+            var app = Application.Current as App;
+            if((RequestStatus)RequestStatusComboBox.SelectedItem == RequestStatus.DISAPPROVED)
+            {
+                if (ResponseMessageTextBox.Text == "")
+                {
+                    MessageBox.Show("Morate napisati objasnjenje zbog cega ste odbili lek!");
+                    return;
+                }
+            }
+            string response = ResponseMessageTextBox.Text;
+            RequestStatus requestStatus = (RequestStatus)RequestStatusComboBox.SelectedItem;
+            MedicationApprovalRequest.RequestStatus = requestStatus;
+            MedicationApprovalRequest.ResponseMessage = response;
+            app.MedicationApprovalRequestController.Update(MedicationApprovalRequest);
+            this.Close();
         }
     }
 }

@@ -8,18 +8,18 @@
         Title="MedicationApprovalRequestWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#067c7b">
     <Grid>
         <Label Content="Medication" HorizontalAlignment="Left" Margin="78,42,0,0" VerticalAlignment="Top" Width="108" FontSize="20"/>
-        <TextBox x:Name="MedicationNameTextBox"  HorizontalAlignment="Left" Margin="78,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" FontSize="18"/>
+        <TextBox x:Name="MedicationNameTextBox" IsEnabled="False"  HorizontalAlignment="Left" Margin="78,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" FontSize="18"/>
         <Label Content="Ingredients" HorizontalAlignment="Left" Margin="78,117,0,0" VerticalAlignment="Top" FontSize="20"/>
         <ListBox x:Name="ListOfIngredientsListBox" ItemsSource="{Binding ListOfIngredientsForExactMedication}" DisplayMemberPath="Name" Margin="78,159,584,174" FontSize="18"/>
         <Label Content="Request" HorizontalAlignment="Left" Margin="569,39,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="RequestMessageTextBox" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
+        <TextBox x:Name="RequestMessageTextBox" IsEnabled="False" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="Medication Approval Request" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Button Content="Submit" HorizontalAlignment="Left" Margin="651,359,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="532,359,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel"/>
         <Label Content="Response" HorizontalAlignment="Left" Margin="569,177,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="ResponseMessageTextBox" HorizontalAlignment="Left" Margin="569,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="RequestStatus" HorizontalAlignment="Left" Margin="78,271,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="RequestStatusComboBox" Text="" SelectedIndex="0" HorizontalAlignment="Left" Margin="78,313,0,0" VerticalAlignment="Top" Width="138" Height="30"/>
+        <ComboBox x:Name="RequestStatusComboBox" Text="" HorizontalAlignment="Left" Margin="78,313,0,0" VerticalAlignment="Top" Width="138" Height="30"/>
 
     </Grid>
 </Window>
