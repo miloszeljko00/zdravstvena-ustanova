@@ -1,0 +1,53 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.SurveyDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+        mc:Ignorable="d"
+        Title="Detalji ankete" Height="370" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid>
+        <Label x:Name="qOne" Content="1. " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="347"/>
+        <Label x:Name="qTwo" Content="2. " HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Height="26" Width="347"/>
+        <Label x:Name="qThree" Content="3. " HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Height="26" Width="347"/>
+        <Label x:Name="qFour" Content="4. " HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Height="26" Width="347"/>
+        <Label x:Name="qFive" Content="5. " HorizontalAlignment="Center" Margin="0,210,0,0" VerticalAlignment="Top" Height="26" Width="347"/>
+        <WrapPanel Margin="40,40,0,268">
+            <RadioButton x:Name="opt1" Content="1" GroupName="aOne" IsChecked="True" Height="20" Width="50"/>
+            <RadioButton x:Name="opt2" Content="2" GroupName="aOne" Height="20" Width="50"/>
+            <RadioButton x:Name="opt3" Content="3" GroupName="aOne" Height="20" Width="50"/>
+            <RadioButton x:Name="opt4" Content="4" GroupName="aOne" Height="20" Width="50"/>
+            <RadioButton x:Name="opt5" Content="5" GroupName="aOne" Height="20" Width="50"/>
+        </WrapPanel>
+        <WrapPanel Margin="40,90,0,218">
+            <RadioButton x:Name="opt6" Content="1" GroupName="aTwo" IsChecked="True" Height="20" Width="50"/>
+            <RadioButton x:Name="opt7" Content="2" GroupName="aTwo" Height="20" Width="50"/>
+            <RadioButton x:Name="opt8" Content="3" GroupName="aTwo" Height="20" Width="50"/>
+            <RadioButton x:Name="opt9" Content="4" GroupName="aTwo" Height="20" Width="50"/>
+            <RadioButton x:Name="opt10" Content="5" GroupName="aTwo" Height="20" Width="50"/>
+        </WrapPanel>
+        <WrapPanel Margin="40,140,0,168">
+            <RadioButton x:Name="opt11" Content="1" GroupName="aThree" IsChecked="True" Height="20" Width="50"/>
+            <RadioButton x:Name="opt12" Content="2" GroupName="aThree" Height="20" Width="50"/>
+            <RadioButton x:Name="opt13" Content="3" GroupName="aThree" Height="20" Width="50"/>
+            <RadioButton x:Name="opt14" Content="4" GroupName="aThree" Height="20" Width="50"/>
+            <RadioButton x:Name="opt15" Content="5" GroupName="aThree" Height="20" Width="50"/>
+        </WrapPanel>
+        <WrapPanel Margin="40,190,0,118">
+            <RadioButton x:Name="opt16" Content="1" GroupName="aFour" IsChecked="True" Height="20" Width="50"/>
+            <RadioButton x:Name="opt17" Content="2" GroupName="aFour" Height="20" Width="50"/>
+            <RadioButton x:Name="opt18" Content="3" GroupName="aFour" Height="20" Width="50"/>
+            <RadioButton x:Name="opt19" Content="4" GroupName="aFour" Height="20" Width="50"/>
+            <RadioButton x:Name="opt20" Content="5" GroupName="aFour" Height="20" Width="50"/>
+        </WrapPanel>
+        <WrapPanel Margin="40,240,0,68">
+            <RadioButton x:Name="opt21" Content="1" GroupName="aFive" IsChecked="True" Height="20" Width="50"/>
+            <RadioButton x:Name="opt22" Content="2" GroupName="aFive" Height="20" Width="50"/>
+            <RadioButton x:Name="opt23" Content="3" GroupName="aFive" Height="20" Width="50"/>
+            <RadioButton x:Name="opt24" Content="4" GroupName="aFive" Height="20" Width="50"/>
+            <RadioButton x:Name="opt25" Content="5" GroupName="aFive" Height="20" Width="50"/>
+        </WrapPanel>
+        <Button Content="Podnesi" HorizontalAlignment="Left" Margin="105,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="submitSurvey"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="220,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="goBack"/>
+    </Grid>
+</Window>
