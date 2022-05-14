@@ -5,7 +5,8 @@ namespace zdravstvena_ustanova.Model.Enums
         OPERATION_APPOINTMENT,
         LABORATORY_APPOINTMENT,
         REGULAR_APPOINTMENT,
-        SPECIALIST_APPOINTMENT
+        SPECIALIST_APPOINTMENT,
+        EMERGENCY_APPOINTMENT
 
     }
 }

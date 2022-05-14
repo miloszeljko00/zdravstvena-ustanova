@@ -38,6 +38,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private bool isUnscheduled;
 
+
         public EditAppointmentPage(ScheduledAppointment sa, HomePagePatients hpp, bool isUnscheduled)
         {
             InitializeComponent();

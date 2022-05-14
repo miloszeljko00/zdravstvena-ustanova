@@ -180,5 +180,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             _homePagePatients.SecretaryFrame.Content = new UnscheduledAppointmentsPage(_homePagePatients);
         }
+
+        private void emergency_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _homePagePatients.SecretaryFrame.Content = new EmergencyPage(_homePagePatients);
+        }
     }
 }
