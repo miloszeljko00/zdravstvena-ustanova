@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -19,9 +20,31 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     /// </summary>
     public partial class HolidayRequestStatusReviewWindow : Window
     {
-        public HolidayRequestStatusReviewWindow()
+        public HolidayRequestStatusReviewWindow(HolidayRequest holidayRequest)
         {
             InitializeComponent();
+            DataContext = this;
+            CauseOfRequestTextBox.Text = holidayRequest.Cause;
+            StartDateDatePicker.SelectedDate = holidayRequest.StartDate;
+            StartDateDatePicker.IsEnabled = false;
+            EndDateDatePicker.SelectedDate= holidayRequest.EndDate;
+            EndDateDatePicker.IsEnabled = false;
+            if ((bool)holidayRequest.IsUrgent)
+            {
+                IsUrgentCheckBox.IsChecked = true;
+            }
+            else IsUrgentCheckBox.IsChecked = false;
+            RequestStatusTextBox.Text = holidayRequest.HolidayRequestStatus.ToString();
+        }
+
+        private void Button_Click_Cancel(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Click_Submit(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

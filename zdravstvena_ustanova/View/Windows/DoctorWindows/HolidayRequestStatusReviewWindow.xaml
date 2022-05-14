@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
         mc:Ignorable="d"
-        Title="HolidayRequestStatusReviewWindow" Height="450" Width="800" Background="#067c7b">
+        Title="HolidayRequestStatusReviewWindow" Height="450" Width="800" Background="#067c7b" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -20,15 +20,15 @@
         </Grid.RowDefinitions>
         <Label Content="HOLIDAY REQUEST" HorizontalAlignment="Left" Margin="287,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="211" FontSize="24"/>
         <Label Content="CauseOfRequest" HorizontalAlignment="Center" Margin="0,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="178" FontSize="22" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,36,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="178" FontSize="22" Grid.Column="1"/>
-        <DatePicker HorizontalAlignment="Left" Margin="100,32,0,0" Grid.Row="1" VerticalAlignment="Top" Width="172" FontSize="20"/>
+        <TextBox x:Name="CauseOfRequestTextBox" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="178" FontSize="22" Grid.Column="1"/>
+        <DatePicker x:Name="StartDateDatePicker" HorizontalAlignment="Left" Margin="100,32,0,0" Grid.Row="1" VerticalAlignment="Top" Width="172" FontSize="20"/>
         <Label Content="StartDate" HorizontalAlignment="Left" Margin="100,108,0,0" VerticalAlignment="Top" Width="121" FontSize="22" Grid.RowSpan="2"/>
         <Label Content="EndDate" HorizontalAlignment="Left" Margin="100,15,0,0" Grid.Row="2" VerticalAlignment="Top" Width="109" FontSize="22"/>
-        <CheckBox Content="IsUrgent" HorizontalAlignment="Left" Margin="125,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="121" Height="35" FontSize="22" Grid.Column="1"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="260,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1"/>
-        <Button Content="Cancel" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1"/>
-        <DatePicker HorizontalAlignment="Left" Margin="100,48,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" FontSize="20"/>
+        <CheckBox x:Name="IsUrgentCheckBox" Content="IsUrgent" HorizontalAlignment="Left" Margin="125,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="121" Height="35" FontSize="22" Grid.Column="1"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="260,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
+        <Button Content="Cancel" HorizontalAlignment="Center" Margin="0,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Cancel"/>
+        <DatePicker x:Name="EndDateDatePicker" HorizontalAlignment="Left" Margin="100,48,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" FontSize="20"/>
         <Label Content="RequestStatus" HorizontalAlignment="Left" Margin="100,16,0,0" Grid.Row="3" VerticalAlignment="Top" Width="178" FontSize="22"/>
-        <TextBox HorizontalAlignment="Left" Margin="100,51,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="178" FontSize="22"/>
+        <TextBox x:Name="RequestStatusTextBox" HorizontalAlignment="Left" Margin="100,51,0,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="178" FontSize="22"/>
     </Grid>
 </Window>
