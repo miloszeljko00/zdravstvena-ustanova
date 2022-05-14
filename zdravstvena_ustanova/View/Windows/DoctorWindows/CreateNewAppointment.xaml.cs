@@ -231,7 +231,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 string selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
                 int startTime = int.Parse(selectedTime);
                 int endTime = int.Parse(selectedTime) + 1;
-                if ((DateTime)datePickerCreateNewAppointment.SelectedDate == null)
+                if ((DateTime?)datePickerCreateNewAppointment.SelectedDate == null)
                 {
                     MessageBox.Show("Morate izabrati datum");
                     return;

@@ -221,13 +221,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             CreateNewAppointment createNewAppointment = new CreateNewAppointment();
         }
 
-        private void MenuItem_ProfileData_Click(object sender, RoutedEventArgs e)
-        {
-
-            HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
-            holidayRequest.ShowDialog();
-        }
-
         private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
         {
             MedicationApprovalRequestsListView.Visibility = Visibility.Visible;
@@ -276,6 +269,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     }
                 }
             }
+        }
+
+        private void MenuItem_Click_ProfileAndPersonalData(object sender, RoutedEventArgs e)
+        {
+            
+            ProfileAndPersonalDataWindow profileAndPersonalDataWindow = new ProfileAndPersonalDataWindow();
+            profileAndPersonalDataWindow.Show();
+
         }
     }
 }

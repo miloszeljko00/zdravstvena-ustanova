@@ -33,7 +33,7 @@
             </MenuItem>
             <MenuItem Header="HELP">
             </MenuItem>
-            <MenuItem Header="PROFILE DATA" Click="MenuItem_ProfileData_Click">
+            <MenuItem Header="PROFILE DATA" Click="MenuItem_Click_ProfileAndPersonalData">
             </MenuItem>
             <MenuItem Header="NOTIFICATIONS       " MouseEnter="MenuItem_MouseEnter" MouseLeave="MenuItem_MouseLeave">
                 <Label Content="Label"/>
