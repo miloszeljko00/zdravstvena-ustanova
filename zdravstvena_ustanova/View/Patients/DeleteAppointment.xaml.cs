@@ -33,6 +33,56 @@ namespace zdravstvena_ustanova.View
         {
             var app = Application.Current as App;
 
+            List<AntiTrollMechanism> atms = new List<AntiTrollMechanism>(app.AntiTrollMechanismController.GetAll());
+            List<Account> acc = new List<Account>(app.AccountController.GetAll());
+            bool found = false;
+
+            if (atms.Count == 0)
+            {
+                List<DateTime> date = new List<DateTime>();
+                date.Add(DateTime.Now);
+                AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
+            }
+            else
+            {
+                foreach (AntiTrollMechanism atm in atms)
+                {
+                    if (app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates < 5)
+                    {
+                        atm.NumberOfDates++;
+                        atm.DatesOfCanceledAppointments.Add(DateTime.Now);
+                        app.AntiTrollMechanismController.Update(atm);
+                        found = true;
+                        if (atm.NumberOfDates == 5 && (atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+                        {
+                            Environment.Exit(0);
+                            found = true;
+                        }
+                    }
+                    else if (app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates == 5)
+                    {
+                        atm.DatesOfCanceledAppointments[0] = atm.DatesOfCanceledAppointments[1];
+                        atm.DatesOfCanceledAppointments[1] = atm.DatesOfCanceledAppointments[2];
+                        atm.DatesOfCanceledAppointments[2] = atm.DatesOfCanceledAppointments[3];
+                        atm.DatesOfCanceledAppointments[3] = atm.DatesOfCanceledAppointments[4];
+                        atm.DatesOfCanceledAppointments[4] = DateTime.Now;
+                        app.AntiTrollMechanismController.Update(atm);
+                        found = true;
+                        if ((atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+                        {
+                            Environment.Exit(0);
+                            found = true;
+                        }
+                    }
+                }
+                if (!found)
+                {
+                    List<DateTime> date = new List<DateTime>();
+                    date.Add(DateTime.Now);
+                    AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
+                }
+            }
+
             app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
             this.Close();
             this.parent.Close();

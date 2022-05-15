@@ -118,7 +118,7 @@ namespace zdravstvena_ustanova.Repository
                 medication.IsApproved,
                 count,
                 ingredients
-                ); ;
+                );
         }
         private List<string> MedicationsToCSVFormat(List<Medication> medications)
         {
