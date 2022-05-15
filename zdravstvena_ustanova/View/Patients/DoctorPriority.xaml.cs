@@ -42,13 +42,7 @@ namespace zdravstvena_ustanova.View
             long docRoom = 0;
             foreach (Doctor d in doctors)
             {
-                if (startDate.Hour < 14 && d.Shift == Shift.FIRST)
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-                else if (startDate.Hour >= 14 && d.Shift == Shift.SECOND)
+                if (doctorComboBox.Text.Equals(d.Name + " " + d.Surname))
                 {
                     docId = d.Id;
                     docRoom = d.Room.Id;
