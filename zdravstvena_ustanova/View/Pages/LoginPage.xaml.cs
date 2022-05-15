@@ -64,9 +64,22 @@ namespace zdravstvena_ustanova.View.Pages
             }
             if (app.LoggedInUser is Patient) 
             {
-                var pmw = new PatientMainWindow();
-                Mw.Close();
-                pmw.Show();
+                List<AntiTrollMechanism> atms = new List<AntiTrollMechanism>(app.AntiTrollMechanismController.GetAll());
+                foreach (AntiTrollMechanism atm in atms)
+                {
+                    if (app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates == 5)
+                    {
+                        if ((atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+                        {
+                            MessageBox.Show("Onemogucen vam je pristup ovoj aplikaciji usled potencijalne zloupotrebe!", "Greska", MessageBoxButton.OK);
+                            return;
+                        }
+                    }
+
+                }
+                    var pmw = new PatientMainWindow();
+                    Mw.Close();
+                    pmw.Show();
             }
 
         }
