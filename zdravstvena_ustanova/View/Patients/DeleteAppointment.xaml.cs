@@ -34,14 +34,11 @@ namespace zdravstvena_ustanova.View
             var app = Application.Current as App;
 
             List<AntiTrollMechanism> atms = new List<AntiTrollMechanism>(app.AntiTrollMechanismController.GetAll());
-            List<Account> acc = new List<Account>(app.AccountController.GetAll());
             bool found = false;
 
             if (atms.Count == 0)
             {
-                List<DateTime> date = new List<DateTime>();
-                date.Add(DateTime.Now);
-                AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
+                createAntiTrollMechanism(app);
             }
             else
             {
@@ -53,11 +50,8 @@ namespace zdravstvena_ustanova.View
                         atm.DatesOfCanceledAppointments.Add(DateTime.Now);
                         app.AntiTrollMechanismController.Update(atm);
                         found = true;
-                        if (atm.NumberOfDates == 5 && (atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
-                        {
-                            Environment.Exit(0);
-                            found = true;
-                        }
+                        checkAntiTrollMechanism(atm);
+                        break;
                     }
                     else if (app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates == 5)
                     {
@@ -68,21 +62,15 @@ namespace zdravstvena_ustanova.View
                         atm.DatesOfCanceledAppointments[4] = DateTime.Now;
                         app.AntiTrollMechanismController.Update(atm);
                         found = true;
-                        if ((atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
-                        {
-                            Environment.Exit(0);
-                            found = true;
-                        }
+                        checkAntiTrollMechanism(atm);
+                        break;
                     }
                 }
                 if (!found)
                 {
-                    List<DateTime> date = new List<DateTime>();
-                    date.Add(DateTime.Now);
-                    AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
+                    createAntiTrollMechanism(app);
                 }
             }
-
             app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
             this.Close();
             this.parent.Close();
@@ -91,6 +79,20 @@ namespace zdravstvena_ustanova.View
         private void goToManageAppointment(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void createAntiTrollMechanism(App app)
+        {
+            List<DateTime> date = new List<DateTime>();
+            date.Add(DateTime.Now);
+            AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
+        }
+
+        private void checkAntiTrollMechanism(AntiTrollMechanism atm)
+        {
+            if (atm.NumberOfDates == 5 && (atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }
