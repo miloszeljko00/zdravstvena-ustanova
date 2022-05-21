@@ -60,7 +60,7 @@
         <TextBlock x:Name="appointmentTB" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="78,32,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Selektujte specijalizaciju potrebnog doktora" VerticalAlignment="Top" FontSize="24" Width="576"/>
         <Label Grid.Column="1" Content="Slobodan termin:" HorizontalAlignment="Left" Margin="19,147,0,0" VerticalAlignment="Top" FontSize="24" Grid.RowSpan="2"/>
         <DataGrid x:Name="dataGridScheduledAppointments" ItemsSource="{Binding AppointmentsView}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="19,144,29,0" Height="156" FontSize="16"  SelectedIndex="-1" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" >
+                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="19,144,29,0" Height="156" FontSize="16"  SelectedIndex="-1" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" Grid.Column="1" IsEnabled="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Pocetak pregleda" Binding="{Binding ScheduledAppointment.Start}" Width="1.5*"/>
                 <DataGridTextColumn Header="Premestiti za" Binding="{Binding NewTime}" Width="1.5*"/>

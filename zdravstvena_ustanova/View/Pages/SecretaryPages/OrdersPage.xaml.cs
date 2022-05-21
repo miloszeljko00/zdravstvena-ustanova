@@ -65,6 +65,10 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void Delivered_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(dataGridOrderedItems.SelectedItem == null)
+            {
+                return;
+            }
             var app = Application.Current as App;
             StoredItem orderedItem = dataGridOrderedItems.SelectedItem as StoredItem;
             

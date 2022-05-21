@@ -64,6 +64,8 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             createMovableAppointments();
             //AppointmentView = new CollectionViewSource { Source = ScheduledAppointments }.View;
             AppointmentsView = new CollectionViewSource { Source = MovableAppointments }.View;
+            ListSortDirection direction = ListSortDirection.Ascending;
+            AppointmentsView.SortDescriptions.Add(new SortDescription("NewTime", direction));
             AppointmentsView.Filter = i =>
             {
                 if (specialtyCB.SelectedIndex == -1)
@@ -101,7 +103,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             while(true)
             {
                 bool find = true;
-                if (today.Hour == 21) { today = today.AddDays(1); today = today.AddHours(-14); }
+                if (today.Hour == 22) { today = today.AddDays(1); today = today.AddHours(-14); }
                 /*if(ScheduledAppointments.Where(i => i.Doctor.Id == sa.Doctor.Id && i.Start.Date == sa.Start.Date && i.Start.Hour == sa.Start.Hour).Single()==null)
                 {
                     ret = today;
@@ -220,10 +222,15 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 
             }
             if (Doctors.Count == 0 || Rooms.Count == 0)
+            {
                 appointmentTB.Text = "Nema slobodnih termina";
+                dataGridScheduledAppointments.IsEnabled = true;
+            }
+                
 
             else
             {
+                dataGridScheduledAppointments.IsEnabled = false;
                 appointmentTB.Text = "Hitan slucaj resava doktor " + Doctors.First().Name + " " + Doctors.First().Surname + " u sobi "
                                     + Rooms.First().Name;
                 EmergencyAppointment.Start = today;
