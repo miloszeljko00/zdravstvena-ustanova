@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +18,23 @@ using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
-    /// <summary>
-    /// Interaction logic for MedicationPage.xaml
-    /// </summary>
     public partial class MedicationPage : Page
     {
+        public ObservableCollection<Medication> Medications { get; set; }
+        public ObservableCollection<Ingredient> Ingredients { get; set; }
         public MedicationPage()
         {
             InitializeComponent();
+            DataContext = this;
+            var app = Application.Current as App;
+
+            Medications = new ObservableCollection<Medication>();
+            Ingredients = new ObservableCollection<Ingredient>();
+
+            foreach (var medication in app.MedicationController.GetAll())
+            {
+                Medications.Add(medication);
+            }
         }
 
         private void RequestApproval_Click(object sender, RoutedEventArgs e)
@@ -71,7 +81,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         }
         private void EditRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (RoomsDataGrid.SelectedItem == null)
+            if (MedicationDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -82,7 +92,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         }
         private void DeleteRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (RoomsDataGrid.SelectedItem == null)
+            if (MedicationDataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -93,12 +103,15 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void IngredientsIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var calendarIcon = (Image)e.OriginalSource;
-            var dataContext = calendarIcon.DataContext;
+            var ingredientsIcon = (Image)e.OriginalSource;
+            var dataContext = ingredientsIcon.DataContext;
             var dataSource = (Medication)dataContext;
-            long roomId = dataSource.Id;
 
-            NavigationService.Navigate(new RoomCalendarOverview(roomId));
+            Ingredients.Clear();
+            foreach(var ingredient in dataSource.Ingredients)
+            {
+                Ingredients.Add(ingredient);
+            }
         }
     }
 }

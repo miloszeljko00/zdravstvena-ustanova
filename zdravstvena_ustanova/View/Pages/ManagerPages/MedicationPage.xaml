@@ -16,8 +16,8 @@
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
             <Button x:Name="RequestApproval" Width="150" Height="48" Margin="0,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="RequestApproval_Click"></Button>
-            <Button x:Name="ActiveRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="ActiveRequests_Click"></Button>
-            <Button x:Name="FinishedRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="FinishedRequests_Click"></Button>
+            <Button x:Name="ActiveRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Aktivni zahtevi" Cursor="Hand" Click="ActiveRequests_Click"></Button>
+            <Button x:Name="FinishedRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Zavrseni zahtevi" Cursor="Hand" Click="FinishedRequests_Click"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="170,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -72,21 +72,21 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Margin="140,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Broj inventara" Binding="{Binding StoredItems.Count}" Width="*"></DataGridTextColumn>
-                <DataGridTemplateColumn>
+                <DataGridTextColumn Header="Lek" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip leka" Binding="{Binding MedicationType.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Odobren" Binding="{Binding IsApproved}" Width="68"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Sastojci" Width="68">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image x:Name="CalendarIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="IngredientsIcon_MouseDown">
+                            <Image x:Name="IngredientsIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="IngredientsIcon_MouseDown">
                                 <Image.Resources>
                                     <Style TargetType="{x:Type Image}">
                                         <!-- Default image -->
-                                        <Setter Property="Source" Value="/Resources/img/calendar-icon.png"/>
+                                        <Setter Property="Source" Value="/Resources/img/ingredients-icon.png"/>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <!-- Hover image -->
@@ -102,5 +102,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <ListView Grid.Row="2" Width="400" Margin="600,0,0,0" DisplayMemberPath="Name"
+                  ItemsSource="{Binding Ingredients}">
+        </ListView>
     </Grid>
 </Page>

@@ -37,5 +37,15 @@ namespace zdravstvena_ustanova.Controller
         {
             return _ingredientService.Delete(ingredientId);
         }
+
+        public bool CheckIfItsAlreadyContained(IEnumerable<Ingredient> ingredients, Ingredient ingredient)
+        {
+            return _ingredientService.CheckIfItsAlreadyContained(ingredients, ingredient);
+        }
+
+        public void CreateIfNotSavedWithSameName(List<Ingredient> ingredients)
+        {
+            _ingredientService.CreateIfNotSavedWithSameName(ingredients);
+        }
     }
 }
