@@ -51,6 +51,10 @@ namespace zdravstvena_ustanova
         private readonly string MEDICATION_TYPE_FILE = ProjectPath + "\\Resources\\Data\\MedicationTypes.csv";
         private readonly string MEDICATION_APPROVAL_REQUEST_FILE = ProjectPath + "\\Resources\\Data\\MedicationApprovalRequests.csv";
 
+        private readonly string SURVEY_QUESTIONS_FILE = ProjectPath + "\\Resources\\Data\\SurveyQuestions.csv";
+        private readonly string SURVEY_ANSWERS_FILE = ProjectPath + "\\Resources\\Data\\SurveyAnswers.csv";
+        private readonly string ANTI_TROLL_FILE = ProjectPath + "\\Resources\\Data\\AntiTrollMechanism.csv";
+
         public ItemController ItemController { get; set; }
         public ItemTypeController ItemTypeController { get; set; }
         public StoredItemController StoredItemController { get; set; }
@@ -88,6 +92,10 @@ namespace zdravstvena_ustanova
         public HolidayRequestController HolidayRequestController { get; set; }
 
         public StoredItemController OrderedItemController { get; set; }
+
+        public SurveyQuestionsController SurveyQuestionsController { get; set; }
+        public SurveyAnswersController SurveyAnswersController { get; set; }
+        public AntiTrollMechanismController AntiTrollMechanismController { get; set; }
 
         public Person? LoggedInUser { get; set; }
 
@@ -136,6 +144,11 @@ namespace zdravstvena_ustanova
 
             var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
             var OrderedItemRepository = new StoredItemRepository(ORDERED_ITEM_FILE, CSV_DELIMITER);
+
+            var surveyQuestionsRepository = new SurveyQuestionsRepository(SURVEY_QUESTIONS_FILE, CSV_DELIMITER);
+            var surveyAnswersRepository = new SurveyAnswersRepository(SURVEY_ANSWERS_FILE, CSV_DELIMITER);
+            var antiTrollMechanismRepository = new AntiTrollMechanismRepository(ANTI_TROLL_FILE, CSV_DELIMITER);
+
 
             //var itemService = new ItemService(itemRepository);
             //var storedItemService = new StoredItemService(storedItemRepository, itemRepository);
@@ -188,10 +201,15 @@ namespace zdravstvena_ustanova
 
             var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
 
-            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository);
+            var systemService = new SystemService(ScheduledItemTransferRepository, storedItemRepository,
+                renovationAppointmentRepository, roomRepository, roomUnderRenovationRepository);
             var orderedItemService = new StoredItemService(OrderedItemRepository, itemRepository, itemTypeRepository);
-            
-            
+
+            var surveyQuestionsService = new SurveyQuestionsService(surveyQuestionsRepository, scheduledAppointmentRepository);
+            var surveyAnswersService = new SurveyAnswersService(surveyAnswersRepository, patientRepository, surveyQuestionsRepository);
+            var antiTrollMechanismService = new AntiTrollMechanismService(antiTrollMechanismRepository, patientRepository);
+
+
             ItemController = new ItemController(itemService);
             ItemTypeController = new ItemTypeController(itemTypeService);
             StoredItemController = new StoredItemController(storedItemService);
@@ -227,9 +245,13 @@ namespace zdravstvena_ustanova
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
+            SystemController.StartCheckingForRenovationAppointments(10);
 
             OrderedItemController = new StoredItemController(orderedItemService);
 
+            SurveyQuestionsController = new SurveyQuestionsController(surveyQuestionsService);
+            SurveyAnswersController = new SurveyAnswersController(surveyAnswersService);
+            AntiTrollMechanismController = new AntiTrollMechanismController(antiTrollMechanismService);
         }
     }
 }

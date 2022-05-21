@@ -19,5 +19,9 @@ namespace zdravstvena_ustanova.Controller
         {
             _systemService.StartCheckingForScheduledItemTransfers(numberOfSecondsBetweenTwoChecks);
         }
+        public void StartCheckingForRenovationAppointments(int numberOfSecondsBetweenTwoChecks)
+        {
+            _systemService.StartCheckingForRenovationAppointments(numberOfSecondsBetweenTwoChecks);
+        }
     }
 }

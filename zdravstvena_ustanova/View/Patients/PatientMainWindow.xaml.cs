@@ -60,6 +60,7 @@ namespace zdravstvena_ustanova.View
 
         private void goToLogin(object sender, RoutedEventArgs e)
         {
+            dt.IsEnabled = false;
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();
@@ -73,6 +74,11 @@ namespace zdravstvena_ustanova.View
         private void goToNotis(object sender, RoutedEventArgs e)
         {
             this.content.Content = new Notis();
+        }
+
+        private void goToSurveys(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new Surveys();
         }
     }
 }

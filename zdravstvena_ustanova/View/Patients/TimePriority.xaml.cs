@@ -25,7 +25,8 @@ namespace zdravstvena_ustanova.View
             DateTime today = DateTime.Now;
             today = today.AddMinutes(-today.Minute);
             today = today.AddHours(1);
-            if(today.Hour >= 20){
+            if (today.Hour >= 20)
+            {
                 today = new DateTime(today.Year, today.Month, today.Day + 1, 7, 0, 0);
             }
             if (today.Hour <= 7)
@@ -34,18 +35,18 @@ namespace zdravstvena_ustanova.View
             }
             int days = DateTime.DaysInMonth(2022, DateTime.Now.Month);
             int to = today.Day + 4;
-            if(to > days) { to -= days; }
+            if (to > days) { to -= days; }
             dates = new ObservableCollection<string>();
             while (true)
             {
-                if(today.Hour == 21) { today = today.AddDays(1); today = today.AddHours(-14); }
+                if (today.Hour == 21) { today = today.AddDays(1); today = today.AddHours(-14); }
                 if (today.Day == to) break;
                 dates.Add(today.ToString("dd.MM.yyyy. HH:mm"));
                 today = today.AddHours(1);
             }
             var app = Application.Current as App;
             sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach(ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sapp in sa)
             {
                 dates.Remove(sapp.Start.ToString("dd.MM.yyyy. HH:mm"));
             }
@@ -57,7 +58,7 @@ namespace zdravstvena_ustanova.View
                     {
                         dates.Remove(sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"));
                     }
-                    for (int i=10; i < 21; i++)
+                    for (int i = 10; i < 21; i++)
                     {
                         dates.Remove(sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"));
                     }
@@ -101,7 +102,7 @@ namespace zdravstvena_ustanova.View
                     docRoom = d.Room.Id;
                     break;
                 }
-                else if(startDate.Hour >= 14 && d.Shift == Shift.SECOND)
+                else if (startDate.Hour >= 14 && d.Shift == Shift.SECOND)
                 {
                     docId = d.Id;
                     docRoom = d.Room.Id;
@@ -148,7 +149,7 @@ namespace zdravstvena_ustanova.View
             }
             var app = Application.Current as App;
             DateTime dat = (DateTime)datePicker.SelectedDate;
-            if(DateTime.Compare(dat.Date, DateTime.Now.Date) < 0)
+            if (DateTime.Compare(dat.Date, DateTime.Now.Date) < 0)
             {
                 timeCmbBox.IsEnabled = false;
                 return;
@@ -192,6 +193,40 @@ namespace zdravstvena_ustanova.View
         private void chosenDate(object sender, EventArgs e)
         {
             list1.SelectedItem = null;
+        }
+
+        private void DatePicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            DatePicker datePicker = sender as DatePicker;
+            if (datePicker != null)
+            {
+                System.Windows.Controls.Primitives.DatePickerTextBox datePickerTextBox = FindVisualChild<System.Windows.Controls.Primitives.DatePickerTextBox>(datePicker);
+                if (datePickerTextBox != null)
+                {
+                    ContentControl watermark = datePickerTextBox.Template.FindName("PART_Watermark", datePickerTextBox) as ContentControl;
+                    if (watermark != null)
+                    {
+                        watermark.Content = "Odaberi datum";
+                    }
+                }
+            }
+        }
+
+
+
+        private T FindVisualChild<T>(DependencyObject depencencyObject) where T : DependencyObject
+        {
+            if (depencencyObject != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depencencyObject); ++i)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depencencyObject, i);
+                    T result = (child as T) ?? FindVisualChild<T>(child);
+                    if (result != null)
+                        return result;
+                }
+            }
+            return null;
         }
     }
 }

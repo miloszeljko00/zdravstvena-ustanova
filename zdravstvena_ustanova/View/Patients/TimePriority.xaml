@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View"
         mc:Ignorable="d"
-        Title="Zakazivanje termina" Height="395" Width="320" WindowStartupLocation="CenterScreen">
+        Title="Zakazivanje termina" Height="395" Width="320" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <ListView x:Name="list1" Margin="31,160,34,67" SelectionChanged="chosenItem">
             <ListView.View>
@@ -23,7 +23,7 @@
         <Label Content="Datum termina :" HorizontalAlignment="Left" Margin="34,14,0,0" VerticalAlignment="Top"/>
         <Label Content="Vreme termina :" HorizontalAlignment="Left" Margin="35,48,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="timeCmbBox" Margin="147,49,34,283" IsEnabled="False" SelectionChanged="selectedTime" DropDownClosed="chosenDate" />
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="148,14,0,0" VerticalAlignment="Top" Width="122" SelectedDateChanged="selectedDate"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="148,14,0,0" VerticalAlignment="Top" Width="122" SelectedDateChanged="selectedDate" Loaded="DatePicker_Loaded"/>
 
 
 
