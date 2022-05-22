@@ -18,7 +18,7 @@ namespace zdravstvena_ustanova.View.Controls
     /// <summary>
     /// Interaction logic for DeleteMedication.xaml
     /// </summary>
-    public partial class DeleteMedication : Page
+    public partial class DeleteMedication : UserControl
     {
         public DeleteMedication()
         {

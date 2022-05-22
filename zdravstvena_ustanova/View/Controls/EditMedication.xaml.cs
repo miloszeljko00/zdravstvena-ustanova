@@ -18,7 +18,7 @@ namespace zdravstvena_ustanova.View.Controls
     /// <summary>
     /// Interaction logic for EditMedication.xaml
     /// </summary>
-    public partial class EditMedication : Page
+    public partial class EditMedication : UserControl
     {
         public EditMedication()
         {

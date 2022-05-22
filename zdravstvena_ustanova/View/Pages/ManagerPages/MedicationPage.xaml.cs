@@ -39,16 +39,23 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void RequestApproval_Click(object sender, RoutedEventArgs e)
         {
+            if (MedicationDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            NavigationService.Navigate(new RequestMedicationApprovalPage((Medication)MedicationDataGrid.SelectedItem));
         }
 
         private void ActiveRequests_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ActiveMedicationApprovalRequestsOverviewPage());
         }
 
         private void FinishedRequests_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new FinishedMedicationApprovalRequestsOverviewPage());
 
         }
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -76,7 +83,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void AddRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.Modal.Content = new AddMedication();
+            MainWindow.Modal.Content = new AddMedication(Medications);
             MainWindow.Modal.IsOpen = true;
         }
         private void EditRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)

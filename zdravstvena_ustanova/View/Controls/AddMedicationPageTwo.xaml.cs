@@ -20,16 +20,21 @@ namespace zdravstvena_ustanova.View.Controls
     /// <summary>
     /// Interaction logic for AddMedicationPageTwo.xaml
     /// </summary>
-    public partial class AddMedicationPageTwo : Page
+    public partial class AddMedicationPageTwo : UserControl
     {
-        ObservableCollection<Ingredient> Ingredients { get; set; }
-        Medication Medication { get; set; }
-        public AddMedicationPageTwo(Medication medication)
+        public ObservableCollection<Ingredient> Ingredients { get; set; }
+        public Medication Medication { get; set; }
+        public ObservableCollection<Medication> Medications { get; set; }
+        public AddMedication AddMedication { get; set; }
+
+        public AddMedicationPageTwo(Medication medication, ObservableCollection<Medication> medications, AddMedication addMedication)
         {
             InitializeComponent();
             DataContext = this;
             Ingredients = new ObservableCollection<Ingredient>();
             Medication = medication;
+            Medications = medications;
+            AddMedication = addMedication;
         }
 
         private void AddIngredientsIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -52,7 +57,7 @@ namespace zdravstvena_ustanova.View.Controls
             Ingredient ingredient = (Ingredient)IngredientsListView.SelectedItem;
             if (ingredient == null)
             {
-                MessageBox.Show("Vec dodat sastojak!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Odaberi sastojak!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             Ingredients.Remove(ingredient);
@@ -67,12 +72,15 @@ namespace zdravstvena_ustanova.View.Controls
                 Medication.Ingredients.Add(ingredient);
             }
             app.IngredientController.CreateIfNotSavedWithSameName(Medication.Ingredients);
-            app.MedicationController.Create(Medication);
+            Medication medication = app.MedicationController.Create(Medication);
+            Medications.Add(medication);
+            MainWindow.Modal.IsOpen = false;
+            MainWindow.Modal.Content = null;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            MainWindow.Modal.Content = AddMedication;
         }
     }
 }

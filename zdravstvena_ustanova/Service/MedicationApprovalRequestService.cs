@@ -43,6 +43,19 @@ namespace zdravstvena_ustanova.Service
             return medicationApprovalRequests;
         }
 
+        public bool CheckIfAlreadyWaitingForApproval(Medication medication)
+        {
+            var medicationApprovalRequests = (List<MedicationApprovalRequest>)GetByRequestStatus(RequestStatus.WAITING_FOR_APPROVAL);
+            foreach(var medicationApprovalRequest in medicationApprovalRequests)
+            {
+                if(medicationApprovalRequest.Medication.Id == medication.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public IEnumerable<MedicationApprovalRequest> GetByRequestStatus(RequestStatus requestStatus)
         {
             var medicationApprovalRequests = GetAll();

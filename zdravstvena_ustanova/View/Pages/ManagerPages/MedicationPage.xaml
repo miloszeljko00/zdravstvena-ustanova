@@ -15,9 +15,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button x:Name="RequestApproval" Width="150" Height="48" Margin="0,0,0,0" FontSize="14" Content="Zakaži prebacivanje" Cursor="Hand" Click="RequestApproval_Click"></Button>
+            <Button x:Name="RequestApproval" Width="150" Height="48" Margin="0,0,0,0" FontSize="14" Content="Zatraži odobrenje" Cursor="Hand" Click="RequestApproval_Click"></Button>
             <Button x:Name="ActiveRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Aktivni zahtevi" Cursor="Hand" Click="ActiveRequests_Click"></Button>
-            <Button x:Name="FinishedRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Zavrseni zahtevi" Cursor="Hand" Click="FinishedRequests_Click"></Button>
+            <Button x:Name="FinishedRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Završeni zahtevi" Cursor="Hand" Click="FinishedRequests_Click"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="170,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />

@@ -21,22 +21,27 @@ namespace zdravstvena_ustanova.View.Controls
     /// <summary>
     /// Interaction logic for AddMedication.xaml
     /// </summary>
-    public partial class AddMedication : Page
+    public partial class AddMedication : UserControl
     {
         public Medication Medication { get; set; }
+        public ObservableCollection<Medication> Medications { get; set; }
         public ObservableCollection<MedicationType> MedicationTypes { get; set; }
-        public AddMedication()
+        public AddMedication(ObservableCollection<Medication> medications)
         {
             InitializeComponent();
+            DataContext = this;
             Medication = new Medication(-1);
+            Medications = medications;
             Medication.IsApproved = false;
             Medication.Ingredients = new List<Ingredient>();
-           
+
             //TODO prodji kroz roomtypes i dodaj ih u combobox
 
-            foreach (var roomType in roomTypes)
+            MedicationTypes = new ObservableCollection<MedicationType>();
+            var app = Application.Current as App;
+            foreach(var medicationType in app.MedicationTypeController.GetAll())
             {
-                RoomTypes.Add(roomType);
+                MedicationTypes.Add(medicationType);
             }
         }
 
@@ -48,8 +53,11 @@ namespace zdravstvena_ustanova.View.Controls
                 return;
             }
 
+            Medication.Name = medicationNameTextBox.Text;
+            Medication.MedicationType = (MedicationType)medicationTypeComboBox.SelectedItem;
+            Medication.Quantity = int.Parse(medicationQuantityTextBox.Text);
 
-            MainWindow.Modal.Content = new AddMedicationPageTwo(Medication);
+            MainWindow.Modal.Content = new AddMedicationPageTwo(Medication, Medications, this);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

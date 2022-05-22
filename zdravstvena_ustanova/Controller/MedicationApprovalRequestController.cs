@@ -47,5 +47,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _medicationApprovalRequestService.GetByRequestStatus(requestStatus);
         }
+
+        public bool CheckIfAlreadyWaitingForApproval(Medication medication)
+        {
+            return _medicationApprovalRequestService.CheckIfAlreadyWaitingForApproval(medication);
+        }
     }
 }

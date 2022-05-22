@@ -1,0 +1,58 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.RequestMedicationApprovalPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      mc:Ignorable="d" 
+     d:DesignHeight="640" d:DesignWidth="1280"
+      Title="RequestMedicationApprovalPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="LightGray">
+            <Label Margin="0,0,0,20" Content="Podaci o leku" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Label Width="150"  Margin="0,0,0,0" Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+                <Label FontSize="18" Content="{Binding MedicationName}" x:Name="MedicationNameLabel" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Label  Width="150" Margin="0,0,0,0" Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center">Tip leka:</Label>
+                <Label FontSize="18" Content="{Binding MedicationType.Name}" Width="150" Name="MedicationTypeLabel" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Label  Width="150" Margin="0,0,0,0" Grid.Column="0" Grid.Row="3" FontSize="18"  HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Količina:</Label>
+                <Label FontSize="18" Content="{Binding MedicationQuantity}" VerticalContentAlignment="Center" x:Name="MedicationQuantityTextBox" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Sastojci:</Label>
+                <ListView Margin="0,20,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="150" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>
+            </WrapPanel>
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Background="LightGray">
+            <Label Margin="0,0,0,20" Content="Zahtev za odobrenje" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+            <WrapPanel HorizontalAlignment="Center">
+                <Label  Width="150" Margin="0,0,0,20" Grid.Column="0" Grid.Row="3" FontSize="18"  HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Lekar:</Label>
+                <ComboBox FontSize="18" Margin="0,0,0,20" ItemsSource="{Binding Doctors}" DisplayMemberPath="Name" VerticalContentAlignment="Center" x:Name="DoctorComboBox" Width="500" ></ComboBox>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Center">
+                <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Napomena:</Label>
+                <TextBox TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" FontSize="18" x:Name="RequestMessageTextBox" Width="500" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBox>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Center">
+                <Button x:Name="CancelButton" Margin="0,200,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+                <Button x:Name="OkButton" Margin="500,200,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+            </WrapPanel>
+
+
+        </StackPanel>
+    </Grid>
+</Page>
