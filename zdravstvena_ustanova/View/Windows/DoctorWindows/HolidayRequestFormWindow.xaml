@@ -22,7 +22,7 @@
         <Label Content="CauseOfRequest" HorizontalAlignment="Center" Margin="0,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="178" FontSize="22" Grid.Column="1"/>
         <TextBox x:Name="causeForHoliday_textBox" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="178" FontSize="22" Grid.Column="1" Height="62"/>
         <DatePicker x:Name="startDate_datePicker" HorizontalAlignment="Left" Margin="100,32,0,0" Grid.Row="1" VerticalAlignment="Top" Width="172" FontSize="20"/>
-        <Label Content="StartDate" HorizontalAlignment="Left" Margin="100,102,0,0" VerticalAlignment="Top" Width="121" FontSize="22" Grid.RowSpan="2"/>
+        <Label Content="StartDate" HorizontalAlignment="Left" Margin="100,98,0,0" VerticalAlignment="Top" Width="121" FontSize="22" Grid.RowSpan="2"/>
         <Label Content="EndDate" HorizontalAlignment="Left" Margin="100,15,0,0" Grid.Row="2" VerticalAlignment="Top" Width="109" FontSize="22"/>
         <CheckBox x:Name="isUrgent_comboBox" Content="IsUrgent" HorizontalAlignment="Left" Margin="125,54,0,0" Grid.Row="2" VerticalAlignment="Top" Width="121" Height="35" FontSize="22" Grid.Column="1"/>
         <Button Content="Submit" HorizontalAlignment="Left" Margin="260,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit_HolidayRequest"/>

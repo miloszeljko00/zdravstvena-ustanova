@@ -100,17 +100,26 @@ namespace zdravstvena_ustanova.Repository
         public bool Delete(long holidayRequestId)
         {
             var holidayRequests = (List<HolidayRequest>)GetAll();
-
-            foreach (HolidayRequest hr in holidayRequests)
-            {
-                if (hr.Id == holidayRequestId)
-                {
-                    holidayRequests.Remove(hr);
-                    WriteLinesToFile(_path, HolidayRequestsToCSVFormat((List<HolidayRequest>)holidayRequests));
-                    return true;
-                }
+            var holidayRequest = GetHolidayRequestById(holidayRequests, holidayRequestId);
+            var returnValue = false;
+            if (holidayRequest == null) {
+                holidayRequests.Remove(holidayRequest);
+                WriteLinesToFile(_path, HolidayRequestsToCSVFormat((List<HolidayRequest>)holidayRequests));
+                returnValue = true;
             }
-            return false;
+            return returnValue;
+            
+
+            //foreach (HolidayRequest hr in holidayRequests)
+            //{
+              //  if (hr.Id == holidayRequestId)
+                //{
+                  //  holidayRequests.Remove(hr);
+                    //WriteLinesToFile(_path, HolidayRequestsToCSVFormat((List<HolidayRequest>)holidayRequests));
+                    //return true;
+                //}
+            //}
+            //return false;
 
         }
 

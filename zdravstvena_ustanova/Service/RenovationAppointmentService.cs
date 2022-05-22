@@ -20,6 +20,12 @@ namespace zdravstvena_ustanova.Service
         private readonly ScheduledAppointmentRepository _unScheduledAppointmentRepository;
         private readonly RenovationTypeRepository _renovationTypeRepository;
 
+        private const int StandardRenovationId = 1;
+        private const int MergeRenovationId = 2;
+        private const int SplitRenovationId = 3;
+
+
+
         public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository,
             RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository,
             ScheduledAppointmentRepository scheduledAppointmentRepository,
@@ -63,7 +69,7 @@ namespace zdravstvena_ustanova.Service
 
         private static List<RenovationAppointment> GetByMergeRoomId(long roomId, List<RenovationAppointment> renovationAppointments)
         {
-            renovationAppointments = renovationAppointments.FindAll(renovationAppointment => renovationAppointment.FirstRoom.Id == roomId);
+            renovationAppointments = renovationAppointments.FindAll(renovationAppointment => renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id == roomId);
             return renovationAppointments;
         }
 
@@ -83,11 +89,11 @@ namespace zdravstvena_ustanova.Service
 
         private void BindRenovationAppointmentWithRoomsUnderRenovation(RenovationAppointment renovationAppointment, IEnumerable<Room> roomsUnderRenovation, IEnumerable<Room> rooms)
         {
-            if (renovationAppointment.RenovationType.Id == 2)
+            if (renovationAppointment.RenovationType.Id == MergeRenovationId)
             {
                 BindRoomsForMergeRenovation(renovationAppointment, roomsUnderRenovation, rooms);
             }
-            else if( renovationAppointment.RenovationType.Id == 3)
+            else if( renovationAppointment.RenovationType.Id == SplitRenovationId)
             {
                 BindRoomsForSplitRenovation(renovationAppointment, roomsUnderRenovation);
             }
@@ -95,14 +101,14 @@ namespace zdravstvena_ustanova.Service
 
         private void BindRoomsForSplitRenovation(RenovationAppointment renovationAppointment, IEnumerable<Room> roomsUnderRenovation)
         {
-            renovationAppointment.FirstRoom = FindRoomById(roomsUnderRenovation, renovationAppointment.FirstRoom.Id);
-            renovationAppointment.SecondRoom = FindRoomById(roomsUnderRenovation, renovationAppointment.SecondRoom.Id);
+            renovationAppointment.RoomForMergeOrFirstRoomOfSplit = FindRoomById(roomsUnderRenovation, renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = FindRoomById(roomsUnderRenovation, renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
         }
 
         private void BindRoomsForMergeRenovation(RenovationAppointment renovationAppointment, IEnumerable<Room> roomsUnderRenovation, IEnumerable<Room> rooms)
         {
-            renovationAppointment.FirstRoom = FindRoomById(rooms, renovationAppointment.FirstRoom.Id);
-            renovationAppointment.SecondRoom = FindRoomById(roomsUnderRenovation, renovationAppointment.SecondRoom.Id);
+            renovationAppointment.RoomForMergeOrFirstRoomOfSplit = FindRoomById(rooms, renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = FindRoomById(roomsUnderRenovation, renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
         }
 
         private void BindRenovationAppointmentsWithRenovationTypes(IEnumerable<RenovationAppointment> renovationAppointments,
@@ -141,18 +147,16 @@ namespace zdravstvena_ustanova.Service
 
         public int NumberOfScheduledAppointmentsFromToForRoom(Room room, DateTime from, DateTime to)
         {
-            var allScheduledAppointments = _scheduledAppointmentRepository.GetAll();
+            var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
 
-            List<ScheduledAppointment> scheduledAppointmentsForRequestedRoom = new List<ScheduledAppointment>();
+            var scheduledAppointmentsForRequestedRoom = new List<ScheduledAppointment>();
 
-            foreach (var scheduledAppointment in allScheduledAppointments)
+            foreach (var scheduledAppointment in scheduledAppointments)
             {
-                if (scheduledAppointment.Room.Id == room.Id)
+                if (scheduledAppointment.Room.Id != room.Id) continue;
+                if(DatesOverlaping(scheduledAppointment.Start, scheduledAppointment.End, from, to))
                 {
-                    if(DatesOverlaping(scheduledAppointment.Start, scheduledAppointment.End, from, to))
-                    {
-                        scheduledAppointmentsForRequestedRoom.Add(scheduledAppointment);
-                    }
+                    scheduledAppointmentsForRequestedRoom.Add(scheduledAppointment);
                 }
             }
             return scheduledAppointmentsForRequestedRoom.Count;
@@ -160,15 +164,15 @@ namespace zdravstvena_ustanova.Service
 
         public bool HasRenovationFromTo(Room room, DateTime from, DateTime to)
         {
-            var allRenovationAppointments = GetAll();
+            var renovationAppointments = GetAll();
             bool overlap = false;
 
-            foreach (var renovationAppointment in allRenovationAppointments)
+            foreach (var renovationAppointment in renovationAppointments)
             {
-                if (renovationAppointment.Room.Id == room.Id)
+                if (renovationAppointment.MainRoom.Id == room.Id)
                 {
                     overlap = DatesOverlaping(renovationAppointment.StartDate, renovationAppointment.EndDate, from, to);
-                    if (overlap) return overlap;
+                    if (overlap) break;
                 }
             }
             return overlap;
@@ -181,15 +185,15 @@ namespace zdravstvena_ustanova.Service
         {
             RenovationAppointment scheduledRenovationAppointment = null;
 
-            if (renovationAppointment.RenovationType.Id == 1)
+            if (renovationAppointment.RenovationType.Id == StandardRenovationId)
             {
                 scheduledRenovationAppointment = ScheduleStandardRenovation(ref renovationAppointment);
             }
-            else if (renovationAppointment.RenovationType.Id == 2)
+            else if (renovationAppointment.RenovationType.Id == MergeRenovationId)
             {
                 scheduledRenovationAppointment = ScheduleMergeRenovation(ref renovationAppointment);
             }
-            else if (renovationAppointment.RenovationType.Id == 3)
+            else if (renovationAppointment.RenovationType.Id == SplitRenovationId)
             {
                 scheduledRenovationAppointment = ScheduleSplitRenovation(ref renovationAppointment);
             }
@@ -198,12 +202,12 @@ namespace zdravstvena_ustanova.Service
 
         private RenovationAppointment? ScheduleSplitRenovation(ref RenovationAppointment renovationAppointment)
         {
-            var scheduledAppointmentsForRoomInSplitRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.Room.Id);
+            var scheduledAppointmentsForRoomInSplitRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.MainRoom.Id);
 
             UnscheduleAllOverlappingScheduledAppointments(renovationAppointment, scheduledAppointmentsForRoomInSplitRenovation);
 
-            renovationAppointment.FirstRoom = _roomUnderRenovationRepository.Create(renovationAppointment.FirstRoom);
-            renovationAppointment.SecondRoom = _roomUnderRenovationRepository.Create(renovationAppointment.SecondRoom);
+            renovationAppointment.RoomForMergeOrFirstRoomOfSplit = _roomUnderRenovationRepository.Create(renovationAppointment.RoomForMergeOrFirstRoomOfSplit);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomUnderRenovationRepository.Create(renovationAppointment.MergedRoomOrSecondRoomOfSplit);
             renovationAppointment = Create(renovationAppointment);
 
             return renovationAppointment;
@@ -220,20 +224,20 @@ namespace zdravstvena_ustanova.Service
 
         private RenovationAppointment ScheduleRenovationForMainRoom(RenovationAppointment renovationAppointment)
         {
-            var scheduledAppointmentsForFirstRoomInMerge = GetAllScheduledAppointmentsByRoomId(renovationAppointment.Room.Id);
+            var scheduledAppointmentsForFirstRoomInMerge = GetAllScheduledAppointmentsByRoomId(renovationAppointment.MainRoom.Id);
             UnscheduleAllOverlappingScheduledAppointments(renovationAppointment, scheduledAppointmentsForFirstRoomInMerge);
 
-            renovationAppointment.SecondRoom = _roomUnderRenovationRepository.Create(renovationAppointment.SecondRoom);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomUnderRenovationRepository.Create(renovationAppointment.MergedRoomOrSecondRoomOfSplit);
             renovationAppointment = Create(renovationAppointment);
             return renovationAppointment;
         }
 
         private RenovationAppointment ScheduleRenovationForMergedRoom(RenovationAppointment renovationAppointment)
         {
-            var scheduledAppointmentsForSecondRoomInMergeRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.FirstRoom.Id);
+            var scheduledAppointmentsForSecondRoomInMergeRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
             UnscheduleAllScheduledAppointmentsAfter(renovationAppointment.StartDate, scheduledAppointmentsForSecondRoomInMergeRenovation);
             
-            var mergedRoom = renovationAppointment.FirstRoom;
+            var mergedRoom = renovationAppointment.RoomForMergeOrFirstRoomOfSplit;
             var mergedRoomRenovationAppointment = new RenovationAppointment(mergedRoom, renovationAppointment.StartDate,
                 DateTime.MaxValue, renovationAppointment.Description, _renovationTypeRepository.GetById(1));
 
@@ -255,7 +259,7 @@ namespace zdravstvena_ustanova.Service
 
         private RenovationAppointment? ScheduleStandardRenovation(ref RenovationAppointment renovationAppointment)
         {
-            var scheduledAppointmentsForRoomInStandardRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.Room.Id);
+            var scheduledAppointmentsForRoomInStandardRenovation = GetAllScheduledAppointmentsByRoomId(renovationAppointment.MainRoom.Id);
 
             UnscheduleAllOverlappingScheduledAppointments(renovationAppointment, scheduledAppointmentsForRoomInStandardRenovation);
 
@@ -295,7 +299,7 @@ namespace zdravstvena_ustanova.Service
             {
                 if (ra.StartDate.CompareTo(date) <= 0 && ra.EndDate.CompareTo(date) >= 0)
                 {
-                    if(ra.Room.Id == roomId) listOfCorrectAppointments.Add(ra);
+                    if(ra.MainRoom.Id == roomId) listOfCorrectAppointments.Add(ra);
                 }
             }
 
@@ -320,7 +324,7 @@ namespace zdravstvena_ustanova.Service
         {
             renovationAppointments.ToList().ForEach(renovationAppointment =>
             {
-                renovationAppointment.Room = FindRoomById(rooms, renovationAppointment.Room.Id);
+                renovationAppointment.MainRoom = FindRoomById(rooms, renovationAppointment.MainRoom.Id);
             });
         }
 
@@ -344,9 +348,9 @@ namespace zdravstvena_ustanova.Service
             {
                 if (room != null)
                 {
-                    if (room.Id == renovationAppointment.Room.Id)
+                    if (room.Id == renovationAppointment.MainRoom.Id)
                     {
-                        renovationAppointment.Room = room;
+                        renovationAppointment.MainRoom = room;
                     }
                 }
             });

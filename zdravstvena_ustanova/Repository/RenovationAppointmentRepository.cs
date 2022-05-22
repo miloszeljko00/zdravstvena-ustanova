@@ -95,7 +95,7 @@ namespace zdravstvena_ustanova.Repository
             {
                 renovationAppointmentInCSVFormat = string.Join(_delimiter,
                    renovationAppointment.Id,
-                   renovationAppointment.Room.Id,
+                   renovationAppointment.MainRoom.Id,
                    renovationAppointment.StartDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.EndDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.Description,
@@ -105,9 +105,9 @@ namespace zdravstvena_ustanova.Repository
             {
                 renovationAppointmentInCSVFormat = string.Join(_delimiter,
                    renovationAppointment.Id,
-                   renovationAppointment.Room.Id,
-                   renovationAppointment.FirstRoom.Id,
-                   renovationAppointment.SecondRoom.Id,
+                   renovationAppointment.MainRoom.Id,
+                   renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id,
+                   renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id,
                    renovationAppointment.StartDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.EndDate.ToString("dd.MM.yyyy."),
                    renovationAppointment.Description,
