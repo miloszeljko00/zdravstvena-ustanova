@@ -1,0 +1,44 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.FinishedMedicationApprovalRequestsOverviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="1280"
+      Title="FinishedMedicationApprovalRequestsOverviewPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Label Width="650" Content="Obrađeni zahtevi za odobrenje leka" FontSize="40"></Label>
+        </WrapPanel>
+        <DataGrid Grid.Row="1" x:Name="FinishedMedicationApprovalRequestsDataGrid" ItemsSource="{Binding FinishedMedicationApprovalRequests}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="800" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="FinishedMedicationApprovalRequestsDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Medication.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip" Binding="{Binding Medication.MedicationType.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Količina" Binding="{Binding Medication.Quantity}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding ApprovingDoctor.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status zahteva" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="LightGray" Width="400" Height="450">
+            <WrapPanel HorizontalAlignment="Stretch">
+                <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Sastojci:</Label>
+                <ListView Margin="0,20,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Napomena:</Label>
+                <TextBox Text="{Binding ResponseMessage}" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" FontSize="18" x:Name="RequestMessageTextBox" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"></TextBox>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Page>

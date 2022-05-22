@@ -132,5 +132,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             app.LoggedInUser = null;
             NavigationService.Navigate(LoginPage);
         }
+
+        private void drugsButton_Click(object sender, RoutedEventArgs e)
+        {
+            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            drugsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
+            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
+
+            ManagerMain.Content = new MedicationPage();
+        }
     }
 }

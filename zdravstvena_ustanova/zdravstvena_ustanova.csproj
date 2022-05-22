@@ -23,6 +23,7 @@
     <None Remove="Resources\img\icons8-delivered.png" />
     <None Remove="Resources\img\icons8-high-priority-64.png" />
     <None Remove="Resources\img\icons8-new.png" />
+    <None Remove="Resources\img\ingredients-icon.png" />
     <None Remove="Resources\img\minus-icon.png" />
     <None Remove="Resources\img\icons8-add.png" />
     <None Remove="Resources\img\icons8-back.png" />
@@ -63,6 +64,7 @@
     <Content Include="Resources\img\Edit-Document-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\ingredients-icon.png" />
     <Content Include="Resources\img\medical-record-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

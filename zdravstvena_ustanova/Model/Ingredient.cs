@@ -17,5 +17,6 @@ namespace zdravstvena_ustanova.Model
         {
             Id = id;
         }
+
     }
 }
