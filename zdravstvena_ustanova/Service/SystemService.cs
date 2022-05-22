@@ -17,6 +17,11 @@ namespace zdravstvena_ustanova.Service
         private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
         private readonly RoomRepository _roomRepository;
         private readonly RoomRepository _roomUnderRenovationRepository;
+
+        private const int StandardRenovationId = 1;
+        private const int MergeRenovationId = 2;
+        private const int SplitRenovationId = 3;
+
         public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository,
             RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, RoomRepository roomUnderRenovationRepository)
         {
@@ -145,43 +150,60 @@ namespace zdravstvena_ustanova.Service
 
         private void ExecuteRenovation(RenovationAppointment renovationAppointment)
         {
-            if(renovationAppointment.RenovationType.Id == 2)
+            if(renovationAppointment.RenovationType.Id == MergeRenovationId)
             {
-                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
-                _roomUnderRenovationRepository.Delete(secondRoom.Id);
-                renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(secondRoom);
-
-                MoveStoredItemsFromFirstRoomNewRoom(renovationAppointment);
-                MoveStoredItemsFromSecondRoomToNewRoom(renovationAppointment);
-
-                _roomRepository.Delete(renovationAppointment.MainRoom.Id);
-                _roomRepository.Delete(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
-
-                _renovationAppointmentRepository.Delete(renovationAppointment.Id);
-                var renovationAppointments = (List<RenovationAppointment>)_renovationAppointmentRepository.GetAll();
-                renovationAppointments = renovationAppointments.FindAll(ra => ra.RenovationType.Id == 1);
-                renovationAppointments = renovationAppointments.FindAll(ra => ra.MainRoom.Id == renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
-                renovationAppointments = renovationAppointments.FindAll(ra => ra.StartDate.CompareTo(renovationAppointment.StartDate) >= 0);
-                foreach(var ra in renovationAppointments)
-                {
-                    _renovationAppointmentRepository.Delete(ra.Id);
-                }
+                ExecuteMergeRenovation(renovationAppointment);
             }
-            else if(renovationAppointment.RenovationType.Id == 3)
+            else if(renovationAppointment.RenovationType.Id == SplitRenovationId)
             {
-                var firstRoom = _roomUnderRenovationRepository.Get(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
-                _roomUnderRenovationRepository.Delete(firstRoom.Id);
-                renovationAppointment.RoomForMergeOrFirstRoomOfSplit = _roomRepository.Create(firstRoom);
+                ExecuteSplitRenovation(renovationAppointment);
+            }
+        }
 
-                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
-                _roomUnderRenovationRepository.Delete(secondRoom.Id);
-                renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(secondRoom);
+        private void ExecuteSplitRenovation(RenovationAppointment renovationAppointment)
+        {
+            var firstRoom = _roomUnderRenovationRepository.Get(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
+            _roomUnderRenovationRepository.Delete(firstRoom.Id);
+            renovationAppointment.RoomForMergeOrFirstRoomOfSplit = _roomRepository.Create(firstRoom);
 
-                MoveStoredItemsToFirstNewRoom(renovationAppointment);
+            var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
+            _roomUnderRenovationRepository.Delete(secondRoom.Id);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(secondRoom);
 
-                _roomRepository.Delete(renovationAppointment.MainRoom.Id);
+            MoveStoredItemsToFirstNewRoom(renovationAppointment);
 
-                _renovationAppointmentRepository.Delete(renovationAppointment.Id);
+            _roomRepository.Delete(renovationAppointment.MainRoom.Id);
+
+            _renovationAppointmentRepository.Delete(renovationAppointment.Id);
+        }
+
+        private void ExecuteMergeRenovation(RenovationAppointment renovationAppointment)
+        {
+            var room = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
+            _roomUnderRenovationRepository.Delete(room.Id);
+            renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(room);
+
+            MoveStoredItemsFromFirstRoomNewRoom(renovationAppointment);
+            MoveStoredItemsFromSecondRoomToNewRoom(renovationAppointment);
+
+            _roomRepository.Delete(renovationAppointment.MainRoom.Id);
+            _roomRepository.Delete(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
+
+            DeleteRenovationAppointmentForMergedRoom(renovationAppointment);
+        }
+
+        private void DeleteRenovationAppointmentForMergedRoom(RenovationAppointment renovationAppointment)
+        {
+            _renovationAppointmentRepository.Delete(renovationAppointment.Id);
+            var renovationAppointments = (List<RenovationAppointment>)_renovationAppointmentRepository.GetAll();
+            
+            renovationAppointments = renovationAppointments.FindAll(ra => ra.RenovationType.Id == StandardRenovationId);
+            renovationAppointments = renovationAppointments.FindAll(ra => ra.MainRoom.Id == renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
+            renovationAppointments = renovationAppointments.FindAll(ra => ra.StartDate.CompareTo(renovationAppointment.StartDate) >= 0);
+            
+            foreach (var ra in renovationAppointments)
+            {
+                _renovationAppointmentRepository.Delete(ra.Id);
             }
         }
 
