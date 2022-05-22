@@ -88,6 +88,21 @@ namespace zdravstvena_ustanova.Service
         }
         public bool Update(Medication medication)
         {
+            var ingredients = _ingredientRepository.GetAll();
+            foreach (var medicationIngredient in medication.Ingredients)
+            {
+                if (medicationIngredient.Id == -1)
+                {
+                    foreach (var ingredient in ingredients)
+                    {
+                        if (ingredient.Name == medicationIngredient.Name)
+                        {
+                            medicationIngredient.Id = ingredient.Id;
+                        }
+                    }
+                }
+                
+            }
             return _medicationRepository.Update(medication);
         }
         public bool Delete(long medicationId)

@@ -34,8 +34,7 @@ namespace zdravstvena_ustanova.View.Controls
             Medications = medications;
             Medication.IsApproved = false;
             Medication.Ingredients = new List<Ingredient>();
-
-            //TODO prodji kroz roomtypes i dodaj ih u combobox
+            
 
             MedicationTypes = new ObservableCollection<MedicationType>();
             var app = Application.Current as App;

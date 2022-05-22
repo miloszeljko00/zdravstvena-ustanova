@@ -94,7 +94,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 return;
             }
 
-            MainWindow.Modal.Content = new EditMedication();
+            MainWindow.Modal.Content = new EditMedication(Medications, (Medication)MedicationDataGrid.SelectedItem);
             MainWindow.Modal.IsOpen = true;
         }
         private void DeleteRoomIcon_MouseDown(object sender, MouseButtonEventArgs e)
@@ -104,8 +104,11 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MainWindow.Modal.Content = new DeleteMedication();
-            MainWindow.Modal.IsOpen = true;
+
+            var app = Application.Current as App;
+
+            app.MedicationController.Delete(((Medication)MedicationDataGrid.SelectedItem).Id);
+            Medications.Remove((Medication)MedicationDataGrid.SelectedItem);
         }
 
         private void IngredientsIcon_MouseDown(object sender, MouseButtonEventArgs e)

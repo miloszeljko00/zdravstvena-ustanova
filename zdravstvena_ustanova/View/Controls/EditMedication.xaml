@@ -7,7 +7,26 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
-        
+    <Grid Width="500" Height="450">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Izmena leka" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+        <TextBox VerticalContentAlignment="Center" x:Name="medicationNameTextBox" Width="150" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Tip leka:</Label>
+        <ComboBox VerticalContentAlignment="Center" Name="medicationTypeComboBox" DisplayMemberPath="Name" ItemsSource="{Binding MedicationTypes}" Grid.Column="1" Grid.Row="2" Width="150" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina</Label>
+        <TextBox PreviewTextInput="MedicationQuantityTextBox_OnPreviewTextInput" VerticalContentAlignment="Center" x:Name="medicationQuantityTextBox" Grid.Column="1" Grid.Row="3" Width="150" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+        <Button x:Name="OkButton" Margin="0,50,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Dalje" FontSize="14" Click="OkButton_OnClick"></Button>
+        <Button x:Name="CancelButton" Margin="0,50,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_OnClick"></Button>
     </Grid>
 </UserControl>

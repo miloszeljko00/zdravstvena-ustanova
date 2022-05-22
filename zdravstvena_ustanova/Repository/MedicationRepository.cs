@@ -102,7 +102,7 @@ namespace zdravstvena_ustanova.Repository
         private string MedicationToCSVFormat(Medication medication)
         {
             int count = medication.Ingredients.Count;
-            string ingredients = "";
+            string ingredients = count.ToString();
             for(int i=0; i<count;i++)
             {
                 ingredients = string.Join(_delimiter, ingredients, medication.Ingredients[i].Id);
@@ -116,7 +116,6 @@ namespace zdravstvena_ustanova.Repository
                 medication.MedicationType.Id,
                 medication.Quantity,
                 medication.IsApproved,
-                count,
                 ingredients
                 );
         }
