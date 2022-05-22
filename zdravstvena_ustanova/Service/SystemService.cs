@@ -147,20 +147,20 @@ namespace zdravstvena_ustanova.Service
         {
             if(renovationAppointment.RenovationType.Id == 2)
             {
-                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.SecondRoom.Id);
+                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
                 _roomUnderRenovationRepository.Delete(secondRoom.Id);
-                renovationAppointment.SecondRoom = _roomRepository.Create(secondRoom);
+                renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(secondRoom);
 
                 MoveStoredItemsFromFirstRoomNewRoom(renovationAppointment);
                 MoveStoredItemsFromSecondRoomToNewRoom(renovationAppointment);
 
-                _roomRepository.Delete(renovationAppointment.Room.Id);
-                _roomRepository.Delete(renovationAppointment.FirstRoom.Id);
+                _roomRepository.Delete(renovationAppointment.MainRoom.Id);
+                _roomRepository.Delete(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
 
                 _renovationAppointmentRepository.Delete(renovationAppointment.Id);
                 var renovationAppointments = (List<RenovationAppointment>)_renovationAppointmentRepository.GetAll();
                 renovationAppointments = renovationAppointments.FindAll(ra => ra.RenovationType.Id == 1);
-                renovationAppointments = renovationAppointments.FindAll(ra => ra.Room.Id == renovationAppointment.FirstRoom.Id);
+                renovationAppointments = renovationAppointments.FindAll(ra => ra.MainRoom.Id == renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
                 renovationAppointments = renovationAppointments.FindAll(ra => ra.StartDate.CompareTo(renovationAppointment.StartDate) >= 0);
                 foreach(var ra in renovationAppointments)
                 {
@@ -169,17 +169,17 @@ namespace zdravstvena_ustanova.Service
             }
             else if(renovationAppointment.RenovationType.Id == 3)
             {
-                var firstRoom = _roomUnderRenovationRepository.Get(renovationAppointment.FirstRoom.Id);
+                var firstRoom = _roomUnderRenovationRepository.Get(renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
                 _roomUnderRenovationRepository.Delete(firstRoom.Id);
-                renovationAppointment.FirstRoom = _roomRepository.Create(firstRoom);
+                renovationAppointment.RoomForMergeOrFirstRoomOfSplit = _roomRepository.Create(firstRoom);
 
-                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.SecondRoom.Id);
+                var secondRoom = _roomUnderRenovationRepository.Get(renovationAppointment.MergedRoomOrSecondRoomOfSplit.Id);
                 _roomUnderRenovationRepository.Delete(secondRoom.Id);
-                renovationAppointment.SecondRoom = _roomRepository.Create(secondRoom);
+                renovationAppointment.MergedRoomOrSecondRoomOfSplit = _roomRepository.Create(secondRoom);
 
                 MoveStoredItemsToFirstNewRoom(renovationAppointment);
 
-                _roomRepository.Delete(renovationAppointment.Room.Id);
+                _roomRepository.Delete(renovationAppointment.MainRoom.Id);
 
                 _renovationAppointmentRepository.Delete(renovationAppointment.Id);
             }
@@ -191,11 +191,11 @@ namespace zdravstvena_ustanova.Service
 
             storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
 
-            storedItems = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.Room.Id);
+            storedItems = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.MainRoom.Id);
 
             foreach (var storedItem in storedItems)
             {
-                storedItem.Room = renovationAppointment.FirstRoom;
+                storedItem.Room = renovationAppointment.RoomForMergeOrFirstRoomOfSplit;
                 _storedItemRepository.Update(storedItem);
             }
         }
@@ -205,11 +205,11 @@ namespace zdravstvena_ustanova.Service
             var storedItems = (List<StoredItem>)_storedItemRepository.GetAll();
 
             storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
-            var storedItemsFromSecondRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.FirstRoom.Id);
+            var storedItemsFromSecondRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.RoomForMergeOrFirstRoomOfSplit.Id);
 
             foreach (var storedItem in storedItemsFromSecondRoom)
             {
-                storedItem.Room = renovationAppointment.SecondRoom;
+                storedItem.Room = renovationAppointment.MergedRoomOrSecondRoomOfSplit;
                 _storedItemRepository.Update(storedItem);
             }
         }
@@ -219,11 +219,11 @@ namespace zdravstvena_ustanova.Service
             var storedItems = (List<StoredItem>)_storedItemRepository.GetAll();
 
             storedItems = storedItems.FindAll(storedItem => storedItem.StorageType == StorageType.ROOM);
-            var storedItemsFromFirstRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.Room.Id);
+            var storedItemsFromFirstRoom = storedItems.FindAll(storedItem => storedItem.Room.Id == renovationAppointment.MainRoom.Id);
 
             foreach (var storedItem in storedItemsFromFirstRoom)
             {
-                storedItem.Room = renovationAppointment.FirstRoom;
+                storedItem.Room = renovationAppointment.RoomForMergeOrFirstRoomOfSplit;
                 _storedItemRepository.Update(storedItem);
             }
         }

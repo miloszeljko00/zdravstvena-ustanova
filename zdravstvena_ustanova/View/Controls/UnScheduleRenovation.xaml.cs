@@ -125,9 +125,9 @@ namespace zdravstvena_ustanova.View.Controls
             SelectedRenovationAppointment = selectedRenovationAppointment;
             RoomsCalendarControl = roomsCalendarControl;
 
-            RoomName = SelectedRenovationAppointment.Room.Name;
-            RoomType = SelectedRenovationAppointment.Room.RoomType.ToString();
-            RoomFloor = SelectedRenovationAppointment.Room.Floor.ToString();
+            RoomName = SelectedRenovationAppointment.MainRoom.Name;
+            RoomType = SelectedRenovationAppointment.MainRoom.RoomType.ToString();
+            RoomFloor = SelectedRenovationAppointment.MainRoom.Floor.ToString();
             RenovationStart = SelectedRenovationAppointment.StartDate.ToString("dd.MM.yyyy");
             RenovationEnd = SelectedRenovationAppointment.EndDate.ToString("dd.MM.yyyy");
         }
@@ -146,7 +146,7 @@ namespace zdravstvena_ustanova.View.Controls
                 if(SelectedRenovationAppointment.RenovationType.Id == 1)
                 {
                     var renovationAppointmentsWithSelectedRoomAsMergingRoom = (List<RenovationAppointment>)app.RenovationAppointmentController.
-                                                                        GetRenovationAppointmentsByMergeRoomForMergeRenovation(SelectedRenovationAppointment.Room.Id); ;
+                                                                        GetRenovationAppointmentsByMergeRoomForMergeRenovation(SelectedRenovationAppointment.MainRoom.Id); ;
                     if(renovationAppointmentsWithSelectedRoomAsMergingRoom != null && renovationAppointmentsWithSelectedRoomAsMergingRoom.Count > 0)
                     {
                         foreach(var renovation in renovationAppointmentsWithSelectedRoomAsMergingRoom)
@@ -157,7 +157,7 @@ namespace zdravstvena_ustanova.View.Controls
                 }
                 else if(SelectedRenovationAppointment.RenovationType.Id == 2)
                 {
-                    var room = SelectedRenovationAppointment.FirstRoom;
+                    var room = SelectedRenovationAppointment.RoomForMergeOrFirstRoomOfSplit;
                     var renovationAppointmentOfMergedRoom = (List<RenovationAppointment>)app.RenovationAppointmentController.
                                                             GetIfContainsDateForRoom(SelectedRenovationAppointment.StartDate, room.Id);
                     

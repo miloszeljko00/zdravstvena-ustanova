@@ -10,9 +10,9 @@ namespace zdravstvena_ustanova.Model
     public class RenovationAppointment
     {
         public long Id { get; set; }
-        public Room Room { get; set; }
-        public Room FirstRoom { get; set; }
-        public Room SecondRoom { get; set; }
+        public Room MainRoom { get; set; }
+        public Room RoomForMergeOrFirstRoomOfSplit { get; set; }
+        public Room MergedRoomOrSecondRoomOfSplit { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
@@ -21,7 +21,7 @@ namespace zdravstvena_ustanova.Model
         public RenovationAppointment(Room room, DateTime startDate, DateTime endDate, 
             string description, RenovationType renovationType)
         {
-            Room = room;
+            MainRoom = room;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -31,7 +31,7 @@ namespace zdravstvena_ustanova.Model
             string description, long renovationTypeId)
         {
             Id = id;
-            Room = new Room(roomId);
+            MainRoom = new Room(roomId);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -41,9 +41,9 @@ namespace zdravstvena_ustanova.Model
         public RenovationAppointment(Room room, Room firstRoom, Room secondRoom, DateTime startDate,
             DateTime endDate, string description, RenovationType renovationType)
         {
-            Room = room;
-            FirstRoom = firstRoom;
-            SecondRoom = secondRoom;
+            MainRoom = room;
+            RoomForMergeOrFirstRoomOfSplit = firstRoom;
+            MergedRoomOrSecondRoomOfSplit = secondRoom;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -54,9 +54,9 @@ namespace zdravstvena_ustanova.Model
             DateTime endDate, string description, long renovationTypeId)
         {
             Id = id;
-            Room = new Room(roomId);
-            FirstRoom = new Room(firstRoomId);
-            SecondRoom = new Room(secondRoomId);
+            MainRoom = new Room(roomId);
+            RoomForMergeOrFirstRoomOfSplit = new Room(firstRoomId);
+            MergedRoomOrSecondRoomOfSplit = new Room(secondRoomId);
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
