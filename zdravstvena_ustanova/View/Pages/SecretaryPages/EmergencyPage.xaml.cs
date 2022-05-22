@@ -279,9 +279,18 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 
             }
             if (EmergencyAppointment.Patient == null)
-                return; //Dodaj validaciju
+            {
+                validationTB.Text = "Selektujte pacijenta!";
+                return;
+            }
+               
             app.ScheduledAppointmentController.Create(EmergencyAppointment);
             _homePagePatients.SecretaryFrame.Content = new SecretaryAppointmentPage(_homePagePatients);
+        }
+
+        private void patientCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            validationTB.Text = "";
         }
     }
 }

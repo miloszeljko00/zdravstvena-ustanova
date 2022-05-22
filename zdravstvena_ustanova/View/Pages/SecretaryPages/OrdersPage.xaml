@@ -43,9 +43,6 @@
 
             </DataGrid.Columns>
         </DataGrid>
-
-        <Image x:Name="Delete" HorizontalAlignment="Left" Height="85" Margin="556,444,0,0" VerticalAlignment="Top" Width="84" Source="/Resources/img/delete-icon.png" />
-        <Label Content="Poništi" HorizontalAlignment="Left" Margin="557,537,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Image x:Name="Delivered" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-delivered.png" MouseDown="Delivered_MouseDown"/>
         <Label Content="Isporučeno" HorizontalAlignment="Left" Margin="366,537,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Button x:Name="Warehouse" Content="Pregled magacina" HorizontalAlignment="Left" Margin="39,458,0,0" VerticalAlignment="Top" FontSize="16" Height="70" Width="180" Click="Warehouse_Click" />
@@ -63,5 +60,6 @@
         <Label Content="Količina" HorizontalAlignment="Left" Margin="425,8,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Label Content="Predmet" HorizontalAlignment="Left" Margin="129,11,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Label Content="Dodaj" HorizontalAlignment="Left" Margin="566,9,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock x:Name="validationTB" HorizontalAlignment="Left" Margin="710,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20" Foreground="#FF731E1E"/>
     </Grid>
 </Page>

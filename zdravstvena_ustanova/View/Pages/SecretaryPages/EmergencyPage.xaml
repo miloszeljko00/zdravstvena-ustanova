@@ -46,7 +46,7 @@
         <TextBox x:Name="password" HorizontalAlignment="Left" Margin="64,10,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="24" IsEnabled="False"/>
         <TextBox x:Name="guestNameTB" HorizontalAlignment="Left" Margin="42,94,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="24" IsEnabled="False"/>
         <Label x:Name="nameLabel" Content="Ime i prezime" HorizontalAlignment="Left" Margin="100,52,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" IsEnabled="False"/>
-        <ComboBox x:Name="patientCB" ItemsSource="{Binding}" SelectedValuePath="Id" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" FontSize="24">
+        <ComboBox x:Name="patientCB" ItemsSource="{Binding}" SelectedValuePath="Id" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" FontSize="24" SelectionChanged="patientCB_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -86,5 +86,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Grid.Column="1" Grid.ColumnSpan="2" Content="Termini koji se mogu odložiti" HorizontalAlignment="Left" Margin="21,105,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Width="345"/>
+        <TextBlock x:Name="validationTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,31,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#FFA54040" Width="240"/>
     </Grid>
 </Page>

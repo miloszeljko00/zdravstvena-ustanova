@@ -57,7 +57,14 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             var app = Application.Current as App;
             Item i = itemsCB.SelectedItem as Item;
-            int quantity = Int32.Parse(quantityTB.Text); //vidi validacija ili onaj steper
+            int quantity;
+            validationTB.Text = "";
+            if (!int.TryParse(quantityTB.Text, out quantity))
+            {
+                validationTB.Text = "Kolicina mora biti ceo broj!";
+                return;
+            }
+            //int quantity = Int32.Parse(quantityTB.Text); //vidi validacija ili onaj steper
             StoredItem orderedItem = new StoredItem(i, quantity, StorageType.VOID, new Warehouse(-1));
             orderedItem = app.OrderedItemController.Create(orderedItem);
             OrderedItems.Add(orderedItem);
