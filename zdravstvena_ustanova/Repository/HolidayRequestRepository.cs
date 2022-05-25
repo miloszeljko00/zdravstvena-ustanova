@@ -96,6 +96,7 @@ namespace zdravstvena_ustanova.Repository
             destinationHolidayRequest.EndDate = sourceHolidayRequest.EndDate;
             destinationHolidayRequest.HolidayRequestStatus = sourceHolidayRequest.HolidayRequestStatus;
             destinationHolidayRequest.IsUrgent = sourceHolidayRequest.IsUrgent;
+            destinationHolidayRequest.ReasonForDenial = sourceHolidayRequest.ReasonForDenial;
         }
         public bool Delete(long holidayRequestId)
         {
@@ -132,7 +133,8 @@ namespace zdravstvena_ustanova.Repository
                 ((DateTime)holidayRequest.EndDate).ToString("dd.MM.yyyy. HH:mm"),
                 (int)holidayRequest.HolidayRequestStatus,
                 holidayRequest.IsUrgent,
-                holidayRequest.Doctor.Id
+                holidayRequest.Doctor.Id,
+                holidayRequest.ReasonForDenial
                 );
         }
 
@@ -167,7 +169,8 @@ namespace zdravstvena_ustanova.Repository
                endTime,
                (HolidayRequestStatus)int.Parse(tokens[4]),
                bool.Parse(tokens[5]),
-               long.Parse(tokens[6])
+               long.Parse(tokens[6]),
+               tokens[7]
                 );
         }
 
