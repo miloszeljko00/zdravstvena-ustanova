@@ -23,8 +23,10 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     public partial class AddMedicineToTherapy : Window
     {
         public ObservableCollection<PrescribedMedicine> PrescribedMedicine { get; set; }
+        public ScheduledAppointment ActiveScheduledAppointment { get; set; }
+        public Patient PatientFromActiveAppointment { get; set; }
         public ObservableCollection<Medication> Medications { get; set; }
-        public AddMedicineToTherapy(ObservableCollection<PrescribedMedicine> pm)
+        public AddMedicineToTherapy(ObservableCollection<PrescribedMedicine> pm, ScheduledAppointment scheduledAppointment)
         {
             InitializeComponent();
             DataContext = this;
@@ -32,13 +34,45 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             Medications = new ObservableCollection<Medication>(app.MedicationController.GetAll());
             medComboBox.ItemsSource = Medications;
             PrescribedMedicine = pm;
-
+            ActiveScheduledAppointment = scheduledAppointment;
+            PatientFromActiveAppointment = ActiveScheduledAppointment.Patient;
         }
+
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var app = Application.Current as App;
+            allergensAlertTextBox.Visibility = Visibility.Hidden;
+            submitButton.IsEnabled = true;
             Medication med = (Medication)medComboBox.SelectedItem;
             medIdTextBox.Text = med.Id.ToString();
+            HealthRecord healthRecordByPatientFromActiveAppointment = app.HealthRecordController.FindHealthRecordByPatient(PatientFromActiveAppointment.Id);
+            List<Ingredient> ingredientsFromSelectedMedication = med.Ingredients;
+            List<Allergens> allergensFromPatientHealthRecord = healthRecordByPatientFromActiveAppointment.Allergens;
+            List<Ingredient> allIngredientsFromEveryPatientAllergen = new List<Ingredient>();
+            foreach(Allergens a in allergensFromPatientHealthRecord)
+            {
+                foreach(Ingredient i in a.Ingredients)
+                {
+                    if (!allIngredientsFromEveryPatientAllergen.Contains(i))
+                    {
+                        allIngredientsFromEveryPatientAllergen.Add(i);
+                    }
+                }
+            }
+
+            foreach(Ingredient i in ingredientsFromSelectedMedication)
+            {
+                foreach(Ingredient i2 in allIngredientsFromEveryPatientAllergen)
+                {
+                    if (i2.Id == i.Id)
+                    {
+                        allergensAlertTextBox.Visibility = Visibility.Visible;
+                        submitButton.IsEnabled = false;
+                        return;
+                    }
+                }
+            }
         }
 
         private void createPrescribedMedicine(object sender, RoutedEventArgs e)

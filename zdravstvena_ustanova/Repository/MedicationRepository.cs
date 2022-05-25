@@ -116,6 +116,7 @@ namespace zdravstvena_ustanova.Repository
                 medication.MedicationType.Id,
                 medication.Quantity,
                 medication.IsApproved,
+                count,
                 ingredients
                 );
         }

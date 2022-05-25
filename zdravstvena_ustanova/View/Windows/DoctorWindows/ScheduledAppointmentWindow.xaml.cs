@@ -350,7 +350,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_Add_Therapy(object sender, RoutedEventArgs e)
         {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine, ScheduledAppointment);
             addMedicineToTherapy.ShowDialog();
         }
         private void Button_Click_Edit_Therapy(object sender, RoutedEventArgs e)
