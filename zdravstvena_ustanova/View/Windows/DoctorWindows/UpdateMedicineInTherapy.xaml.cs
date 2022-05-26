@@ -46,75 +46,81 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void updatePrescribedMedicine(object sender, RoutedEventArgs e)
         {
-            if (medComboBox.SelectedItem == null)
-            {
-                if (timesPerDay.Text == null || timesPerDay.Text == "" || onHours.Text == null || onHours.Text == "")
-                {
-                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
-                    return;
-                }
-                MessageBox.Show("Morate odabrati lek!");
-                return;
-            }
             Medication med = (Medication)medComboBox.SelectedItem;
-            if (timesPerDay.Text == null || timesPerDay.Text == "")
-            {
-                if (onHours.Text == null || onHours.Text == "" || medComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
-                    return;
-                }
-                MessageBox.Show("Morate uneti tpd podatak");
-                return;
-            }
-            int tpd = int.Parse(timesPerDay.Text);
-            if (onHours.Text == null || onHours.Text == "")
-            {
-                if (timesPerDay.Text == null || timesPerDay.Text == "" || medComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
-                    return;
-                }
-                MessageBox.Show("Morate uneti oh podatak");
-                return;
-            }
-            int oh = int.Parse(onHours.Text);
-            DateTime ed = (DateTime)endDate.SelectedDate;
-            if (ed.Year < DateTime.Now.Year)
-            {
-                MessageBox.Show("Izabrali ste termin u proslosti!");
-                return;
-            }
-            else if (ed.Month < DateTime.Now.Month)
-            {
-                MessageBox.Show("Izabrali ste termin u proslosti!");
-                return;
-            }
-            else if (ed.Day < DateTime.Now.Day)
-            {
-                MessageBox.Show("Izabrali ste termin u proslosti!");
-                return;
-            }
-            string desc;
-            if (description.Text == null)
-            {
-                desc = "";
-            }
-            else
-            {
-                desc = description.Text;
-            }
+            //if (medComboBox.SelectedItem == null)
+            //{
+            //    if (timesPerDay.Text == null || timesPerDay.Text == "" || onHours.Text == null || onHours.Text == "")
+            //    {
+            //        MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+            //        return;
+            //    }
+            //    MessageBox.Show("Morate odabrati lek!");
+            //    return;
+            //}
 
-            foreach (PrescribedMedicine pmPomocni in PrescribedMedicine)
+            //if(timesPerDay.Text==null || timesPerDay.Text=="")
+            //{
+            //    if (onHours.Text == null || onHours.Text == "" || medComboBox.SelectedItem == null)
+            //    {
+            //        MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+            //        return;
+            //    } 
+            //    MessageBox.Show("Morate uneti tpd podatak");
+            //    return;
+            //}
+            string tpd = timesPerDay.Text;
+            //if (onHours.Text == null || onHours.Text=="")
+            //{
+            //    if (timesPerDay.Text == null || timesPerDay.Text == "" || medComboBox.SelectedItem == null)
+            //    {
+            //        MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+            //        return;
+            //    }
+            //    MessageBox.Show("Morate uneti oh podatak");
+            //    return;
+            //}
+            string oh = onHours.Text;
+            //if(((DateTime?)endDate.SelectedDate) == null)
+            //{
+            //    MessageBox.Show("Morate izabrati end date!");
+            //    return;
+            //}
+            DateTime? ed = (DateTime?)endDate.SelectedDate;
+            //if(ed.Year<DateTime.Now.Year)
+            //{
+            //    MessageBox.Show("Izabrali ste termin u proslosti!");
+            //    return;
+            //} else if(ed.Year == DateTime.Now.Year && ed.Month<DateTime.Now.Month)
+            //{
+            //    MessageBox.Show("Izabrali ste termin u proslosti!");
+            //    return;
+            //} else if(ed.Year == DateTime.Now.Year && ed.Month == DateTime.Now.Month && ed.Day<DateTime.Now.Day)
+            //{
+            //    MessageBox.Show("Izabrali ste termin u proslosti!");
+            //    return;
+            //}
+            string desc = description.Text;
+            //if(description.Text==null)
+            //{
+            //    desc = "";
+            //} else
+            //{
+            //    desc = description.Text;
+            //}
+            var app = Application.Current as App;
+            if (app.PrescribedMedicineController.ValidateParametersFromForm(med, tpd, oh, ed, desc))
             {
-                if (pmPomocni.Id == PrescribedMedicineSelected.Id)
+                foreach (PrescribedMedicine pmPomocni in PrescribedMedicine)
                 {
-                    PrescribedMedicine.Remove(pmPomocni);
-                    break;
+                    if (pmPomocni.Id == PrescribedMedicineSelected.Id)
+                    {
+                        PrescribedMedicine.Remove(pmPomocni);
+                        break;
+                    }
                 }
+                PrescribedMedicine.Add(new PrescribedMedicine(PrescribedMedicineSelected.Id, int.Parse(tpd), int.Parse(oh), (DateTime)ed, desc, med));
+                this.Close();
             }
-            PrescribedMedicine.Add(new PrescribedMedicine(PrescribedMedicineSelected.Id, tpd, oh, ed, desc, med));
-            this.Close();
         }
         private void Button_Click_Cancel_Updating_Medicine_In_Therapy(object sender, RoutedEventArgs e)
         {

@@ -3,6 +3,7 @@ using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace zdravstvena_ustanova.Controller
 {
@@ -103,6 +104,29 @@ namespace zdravstvena_ustanova.Controller
                     t.Add(times[i]);
             }
             return t;
+        }
+        public bool ValidateTime(DateTime selectedDate)
+        {
+            if(selectedDate<DateTime.Now)
+            {
+                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                return false;
+            }
+            return true;
+        }
+        public bool ValidateForm(string selectedTime, DateTime selectedDate, Patient selectedPatient, string selectedTypeOfAnAppointment, string selectedTimeOfAnAppointment)
+        {
+            if (selectedDate < DateTime.Now)
+            {
+                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                return false;
+            }
+            else if (selectedPatient == null || selectedTypeOfAnAppointment == null || selectedTimeOfAnAppointment == null || selectedTypeOfAnAppointment == "" || selectedTimeOfAnAppointment == "")
+            {
+                MessageBox.Show("Morate odabrati sve podatke!");
+                return false;
+            }
+            return true;
         }
     }
 }
