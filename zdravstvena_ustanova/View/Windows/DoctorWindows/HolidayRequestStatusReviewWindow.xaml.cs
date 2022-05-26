@@ -24,17 +24,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
-            CauseOfRequestTextBox.Text = holidayRequest.Cause;
+            ReasonForDenialTextBox.Text = holidayRequest.ReasonForDenial;
             StartDateDatePicker.SelectedDate = holidayRequest.StartDate;
             StartDateDatePicker.IsEnabled = false;
             EndDateDatePicker.SelectedDate= holidayRequest.EndDate;
             EndDateDatePicker.IsEnabled = false;
-            if ((bool)holidayRequest.IsUrgent)
-            {
-                IsUrgentCheckBox.IsChecked = true;
-            }
-            else IsUrgentCheckBox.IsChecked = false;
             RequestStatusTextBox.Text = holidayRequest.HolidayRequestStatus.ToString();
+            RequestStatusTextBox.IsEnabled = false;
+            ReasonForDenialTextBox.IsReadOnly = true;
         }
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)

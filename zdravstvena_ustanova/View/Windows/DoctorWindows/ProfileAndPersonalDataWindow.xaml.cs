@@ -55,22 +55,50 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             var app = Application.Current as App;
             Doctor myDoctor = (Doctor)app.LoggedInUser;
             var holidayRequests = app.HolidayRequestController.GetAll();
+            var myDoctorHolidayRequests = new List<HolidayRequest>();
             var sign = 0;
             foreach (HolidayRequest hr in holidayRequests)
             {
                 if (hr.Doctor.Id == myDoctor.Id)
                 {
-                    HolidayRequestStatusReviewWindow holidayRequestStatusReviewWindow = new HolidayRequestStatusReviewWindow(hr);
-                    holidayRequestStatusReviewWindow.ShowDialog();
-                    sign = 1;
+                    myDoctorHolidayRequests.Add(hr);
+                    //HolidayRequestStatusReviewWindow holidayRequestStatusReviewWindow = new HolidayRequestStatusReviewWindow(hr);
+                    //holidayRequestStatusReviewWindow.ShowDialog();
+                    if (sign == 1)
+                    {
+                        continue;
+                    }
+                    else sign = 1;
                 }
             }
+
             if(sign==0)
             {
                 HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
                 holidayRequest.ShowDialog();
             }
+            else
+            {
+                HolidayRequestsReviewWindow holidayRequestsReviewWindow = new HolidayRequestsReviewWindow(myDoctorHolidayRequests, this);
+                holidayRequestsReviewWindow.ShowDialog();
+            }
             
+        }
+        public List<HolidayRequest> RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow holidayRequestsReviewWindow)
+        {
+            var app = Application.Current as App;
+            var myDoctorHolidayRequests = new List<HolidayRequest>();
+            var holidayRequestsFromBase = app.HolidayRequestController.GetAll();
+            Doctor myDoctor = (Doctor)app.LoggedInUser;
+            foreach (HolidayRequest hr in holidayRequestsFromBase)
+            {
+                if (hr.Doctor.Id == myDoctor.Id)
+                {
+                    myDoctorHolidayRequests.Add(hr);
+                }
+            }
+            holidayRequestsReviewWindow.HolidayRequests =new System.Collections.ObjectModel.ObservableCollection<HolidayRequest>(myDoctorHolidayRequests);
+            return myDoctorHolidayRequests;
         }
     }
 }

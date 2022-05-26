@@ -56,7 +56,12 @@ namespace zdravstvena_ustanova.Service
                     }
                 }
             }
-            allergen.Ingredients = ingredientsBinded;
+            //allergen.Ingredients = ingredientsBinded;
+            allergen.Ingredients.Clear();
+            foreach(Ingredient i in ingredientsBinded)
+            {
+                allergen.Ingredients.Add(i);
+            }
         }
 
         public Allergens Create(Allergens allergen)

@@ -85,7 +85,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             Username = app.LoggedInUser.Name;
             MedicationApprovalRequests = new ObservableCollection<MedicationApprovalRequest>();
             CheckForNewMedicationApprovalRequest();
-            StartCheckingForNewMedicationApprovalRequest(20);
+            StartCheckingForNewMedicationApprovalRequest(500);
             UpdateCalendar();
         }
 
@@ -218,7 +218,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
         {
-            CreateNewAppointment createNewAppointment = new CreateNewAppointment();
+            CreateNewAppointment createNewAppointment = new CreateNewAppointment(this, "sramota koje stelovanje");
         }
 
         private void MenuItem_MouseEnter(object sender, MouseEventArgs e)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using System.Windows;
 
 namespace zdravstvena_ustanova.Controller
 {
@@ -38,6 +39,40 @@ namespace zdravstvena_ustanova.Controller
         public bool Delete(long prescribedMedicineId)
         {
             return _prescribedMedicineService.Delete(prescribedMedicineId);
+        }
+
+        public bool ValidateParametersFromForm(Medication medication, string timesPerDay, string onHours, DateTime? endDate, string description)
+        {
+            bool isFormValid = true;
+           
+            if(timesPerDay == null || timesPerDay=="" || onHours==null || onHours == "" || medication==null || endDate == null)
+            {
+                MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+                isFormValid = false;
+            } else
+            {
+                isFormValid = IsEndDateValid(isFormValid, endDate);
+                AssignValueToDescriptionVariable(description);
+            }           
+            return isFormValid;
+        }
+
+        private void AssignValueToDescriptionVariable(string description)
+        {
+            if (description == null)
+            {
+                description = "";
+            }
+        }
+
+        private bool IsEndDateValid(bool isFormValid, DateTime? endDate)
+        {
+            if(endDate<DateTime.Now)
+            {
+                isFormValid = false;
+                MessageBox.Show("Izabrali ste termin u proslosti!");
+            }
+            return isFormValid;
         }
     }
 }

@@ -424,15 +424,50 @@ namespace zdravstvena_ustanova.Service
         public HealthRecord FindHealthRecordByPatient(long patientId)
         {
             var healthRecords = GetAllOnlyWithAllergens();
-
+            var allergens = _allergensRepository.GetAll();
+            var ingredients = _ingredientRepository.GetAll();
             foreach (HealthRecord healthRecord in healthRecords)
             {
                 if(healthRecord.Patient.Id == patientId)
                 {
+                    BindAllergensWithHealthRecord(allergens, healthRecord, ingredients);
                     return healthRecord;
                 }
             }
             return null;
         }
+
+        //private void BindHealthRecordWithAllergens(HealthRecord healthRecord)
+        //{
+        //    var allergens = _allergensRepository.GetAll();
+        //    List<Allergens> bindedAllergens = new List<Allergens>();
+        //    foreach(Allergens a1 in allergens)
+        //    {
+        //        foreach(Allergens a2 in healthRecord.Allergens)
+        //        {
+        //            if (a1.Id == a2.Id)
+        //            {
+        //                bindedAllergens.Add(a1);
+        //            }
+        //        }
+        //    }
+        //    healthRecord.Allergens.Clear();
+        //    foreach(Allergens a3 in bindedAllergens)
+        //    {
+        //        healthRecord.Allergens.Add(a3);
+        //    }
+        //}
+
+        //private void BindHealthRecordWithPatient(HealthRecord healthRecord, long patientId)
+        //{
+        //    var patients = _patientRepository.GetAll();
+        //    foreach (Patient p in patients)
+        //    {
+        //        if (p.Id == patientId)
+        //        {
+        //            healthRecord.Patient = p;
+        //        }
+        //    }
+        //}
     }
 }
