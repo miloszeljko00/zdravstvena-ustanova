@@ -29,6 +29,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _surveyAnswersService.Create(surveyAnswers);
         }
-        
-    }
+
+        public IEnumerable<SurveyAnswers> GetBySurveyQuestionsName(string surveyName)
+        {
+            return _surveyAnswersService.GetBySurveyQuestionsName(surveyName);
+        }
+   }
 }

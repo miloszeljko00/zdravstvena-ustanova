@@ -21,7 +21,7 @@
             <Button Name="roomsButton" Width="160" Height="64" FontSize="18" Click="roomsButton_Click" Background="#FFF7E2E2">Prostorije</Button>
             <Button Name="itemsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="itemsButton_Click">Predmeti</Button>
             <Button Name="drugsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="drugsButton_Click">Lekovi</Button>
-            <Button Name="pollsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Ankete</Button>
+            <Button Name="pollsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="pollsButton_Click">Ankete</Button>
             <Button Name="accountButton" MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">
                 <WrapPanel>
                     <Image Width="40" Height="40" Source="/Resources/img/profile-picture.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
