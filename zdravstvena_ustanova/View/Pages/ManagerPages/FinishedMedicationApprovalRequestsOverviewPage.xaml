@@ -17,8 +17,11 @@
             <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Label Width="650" Content="Obrađeni zahtevi za odobrenje leka" FontSize="40"></Label>
+            <Button x:Name="EditMedicationButton" Margin="275,0,0,0" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="EditMedicationButton_OnClick">Izmeni lek</Button>
+            <Button x:Name="RequestApprovalAgainButton" Margin="15,0,0,0" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="RequestApprovalAgainButton_OnClick">Ponovo pošalji zahtev</Button>
+
         </WrapPanel>
         <DataGrid Grid.Row="1" x:Name="FinishedMedicationApprovalRequestsDataGrid" ItemsSource="{Binding FinishedMedicationApprovalRequests}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="800" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="FinishedMedicationApprovalRequestsDataGrid_SelectionChanged">
