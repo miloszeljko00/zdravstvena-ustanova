@@ -24,9 +24,9 @@ namespace zdravstvena_ustanova.View.Controls
     public partial class EditMedication : UserControl
     {
         public Medication Medication { get; set; }
-        public ObservableCollection<Medication> Medications { get; set; }
+        public ObservableCollection<Medication>? Medications { get; set; }
         public ObservableCollection<MedicationType> MedicationTypes { get; set; }
-        public EditMedication(ObservableCollection<Medication> medications, Medication selectedMedication)
+        public EditMedication(ObservableCollection<Medication>? medications, Medication selectedMedication)
         {
             InitializeComponent();
             DataContext = this;

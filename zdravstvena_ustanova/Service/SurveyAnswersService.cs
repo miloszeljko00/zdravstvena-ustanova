@@ -64,5 +64,11 @@ namespace zdravstvena_ustanova.Service
         {
             return _surveyAnswersRepository.Create(surveyAnswers);
         }
+
+        public IEnumerable<SurveyAnswers> GetBySurveyQuestionsName(string surveyName)
+        {
+            var surveyAnswers = GetAll();
+            return surveyAnswers.Where(surveyAnswer => surveyAnswer.SurveyQuestions.Name == surveyName).ToList();
+        }
     }
 }

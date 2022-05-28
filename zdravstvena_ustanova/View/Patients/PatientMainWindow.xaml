@@ -44,7 +44,7 @@
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToAnamnesisReview">
             <WrapPanel>
                 <Image Source="/Resources/img/medical-report-icon.png" Height="28" Width="28"/>
                 <Label Content="Izveštaji pregleda"/>
@@ -58,7 +58,7 @@
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,339,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,339,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToNotes">
             <WrapPanel>
                 <Image Source="/Resources/img/notes-icon.png" Height="28" Width="28"/>
                 <Label Content="Beleške"/>

@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -86,6 +87,38 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 Ingredients.Add(ingredient);
             }
             ResponseMessage = medicationApprovalRequest.ResponseMessage;
+        }
+
+        private void EditMedicationButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (FinishedMedicationApprovalRequestsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var approvalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
+            if(approvalRequest.RequestStatus == RequestStatus.APPROVED)return;
+
+            var medication = approvalRequest.Medication;
+
+            MainWindow.Modal.Content = new EditMedication(null, medication);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void RequestApprovalAgainButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (FinishedMedicationApprovalRequestsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var approvalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
+            if (approvalRequest.RequestStatus == RequestStatus.APPROVED) return;
+
+            var medication = approvalRequest.Medication;
+            NavigationService.Navigate(new RequestMedicationApprovalPage(medication, approvalRequest.ApprovingDoctor, approvalRequest.RequestMessage));
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace zdravstvena_ustanova.Controller
@@ -24,6 +25,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _surveyQuestionsService.GetById(Id);
         }
-        
+
+        public IEnumerable<SurveyQuestions> GetAllUnique()
+        {
+            return _surveyQuestionsService.GetAllUnique();
+        }
     }
 }

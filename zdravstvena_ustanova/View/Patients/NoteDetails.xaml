@@ -1,0 +1,23 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.NoteDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+        mc:Ignorable="d"
+        Title="Pregled beleske" Height="380" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid>
+        <Label Content="Naziv beleske :" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
+        <Label Content="Sadrzaj beleske :" HorizontalAlignment="Left" Margin="31,62,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="name" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
+        <TextBox x:Name="content" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="74" Margin="0,88,0,0"/>
+        <Button x:Name="ok" Content="Sacuvaj" HorizontalAlignment="Left" Margin="67,295,0,21" Width="60" Click="update"/>
+        <Label Content="Omoguci obavestenja :" HorizontalAlignment="Left" Margin="31,169,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="check"  HorizontalAlignment="Left" Margin="229,176,0,0" VerticalAlignment="Top" Height="15" Width="25" Checked="enabled" Unchecked="disabled"/>
+        <Label Content="Vreme obavestenja :" HorizontalAlignment="Left" Margin="31,207,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="186,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" GotFocus="focused"/>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="170,295,0,21" Width="60" Click="goBack" />
+        <Label x:Name="warning" FontSize="12" Foreground="Red" HorizontalAlignment="Left" Margin="40,240,0,0" VerticalAlignment="Top" Width="206" Height="30" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
