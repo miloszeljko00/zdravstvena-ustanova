@@ -36,7 +36,6 @@
             <MenuItem Header="PROFILE DATA" Click="MenuItem_Click_ProfileAndPersonalData">
             </MenuItem>
             <MenuItem Header="NOTIFICATIONS       " MouseEnter="MenuItem_MouseEnter" MouseLeave="MenuItem_MouseLeave">
-                <Label Content="Label"/>
             </MenuItem>
             <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout">
             </MenuItem>
@@ -44,7 +43,7 @@
         <Image Source="\Resources\img\logo.png" Height="100" Width="100" Canvas.Left="1119" Canvas.Top="580"/>
         <Label Content="Welcome to your home page - " Margin="27,52,0,0" Width="324" FontSize="22" Canvas.Top="-21"/>
         <Label Content="{Binding Username}" Margin="351,52,0,0" Width="270" FontSize="22" Height="39" Canvas.Left="-11" Canvas.Top="-21"/>
-        <Button FontSize="20" Canvas.Top="310" Content="Medical supply inventory" Canvas.Left="1020" Height="60" Background="#2ac4bd">
+        <Button FontSize="20" Canvas.Top="310" Content="Medical supply inventory" Canvas.Left="1020" Height="60" Background="#2ac4bd" Click="Button_Click_MedicalSupplyInventory">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>

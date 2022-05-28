@@ -188,31 +188,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 this.ShowDialog();
             }
-            //if(SelectedDate.Year<currentDateTime.Year)
-            //{
-            //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-            //    Close();
-            //    return;
-            //} else if(SelectedDate.Year == currentDateTime.Year && SelectedDate.Month<currentDateTime.Month)
-            //{
-            //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-            //    Close();
-            //    return;
-            //} else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
-            //{
-            //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-            //    Close();
-            //    return;
-            //} else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && SelectedDate.Hour < currentDateTime.Hour)
-            //{
-            //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-            //    Close();
-            //    return;
-            //}
-            //else
-            //{
-            //    this.ShowDialog();
-            //}
         }
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
@@ -250,47 +225,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     sa = app.ScheduledAppointmentController.Create(sa);
                 }
                 else return;
-                //var currentDateTime = DateTime.Now;
-                //if (SelectedDate.Year < currentDateTime.Year)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month < currentDateTime.Month)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && int.Parse(TimeComboBox.Text) <= currentDateTime.Hour)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //if (SelectedPatient == null)
-                //{
-                //    if (typeOfAppointment.SelectedItem == null)
-                //    {
-                //        MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
-                //        return;
-                //    }
-                //    MessageBox.Show("Morate odabrati pacijenta!");
-                //    return;
-                //}
-                //else if (typeOfAppointment.SelectedItem == null)
-                //{
-                //    MessageBox.Show("Morate odabrati tip pregleda!");
-                //    return;
-                //}
-                //else
-                //{
-                //    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
-                //    sa = app.ScheduledAppointmentController.Create(sa);
-                //}
             }
             else
             {
@@ -306,47 +240,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     sa = app.ScheduledAppointmentController.Create(sa);
                 }
                 else return;
-                //var currentDateTime = DateTime.Now;
-                //if (SelectedDate.Year < currentDateTime.Year)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month < currentDateTime.Month)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day < currentDateTime.Day)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //else if (SelectedDate.Year == currentDateTime.Year && SelectedDate.Month == currentDateTime.Month && SelectedDate.Day == currentDateTime.Day && int.Parse(TimeComboBox.Text) <= currentDateTime.Hour)
-                //{
-                //    MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                //    return;
-                //}
-                //if (SelectedPatient == null)
-                //{
-                //    if (typeOfAppointment.SelectedItem == null)
-                //    {
-                //        MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
-                //        return;
-                //    }
-                //    MessageBox.Show("Morate odabrati pacijenta!");
-                //    return;
-                //}
-                //else if (typeOfAppointment.SelectedItem == null)
-                //{
-                //    MessageBox.Show("Morate odabrati tip pregleda!");
-                //    return;
-                //}
-                //else
-                //{
-                //    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
-                //    sa = app.ScheduledAppointmentController.Create(sa);
-                //}
             }
             //////////////////////////////////
             if(DoctorHomePageWindow != null)
