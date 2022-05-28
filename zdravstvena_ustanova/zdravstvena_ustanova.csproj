@@ -130,7 +130,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="View\Patients\AnamnesisReview.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Patients\AnamnesisDetails.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Patients\Notes.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Patients\CreateNote.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="View\MainWindowAccount.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Patients\AnamnesisReview.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Patients\AnamnesisDetails.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Patients\Notes.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Patients\CreateNote.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

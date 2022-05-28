@@ -6,20 +6,47 @@ using System.Windows;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using zdravstvena_ustanova.View.Pages;
+using System.Globalization;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class PatientMainWindow : Window
     {
         public DispatcherTimer dt { get; private set; }
+        public DispatcherTimer tim { get; private set; }
         public PatientMainWindow()
         {
             InitializeComponent();
+            CultureInfo provider = CultureInfo.InvariantCulture;
             dt = new DispatcherTimer();
+            tim = new DispatcherTimer();
             dt.Interval = new TimeSpan(0,1,0);
             dt.IsEnabled = true;
             dt.Tick += new EventHandler(dt_Tick);
-            
+            tim.Interval = new TimeSpan(0,0,10);
+            tim.IsEnabled = true;
+            tim.Tick += new EventHandler(tim_Tick);
+
+
+        }
+        private void tim_Tick(object sender, EventArgs e)
+        {
+            tim.IsEnabled = false;
+            var app = Application.Current as App;
+            List<Note> notes = new List<Note>(app.NoteController.GetAll());
+            foreach (Note n in notes)
+            {
+                if (n.Patient.Id == app.LoggedInUser.Id)
+                {
+                    var t = (n.Time.StartsWith("0")) ? n.Time.Substring(1) : n.Time;
+                    if (t.Equals(DateTime.Now.Hour+":"+ DateTime.Now.Minute))
+                    {
+                        CreateNote cn = new CreateNote();
+                        cn.ShowDialog();
+                    }
+                }
+            }
+            tim.IsEnabled = true;
         }
 
         private void dt_Tick(object sender, EventArgs e)
@@ -75,10 +102,20 @@ namespace zdravstvena_ustanova.View
         {
             this.content.Content = new Notis();
         }
+        private void goToNotes(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new Notes();
+        }
+
 
         private void goToSurveys(object sender, RoutedEventArgs e)
         {
             this.content.Content = new Surveys();
+        }
+
+        private void goToAnamnesisReview(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new AnamnesisReview();
         }
     }
 }
