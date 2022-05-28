@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="584" d:DesignWidth="596">
     <Grid>
-        <ListView x:Name="notesList" Margin="26,59,40,110" ItemsSource="{Binding Note}" PreviewKeyDown="entered">
+        <ListView x:Name="notesList" Margin="26,59,40,110" ItemsSource="{Binding Note}" PreviewKeyDown="entered" SelectionChanged="selected">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="250" Header="Naslov beleske" DisplayMemberBinding="{Binding Name}"/>
@@ -16,8 +16,8 @@
             </ListView.View>
         </ListView>
         <Label FontSize="20" Content="Spisak kreiranih beleski :" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" HorizontalAlignment="Left" Margin="171,510,0,0" VerticalAlignment="Top" Height="33" Width="63" Click="goToCreateNote"/>
-        <Button Content="Obrisi" HorizontalAlignment="Left" Margin="362,510,0,0" VerticalAlignment="Top" Height="33" Width="65" IsEnabled="False"/>
+        <Button Content="Kreiraj" HorizontalAlignment="Left" Margin="171,510,0,0" VerticalAlignment="Top" Height="33" Width="65" Click="goToCreateNote"/>
+        <Button x:Name="delete" Content="Obrisi" HorizontalAlignment="Left" Margin="362,510,0,0" VerticalAlignment="Top" Height="33" Width="65" IsEnabled="False" Click="goToDeleteNote"/>
 
     </Grid>
 </UserControl>

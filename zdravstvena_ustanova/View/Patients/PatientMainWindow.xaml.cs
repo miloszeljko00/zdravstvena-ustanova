@@ -23,7 +23,7 @@ namespace zdravstvena_ustanova.View
             dt.Interval = new TimeSpan(0,1,0);
             dt.IsEnabled = true;
             dt.Tick += new EventHandler(dt_Tick);
-            tim.Interval = new TimeSpan(0,0,10);
+            tim.Interval = new TimeSpan(0,1,0);
             tim.IsEnabled = true;
             tim.Tick += new EventHandler(tim_Tick);
 
@@ -33,16 +33,17 @@ namespace zdravstvena_ustanova.View
         {
             tim.IsEnabled = false;
             var app = Application.Current as App;
+            DateTime now = DateTime.Now;
             List<Note> notes = new List<Note>(app.NoteController.GetAll());
             foreach (Note n in notes)
             {
                 if (n.Patient.Id == app.LoggedInUser.Id)
                 {
                     var t = (n.Time.StartsWith("0")) ? n.Time.Substring(1) : n.Time;
-                    if (t.Equals(DateTime.Now.Hour+":"+ DateTime.Now.Minute))
+                    if (t.Equals(now.Hour + ":" + now.Minute))
                     {
-                        CreateNote cn = new CreateNote();
-                        cn.ShowDialog();
+                        NoteNoti nn = new NoteNoti(n);
+                        nn.ShowDialog();
                     }
                 }
             }

@@ -21,7 +21,9 @@ namespace zdravstvena_ustanova.View
         {
             if (e.Key == Key.Enter)
             {
-                
+                NoteDetails nd = new NoteDetails((Note)notesList.SelectedItem);
+                nd.ShowDialog();
+                this.refresh();
             }
         }
 
@@ -44,6 +46,19 @@ namespace zdravstvena_ustanova.View
                 }
             }
             notesList.ItemsSource = AllNotes;
+            delete.IsEnabled = false;
+        }
+
+        private void selected(object sender, SelectionChangedEventArgs e)
+        {
+            delete.IsEnabled = true;
+        }
+
+        private void goToDeleteNote(object sender, RoutedEventArgs e)
+        {
+            DeleteNote dn = new DeleteNote((Note)notesList.SelectedItem);
+            dn.ShowDialog();
+            this.refresh();
         }
     }
 }

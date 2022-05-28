@@ -16,12 +16,28 @@ using System.Globalization;
 
 namespace zdravstvena_ustanova.View
 {
-    public partial class CreateNote : Window
+    public partial class NoteDetails : Window
     {
-        public CreateNote()
+        public Note Note { get; set; }
+        public NoteDetails(Note n)
 
         {
             InitializeComponent();
+            Note = n;
+            name.Text = n.Name;
+            content.Text = n.Content;
+            if (n.Time.Equals("Onemoguceno"))
+            {
+                check.IsChecked = false;
+                time.IsEnabled = false;
+                time.Text = "";
+            }
+            else
+            {
+                check.IsChecked = true;
+                time.IsEnabled = true;
+                time.Text = n.Time;
+            }
         }
 
         private void goBack(object sender, RoutedEventArgs e)
@@ -39,7 +55,7 @@ namespace zdravstvena_ustanova.View
             time.IsEnabled = false;
         }
 
-        private void create(object sender, RoutedEventArgs e)
+        private void update(object sender, RoutedEventArgs e)
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             DateTime dt;
@@ -54,13 +70,13 @@ namespace zdravstvena_ustanova.View
                     {
                         warning.Content = "";
                     }
-                    note = new Note(0, app.LoggedInUser.Id, name.Text, content.Text, time.Text);
+                    note = new Note(Note.Id, Note.Patient.Id, name.Text, content.Text, time.Text);
                 }
                 else
                 {
-                    note = new Note(0, app.LoggedInUser.Id, name.Text, content.Text, "Onemoguceno");
+                    note = new Note(Note.Id, Note.Patient.Id, name.Text, content.Text, "Onemoguceno");
                 }
-                note = app.NoteController.Create(note);
+                app.NoteController.Update(note);
                 this.Close();
             }
             catch
