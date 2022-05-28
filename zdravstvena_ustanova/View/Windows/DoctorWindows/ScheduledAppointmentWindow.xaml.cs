@@ -336,6 +336,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             { 
                 var app = Application.Current as App;
                 app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
+                app.MedicalExaminationController.Delete(MedicalExamination.Id);
 
                 DoctorHomePageWindow.UpdateCalendar();
                 this.Close();

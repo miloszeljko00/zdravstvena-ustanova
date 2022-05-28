@@ -278,5 +278,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             profileAndPersonalDataWindow.Show();
 
         }
+
+        private void Button_Click_MedicalSupplyInventory(object sender, RoutedEventArgs e)
+        {
+            MedicalSupplyInventoryWindow medicalSupplyInventoryWindow = new MedicalSupplyInventoryWindow();
+            medicalSupplyInventoryWindow.ShowDialog();
+        }
     }
 }

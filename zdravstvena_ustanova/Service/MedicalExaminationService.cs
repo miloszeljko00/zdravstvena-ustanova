@@ -105,47 +105,14 @@ namespace zdravstvena_ustanova.Service
         private void BindScheduledAppointmentWithMedicalExamination(MedicalExamination medicalExamination,
             IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients, IEnumerable<Room> rooms, IEnumerable<Account> accounts)
         {
-            foreach (ScheduledAppointment sa in scheduledAppointments)
-            {
-                if (medicalExamination.ScheduledAppointment.Id == sa.Id)
-                {
-                    medicalExamination.ScheduledAppointment = sa;
-                    break;
-                }
-            }
+            BindScheduledAppointmentWithMedicalExaminationById(medicalExamination, scheduledAppointments);
+            BindDoctorWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, doctors, accounts);
+            BindPatientWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, patients, accounts);
+            BindRoomWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, rooms);
+        }
 
-            foreach (Doctor d in doctors)
-            {
-                if (medicalExamination.ScheduledAppointment.Doctor.Id == d.Id)
-                {
-                    medicalExamination.ScheduledAppointment.Doctor = d;
-                    foreach (Account a in accounts)
-                    {
-                        if (medicalExamination.ScheduledAppointment.Doctor.Account.Id == a.Id)
-                        {
-                            medicalExamination.ScheduledAppointment.Doctor.Account = a;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            foreach (Patient p in patients)
-            {
-                if (medicalExamination.ScheduledAppointment.Patient.Id == p.Id)
-                {
-                    medicalExamination.ScheduledAppointment.Patient = p;
-                    foreach (Account a in accounts)
-                    {
-                        if (medicalExamination.ScheduledAppointment.Patient.Account.Id == a.Id)
-                        {
-                            medicalExamination.ScheduledAppointment.Patient.Account = a;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
+        private void BindRoomWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Room> rooms)
+        {
             foreach (Room r in rooms)
             {
                 if (medicalExamination.ScheduledAppointment.Room.Id == r.Id)
@@ -155,6 +122,69 @@ namespace zdravstvena_ustanova.Service
                 }
             }
         }
+
+        private void BindPatientWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Patient> patients, IEnumerable<Account> accounts)
+        {
+            foreach (Patient p in patients)
+            {
+                if (medicalExamination.ScheduledAppointment.Patient.Id == p.Id)
+                {
+                    BindPatientWithAccount(p, accounts);
+                    medicalExamination.ScheduledAppointment.Patient = p;
+                    break;
+                }
+            }
+        }
+
+        private void BindPatientWithAccount(Patient p, IEnumerable<Account> accounts)
+        {
+            foreach (Account a in accounts)
+            {
+                if (p.Account.Id == a.Id)
+                {
+                    p.Account = a;
+                    break;
+                }
+            }
+        }
+
+        private void BindDoctorWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Doctor> doctors, IEnumerable<Account> accounts)
+        {
+            foreach (Doctor d in doctors)
+            {
+                if (medicalExamination.ScheduledAppointment.Doctor.Id == d.Id)
+                {
+                    BindDoctorWithAccount(d, accounts);
+                    medicalExamination.ScheduledAppointment.Doctor = d;
+                    break;
+                }
+            }
+        }
+
+        private void BindDoctorWithAccount(Doctor d, IEnumerable<Account> accounts)
+        {
+            foreach (Account a in accounts)
+            {
+                if (d.Id == a.Id)
+                {
+                    d.Account = a;
+                    break;
+                }
+            }
+        }
+
+        private void BindScheduledAppointmentWithMedicalExaminationById(MedicalExamination medicalExamination, IEnumerable<ScheduledAppointment> scheduledAppointments)
+        {
+            foreach (ScheduledAppointment sa in scheduledAppointments)
+            {
+                if (medicalExamination.ScheduledAppointment.Id == sa.Id)
+                {
+                    medicalExamination.ScheduledAppointment = sa;
+                    break;
+                }
+            }
+        }
+
         private void BindScheduledAppointmentsWithMedicalExaminations(IEnumerable<MedicalExamination> medicalExaminations,
            IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients, IEnumerable<Room> rooms, IEnumerable<Account> accounts)
         {
