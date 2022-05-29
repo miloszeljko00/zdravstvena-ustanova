@@ -19,6 +19,7 @@ using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.View.Pages;
 using zdravstvena_ustanova.Model.Enums;
 using System.Threading;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
