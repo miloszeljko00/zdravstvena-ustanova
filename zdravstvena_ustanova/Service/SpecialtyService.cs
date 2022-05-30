@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SpecialtyService
     {
-        private readonly SpecialtyRepository _specialtyRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
 
-        public SpecialtyService(SpecialtyRepository specialtyRepository)
+        public SpecialtyService(ISpecialtyRepository specialtyRepository)
         {
             _specialtyRepository = specialtyRepository;
         }

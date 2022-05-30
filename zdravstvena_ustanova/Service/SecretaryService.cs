@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SecretaryService
     {
-        private readonly SecretaryRepository _secretaryRepository;
-        private readonly AccountRepository _accountRepository;
+        private readonly ISecretaryRepository _secretaryRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public SecretaryService(SecretaryRepository secretaryRepository, AccountRepository accountRepository)
+        public SecretaryService(ISecretaryRepository secretaryRepository, IAccountRepository accountRepository)
         {
             _secretaryRepository = secretaryRepository;
             _accountRepository = accountRepository;

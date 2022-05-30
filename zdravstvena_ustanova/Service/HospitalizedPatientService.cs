@@ -5,17 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class HospitalizedPatientService
     {
-        private readonly HospitalizedPatientRepository _hospitalizedPatientRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
+        private readonly IHospitalizedPatientRepository _hospitalizedPatientRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public HospitalizedPatientService(HospitalizedPatientRepository hospitalizedPatientRepository, PatientRepository patientRepository, RoomRepository roomRepository, AccountRepository accountRepository)
+        public HospitalizedPatientService(IHospitalizedPatientRepository hospitalizedPatientRepository,
+            IPatientRepository patientRepository, IRoomRepository roomRepository, IAccountRepository accountRepository)
         {
             _hospitalizedPatientRepository = hospitalizedPatientRepository;
             _patientRepository = patientRepository;

@@ -7,23 +7,25 @@ using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
 using System.Threading;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SystemService
     {
-        private readonly ScheduledItemTransferRepository _scheduledItemTransferRepository;
-        private readonly StoredItemRepository _storedItemRepository;
-        private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly RoomRepository _roomUnderRenovationRepository;
+        private readonly IScheduledItemTransferRepository _scheduledItemTransferRepository;
+        private readonly IStoredItemRepository _storedItemRepository;
+        private readonly IRenovationAppointmentRepository _renovationAppointmentRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomUnderRenovationRepository;
 
         private const int StandardRenovationId = 1;
         private const int MergeRenovationId = 2;
         private const int SplitRenovationId = 3;
 
-        public SystemService(ScheduledItemTransferRepository scheduledItemTransferRepository, StoredItemRepository storedItemRepository,
-            RenovationAppointmentRepository renovationAppointmentRepository, RoomRepository roomRepository, RoomRepository roomUnderRenovationRepository)
+        public SystemService(IScheduledItemTransferRepository scheduledItemTransferRepository, IStoredItemRepository storedItemRepository,
+            IRenovationAppointmentRepository renovationAppointmentRepository,
+            IRoomRepository roomRepository, IRoomRepository roomUnderRenovationRepository)
         {
             _scheduledItemTransferRepository = scheduledItemTransferRepository;
             _storedItemRepository = storedItemRepository;

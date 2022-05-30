@@ -3,16 +3,17 @@ using System;
 using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class AllergensService
     {
-        private readonly AllergensRepository _allergensRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IAllergensRepository _allergensRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
 
-        public AllergensService(AllergensRepository allergensRepository, IngredientRepository ingredientRepository)
+        public AllergensService(IAllergensRepository allergensRepository, IIngredientRepository ingredientRepository)
         {
             _allergensRepository = allergensRepository;
             _ingredientRepository = ingredientRepository;

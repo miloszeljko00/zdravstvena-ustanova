@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SurveyAnswersService
     {
-        private readonly SurveyAnswersRepository _surveyAnswersRepository;
-        private PatientRepository _patientRepository;
-        private SurveyQuestionsRepository _surveyQuestionsRepository;
+        private readonly ISurveyAnswersRepository _surveyAnswersRepository;
+        private IPatientRepository _patientRepository;
+        private ISurveyQuestionsRepository _surveyQuestionsRepository;
 
-        public SurveyAnswersService(SurveyAnswersRepository surveyAnswersRepository, PatientRepository patientRepository, SurveyQuestionsRepository surveyQuestionsRepository)
+        public SurveyAnswersService(ISurveyAnswersRepository surveyAnswersRepository, IPatientRepository patientRepository,
+            ISurveyQuestionsRepository surveyQuestionsRepository)
         {
             _surveyAnswersRepository = surveyAnswersRepository;
             _patientRepository = patientRepository;

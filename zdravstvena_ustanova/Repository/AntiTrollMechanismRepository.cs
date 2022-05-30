@@ -7,10 +7,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class AntiTrollMechanismRepository
+    public class AntiTrollMechanismRepository : IAntiTrollMechanismRepository
     {
    
         private const string NOT_FOUND_ERROR = "ID NOT FOUND: {0} = {1}";
@@ -36,7 +37,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public AntiTrollMechanism GetById(long id)
+        public AntiTrollMechanism Get(long id)
         {
             try
             {
@@ -123,6 +124,11 @@ namespace zdravstvena_ustanova.Repository
         private void WriteLinesToFile(string path, List<string> lines)
         {
             File.WriteAllLines(path, lines);
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

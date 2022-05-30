@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class ItemTypeService
     {
-        private readonly ItemTypeRepository _itemTypeRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
 
-        public ItemTypeService(ItemTypeRepository itemTypeRepository)
+        public ItemTypeService(IItemTypeRepository itemTypeRepository)
         {
             _itemTypeRepository = itemTypeRepository;
         }
@@ -24,7 +25,7 @@ namespace zdravstvena_ustanova.Service
 
         public ItemType GetById(long id)
         {
-            return _itemTypeRepository.GetById(id);
+            return _itemTypeRepository.Get(id);
         }
 
         public ItemType Create(ItemType itemType)

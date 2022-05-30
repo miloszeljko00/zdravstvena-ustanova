@@ -4,18 +4,19 @@ using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
    public class StoredItemService
    {
 
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
-        private readonly StoredItemRepository _itemRoomRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IStoredItemRepository _itemRoomRepository;
 
-        public StoredItemService(StoredItemRepository itemRoomRepository, ItemRepository itemRepository,
-            ItemTypeRepository itemTypeRepository)
+        public StoredItemService(IStoredItemRepository itemRoomRepository, IItemRepository itemRepository,
+            IItemTypeRepository itemTypeRepository)
         {
             _itemRepository = itemRepository;
             _itemRoomRepository = itemRoomRepository;

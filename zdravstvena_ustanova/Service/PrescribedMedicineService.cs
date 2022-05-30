@@ -5,19 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class PrescribedMedicineService
     {
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public PrescribedMedicineService(PrescribedMedicineRepository prescribedMedicineRepository,
-            MedicationRepository medicationRepository,MedicationTypeRepository medicationTypeRepository,
-            IngredientRepository ingredientRepository)
+        public PrescribedMedicineService(IPrescribedMedicineRepository prescribedMedicineRepository,
+            IMedicationRepository medicationRepository, IMedicationTypeRepository medicationTypeRepository,
+            IIngredientRepository ingredientRepository)
         {
             _prescribedMedicineRepository = prescribedMedicineRepository;
             _medicationRepository = medicationRepository;

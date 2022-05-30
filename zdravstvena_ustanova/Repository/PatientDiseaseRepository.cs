@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class PatientDiseaseRepository
+    public class PatientDiseaseRepository : IPatientDiseaseRepository
     {
         private const string NOT_FOUND_ERROR = "PATIENT DISEASE NOT FOUND: {0} = {1}";
         private readonly string _path;

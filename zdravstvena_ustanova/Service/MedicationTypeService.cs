@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class MedicationTypeService
     {
-        private readonly MedicationTypeRepository _medicationTypeRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
 
-        public MedicationTypeService(MedicationTypeRepository medicationTypeRepository)
+        public MedicationTypeService(IMedicationTypeRepository medicationTypeRepository)
         {
             _medicationTypeRepository = medicationTypeRepository;
         }

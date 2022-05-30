@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class MedicationApprovalRequestService
     {
-        private readonly MedicationApprovalRequestRepository _medicationApprovalRequestRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        private readonly DoctorRepository _doctorRepository;
+        private readonly IMedicationApprovalRequestRepository _medicationApprovalRequestRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
 
-        public MedicationApprovalRequestService(MedicationApprovalRequestRepository medicationApprovalRequestRepository, 
-            MedicationRepository medicationRepository, IngredientRepository ingredientRepository,
-            MedicationTypeRepository medicationTypeRepository, DoctorRepository doctorRepository)
+        public MedicationApprovalRequestService(IMedicationApprovalRequestRepository medicationApprovalRequestRepository,
+            IMedicationRepository medicationRepository, IIngredientRepository ingredientRepository,
+            IMedicationTypeRepository medicationTypeRepository, IDoctorRepository doctorRepository)
         {
             _medicationApprovalRequestRepository = medicationApprovalRequestRepository;
             _medicationRepository = medicationRepository;

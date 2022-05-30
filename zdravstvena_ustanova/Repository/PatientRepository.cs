@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class PatientRepository
+    public class PatientRepository : IPatientRepository
     {
         private const string NOT_FOUND_ERROR = "PATIENT NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -54,7 +55,7 @@ namespace zdravstvena_ustanova.Repository
             return patient;
         }
 
-        public void Update(Patient patient)
+        public bool Update(Patient patient)
         {
             var patients = GetAll();
 
@@ -75,8 +76,9 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, PatientsToCSVFormat((List<Patient>)patients));
+            return true;
         }
-        public void Delete(long pacientId)
+        public bool Delete(long pacientId)
         {
             var patients = (List<Patient>)GetAll();
 
@@ -91,6 +93,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, PatientsToCSVFormat((List<Patient>)patients));
+            return true;
         }
 
         private string PatientToCSVFormat(Patient patient)

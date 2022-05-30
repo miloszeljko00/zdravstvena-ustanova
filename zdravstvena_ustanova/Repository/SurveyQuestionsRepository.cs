@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class SurveyQuestionsRepository
+    public class SurveyQuestionsRepository : ISurveyQuestionsRepository
     {
    
         private const string NOT_FOUND_ERROR = "SURVEY NOT FOUND: {0} = {1}";
@@ -29,7 +30,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public SurveyQuestions GetById(long id)
+        public SurveyQuestions Get(long id)
         {
             try
             {
@@ -74,6 +75,21 @@ namespace zdravstvena_ustanova.Repository
                 tokens[8],
                 tokens[9]);
 
+        }
+
+        public SurveyQuestions Create(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

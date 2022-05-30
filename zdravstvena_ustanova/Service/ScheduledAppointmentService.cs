@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class ScheduledAppointmentService
     {
-        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private PatientRepository _patientRepository;
-        private DoctorRepository _doctorRepository;
-        private RoomRepository _roomRepository;
-        private AccountRepository _accountRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public ScheduledAppointmentService(ScheduledAppointmentRepository scheduledAppointmentRepository, RoomRepository roomRepository,
-            DoctorRepository doctorRepository, PatientRepository patientRepository, AccountRepository accountRepository)
+        public ScheduledAppointmentService(IScheduledAppointmentRepository scheduledAppointmentRepository, IRoomRepository roomRepository,
+            IDoctorRepository doctorRepository, IPatientRepository patientRepository, IAccountRepository accountRepository)
         {
             _scheduledAppointmentRepository = scheduledAppointmentRepository;
             _roomRepository = roomRepository;

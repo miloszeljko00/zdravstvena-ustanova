@@ -5,33 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class MedicalExaminationService
     {
-        private readonly MedicalExaminationRepository _medicalExaminationRepository;
-        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private readonly AnamnesisRepository _anamnesisRepository;
-        private readonly SpecialistRequestRepository _specialistRequestRepository;
-        private readonly LabAnalysisRequestRepository _labAnalysisRequestRepository;
-        private readonly HospitalizationRequestRepository _hospitalizationRequestRepository;
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly DoctorRepository _doctorRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
-        private readonly SpecialtyRepository _specialtyRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IMedicalExaminationRepository _medicalExaminationRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
+        private readonly ISpecialistRequestRepository _specialistRequestRepository;
+        private readonly ILabAnalysisRequestRepository _labAnalysisRequestRepository;
+        private readonly IHospitalizationRequestRepository _hospitalizationRequestRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public MedicalExaminationService(MedicalExaminationRepository medicalExaminationRepository, ScheduledAppointmentRepository scheduledAppointmentRepository,
-            AnamnesisRepository anamnesisRepository, SpecialistRequestRepository specialistRequestRepository,
-            LabAnalysisRequestRepository labAnalysisRequestRepository, HospitalizationRequestRepository hospitalizationRequestRepository,
-            PrescribedMedicineRepository prescribedMedicineRepository, DoctorRepository doctorRepository, PatientRepository patientRepository,
-            RoomRepository roomRepository, AccountRepository accountRepository, SpecialtyRepository specialtyRepository, LabAnalysisComponentRepository labAnalysisComponentRepository,
-            MedicationRepository medicationRepository, IngredientRepository ingredientRepository)
+        public MedicalExaminationService(IMedicalExaminationRepository medicalExaminationRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository, IAnamnesisRepository anamnesisRepository,
+            ISpecialistRequestRepository specialistRequestRepository, ILabAnalysisRequestRepository labAnalysisRequestRepository,
+            IHospitalizationRequestRepository hospitalizationRequestRepository, IPrescribedMedicineRepository prescribedMedicineRepository,
+            IDoctorRepository doctorRepository, IPatientRepository patientRepository, IRoomRepository roomRepository,
+            IAccountRepository accountRepository, ISpecialtyRepository specialtyRepository,
+            ILabAnalysisComponentRepository labAnalysisComponentRepository, IMedicationRepository medicationRepository,
+            IIngredientRepository ingredientRepository)
         {
             _medicalExaminationRepository = medicalExaminationRepository;
             _scheduledAppointmentRepository = scheduledAppointmentRepository;

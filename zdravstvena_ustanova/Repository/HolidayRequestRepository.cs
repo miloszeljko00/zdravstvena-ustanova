@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class HolidayRequestRepository
+    public class HolidayRequestRepository : IHolidayRequestRepository
     {
         private const string NOT_FOUND_ERROR = "HOLIDAY REQUEST NOT FOUND: {0} = {1}";
         private readonly string _path;

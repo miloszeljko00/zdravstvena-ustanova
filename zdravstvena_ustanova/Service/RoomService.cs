@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class RoomService
     {
-        private readonly RoomRepository _roomRepository;
-        private readonly StoredItemRepository _storedItemRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IStoredItemRepository _storedItemRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
 
 
-        public RoomService(RoomRepository roomRepository, StoredItemRepository storedItemRepository, ItemRepository itemRepository,
-            ItemTypeRepository itemTypeRepository)
+        public RoomService(IRoomRepository roomRepository, IStoredItemRepository storedItemRepository, IItemRepository itemRepository,
+            IItemTypeRepository itemTypeRepository)
         {
             _roomRepository = roomRepository;
             _storedItemRepository = storedItemRepository;

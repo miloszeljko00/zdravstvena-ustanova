@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class NoteService
     {
-        private readonly NoteRepository _noteRepository;
-        private PatientRepository _patientRepository;
+        private readonly INoteRepository _noteRepository;
+        private IPatientRepository _patientRepository;
 
-        public NoteService(NoteRepository noteRepository, PatientRepository patientRepository)
+        public NoteService(INoteRepository noteRepository, IPatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
             _noteRepository = noteRepository;

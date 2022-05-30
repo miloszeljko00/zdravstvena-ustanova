@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class SpecialistRequestRepository
+    public class SpecialistRequestRepository : ISpecialistRequestRepository
     {
         private const string NOT_FOUND_ERROR = "SPECIALTY REQUEST NOT FOUND: {0} = {1}";
         private readonly string _path;

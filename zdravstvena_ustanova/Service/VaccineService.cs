@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class VaccineService
     {
-        private readonly VaccineRepository _vaccineRepository;
+        private readonly IVaccineRepository _vaccineRepository;
 
-        public VaccineService(VaccineRepository vaccineRepository)
+        public VaccineService(IVaccineRepository vaccineRepository)
         {
             _vaccineRepository = vaccineRepository;
         }

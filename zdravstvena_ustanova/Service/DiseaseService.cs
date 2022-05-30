@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class DiseaseService
     {
-        private readonly DiseaseRepository _diseaseRepository;
+        private readonly IDiseaseRepository _diseaseRepository;
 
-        public DiseaseService(DiseaseRepository diseaseRepository)
+        public DiseaseService(IDiseaseRepository diseaseRepository)
         {
             _diseaseRepository = diseaseRepository;
         }

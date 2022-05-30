@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class ScheduledItemTransferRepository
+    public class ScheduledItemTransferRepository : IScheduledItemTransferRepository
     {
         private const string NOT_FOUND_ERROR = "SCHEDULED ITEM TRANSFER NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -56,7 +57,7 @@ namespace zdravstvena_ustanova.Repository
             return scheduledItemTransfer;
         }
 
-        public void Update(ScheduledItemTransfer scheduledItemTransfer)
+        public bool Update(ScheduledItemTransfer scheduledItemTransfer)
         {
             var scheduledItemTransfers = GetAll();
 
@@ -73,14 +74,13 @@ namespace zdravstvena_ustanova.Repository
                     sit.DestinationRoom = scheduledItemTransfer.DestinationRoom;
                     sit.DestinationWarehouse = scheduledItemTransfer.DestinationWarehouse;
                     sit.TransferDate = scheduledItemTransfer.TransferDate;
-                    WriteLinesToFile(_path, ScheduledItemTransfersToCSVFormat((List<ScheduledItemTransfer>)scheduledItemTransfers));
-                    break;
+                    
                 }
             }
-
-
+            WriteLinesToFile(_path, ScheduledItemTransfersToCSVFormat((List<ScheduledItemTransfer>)scheduledItemTransfers));
+            return true;
         }
-        public void Delete(long scheduledItemTransferId)
+        public bool Delete(long scheduledItemTransferId)
         {
             var scheduledItemTransfers = (List<ScheduledItemTransfer>)GetAll();
 
@@ -95,6 +95,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, ScheduledItemTransfersToCSVFormat((List<ScheduledItemTransfer>)scheduledItemTransfers));
+            return true;
         }
 
         private string ScheduledItemTransferToCSVFormat(ScheduledItemTransfer scheduledItemTransfer)

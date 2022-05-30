@@ -5,10 +5,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class HospitalizationRequestRepository
+    public class HospitalizationRequestRepository : IHospitalizationRequestRepository
     {
         private const string NOT_FOUND_ERROR = "INGREDIENT NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -33,7 +34,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public HospitalizationRequest GetById(long id)
+        public HospitalizationRequest Get(long id)
         {
             try
             {

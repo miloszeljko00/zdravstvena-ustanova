@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class ManagerService
     {
-        private readonly ManagerRepository _managerRepository;
-        private readonly AccountRepository _accountRepository;
+        private readonly IManagerRepository _managerRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public ManagerService(ManagerRepository managerRepository, AccountRepository accountRepository)
+        public ManagerService(IManagerRepository managerRepository, IAccountRepository accountRepository)
         {
             _managerRepository = managerRepository;
             _accountRepository = accountRepository;
