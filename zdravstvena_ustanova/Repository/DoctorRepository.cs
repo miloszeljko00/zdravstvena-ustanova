@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class DoctorRepository
+    public class DoctorRepository : IDoctorRepository
     {
         private const string NOT_FOUND_ERROR = "DOCTOR NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -53,7 +54,7 @@ namespace zdravstvena_ustanova.Repository
             return doctor;
         }
 
-        public void Update(Doctor doctor)
+        public bool Update(Doctor doctor)
         {
             var doctors = GetAll();
 
@@ -78,8 +79,9 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, DoctorsToCSVFormat((List<Doctor>)doctors));
+            return true;
         }
-        public void Delete(long doctorId)
+        public bool Delete(long doctorId)
         {
             var doctors = (List<Doctor>)GetAll();
 
@@ -94,6 +96,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, DoctorsToCSVFormat((List<Doctor>)doctors));
+            return true;
         }
 
         private string DoctorToCSVFormat(Doctor doctor)

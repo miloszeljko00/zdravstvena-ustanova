@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class LabAnalysisComponentRepository
+    public class LabAnalysisComponentRepository : ILabAnalysisComponentRepository
     {
         private const string NOT_FOUND_ERROR = "INGREDIENT NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -32,7 +33,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public LabAnalysisComponent GetById(long id)
+        public LabAnalysisComponent Get(long id)
         {
             try
             {

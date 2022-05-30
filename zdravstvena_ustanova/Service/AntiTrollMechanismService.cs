@@ -32,7 +32,7 @@ namespace zdravstvena_ustanova.Service
         public AntiTrollMechanism GetById(long id)
         {
             var patients = _patientRepository.GetAll();
-            var antiTrollMechanism = _antiTrollMechanismRepository.GetById(id);
+            var antiTrollMechanism = _antiTrollMechanismRepository.Get(id);
            
             BindPatientWithMechanism(patients, antiTrollMechanism);
             return antiTrollMechanism;

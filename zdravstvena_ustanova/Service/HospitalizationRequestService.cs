@@ -23,7 +23,7 @@ namespace zdravstvena_ustanova.Service
         }
         public HospitalizationRequest GetById(long id)
         {
-            return _hospitalizationRequestRepository.GetById(id);
+            return _hospitalizationRequestRepository.Get(id);
         }
 
         public HospitalizationRequest Create(HospitalizationRequest hospitalizationRequest)

@@ -239,7 +239,7 @@ namespace zdravstvena_ustanova.Service
             
             var mergedRoom = renovationAppointment.RoomForMergeOrFirstRoomOfSplit;
             var mergedRoomRenovationAppointment = new RenovationAppointment(mergedRoom, renovationAppointment.StartDate,
-                DateTime.MaxValue, renovationAppointment.Description, _renovationTypeRepository.GetById(1));
+                DateTime.MaxValue, renovationAppointment.Description, _renovationTypeRepository.Get(1));
 
             renovationAppointment = Create(mergedRoomRenovationAppointment);
             return renovationAppointment;

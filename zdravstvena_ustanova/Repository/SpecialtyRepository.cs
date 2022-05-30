@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class SpecialtyRepository
+    public class SpecialtyRepository : ISpecialtyRepository
     {
         private const string NOT_FOUND_ERROR = "SPECIALITY NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -53,7 +54,7 @@ namespace zdravstvena_ustanova.Repository
             return specialty;
         }
 
-        public void Update(Specialty specialty)
+        public bool Update(Specialty specialty)
         {
             var specialties = GetAll();
 
@@ -67,8 +68,9 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, SpecialtiesToCSVFormat((List<Specialty>)specialties));
+            return true;
         }
-        public void Delete(long specialtyId)
+        public bool Delete(long specialtyId)
         {
             var specialties = (List<Specialty>)GetAll();
 
@@ -83,6 +85,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, SpecialtiesToCSVFormat((List<Specialty>)specialties));
+            return true;
         }
 
         private string SpecialtyToCSVFormat(Specialty specialty)

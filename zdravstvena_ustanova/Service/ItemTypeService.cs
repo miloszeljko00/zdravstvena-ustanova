@@ -24,7 +24,7 @@ namespace zdravstvena_ustanova.Service
 
         public ItemType GetById(long id)
         {
-            return _itemTypeRepository.GetById(id);
+            return _itemTypeRepository.Get(id);
         }
 
         public ItemType Create(ItemType itemType)

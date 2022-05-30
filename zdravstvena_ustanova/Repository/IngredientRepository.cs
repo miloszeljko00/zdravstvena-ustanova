@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class IngredientRepository
+    public class IngredientRepository : IIngredientRepository
     {
         private const string NOT_FOUND_ERROR = "INGREDIENT NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -32,7 +33,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public Ingredient GetById(long id)
+        public Ingredient Get(long id)
         {
             try
             {

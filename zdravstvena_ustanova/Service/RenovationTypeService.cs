@@ -24,7 +24,7 @@ namespace zdravstvena_ustanova.Service
 
         public RenovationType GetById(long id)
         {
-            return _renovationTypeRepository.GetById(id);
+            return _renovationTypeRepository.Get(id);
         }
 
         public RenovationType Create(RenovationType renovationType)

@@ -45,7 +45,7 @@ namespace zdravstvena_ustanova.Service
 
         public Item GetById(long id)
         { 
-            var item = _itemRepository.GetById(id);
+            var item = _itemRepository.Get(id);
             var itemTypes = _itemTypeRepository.GetAll();
             BindItemWithItemTypes(item, itemTypes);
             return item;

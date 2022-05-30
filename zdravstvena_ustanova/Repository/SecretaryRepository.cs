@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using System.Windows.Navigation;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class SecretaryRepository
+    public class SecretaryRepository : ISecretaryRepository
     {
         private const string NOT_FOUND_ERROR = "SECRETARY NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -54,7 +56,7 @@ namespace zdravstvena_ustanova.Repository
             return secretary;
         }
 
-        public void Update(Secretary secretary)
+        public bool Update(Secretary secretary)
         {
             var secretaries = GetAll();
 
@@ -78,8 +80,9 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, SecretariesToCSVFormat((List<Secretary>)secretaries));
+            return true;
         }
-        public void Delete(long secretaryId)
+        public bool Delete(long secretaryId)
         {
             var secretaries = (List<Secretary>)GetAll();
 
@@ -94,6 +97,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, SecretariesToCSVFormat((List<Secretary>)secretaries));
+            return true;
         }
 
         private string SecretaryToCSVFormat(Secretary secretary)

@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class NoteRepository
+    public class NoteRepository : INoteRepository
     {
         private const string NOT_FOUND_ERROR = "NOTE NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -54,7 +55,7 @@ namespace zdravstvena_ustanova.Repository
             return note;
         }
 
-        public void Update(Note note)
+        public bool Update(Note note)
         {
             var notes = GetAll();
 
@@ -66,13 +67,13 @@ namespace zdravstvena_ustanova.Repository
                     n.Content = note.Content;
                     n.Time = note.Time;
                     WriteLinesToFile(_path, NotesToCSVFormat((List<Note>)notes));
-                    break;
+                    return true;
                 }
             }
 
-
+            return false;
         }
-        public void Delete(long noteId)
+        public bool Delete(long noteId)
         {
             var notes = (List<Note>)GetAll();
 
@@ -87,6 +88,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, NotesToCSVFormat((List<Note>)notes));
+            return true;
         }
 
         private string NoteToCSVFormat(Note note)

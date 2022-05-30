@@ -29,7 +29,7 @@ namespace zdravstvena_ustanova.Service
         public SurveyQuestions GetById(long Id)
         {
             var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
-            var surveyQuestions = _surveyQuestionsRepository.GetById(Id);
+            var surveyQuestions = _surveyQuestionsRepository.Get(Id);
             BindScheduledAppointmentsWithSurveyQuestions(scheduledAppointments, surveyQuestions);
             return surveyQuestions;
         }

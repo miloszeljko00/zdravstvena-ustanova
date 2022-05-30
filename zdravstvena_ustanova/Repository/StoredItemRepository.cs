@@ -5,11 +5,12 @@ using System.Linq;
 using zdravstvena_ustanova.Exception;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-   public class StoredItemRepository
-   {
+   public class StoredItemRepository : IStoredItemRepository
+    {
         private const string NOT_FOUND_ERROR = "STOREDITEM NOT FOUND: {0} = {1}";
         private readonly string _path;
         private readonly string _delimiter;
