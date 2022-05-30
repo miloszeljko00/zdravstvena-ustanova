@@ -7,10 +7,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountRepository
     {
    
         private const string NOT_FOUND_ERROR = "ACCOUNT NOT FOUND: {0} = {1}";
@@ -36,7 +37,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public Account GetById(long id)
+        public Account Get(long id)
         {
             try
             {

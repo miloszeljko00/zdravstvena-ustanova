@@ -4,19 +4,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class AccountService
     {
-        private readonly AccountRepository _accountRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly PatientRepository _patientRepository;
         private readonly DoctorRepository _doctorRepository;
         private readonly SecretaryRepository _secretaryRepository;
         private readonly ManagerRepository _managerRepository;
         private readonly RoomRepository _roomRepository;
 
-        public AccountService(AccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository,
+        public AccountService(IAccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository,
             SecretaryRepository secretaryRepository, ManagerRepository managerRepository, RoomRepository roomRepository)
         {
             _accountRepository = accountsRepository;
@@ -49,7 +50,7 @@ namespace zdravstvena_ustanova.Service
             var doctors = _doctorRepository.GetAll();
             var managers = _managerRepository.GetAll();
             var secretaries = _secretaryRepository.GetAll();
-            var account = _accountRepository.GetById(id);
+            var account = _accountRepository.Get(id);
             
             BindPersonWithAccount(patients, doctors, managers, secretaries, account);
             return account;

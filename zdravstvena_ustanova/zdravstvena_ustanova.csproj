@@ -187,4 +187,8 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\RepositoryInterface\" />
+  </ItemGroup>
+
 </Project>
