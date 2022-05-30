@@ -135,27 +135,27 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                             {
                                 awbh.MondayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 1)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(1).Day)
                             {
                                 awbh.TuesdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 2)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(2).Day)
                             {
                                 awbh.WednesdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 3)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(3).Day)
                             {
                                 awbh.ThursdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 4)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(4).Day)
                             {
                                 awbh.FridayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 5)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(5).Day)
                             {
                                 awbh.SaturdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 6)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(6).Day)
                             {
                                 awbh.SundayAppointment = sa;
                             }

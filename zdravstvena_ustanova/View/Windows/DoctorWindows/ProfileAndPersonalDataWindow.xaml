@@ -36,6 +36,8 @@
         <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Left" Margin="50,43,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="1"/>
         <Button Content="Submit" HorizontalAlignment="Left" Margin="261,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
         <Button Content="Cancel" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Cancel"/>
-        <Button Content="Holiday Request" HorizontalAlignment="Left" Margin="50,18,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Background="White" Click="Button_Click_HolidayRequest"/>
+        <Button Content="Holiday Request" HorizontalAlignment="Left" Margin="50,18,0,0" Grid.Row="4"
+                VerticalAlignment="Top" Height="48" Width="114" Background="White" Click="Button_Click_HolidayRequest"
+                ToolTip="Here you can review your active requests, and make a new one"/>
     </Grid>
 </Window>
