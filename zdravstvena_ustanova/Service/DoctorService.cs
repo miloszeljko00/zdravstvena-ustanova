@@ -3,17 +3,19 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class DoctorService
     {
-        private readonly DoctorRepository _doctorRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
-        private readonly SpecialtyRepository _specialtyRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
 
-        public DoctorService(DoctorRepository doctorRepository, RoomRepository roomRepository, AccountRepository accountRepository, SpecialtyRepository specialtyRepository)
+        public DoctorService(IDoctorRepository doctorRepository, IRoomRepository roomRepository,
+            IAccountRepository accountRepository, ISpecialtyRepository specialtyRepository)
         {
             _doctorRepository = doctorRepository;
             _roomRepository = roomRepository;

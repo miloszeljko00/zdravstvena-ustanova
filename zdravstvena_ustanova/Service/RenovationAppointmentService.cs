@@ -6,19 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class RenovationAppointmentService
     {
-        private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly RoomRepository _roomUnderRenovationRepository;
-        private readonly StoredItemRepository _itemRoomRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private readonly ScheduledAppointmentRepository _unScheduledAppointmentRepository;
-        private readonly RenovationTypeRepository _renovationTypeRepository;
+        private readonly IRenovationAppointmentRepository _renovationAppointmentRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomUnderRenovationRepository;
+        private readonly IStoredItemRepository _itemRoomRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly IScheduledAppointmentRepository _unScheduledAppointmentRepository;
+        private readonly IRenovationTypeRepository _renovationTypeRepository;
 
         private const int StandardRenovationId = 1;
         private const int MergeRenovationId = 2;
@@ -26,11 +27,11 @@ namespace zdravstvena_ustanova.Service
 
 
 
-        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository,
-            RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository,
-            ScheduledAppointmentRepository scheduledAppointmentRepository,
-            ScheduledAppointmentRepository unScheduledAppointmentRepository, RenovationTypeRepository renovationTypeRepository,
-            RoomRepository roomUnderRenovationRepository)
+        public RenovationAppointmentService(IRenovationAppointmentRepository renovationAppointmentRepository,
+            IRoomRepository roomRepository, IStoredItemRepository itemRoomRepository, IItemRepository itemRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository,
+            IScheduledAppointmentRepository unScheduledAppointmentRepository, IRenovationTypeRepository renovationTypeRepository,
+            IRoomRepository roomUnderRenovationRepository)
         {
             _renovationAppointmentRepository = renovationAppointmentRepository;
             _roomRepository = roomRepository;

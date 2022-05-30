@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class AnamnesisService
     {
-        private readonly AnamnesisRepository _anamnesisRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
 
-        public AnamnesisService(AnamnesisRepository anamnesisRepository)
+        public AnamnesisService(IAnamnesisRepository anamnesisRepository)
         {
             _anamnesisRepository = anamnesisRepository;
         }

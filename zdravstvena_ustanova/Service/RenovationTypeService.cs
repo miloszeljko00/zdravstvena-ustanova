@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class RenovationTypeService
     {
-        private readonly RenovationTypeRepository _renovationTypeRepository;
+        private readonly IRenovationTypeRepository _renovationTypeRepository;
 
-        public RenovationTypeService(RenovationTypeRepository renovationTypeRepository)
+        public RenovationTypeService(IRenovationTypeRepository renovationTypeRepository)
         {
             _renovationTypeRepository = renovationTypeRepository;
         }

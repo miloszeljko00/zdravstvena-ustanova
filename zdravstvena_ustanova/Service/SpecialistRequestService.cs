@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SpecialistRequestService
     {
-        private readonly SpecialistRequestRepository _specialistRequestRepository;
-        private readonly SpecialtyRepository _specialtyRepository;
+        private readonly ISpecialistRequestRepository _specialistRequestRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
 
-        public SpecialistRequestService(SpecialistRequestRepository specialistRequestRepository, SpecialtyRepository specialtyRepository)
+        public SpecialistRequestService(ISpecialistRequestRepository specialistRequestRepository, ISpecialtyRepository specialtyRepository)
         {
             _specialistRequestRepository = specialistRequestRepository;
             _specialtyRepository = specialtyRepository;

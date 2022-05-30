@@ -4,19 +4,20 @@ using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class WarehouseService
     {
-        private readonly WarehouseRepository _warehouseRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
-        private readonly StoredItemRepository _storedItemRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IStoredItemRepository _storedItemRepository;
 
 
-        public WarehouseService(WarehouseRepository warehouseRepository, ItemRepository itemRepository,
-            StoredItemRepository storedItemRepository, ItemTypeRepository itemTypeRepository)
+        public WarehouseService(IWarehouseRepository warehouseRepository, IItemRepository itemRepository,
+            IStoredItemRepository storedItemRepository, IItemTypeRepository itemTypeRepository)
         {
             _warehouseRepository = warehouseRepository;
             _itemRepository = itemRepository;

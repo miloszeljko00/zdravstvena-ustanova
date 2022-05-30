@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class PatientVaccinationService
     {
-        private readonly PatientVaccinationRepository _patientVaccinationRepository;
-        private readonly VaccineRepository _vaccineRepository;
+        private readonly IPatientVaccinationRepository _patientVaccinationRepository;
+        private readonly IVaccineRepository _vaccineRepository;
 
-        public PatientVaccinationService(PatientVaccinationRepository patientVaccinationRepository, VaccineRepository vaccineRepository)
+        public PatientVaccinationService(IPatientVaccinationRepository patientVaccinationRepository, IVaccineRepository vaccineRepository)
         {
             _patientVaccinationRepository = patientVaccinationRepository;
             _vaccineRepository = vaccineRepository;

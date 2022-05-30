@@ -11,14 +11,14 @@ namespace zdravstvena_ustanova.Service
     public class AccountService
     {
         private readonly IAccountRepository _accountRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly DoctorRepository _doctorRepository;
-        private readonly SecretaryRepository _secretaryRepository;
-        private readonly ManagerRepository _managerRepository;
-        private readonly RoomRepository _roomRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly ISecretaryRepository _secretaryRepository;
+        private readonly IManagerRepository _managerRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public AccountService(IAccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository,
-            SecretaryRepository secretaryRepository, ManagerRepository managerRepository, RoomRepository roomRepository)
+        public AccountService(IAccountRepository accountsRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository,
+            ISecretaryRepository secretaryRepository, IManagerRepository managerRepository, IRoomRepository roomRepository)
         {
             _accountRepository = accountsRepository;
             _patientRepository = patientRepository;

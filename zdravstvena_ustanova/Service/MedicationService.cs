@@ -3,18 +3,19 @@ using System;
 using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class MedicationService
     {
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
 
 
-        public MedicationService(MedicationRepository medicationRepository, IngredientRepository ingredientRepository,
-            MedicationTypeRepository medicationTypeRepository)
+        public MedicationService(IMedicationRepository medicationRepository, IIngredientRepository ingredientRepository,
+            IMedicationTypeRepository medicationTypeRepository)
         {
             _medicationRepository = medicationRepository;
             _ingredientRepository = ingredientRepository;

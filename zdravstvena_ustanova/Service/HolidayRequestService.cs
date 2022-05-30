@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class HolidayRequestService
     {
-        private readonly HolidayRequestRepository _holidayRequestRepository;
-        private readonly DoctorRepository _doctorRepository;
+        private readonly IHolidayRequestRepository _holidayRequestRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public HolidayRequestService(HolidayRequestRepository holidayRequestRepository, DoctorRepository doctorRepository)
+        public HolidayRequestService(IHolidayRequestRepository holidayRequestRepository, IDoctorRepository doctorRepository)
         {
             _holidayRequestRepository = holidayRequestRepository;
             _doctorRepository = doctorRepository;

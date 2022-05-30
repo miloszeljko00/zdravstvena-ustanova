@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class SurveyQuestionsService
     {
-        private readonly SurveyQuestionsRepository _surveyQuestionsRepository;
-        private ScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly ISurveyQuestionsRepository _surveyQuestionsRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
 
-        public SurveyQuestionsService(SurveyQuestionsRepository surveyQuestionsRepository, ScheduledAppointmentRepository scheduledAppointmentRepository)
+        public SurveyQuestionsService(ISurveyQuestionsRepository surveyQuestionsRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository)
         {
             _surveyQuestionsRepository = surveyQuestionsRepository;
             _scheduledAppointmentRepository = scheduledAppointmentRepository;

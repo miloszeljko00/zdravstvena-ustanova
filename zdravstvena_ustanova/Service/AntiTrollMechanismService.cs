@@ -4,15 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class AntiTrollMechanismService
     {
-        private readonly AntiTrollMechanismRepository _antiTrollMechanismRepository;
-        private readonly PatientRepository _patientRepository;
+        private readonly IAntiTrollMechanismRepository _antiTrollMechanismRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public AntiTrollMechanismService(AntiTrollMechanismRepository antiTrollMechanismRepository, PatientRepository patientRepository)
+        public AntiTrollMechanismService(IAntiTrollMechanismRepository antiTrollMechanismRepository, IPatientRepository patientRepository)
         {
             _antiTrollMechanismRepository = antiTrollMechanismRepository;
             _patientRepository = patientRepository;

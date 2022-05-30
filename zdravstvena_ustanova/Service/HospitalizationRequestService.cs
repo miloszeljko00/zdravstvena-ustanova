@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class HospitalizationRequestService
     {
-        private readonly HospitalizationRequestRepository _hospitalizationRequestRepository;
+        private readonly IHospitalizationRequestRepository _hospitalizationRequestRepository;
 
-        public HospitalizationRequestService(HospitalizationRequestRepository hospitalizationRequestRepository)
+        public HospitalizationRequestService(IHospitalizationRequestRepository hospitalizationRequestRepository)
         {
             _hospitalizationRequestRepository = hospitalizationRequestRepository;
         }

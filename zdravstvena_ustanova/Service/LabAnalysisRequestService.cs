@@ -3,15 +3,17 @@ using System;
 using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class LabAnalysisRequestService
     {
-        private readonly LabAnalysisRequestRepository _labAnalysisRequestRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly ILabAnalysisRequestRepository _labAnalysisRequestRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
 
-        public LabAnalysisRequestService(LabAnalysisRequestRepository labAnalysisRequestRepository, LabAnalysisComponentRepository labAnalysisComponentRepository)
+        public LabAnalysisRequestService(ILabAnalysisRequestRepository labAnalysisRequestRepository,
+            ILabAnalysisComponentRepository labAnalysisComponentRepository)
         {
             _labAnalysisRequestRepository = labAnalysisRequestRepository;
             _labAnalysisComponentRepository = labAnalysisComponentRepository;

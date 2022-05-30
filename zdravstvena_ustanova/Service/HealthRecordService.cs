@@ -5,34 +5,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
     public class HealthRecordService
     {
-        private readonly HealthRecordRepository _healthRecordRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly AllergensRepository _allergensRepository;
-        private readonly AnamnesisRepository _anamnesisRepository;
-        private readonly LabAnalysisRecordRepository _labAnalysisRecordRepository;
-        private readonly HospitalizationRecordRepository _hospitalizationRecordRepository;
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly PatientDiseaseRepository _patientDiseaseRepository;
-        private readonly PatientVaccinationRepository _patientVaccinationRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly DiseaseRepository _diseaseRepository;
-        private readonly VaccineRepository _vaccineRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        public HealthRecordService(HealthRecordRepository healthRecordRepository, PatientRepository patientRepository, AllergensRepository allergensRepository,
-            AnamnesisRepository anamnesisRepository, LabAnalysisRecordRepository labAnalysisRecordRepository, HospitalizationRecordRepository hospitalizationRecordRepository,
-            PrescribedMedicineRepository prescribedMedicineRepository, PatientDiseaseRepository patientDiseaseRepository,
-            PatientVaccinationRepository patientVaccinationRepository, RoomRepository roomRepository, AccountRepository accountRepository,
-            IngredientRepository ingredientRepository, DiseaseRepository diseaseRepository, VaccineRepository vaccineRepository,
-            LabAnalysisComponentRepository labAnalysisComponent, MedicationRepository medicationRepository, MedicationTypeRepository medicationTypeRepository)
+        private readonly IHealthRecordRepository _healthRecordRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IAllergensRepository _allergensRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
+        private readonly ILabAnalysisRecordRepository _labAnalysisRecordRepository;
+        private readonly IHospitalizationRecordRepository _hospitalizationRecordRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IPatientDiseaseRepository _patientDiseaseRepository;
+        private readonly IPatientVaccinationRepository _patientVaccinationRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IDiseaseRepository _diseaseRepository;
+        private readonly IVaccineRepository _vaccineRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        public HealthRecordService(IHealthRecordRepository healthRecordRepository, IPatientRepository patientRepository,
+            IAllergensRepository allergensRepository, IAnamnesisRepository anamnesisRepository, 
+            ILabAnalysisRecordRepository labAnalysisRecordRepository, IHospitalizationRecordRepository hospitalizationRecordRepository,
+            IPrescribedMedicineRepository prescribedMedicineRepository, IPatientDiseaseRepository patientDiseaseRepository,
+            IPatientVaccinationRepository patientVaccinationRepository, IRoomRepository roomRepository, IAccountRepository accountRepository,
+            IIngredientRepository ingredientRepository, IDiseaseRepository diseaseRepository, IVaccineRepository vaccineRepository,
+            ILabAnalysisComponentRepository labAnalysisComponent, IMedicationRepository medicationRepository, IMedicationTypeRepository medicationTypeRepository)
         {
             _healthRecordRepository = healthRecordRepository;
             _patientRepository = patientRepository;
