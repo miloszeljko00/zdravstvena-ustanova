@@ -128,5 +128,14 @@ namespace zdravstvena_ustanova.Controller
             }
             return true;
         }
+        public bool ValidateFormForSpecialistAppointment(string specialty, string doctor, string time, DateTime? date)
+        {
+            if(specialty == "" || doctor == "" || time=="" || date == null)
+            {
+                MessageBox.Show("Morate odabrati sve podatke(specijalnost, doktora, vreme i datum pregleda...)!");
+                return false;
+            }
+            return true;
+        }
     }
 }

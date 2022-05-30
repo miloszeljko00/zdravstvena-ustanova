@@ -1,30 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using zdravstvena_ustanova.Commands;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
 
-namespace zdravstvena_ustanova.View.Windows.DoctorWindows
+namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for MedicalSupplyInventoryWindow.xaml
-    /// </summary>
-    public partial class MedicalSupplyInventoryWindow : Window, INotifyPropertyChanged
+    public class MedicalSupplyInventoryViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<StoredItem> StoredItems { get; set; }
+        public MedicalSupplyInventoryWindow MedicalSupplyInventoryWindow { get; set; }
         #region NotifyProperties
         private Warehouse _warehouse;
+        public RelayCommand CloseCommand { get; set; }
         public Warehouse Warehouse
         {
             get
@@ -53,20 +44,17 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-        public MedicalSupplyInventoryWindow()
+        public MedicalSupplyInventoryViewModel(MedicalSupplyInventoryWindow medicalSupplyInventoryWindow)
         {
             var app = Application.Current as App;
-
+            MedicalSupplyInventoryWindow = medicalSupplyInventoryWindow;
             Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
             StoredItems = new ObservableCollection<StoredItem>(Warehouse.StoredItems);
-
-            InitializeComponent();
-            DataContext = this;
+            CloseCommand = new RelayCommand(param => ExecuteClose());
         }
-
-        private void Button_Click_NavigateBackMedicalSupplyInventory(object sender, RoutedEventArgs e)
+        private void ExecuteClose()
         {
-            this.Close();
+            MedicalSupplyInventoryWindow.Close();
         }
     }
 }
