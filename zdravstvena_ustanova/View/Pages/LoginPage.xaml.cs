@@ -83,5 +83,11 @@ namespace zdravstvena_ustanova.View.Pages
             }
 
         }
+
+        private void goToRegistration(object sender, RoutedEventArgs e)
+        {
+            Registration r = new Registration();
+            r.ShowDialog();
+        }
     }
 }

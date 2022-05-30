@@ -17,7 +17,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label FontSize="20" Content="Istorija koriscenih lekova i terapija" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="20" Content="Obavestenja o koriscenim lekovima i terapijama" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

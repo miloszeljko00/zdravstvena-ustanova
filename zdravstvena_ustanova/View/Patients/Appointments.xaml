@@ -22,7 +22,7 @@
             </Separator.RenderTransform>
         </Separator>
         <Viewbox Margin="24,215,3,40">
-            <Calendar x:Name="calendar" SelectedDatesChanged="goToManageAppointment">
+            <Calendar x:Name="calendar" PreviewKeyDown="goToManageAppointment">
                 
             </Calendar>
         </Viewbox>

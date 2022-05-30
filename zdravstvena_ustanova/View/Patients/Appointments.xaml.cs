@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace zdravstvena_ustanova.View
 {
@@ -32,23 +33,6 @@ namespace zdravstvena_ustanova.View
             DoctorPriority dp = new DoctorPriority();
             dp.ShowDialog();
             this.refresh();
-        }
-        private void goToManageAppointment(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(calendar.SelectedDate != null) {
-                foreach (ScheduledAppointment sa in ScheduledAppointments)
-                {
-                    if (sa.Start.Date.Equals((DateTime)calendar.SelectedDate))
-                    {
-                        ManageAppointment ma = new ManageAppointment(sa);
-                        ma.ShowDialog();
-                        break;
-                    }
-                }   
-            }
-            calendar.SelectedDate = null;
-            this.refresh();
-            
         }
 
         public void refresh()
@@ -83,6 +67,24 @@ namespace zdravstvena_ustanova.View
             }
 
             calendar.CalendarDayButtonStyle = style;
+        }
+
+        private void goToManageAppointment(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (calendar.SelectedDate != null && e.Key == Key.Space)
+            {
+                foreach (ScheduledAppointment sa in ScheduledAppointments)
+                {
+                    if (sa.Start.Date.Equals((DateTime)calendar.SelectedDate))
+                    {
+                        ManageAppointment ma = new ManageAppointment(sa);
+                        ma.ShowDialog();
+                        break;
+                    }
+                }
+            }
+            calendar.SelectedDate = null;
+            this.refresh();
         }
     }
 }
