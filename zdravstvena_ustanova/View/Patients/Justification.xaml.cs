@@ -28,7 +28,7 @@ namespace zdravstvena_ustanova.View
         private void validate(object sender, RoutedEventArgs e)
         {
             bool isValid = true;
-            DateTime dateValue;
+            DateTime dateValue1, dateValue2;
             if (odeljenje.Text == "")
             {
                 odeljenje.BorderBrush = Brushes.Red;
@@ -39,12 +39,17 @@ namespace zdravstvena_ustanova.View
                 skola.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (!DateTime.TryParseExact(datumOd.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
+            if (!DateTime.TryParseExact(datumOd.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue1))
             {
                 datumOd.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (!DateTime.TryParseExact(datumDo.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
+            if (!DateTime.TryParseExact(datumDo.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue2))
+            {
+                datumDo.BorderBrush = Brushes.Red;
+                isValid = false;
+            }
+            if(DateTime.Compare(dateValue1, dateValue2) > 0)
             {
                 datumDo.BorderBrush = Brushes.Red;
                 isValid = false;

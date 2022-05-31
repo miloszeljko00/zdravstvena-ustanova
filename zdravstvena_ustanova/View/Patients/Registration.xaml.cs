@@ -88,14 +88,14 @@ namespace zdravstvena_ustanova.View
                 korisnik.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (lozinka.Password == "")
-            {
-                lozinka.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
             if (ponovna.Password != lozinka.Password)
             {
                 ponovna.BorderBrush = Brushes.Red;
+                isValid = false;
+            }
+            if (lozinka.Password.Length < 8)
+            {
+                lozinka.BorderBrush = Brushes.Red;
                 isValid = false;
             }
             if (isValid)

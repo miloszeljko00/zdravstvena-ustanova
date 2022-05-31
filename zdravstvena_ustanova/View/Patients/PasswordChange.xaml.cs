@@ -30,7 +30,7 @@ namespace zdravstvena_ustanova.View
                 novaLoz.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (tekucaLoz.Password == "")
+            if (tekucaLoz.Password.Length < 8)
             {
                 tekucaLoz.BorderBrush = Brushes.Red;
                 isValid = false;
@@ -38,6 +38,11 @@ namespace zdravstvena_ustanova.View
             if (novaLoz.Password != potvrda.Password)
             {
                 potvrda.BorderBrush = Brushes.Red;
+                isValid = false;
+            }
+            if (novaLoz.Password.Length < 8)
+            {
+                novaLoz.BorderBrush = Brushes.Red;
                 isValid = false;
             }
             if (isValid)
