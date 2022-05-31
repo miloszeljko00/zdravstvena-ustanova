@@ -11,13 +11,24 @@ using System.Windows.Media;
 
 namespace zdravstvena_ustanova.View
 {
+    public class DoctorsShift
+    {
+        public string Time { get; set; }
+        public string Doctor { get; set; }
+        public DoctorsShift()
+        {
+            Time = "";
+            Doctor = "";
+        }
+    }
     public partial class TimePriority : Window
     {
         public ObservableCollection<ScheduledAppointment> sa;
-        public ObservableCollection<string> dates;
+        public ObservableCollection<DoctorsShift> dates;
         public TimePriority()
         {
             InitializeComponent();
+            dates = new ObservableCollection<DoctorsShift>();
             string[] times = {" /", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" };
 
@@ -36,34 +47,79 @@ namespace zdravstvena_ustanova.View
             int days = DateTime.DaysInMonth(2022, DateTime.Now.Month);
             int to = today.Day + 4;
             if (to > days) { to -= days; }
-            dates = new ObservableCollection<string>();
             while (true)
             {
                 if (today.Hour == 21) { today = today.AddDays(1); today = today.AddHours(-14); }
                 if (today.Day == to) break;
-                dates.Add(today.ToString("dd.MM.yyyy. HH:mm"));
+                DoctorsShift ds = new DoctorsShift();
+                ds.Time = today.ToString("dd.MM.yyyy. HH:mm");
+                dates.Add(ds);
                 today = today.AddHours(1);
             }
             var app = Application.Current as App;
             sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
             foreach (ScheduledAppointment sapp in sa)
             {
-                dates.Remove(sapp.Start.ToString("dd.MM.yyyy. HH:mm"));
+                foreach (DoctorsShift dShift in dates)
+                {
+                    if(dShift.Time == sapp.Start.ToString("dd.MM.yyyy. HH:mm"))
+                    {
+                        dates.Remove(dShift);
+                        break;
+                    }
+                }
             }
+
             foreach (ScheduledAppointment sapp in sa)
             {
                 if (sapp.Patient.Id == app.LoggedInUser.Id)
                 {
                     for (int i = 7; i < 10; i++)
                     {
-                        dates.Remove(sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"));
+                        foreach (DoctorsShift dShift in dates)
+                        {
+                            if (dShift.Time == sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"))
+                            {
+                                dates.Remove(dShift);
+                                break;
+                            }
+                        }
+                        
                     }
                     for (int i = 10; i < 21; i++)
                     {
-                        dates.Remove(sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"));
+                        foreach (DoctorsShift dShift in dates)
+                        {
+                            if (dShift.Time == sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"))
+                            {
+                                dates.Remove(dShift);
+                                break;
+                            }
+                        }
                     }
                 }
             }
+            List<Doctor> doctors = new List<Doctor>(app.DoctorController.GetAll());
+            foreach (DoctorsShift dShift in dates)
+            {
+                string[] parts = dShift.Time.Split(" ");
+                parts = parts[1].Split(":");
+                int num = Convert.ToInt32(parts[0]);
+                foreach (Doctor d in doctors)
+                {
+                    if (num < 14 && d.Shift == Shift.FIRST)
+                    {
+                        dShift.Doctor = d.Name + " " + d.Surname;
+                        break;
+                    }
+                    else if (num >= 14 && d.Shift == Shift.SECOND)
+                    {
+                        dShift.Doctor = d.Name + " " + d.Surname;
+                        break;
+                    }
+                }
+            }
+
             list1.ItemsSource = dates;
 
         }
@@ -75,13 +131,14 @@ namespace zdravstvena_ustanova.View
         private void createAppointment(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
+            DoctorsShift dShift;
             string dat;
             DateTime date;
             DateTime startDate;
             if (timeCmbBox.SelectedItem == null)
             {
-                dat = (string)list1.SelectedItem;
-                date = Convert.ToDateTime(dat);
+                dShift = (DoctorsShift)list1.SelectedItem;
+                date = Convert.ToDateTime(dShift.Time);
                 startDate = date;
             }
             else
@@ -112,7 +169,6 @@ namespace zdravstvena_ustanova.View
 
             var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, docId, docRoom);
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
-            scheduledAppointment = app.ScheduledAppointmentController.GetById(scheduledAppointment.Id);
             this.Close();
         }
 
@@ -120,11 +176,11 @@ namespace zdravstvena_ustanova.View
         {
             ObservableCollection<string> novo = new ObservableCollection<string>();
             string value = (string)timeComboBox.SelectedItem;
-            foreach (string s in dates)
+            foreach (DoctorsShift ds in dates)
             {
-                if (s.Contains(value))
+                if (ds.Time.Contains(value))
                 {
-                    novo.Add(s);
+                    novo.Add(ds.Time);
                 }
             }
             list1.ItemsSource = novo;

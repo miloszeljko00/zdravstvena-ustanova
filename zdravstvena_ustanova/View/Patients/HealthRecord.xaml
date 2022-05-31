@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.HealthRecordPatient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+             mc:Ignorable="d" d:DesignWidth="584" Height="596">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,16,0">
+            <StackPanel>
+                <Canvas Height="350">
+                    <Label Content="Licni podaci" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="35" Canvas.Top="133"/>
+                    <Label Content="Zdravstveni karton" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="168" Canvas.Top="93"/>
+                    <Rectangle Stroke="Black" Height="176" Canvas.Left="30" Canvas.Top="174" Width="522" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="Ime:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="113" Canvas.Top="187"/>
+                    <TextBox Text="Nikola" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"  Height="23" Canvas.Left="155" Canvas.Top="190" IsEnabled="False"/>
+                    <Label Content="Datum rodjenja:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="35" Canvas.Top="253"/>
+                    <TextBox Text="JMBG" HorizontalContentAlignment="Center" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center" Width="135"  Height="23" Canvas.Left="22" Canvas.Top="26"/>
+                    <Label Content="Prezime:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="85" Canvas.Top="220" RenderTransformOrigin="0.5,0.5"/>
+                    <TextBox Text="Holjevac" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Height="23" Canvas.Left="155" Canvas.Top="223" IsEnabled="False"/>
+                    <TextBox Text="22.08.2000." HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Height="23" Canvas.Left="155" Canvas.Top="256" IsEnabled="False" />
+                    <Label Content="Broj telefona:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="53" Canvas.Top="288"/>
+                    <TextBox Text="061123123" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130"  Height="23" Canvas.Left="155" Canvas.Top="291" IsEnabled="False"/>
+                    <TextBox Text="Broj kartona" HorizontalContentAlignment="Center" IsEnabled="False" Width="135"  Height="23" Canvas.Left="422" Canvas.Top="26" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox Text="Broj zdravstvene knjizice" HorizontalContentAlignment="Center" IsEnabled="False" Width="135"  Height="24" Canvas.Left="422" Canvas.Top="63" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Adresa:" FontSize="15" Canvas.Left="342" Canvas.Top="187" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox Text="Top secret" Width="130"  Height="23" Canvas.Left="406" Canvas.Top="190" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False"/>
+                    <Label Content="Bracni status:" FontSize="15" Canvas.Left="306" Canvas.Top="253" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Pol:" FontSize="15" Canvas.Left="368" Canvas.Top="220" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox Text="Muski" Width="130" Height="23" Canvas.Left="406" Canvas.Top="223" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False"/>
+                    <TextBox Text="Neozenjen" Width="130" Height="23" Canvas.Left="406" Canvas.Top="256" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" />
+                </Canvas>
+                <ListView x:Name="list" Margin="26,59,40,49" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="190" Header="Kategorija zdravstvene zastite" DisplayMemberBinding="{Binding Kategorija}"/>
+                            <GridViewColumn Width="140" Header="Prvi podatak" DisplayMemberBinding="{Binding Podatak}"/>
+                            <GridViewColumn Width="150" Header="Promena" DisplayMemberBinding="{Binding Promena}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel>
+                    <Label Content="Podaci o zaposlenju i zanimanju" FontSize="28" HorizontalAlignment="Center" Height="50"/>
+                </StackPanel>
+                <ListView x:Name="list1" Margin="26,59,40,49" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="30" Header="Rbr" DisplayMemberBinding="{Binding Rbr}"/>
+                            <GridViewColumn Width="30"  Header="OUR" DisplayMemberBinding="{Binding Our}"/>
+                            <GridViewColumn Width="66"  Header="Mesto rada" DisplayMemberBinding="{Binding Mesto}"/>
+                            <GridViewColumn Width="57" Header="Reg. broj" DisplayMemberBinding="{Binding Broj}"/>
+                            <GridViewColumn Width="92"  Header="Sifra delatnosti" DisplayMemberBinding="{Binding Sifra}"/>
+                            <GridViewColumn Width="107"  Header="Posao koji obavlja" DisplayMemberBinding="{Binding Posao}"/>
+                            <GridViewColumn Width="98" Header="OSIZ zdr. zastite" DisplayMemberBinding="{Binding Osiz}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Canvas Height="270">
+                    <Rectangle Stroke="Black" Height="205" Canvas.Left="18" Canvas.Top="31" Width="532" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label Content="Rad pod posebnim uslovima:" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="53" Canvas.Top="42"/>
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="180"  Height="23" Canvas.Left="275" Canvas.Top="45" IsEnabled="False"/>
+                    <Label Content="Osiguranje:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="170" Canvas.Top="137"/>
+                    <Label Content="Promene:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="182" Canvas.Top="88" RenderTransformOrigin="0.5,0.5"/>
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="180" Height="23" Canvas.Left="275" Canvas.Top="91" IsEnabled="False"/>
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="180" Height="24" Canvas.Left="275" Canvas.Top="140" IsEnabled="False" />
+                    <Label Content="LBO:" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="215" Canvas.Top="186"/>
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="180"  Height="23" Canvas.Left="275" Canvas.Top="189" IsEnabled="False"/>
+                </Canvas>
+                <StackPanel>
+                    <Label Content="Istorija bolesti" FontSize="28" HorizontalAlignment="Center" Height="50"/>
+                </StackPanel>
+                <ListView x:Name="list2" Margin="26,59,40,49" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="100" Header="Datum" DisplayMemberBinding="{Binding Datum}"/>
+                            <GridViewColumn Width="230" Header="Tok bolesti i nalazi" DisplayMemberBinding="{Binding Tok}"/>
+                            <GridViewColumn Width="150" Header="Terapija" DisplayMemberBinding="{Binding Terapija}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

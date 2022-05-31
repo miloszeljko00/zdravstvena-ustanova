@@ -31,7 +31,7 @@ namespace zdravstvena_ustanova.View
 
         private void entered(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Space && surveyList.SelectedIndex != -1)
             {
                 SurveyDetails sd = new SurveyDetails((SurveyQuestions)surveyList.SelectedItem);
                 sd.ShowDialog();

@@ -12,23 +12,23 @@
         <Label Content="Osnovni podaci" FontSize="20" HorizontalAlignment="Left" Margin="60,64,0,0" VerticalAlignment="Top"/>
         <Rectangle Stroke="Black" Margin="51,104,420,106"/>
         <Label Content="Ime:" FontSize="15" HorizontalAlignment="Left" Margin="129,115,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ime" HorizontalAlignment="Left" Margin="183,118,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusIme"/>
+        <TextBox TabIndex="0" x:Name="ime" HorizontalAlignment="Left" Margin="183,118,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusIme"/>
         <Label Content="Datum rodjenja:" FontSize="15" HorizontalAlignment="Left" Margin="51,211,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="osiguranje" HorizontalAlignment="Left" Margin="183,249,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusOsiguranje"/>
+        <TextBox TabIndex="4" x:Name="osiguranje" HorizontalAlignment="Left" Margin="183,249,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusOsiguranje"/>
         <Label Content="JMBG:" FontSize="15" HorizontalAlignment="Left" Margin="116,181,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="jmbg" HorizontalAlignment="Left" Margin="183,184,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusJMBG"/>
+        <TextBox TabIndex="2" x:Name="jmbg" HorizontalAlignment="Left" Margin="183,184,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusJMBG"/>
         <Label Content="Prezime:" FontSize="15" HorizontalAlignment="Left" Margin="101,148,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="prezime" HorizontalAlignment="Left" Margin="183,151,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusPrezime"/>
-        <DatePicker x:Name="datum" HorizontalAlignment="Left" Margin="183,216,0,0" VerticalAlignment="Top" Width="160" Height="23" GotKeyboardFocus="focusDatum" Loaded="loadedDatum"/>
+        <TextBox TabIndex="1" x:Name="prezime" HorizontalAlignment="Left" Margin="183,151,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusPrezime"/>
+        <DatePicker TabIndex="3" x:Name="datum" HorizontalAlignment="Left" Margin="183,216,0,0" VerticalAlignment="Top" Width="160" Height="23" GotKeyboardFocus="focusDatum" Loaded="loadedDatum"/>
         <Label Content="Broj osiguranja:" FontSize="15" HorizontalAlignment="Left" Margin="55,246,0,0" VerticalAlignment="Top"/>
         <WrapPanel Margin="182,288,433,258">
-            <RadioButton Content="Muski" GroupName="group" IsChecked="True" Height="20" Width="55"/>
-            <RadioButton Content="Zenski" GroupName="group" Height="20" Width="55"/>
-            <RadioButton Content="Drugo" GroupName="group" Height="20" Width="55"/>
+            <RadioButton TabIndex="5" Content="Muski" GroupName="group" IsChecked="True" Height="20" Width="55"/>
+            <RadioButton TabIndex="6" Content="Zenski" GroupName="group" Height="20" Width="55"/>
+            <RadioButton TabIndex="7" Content="Drugo" GroupName="group" Height="20" Width="55"/>
         </WrapPanel>
         <Label Content="Pol:" FontSize="15" HorizontalAlignment="Left" Margin="133,279,0,0" VerticalAlignment="Top"/>
         <Label Content="Krvna grupa:" FontSize="15" HorizontalAlignment="Left" Margin="73,313,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="183,317,0,0" VerticalAlignment="Top" Width="160">
+        <ComboBox TabIndex="8" HorizontalAlignment="Left" Margin="183,317,0,0" VerticalAlignment="Top" Width="160">
             <ComboBoxItem Content="A+" IsSelected="True"/>
             <ComboBoxItem Content="A-"/>
             <ComboBoxItem Content="B+"/>
@@ -38,26 +38,26 @@
             <ComboBoxItem Content="O+"/>
             <ComboBoxItem Content="O-"/>
         </ComboBox>
-        <TextBox x:Name="telefon" HorizontalAlignment="Left" Margin="183,349,0,0" VerticalAlignment="Top" Width="160" Height="23" GotFocus="focusTelefon" />
+        <TextBox TabIndex="9" x:Name="telefon" HorizontalAlignment="Left" Margin="183,349,0,0" VerticalAlignment="Top" Width="160" Height="23" GotFocus="focusTelefon" />
         <Label Content="Broj telefona:" FontSize="15" HorizontalAlignment="Left" Margin="69,346,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="email" HorizontalAlignment="Left" Margin="183,382,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusEmail"/>
+        <TextBox TabIndex="10" x:Name="email" HorizontalAlignment="Left" Margin="183,382,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusEmail"/>
         <Label Content="E-mail:" FontSize="15" HorizontalAlignment="Left" Margin="112,379,0,0" VerticalAlignment="Top"/>
         <Label Content="Radni status:" FontSize="15" HorizontalAlignment="Left" Margin="73,411,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="183,415,0,0" VerticalAlignment="Top" Width="160">
+        <ComboBox TabIndex="11" HorizontalAlignment="Left" Margin="183,415,0,0" VerticalAlignment="Top" Width="160">
             <ComboBoxItem Content="Zaposlen" IsSelected="True"/>
             <ComboBoxItem Content="Nezaposlen"/>
             <ComboBoxItem Content="Student"/>
             <ComboBoxItem Content="Penzioner"/>
         </ComboBox>
         <Rectangle Stroke="Black" Margin="417,104,54,308"/>
-        <TextBox x:Name="posta" HorizontalAlignment="Left" Margin="554,216,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusPosta"/>
+        <TextBox TabIndex="15" x:Name="posta" HorizontalAlignment="Left" Margin="554,216,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusPosta"/>
         <Label Content="Grad:" FontSize="15" HorizontalAlignment="Left" Margin="493,148,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="grad" HorizontalAlignment="Left" Margin="554,151,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusGrad"/>
+        <TextBox TabIndex="13" x:Name="grad" HorizontalAlignment="Left" Margin="554,151,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusGrad"/>
         <Label Content="Adresa:" FontSize="15" HorizontalAlignment="Left" Margin="479,115,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="adresa" HorizontalAlignment="Left" Margin="554,118,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusAdresa"/>
+        <TextBox TabIndex="12" x:Name="adresa" HorizontalAlignment="Left" Margin="554,118,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusAdresa"/>
         <Label Content="Postanski broj:" FontSize="15" HorizontalAlignment="Left" Margin="433,211,0,0" VerticalAlignment="Top" Height="29" Width="112"/>
         <Label Content="Drzava:" FontSize="15" HorizontalAlignment="Left" Margin="479,181,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="554,185,0,0" VerticalAlignment="Top" Width="160">
+        <ComboBox TabIndex="14" HorizontalAlignment="Left" Margin="554,185,0,0" VerticalAlignment="Top" Width="160">
             <ComboBoxItem Content="Srbija" IsSelected="True"/>
             <ComboBoxItem Content="Hrvatska"/>
             <ComboBoxItem Content="BiH"/>
@@ -70,13 +70,13 @@
         <Label Content="Nalog" FontSize="20" HorizontalAlignment="Left" Margin="428,268,0,0" VerticalAlignment="Top" Height="37"/>
         <Label Content="Lozinka:" FontSize="15" HorizontalAlignment="Left" Margin="483,351,0,0" VerticalAlignment="Top"/>
         <Label Content="Korisnicko ime:" FontSize="15" HorizontalAlignment="Left" Margin="436,320,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="korisnik" HorizontalAlignment="Left" Margin="554,323,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusKorisnik"/>
+        <TextBox TabIndex="16" x:Name="korisnik" HorizontalAlignment="Left" Margin="554,323,0,0" VerticalAlignment="Top" Width="160"  Height="23" GotFocus="focusKorisnik"/>
         <Label Content="Ponovna lozinka:" FontSize="15" HorizontalAlignment="Left" Margin="426,418,0,0" VerticalAlignment="Top" Height="29" Width="121"/>
         <Label HorizontalContentAlignment="Right" x:Name="obavestenje" FontSize="15" Foreground="Red" HorizontalAlignment="Left" Margin="436,383,0,0" VerticalAlignment="Top" Height="29" Width="278"/>
-        <PasswordBox x:Name="ponovna" HorizontalAlignment="Left" Margin="554,421,0,0" VerticalAlignment="Top" Width="160" Height="23" GotFocus="focusPonovna"/>
-        <PasswordBox x:Name="lozinka" HorizontalAlignment="Left" Margin="554,355,0,0" VerticalAlignment="Top" Width="160" Height="23" LostFocus="lostFocus"/>
-        <Button Content="Registruj se" HorizontalAlignment="Left" Margin="271,485,0,0" VerticalAlignment="Top" Width="95" Height="27" Click="validate"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="404,485,0,0" VerticalAlignment="Top" Width="96" Height="27" Click="goBack"/>
+        <PasswordBox TabIndex="18" x:Name="ponovna" HorizontalAlignment="Left" Margin="554,421,0,0" VerticalAlignment="Top" Width="160" Height="23" GotFocus="focusPonovna"/>
+        <PasswordBox TabIndex="17" x:Name="lozinka" HorizontalAlignment="Left" Margin="554,355,0,0" VerticalAlignment="Top" Width="160" Height="23" LostFocus="lostFocus"/>
+        <Button TabIndex="19" Content="_Registruj se" HorizontalAlignment="Left" Margin="271,485,0,0" VerticalAlignment="Top" Width="95" Height="27" Click="validate"/>
+        <Button TabIndex="20" Content="_Odustani" HorizontalAlignment="Left" Margin="404,485,0,0" VerticalAlignment="Top" Width="96" Height="27" Click="goBack"/>
 
     </Grid>
 </Window>

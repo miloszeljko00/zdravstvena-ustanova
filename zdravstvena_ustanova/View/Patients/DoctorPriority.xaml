@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Zakazivanje termina" Height="395" Width="320" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <ListView x:Name="list" Margin="31,84,34,70" SelectionChanged="chosen">
+        <ListView TabIndex="1" x:Name="list" Margin="31,84,34,70" SelectionChanged="chosen">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Datum i vreme" Width="212"/>
@@ -15,9 +15,9 @@
             </ListView.View>
         </ListView>
         <Label Content="Slobodni termini za naredna 3 dana :" HorizontalAlignment="Left" Margin="29,56,0,0" VerticalAlignment="Top" Height="30"/>
-        <Button x:Name="Ok1" Content="Potvrdi" HorizontalAlignment="Left" Margin="73,315,0,0" VerticalAlignment="Top" Width="66" Height="27" Click="createAppointment" IsEnabled="False"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="163,315,0,0" VerticalAlignment="Top" Width="66" Height="27" Click="goToAppointments"/>
+        <Button TabIndex="2" x:Name="Ok1" Content="_Potvrdi" HorizontalAlignment="Left" Margin="73,315,0,0" VerticalAlignment="Top" Width="66" Height="27" Click="createAppointment" IsEnabled="False"/>
+        <Button TabIndex="3" Content="_Odustani" HorizontalAlignment="Left" Margin="163,315,0,0" VerticalAlignment="Top" Width="66" Height="27" Click="goToAppointments"/>
         <Label Content="Izabrani lekar :" HorizontalAlignment="Left" Margin="29,13,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="doctorComboBox" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" Width="136" SelectionChanged="changeList" />
+        <ComboBox TabIndex="0" x:Name="doctorComboBox" HorizontalAlignment="Left" Margin="130,14,0,0" VerticalAlignment="Top" Width="136" SelectionChanged="changeList" />
     </Grid>
 </Window>

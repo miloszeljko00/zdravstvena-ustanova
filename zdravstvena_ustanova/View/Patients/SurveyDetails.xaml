@@ -47,7 +47,7 @@
             <RadioButton x:Name="opt24" Content="4" GroupName="aFive" Height="20" Width="50"/>
             <RadioButton x:Name="opt25" Content="5" GroupName="aFive" Height="20" Width="50"/>
         </WrapPanel>
-        <Button Content="Podnesi" HorizontalAlignment="Left" Margin="105,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="submitSurvey"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="220,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="goBack"/>
+        <Button Content="_Podnesi" HorizontalAlignment="Left" Margin="105,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="submitSurvey"/>
+        <Button Content="_Odustani" HorizontalAlignment="Left" Margin="220,281,0,0" VerticalAlignment="Top" Width="60" Height="26" Click="goBack"/>
     </Grid>
 </Window>

@@ -25,8 +25,8 @@
                 </StackPanel>
             </Label.Content>
         </Label>
-        <Button Content="Pomoć" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Click="goToHelp"/>
-        <Button Content="Demo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Margin="102,0,0,0"/>
+        <Button Content="_Pomoć" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Click="goToHelp"/>
+        <Button Content="_Demo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="102" FontSize="15" FontWeight="Bold" Margin="102,0,0,0"/>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,167,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToAppointments" >
             <Button.Content>
@@ -37,7 +37,7 @@
             </Button.Content>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,210,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" >
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,210,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToHealthRecord" >
             <WrapPanel>
                 <Image Source="/Resources/img/medical-record-icon.png" Height="28" Width="28"/>
                 <Label Content="Moj _karton"/>

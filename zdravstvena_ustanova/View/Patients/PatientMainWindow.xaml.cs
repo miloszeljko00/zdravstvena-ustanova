@@ -128,5 +128,10 @@ namespace zdravstvena_ustanova.View
         {
             this.content.Content = new PatientAccount();
         }
+
+        private void goToHealthRecord(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new HealthRecordPatient();
+        }
     }
 }

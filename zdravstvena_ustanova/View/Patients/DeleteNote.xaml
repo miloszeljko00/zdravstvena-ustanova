@@ -10,8 +10,8 @@
         <Label Margin="10,10,10,77" HorizontalContentAlignment="Center">
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Da li ste sigurni da zelite da obrisete ovu belesku?" Height="37" Width="190"/>
         </Label>
-        <Button Content="Da" HorizontalAlignment="Left" Margin="56,83,0,0" VerticalAlignment="Top" Width="50" Height="27" Click="delete" />
-        <Button Content="Ne" HorizontalAlignment="Left" Margin="145,83,0,0" VerticalAlignment="Top" Width="50" Height="27" Click="goToNotes" />
+        <Button TabIndex="0" Content="_Da" HorizontalAlignment="Left" Margin="56,83,0,0" VerticalAlignment="Top" Width="50" Height="27" Click="delete" />
+        <Button TabIndex="1" Content="_Ne" HorizontalAlignment="Left" Margin="145,83,0,0" VerticalAlignment="Top" Width="50" Height="27" Click="goToNotes" />
 
     </Grid>
 </Window>

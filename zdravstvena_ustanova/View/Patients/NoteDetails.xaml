@@ -9,14 +9,14 @@
     <Grid>
         <Label Content="Naziv beleske :" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
         <Label Content="Sadrzaj beleske :" HorizontalAlignment="Left" Margin="31,62,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="name" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
-        <TextBox x:Name="content" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="74" Margin="0,88,0,0"/>
-        <Button x:Name="ok" Content="Sacuvaj" HorizontalAlignment="Left" Margin="67,295,0,21" Width="60" Click="update"/>
+        <TextBox TabIndex="0" x:Name="name" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
+        <TextBox TabIndex="1" x:Name="content" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="74" Margin="0,88,0,0"/>
+        <Button TabIndex="4" x:Name="ok" Content="_Sacuvaj" HorizontalAlignment="Left" Margin="67,295,0,21" Width="60" Click="update"/>
         <Label Content="Omoguci obavestenja :" HorizontalAlignment="Left" Margin="31,169,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="check"  HorizontalAlignment="Left" Margin="229,176,0,0" VerticalAlignment="Top" Height="15" Width="25" Checked="enabled" Unchecked="disabled"/>
+        <CheckBox TabIndex="2" x:Name="check"  HorizontalAlignment="Left" Margin="229,176,0,0" VerticalAlignment="Top" Height="15" Width="25" Checked="enabled" Unchecked="disabled"/>
         <Label Content="Vreme obavestenja :" HorizontalAlignment="Left" Margin="31,207,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="186,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" GotFocus="focused"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="170,295,0,21" Width="60" Click="goBack" />
+        <TextBox TabIndex="3" x:Name="time" HorizontalAlignment="Left" Margin="186,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" GotFocus="focused"/>
+        <Button TabIndex="5" Content="_Odustani" HorizontalAlignment="Left" Margin="170,295,0,21" Width="60" Click="goBack" />
         <Label x:Name="warning" FontSize="12" Foreground="Red" HorizontalAlignment="Left" Margin="40,240,0,0" VerticalAlignment="Top" Width="206" Height="30" HorizontalContentAlignment="Center"/>
 
     </Grid>

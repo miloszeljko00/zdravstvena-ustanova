@@ -11,7 +11,7 @@
         <Label Content="Sadrzaj beleske :" HorizontalAlignment="Left" Margin="31,62,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="name" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" IsEnabled="False"/>
         <TextBox x:Name="content" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="74" IsEnabled="False" Margin="0,88,0,0"/>
-        <Button Content="U redu" HorizontalAlignment="Center" Margin="0,185,0,27" Width="60" Click="goBack" />
+        <Button Content="_U redu" HorizontalAlignment="Center" Margin="0,185,0,27" Width="60" Click="goBack" />
 
     </Grid>
 </Window>
