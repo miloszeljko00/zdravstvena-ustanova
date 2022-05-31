@@ -136,6 +136,9 @@
     <Compile Update="View\Patients\AnamnesisDetails.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Patients\PatientAccount.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Patients\NoteNoti.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -165,6 +168,13 @@
     </Page>
     <Page Update="View\Patients\DeleteNote.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="View\Patients\PasswordChange.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="View\Patients\PatientAccount.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Patients\NoteNoti.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

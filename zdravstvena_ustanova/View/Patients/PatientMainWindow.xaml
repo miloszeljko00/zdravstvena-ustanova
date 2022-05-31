@@ -32,7 +32,7 @@
             <Button.Content>
                 <WrapPanel>
                     <Image Source="/Resources/img/clock-icon.png" Height="28" Width="28"/>
-                    <Label Content="Termini"/>
+                    <Label Content="_Termini"/>
                 </WrapPanel>
             </Button.Content>
         </Button>
@@ -40,56 +40,56 @@
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,210,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" >
             <WrapPanel>
                 <Image Source="/Resources/img/medical-record-icon.png" Height="28" Width="28"/>
-                <Label Content="Moj karton"/>
+                <Label Content="Moj _karton"/>
             </WrapPanel>
         </Button>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,253,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToAnamnesisReview">
             <WrapPanel>
                 <Image Source="/Resources/img/medical-report-icon.png" Height="28" Width="28"/>
-                <Label Content="Izveštaji pregleda"/>
+                <Label Content="_Izveštaji pregleda"/>
             </WrapPanel>
         </Button>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,296,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToSurveys">
             <WrapPanel>
                 <Image Source="/Resources/img/surveys-icon.png" Height="28" Width="28"/>
-                <Label Content="Aktivne ankete"/>
+                <Label Content="_Aktivne ankete"/>
             </WrapPanel>
         </Button>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,339,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToNotes">
             <WrapPanel>
                 <Image Source="/Resources/img/notes-icon.png" Height="28" Width="28"/>
-                <Label Content="Beleške"/>
+                <Label Content="_Beleške"/>
             </WrapPanel>
         </Button>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,382,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToNotis">
             <WrapPanel>
                 <Image Source="/Resources/img/Apps-Notifications-icon.png" Height="28" Width="28"/>
-                <Label Content="Notifikacije"/>
+                <Label Content="_Notifikacije"/>
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,427,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,427,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToJustification">
             <WrapPanel>
                 <Image Source="/Resources/img/Edit-Document-icon.png" Height="28" Width="28"/>
-                <Label Content="Zahtev za opravdanje"/>
+                <Label Content="Zahtev za _opravdanje"/>
             </WrapPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,470,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White">
+        <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,470,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToPatientAccount">
             <WrapPanel>
                 <Image Source="/Resources/img/user-man-info-icon.png" Height="28" Width="28"/>
-                <Label Content="Nalog"/>
+                <Label Content="Na_log"/>
             </WrapPanel>
         </Button>
 
         <Button HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="21,523,0,0" Width="164" Height="32" VerticalAlignment="Top" Background="White" BorderBrush="White" Click="goToLogin">
             <WrapPanel>
                 <Image Source="/Resources/img/User-Interface-Logout-icon.png" Height="28" Width="28"/>
-                <Label Content="Izloguj se"/>
+                <Label Content="I_zloguj se"/>
             </WrapPanel>
         </Button>
         

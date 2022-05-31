@@ -118,5 +118,15 @@ namespace zdravstvena_ustanova.View
         {
             this.content.Content = new AnamnesisReview();
         }
+
+        private void goToJustification(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new Justification();
+        }
+
+        private void goToPatientAccount(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new PatientAccount();
+        }
     }
 }
