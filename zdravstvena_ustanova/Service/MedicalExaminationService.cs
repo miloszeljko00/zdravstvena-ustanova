@@ -79,6 +79,21 @@ namespace zdravstvena_ustanova.Service
             return medicalExaminations;
         }
 
+        public ScheduledAppointment GetScheduledAppointmentForAnamnesis(long anamnesisId)
+        {
+            var medicalExamination = GetAll();
+            ScheduledAppointment scheduledAppointment = null;
+            foreach (MedicalExamination me in medicalExamination)
+            {
+                if (me.Anamnesis.Id == anamnesisId)
+                {
+                    scheduledAppointment = me.ScheduledAppointment;
+                }
+                break;
+            }
+            return scheduledAppointment;
+        }
+
         public MedicalExamination GetById(long id)
         {
             var medicalExamination = _medicalExaminationRepository.Get(id);

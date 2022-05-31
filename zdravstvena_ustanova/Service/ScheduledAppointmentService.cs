@@ -36,6 +36,31 @@ namespace zdravstvena_ustanova.Service
             return scheduledAppointments;
         }
 
+        public IEnumerable<ScheduledAppointment> GetScheduledAppointmentsForPatient(long patientId)
+        {
+            var scheduledAppointments = GetAll();
+            List<ScheduledAppointment> patientsAppointments = new List<ScheduledAppointment>();
+            foreach(ScheduledAppointment sa in scheduledAppointments)
+                if(sa.Patient.Id == patientId)
+                    patientsAppointments.Add(sa);
+            return patientsAppointments;
+        }
+
+        public ScheduledAppointment GetScheduledAppointmentsForDate(DateTime date, long patientId)
+        {
+            var scheduledAppointments = GetScheduledAppointmentsForPatient(patientId);
+            ScheduledAppointment resultAppointment = null;
+            foreach (ScheduledAppointment sa in scheduledAppointments)
+            {
+                if (sa.Start.Date.Equals(date))
+                {
+                    resultAppointment = sa;
+                    break;
+                }
+            }
+            return resultAppointment;
+        }
+
         public IEnumerable<ScheduledAppointment> GetAllUnbound()
         { 
             return _scheduledAppointmentRepository.GetAll();

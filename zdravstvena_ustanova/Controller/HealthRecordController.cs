@@ -20,6 +20,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _healthRecordService.GetAll();
         }
+        public IEnumerable<Anamnesis> GetAnamnesisForPatient(long patientId)
+        {
+            return _healthRecordService.GetAnamnesisForPatient(patientId);
+        }
         public HealthRecord GetById(long id)
         {
             return _healthRecordService.GetById(id);
