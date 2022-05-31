@@ -48,7 +48,7 @@ namespace zdravstvena_ustanova.View
                 jmbg.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (!DateTime.TryParseExact(datum.Text, "dd.MM.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
+            if (!DateTime.TryParseExact(datum.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
             {
                 datum.BorderBrush = Brushes.Red;
                 isValid = false;

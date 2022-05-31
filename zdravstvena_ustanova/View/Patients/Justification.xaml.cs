@@ -39,12 +39,12 @@ namespace zdravstvena_ustanova.View
                 skola.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (!DateTime.TryParseExact(datumOd.Text, "dd.MM.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
+            if (!DateTime.TryParseExact(datumOd.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
             {
                 datumOd.BorderBrush = Brushes.Red;
                 isValid = false;
             }
-            if (!DateTime.TryParseExact(datumDo.Text, "dd.MM.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
+            if (!DateTime.TryParseExact(datumDo.Text, "d.M.yyyy.", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out dateValue))
             {
                 datumDo.BorderBrush = Brushes.Red;
                 isValid = false;

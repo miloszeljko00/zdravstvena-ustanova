@@ -39,7 +39,7 @@ namespace zdravstvena_ustanova.View
 
         private void entered(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Space && therapyList.SelectedIndex != -1)
             {
                 PrescribedMedicineDetails pmd = new PrescribedMedicineDetails((PrescribedMedicine)therapyList.SelectedItem);
                 pmd.ShowDialog();
