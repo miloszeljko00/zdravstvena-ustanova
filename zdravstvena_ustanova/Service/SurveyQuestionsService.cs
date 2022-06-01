@@ -5,10 +5,11 @@ using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SurveyQuestionsService : ISurveyQuestionsRepository
+    public class SurveyQuestionsService : ISurveyQuestionsService
     {
         private readonly ISurveyQuestionsRepository _surveyQuestionsRepository;
         private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
