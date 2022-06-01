@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,12 +22,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
     public partial class ManagerMainPage : Page
     {
         public LoginPage LoginPage { get; set; }
+        private readonly Duration _dropdownAnimationDuration;
         public ManagerMainPage(LoginPage loginPage)
         {
             InitializeComponent();
             LoginPage = loginPage;
-            AccountsDropDown.Visibility = Visibility.Hidden;
-            ReportsDropDown.Visibility = Visibility.Hidden;
+            _dropdownAnimationDuration = new Duration(TimeSpan.FromSeconds(0.2));
         }
 
 
@@ -75,9 +76,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void ItemTransferReportsButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            ReportsDropDown.Visibility = Visibility.Hidden;
-
             homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
             reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
             warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
@@ -92,8 +90,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void RenovationReportsButton_Click(object sender, RoutedEventArgs e)
         {
-            ReportsDropDown.Visibility = Visibility.Hidden;
-
             homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
             reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
             warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
@@ -108,22 +104,39 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void reportsButton_LostFocus(object sender, RoutedEventArgs e)
         {
-            ReportsDropDown.Visibility = Visibility.Hidden;
+            DoubleAnimation heightAnimation = new DoubleAnimation(0, _dropdownAnimationDuration)
+            {
+                AccelerationRatio = 0.2
+            };
+            ReportsDropDown.BeginAnimation(HeightProperty, heightAnimation);
         }
 
         private void reportsButton_GotFocus(object sender, RoutedEventArgs e)
         {
-            ReportsDropDown.Visibility = Visibility.Visible;
+            DoubleAnimation heightAnimation = new DoubleAnimation(320, _dropdownAnimationDuration)
+            {
+                AccelerationRatio = 0.2
+            };
+            ReportsDropDown.BeginAnimation(HeightProperty, heightAnimation);
         }
 
         private void accountButton_GotFocus(object sender, RoutedEventArgs e)
         {
-            AccountsDropDown.Visibility = Visibility.Visible;
+            DoubleAnimation heightAnimation = new DoubleAnimation(320, _dropdownAnimationDuration)
+            {
+                AccelerationRatio = 0.2
+            };
+            AccountsDropDown.BeginAnimation(HeightProperty, heightAnimation);
         }
 
         private void accountButton_LostFocus(object sender, RoutedEventArgs e)
         {
-            AccountsDropDown.Visibility = Visibility.Hidden;
+            DoubleAnimation heightAnimation = new DoubleAnimation(0, _dropdownAnimationDuration)
+            {
+                AccelerationRatio = 0.2
+            };
+            AccountsDropDown.BeginAnimation(HeightProperty, heightAnimation);
+
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

@@ -69,10 +69,10 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
                 }
                 if(RenovationAppointment != null)
                 {
+                    AppointmentsCountDisplay.Visibility = Visibility.Collapsed;
+                    label.Visibility = Visibility.Collapsed;
+                    UnderConstruction.Visibility = Visibility.Visible;
                     panel.Background = Brushes.Red;
-                    AppointmentsCountDisplay.Content = "Renoviranje";
-                    AppointmentsCountDisplay.Foreground = Brushes.White;
-                    label.Foreground= Brushes.White;
                 }
             }
   

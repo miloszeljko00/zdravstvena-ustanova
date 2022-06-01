@@ -77,13 +77,11 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
 
         private DateTime GetPreviousMonth(DateTime date)
         {
-            if (date.Month > 1) return new DateTime(date.Year, date.Month - 1, date.Day);
-            return new DateTime(date.Year - 1, 12, date.Day);
+            return date.AddMonths(-1);
         }
         private DateTime GetNextMonth(DateTime date)
         {
-            if (date.Month < 12) return new DateTime(date.Year, date.Month + 1, date.Day);
-            return new DateTime(date.Year + 1, 1, date.Day);
+            return date.AddMonths(1);
         }
 
         private int GenerateDaysFromPreviousMonth(DateTime date)
@@ -153,26 +151,13 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
 
         private void PreviousMonthArrowIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(DisplayedMonth.Month > 1)
-            {
-                DisplayedMonth = new DateTime(DisplayedMonth.Year, DisplayedMonth.Month - 1, DisplayedMonth.Day);
-            }
-            else
-            {
-                DisplayedMonth = new DateTime(DisplayedMonth.Year - 1, 12, DisplayedMonth.Day);
-            }
+
+            DisplayedMonth = DisplayedMonth.AddMonths(-1);
             DisplayCalendarForMonth(DisplayedMonth);
         }
         private void NextMonthArrowIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (DisplayedMonth.Month < 12)
-            {
-                DisplayedMonth = new DateTime(DisplayedMonth.Year, DisplayedMonth.Month + 1, DisplayedMonth.Day);
-            }
-            else
-            {
-                DisplayedMonth = new DateTime(DisplayedMonth.Year + 1, 1, DisplayedMonth.Day);
-            }
+            DisplayedMonth = DisplayedMonth.AddMonths(1);
             DisplayCalendarForMonth(DisplayedMonth);
         }
     }
