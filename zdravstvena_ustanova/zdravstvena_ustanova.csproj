@@ -35,6 +35,7 @@
     <None Remove="Resources\img\medical-record.png" />
     <None Remove="Resources\img\new-user.png" />
     <None Remove="Resources\img\order-icon.png" />
+    <None Remove="Resources\img\printer.png" />
     <None Remove="Resources\img\profile-picture.png" />
     <None Remove="Resources\img\quest-icon.png" />
     <None Remove="Resources\img\reports-icon.png" />
@@ -84,6 +85,7 @@
     <Resource Include="Resources\img\icons8-delivered.png" />
     <Resource Include="Resources\img\icons8-high-priority-64.png" />
     <Resource Include="Resources\img\icons8-new.png" />
+    <Resource Include="Resources\img\printer.png" />
     <Resource Include="Resources\img\reports-icon.png" />
     <Resource Include="Resources\img\slikaUstanove.png" />
     <Content Include="Resources\img\surveys-icon.png">
@@ -202,6 +204,11 @@
 
   <ItemGroup>
     <Folder Include="Repository\RepositoryInterface\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>
 
 </Project>

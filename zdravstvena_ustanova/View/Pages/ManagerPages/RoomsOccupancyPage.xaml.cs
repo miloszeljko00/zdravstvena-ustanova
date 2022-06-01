@@ -38,7 +38,10 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void GenerateReportButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            DateTime startDate = (DateTime)StartDatePicker.SelectedDate;
+            DateTime endDate = (DateTime)EndDatePicker.SelectedDate;
+
+            NavigationService.Navigate(new RoomGeneratedReportPage((Room)RoomsDataGrid.SelectedItem, startDate, endDate));
         }
     }
 }
