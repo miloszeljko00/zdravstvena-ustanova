@@ -17,15 +17,19 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
 
             <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="Prostorije"></Label>
-            <Button x:Name="ScheduleItemTransferButton" Width="150" Height="48" Margin="255,0,0,0" FontSize="14" Content="Generiši izveštaj" Cursor="Hand" Click="ScheduleItemTransferButton_Click"></Button>
+            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="114,0,0,0"></Label>
+            <DatePicker Name="StartDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0"></Label>
+            <DatePicker Name="EndDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <Button x:Name="GenerateReportButton" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Generiši izveštaj" Cursor="Hand" Click="GenerateReportButton_OnClick"></Button>
             
         </StackPanel>
-        <DataGrid x:Name="WarehouseItemsDataGrid" ItemsSource="{Binding StoredItems}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

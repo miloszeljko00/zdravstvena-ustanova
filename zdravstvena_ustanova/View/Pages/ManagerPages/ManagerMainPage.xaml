@@ -32,7 +32,7 @@
         </StackPanel>
         <StackPanel MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Panel.ZIndex="100" Name="ReportsDropDown" VerticalAlignment="Top" Width="160" Height="0"  Margin="-800,64,0,0" Cursor="Hand">
             <Button Name="DoctorReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Zauzetost lekara</Button>
-            <Button Name="RoomReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Zauzetost prostorija</Button>
+            <Button Name="RoomReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="RoomReportsButton_OnClick">Zauzetost prostorija</Button>
             <Button Name="RenovationReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="RenovationReportsButton_Click">Renoviranja</Button>
             <Button Name="ItemTransferReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2" Click="ItemTransferReportsButton_Click">Premestanja</Button>
             <Button Name="MedicationOrdersReportsButton" Width="160" Height="64" FontSize="18" Background="#FFF7E2E2">Narudzbine</Button>
