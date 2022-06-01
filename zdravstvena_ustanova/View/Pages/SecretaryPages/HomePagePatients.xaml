@@ -28,7 +28,7 @@
         <Label Content="Nalozi" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" FontSize="22" />
         <Label Content="Termini" HorizontalAlignment="Left" Margin="584,77,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Label Content="Nabavka" HorizontalAlignment="Left" Margin="684,77,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Image HorizontalAlignment="Left" Height="85" Margin="799,-1,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/work-time.png"/>
+        <Image x:Name="Schedule" HorizontalAlignment="Left" Height="85" Margin="799,-1,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/work-time.png" MouseDown="Schedule_MouseDown"/>
         <Label Content="Raspored" HorizontalAlignment="Left" Margin="793,77,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Image HorizontalAlignment="Left" Height="85" Margin="908,2,0,0" VerticalAlignment="Top" Width="85" Source="/Resources/img/statistic.png"/>
         <Label Content="Statistika" HorizontalAlignment="Left" Margin="898,77,0,0" VerticalAlignment="Top" FontSize="22" Width="104"/>
