@@ -15,7 +15,7 @@ namespace zdravstvena_ustanova.View
     public partial class Appointments : UserControl
     {
         public List<ScheduledAppointment> ScheduledAppointments { get; set; }
-        public List<DateTime> dates { get; set; }
+        public List<DateTime> Dates { get; set; }
         public Appointments()
         {
             InitializeComponent();
@@ -35,27 +35,22 @@ namespace zdravstvena_ustanova.View
             this.refresh();
         }
 
-        public void refresh()
+        private void refresh()
         {
-            Dictionary<string, Color> d = new Dictionary<string, Color>();
+            Dictionary<string, Color> datesToColor = new Dictionary<string, Color>();
             var app = Application.Current as App;
-            dates = new List<DateTime>();
-            ScheduledAppointments = new List<ScheduledAppointment>();
-            List<ScheduledAppointment> schApp = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach (ScheduledAppointment sa in schApp)
+            Dates = new List<DateTime>();
+            ScheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetScheduledAppointmentsForPatient(app.LoggedInUser.Id));
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
-                if (sa.Patient.Id == app.LoggedInUser.Id)
-                {
-                    ScheduledAppointments.Add(sa);
-                    dates.Add(sa.Start);
-                    d.Add(sa.Start.Date.ToString("MM/dd/yyyy"), Colors.Red);
-                }
+                Dates.Add(sa.Start);
+                datesToColor.Add(sa.Start.Date.ToString("MM/dd/yyyy"), Colors.Red);
             }
 
 
             Style style = new Style(typeof(CalendarDayButton));
 
-            foreach (KeyValuePair<string, Color> item in d)
+            foreach (KeyValuePair<string, Color> item in datesToColor)
             {
                 DataTrigger trigger = new DataTrigger()
                 {
@@ -71,17 +66,11 @@ namespace zdravstvena_ustanova.View
 
         private void goToManageAppointment(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            var app = Application.Current as App;
             if (calendar.SelectedDate != null && e.Key == Key.Space)
             {
-                foreach (ScheduledAppointment sa in ScheduledAppointments)
-                {
-                    if (sa.Start.Date.Equals((DateTime)calendar.SelectedDate))
-                    {
-                        ManageAppointment ma = new ManageAppointment(sa);
-                        ma.ShowDialog();
-                        break;
-                    }
-                }
+                ManageAppointment ma = new ManageAppointment(app.ScheduledAppointmentController.GetScheduledAppointmentsForDate((DateTime)calendar.SelectedDate, app.LoggedInUser.Id));
+                ma.ShowDialog(); 
             }
             calendar.SelectedDate = null;
             this.refresh();

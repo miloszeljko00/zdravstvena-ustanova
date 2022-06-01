@@ -12,7 +12,7 @@ namespace zdravstvena_ustanova.View
     {
         public Anamnesis Anamnesis { get; set; }
         public ScheduledAppointment ScheduledAppointment { get; set; }
-        public string Doctors { get; set; }
+        public string Doctor { get; set; }
 
         public AnamnesisInfo()
         {
@@ -21,46 +21,32 @@ namespace zdravstvena_ustanova.View
     }
     public partial class AnamnesisReview : UserControl
     {
-        public ObservableCollection<AnamnesisInfo> ai { get; set; }
-        public ObservableCollection<AnamnesisInfo> filtered { get; set; }
+        public ObservableCollection<AnamnesisInfo> AnamnesisInfos { get; set; }
+        public ObservableCollection<AnamnesisInfo> FilteredInfos { get; set; }
         public AnamnesisReview()
         {
             InitializeComponent();
-            ai = new ObservableCollection<AnamnesisInfo>();
+            AnamnesisInfos = new ObservableCollection<AnamnesisInfo>();
             var app = Application.Current as App;
-            List<HealthRecord> hrs = new List<HealthRecord>(app.HealthRecordController.GetAll());
-            List<MedicalExamination> mes = new List<MedicalExamination>(app.MedicalExaminationController.GetAll());
-            foreach (HealthRecord hr in hrs)
+            List<Anamnesis> anamnesis = new List<Anamnesis>(app.HealthRecordController.GetAnamnesisForPatient(app.LoggedInUser.Id));
+            foreach (Anamnesis a in anamnesis)
             {
-                if (app.LoggedInUser.Id == hr.Patient.Id)
-                {
-                    foreach (Anamnesis a in hr.Anamnesis)
-                    {
-                        AnamnesisInfo aInfo = new AnamnesisInfo();
-                        aInfo.Anamnesis = a;
-                        ai.Add(aInfo);
-                    }
-                }
+                AnamnesisInfo aInfo = new AnamnesisInfo();
+                aInfo.Anamnesis = a;
+                AnamnesisInfos.Add(aInfo);
             }
-            foreach (AnamnesisInfo aInfo in ai)
+            foreach (AnamnesisInfo ai in AnamnesisInfos)
             {
-                foreach(MedicalExamination me in mes)
-                {
-                    if(me.Anamnesis.Id == aInfo.Anamnesis.Id)
-                    {
-                        aInfo.ScheduledAppointment = me.ScheduledAppointment;
-                    }
-                }
+                ai.ScheduledAppointment = app.MedicalExaminationController.GetScheduledAppointmentForAnamnesis(ai.Anamnesis.Id);
             }
-            foreach (AnamnesisInfo aInfo in ai)
+            foreach (AnamnesisInfo ai in AnamnesisInfos)
             {
-                aInfo.Doctors = "dr " + aInfo.ScheduledAppointment.Doctor.Name + " " + aInfo.ScheduledAppointment.Doctor.Surname;
+                ai.Doctor = "dr " + ai.ScheduledAppointment.Doctor.Name + " " + ai.ScheduledAppointment.Doctor.Surname;
             }
-
-            anamnesisList.ItemsSource = ai;
+            anamnesisList.ItemsSource = AnamnesisInfos;
         }
 
-        private void entered(object sender, System.Windows.Input.KeyEventArgs e)
+        private void enterDetails(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Space && anamnesisList.SelectedIndex != -1)
             {
@@ -69,19 +55,19 @@ namespace zdravstvena_ustanova.View
             }
         }
 
-        private void pretraga(object sender, RoutedEventArgs e)
+        private void search(object sender, RoutedEventArgs e)
         {
-            filtered = new ObservableCollection<AnamnesisInfo>();
+            FilteredInfos = new ObservableCollection<AnamnesisInfo>();
             if (trazi.Text == "")
-                anamnesisList.ItemsSource = ai;
+                anamnesisList.ItemsSource = AnamnesisInfos;
             else
             {
-                foreach (AnamnesisInfo aInfo in ai)
+                foreach (AnamnesisInfo ai in AnamnesisInfos)
                 {
-                    if (aInfo.Doctors.ToLower().Contains(trazi.Text.ToLower()) || aInfo.ScheduledAppointment.Start.ToString().ToLower().StartsWith(trazi.Text.ToLower()))
-                        filtered.Add(aInfo);
+                    if (ai.Doctor.ToLower().Contains(trazi.Text.ToLower()) || ai.ScheduledAppointment.Start.ToString().ToLower().StartsWith(trazi.Text.ToLower()))
+                        FilteredInfos.Add(ai);
                 }
-                anamnesisList.ItemsSource = filtered;
+                anamnesisList.ItemsSource = FilteredInfos;
             }
 
         }

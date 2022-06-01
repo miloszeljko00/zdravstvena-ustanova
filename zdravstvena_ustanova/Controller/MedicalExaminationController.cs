@@ -22,6 +22,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _medicalExaminationService.GetAll();
         }
+        public ScheduledAppointment GetScheduledAppointmentForAnamnesis(long anamnesisId)
+        {
+            return _medicalExaminationService.GetScheduledAppointmentForAnamnesis(anamnesisId);
+        }
         public MedicalExamination GetById(long id)
         {
             return _medicalExaminationService.Get(id);

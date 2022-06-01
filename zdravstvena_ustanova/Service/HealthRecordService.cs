@@ -105,6 +105,19 @@ namespace zdravstvena_ustanova.Service
             return healthRecords;
         }
 
+        public IEnumerable<Anamnesis> GetAnamnesisForPatient(long patientId)
+        {
+            var healthRecords = GetAll();
+            List<Anamnesis> anamnesis = new List<Anamnesis>();
+            foreach (HealthRecord hr in healthRecords)
+                if (hr.Patient.Id == patientId) 
+                {
+                    anamnesis = hr.Anamnesis;
+                    break;
+                }
+            return anamnesis;
+        }
+
 
         public HealthRecord Get(long id)
         {

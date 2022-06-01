@@ -26,6 +26,16 @@ namespace zdravstvena_ustanova.Controller
             return _scheduledAppointmentService.GetAllUnbound();
         }
 
+        public ScheduledAppointment GetScheduledAppointmentsForDate(DateTime date, long patientId)
+        {
+            return _scheduledAppointmentService.GetScheduledAppointmentsForDate(date, patientId);
+        }
+
+        public IEnumerable<ScheduledAppointment> GetScheduledAppointmentsForPatient(long patientId)
+        {
+            return _scheduledAppointmentService.GetScheduledAppointmentsForPatient(patientId);
+        }
+
         public IEnumerable<ScheduledAppointment> GetFromToDates(DateTime start, DateTime end)
         {
             return _scheduledAppointmentService.GetFromToDates(start, end);
