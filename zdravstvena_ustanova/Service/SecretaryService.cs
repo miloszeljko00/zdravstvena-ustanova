@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SecretaryService
+    public class SecretaryService : ISecretaryService
     {
         private readonly ISecretaryRepository _secretaryRepository;
         private readonly IAccountRepository _accountRepository;
@@ -37,7 +38,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Secretary GetById(long id)
+        public Secretary Get(long id)
         {
             var secretary = _secretaryRepository.Get(id);
             var accounts = _accountRepository.GetAll();
@@ -66,13 +67,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _secretaryRepository.Create(secretary);
         }
-        public void Update(Secretary secretary)
+        public bool Update(Secretary secretary)
         {
-            _secretaryRepository.Update(secretary);
+            return _secretaryRepository.Update(secretary);
         }
-        public void Delete(long secretaryId)
+        public bool Delete(long secretaryId)
         {
-            _secretaryRepository.Delete(secretaryId);
+            return _secretaryRepository.Delete(secretaryId);
         }
     }
 }

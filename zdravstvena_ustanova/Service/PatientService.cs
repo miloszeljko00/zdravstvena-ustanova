@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PatientService
+    public class PatientService : IPatientService
     {
         private readonly IPatientRepository _patientRepository;
         private readonly IAccountRepository _accountRepository;
@@ -35,7 +36,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Patient GetById(long id)
+        public Patient Get(long id)
         {
             var patient = _patientRepository.Get(id);
             var accounts = _accountRepository.GetAll();
@@ -65,13 +66,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _patientRepository.Create(patient);
         }
-        public void Update(Patient patient)
+        public bool Update(Patient patient)
         {
-            _patientRepository.Update(patient);
+            return _patientRepository.Update(patient);
         }
-        public void Delete(long patientId)
+        public bool Delete(long patientId)
         {
-            _patientRepository.Delete(patientId);
+            return _patientRepository.Delete(patientId);
         }
     }
 }

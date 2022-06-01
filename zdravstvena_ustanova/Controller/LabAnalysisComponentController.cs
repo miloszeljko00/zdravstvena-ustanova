@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class LabAnalysisComponentController
     {
-        private readonly LabAnalysisComponentService _labAnalysisComponentService;
+        private readonly ILabAnalysisComponentService _labAnalysisComponentService;
 
-        public LabAnalysisComponentController(LabAnalysisComponentService labAnalysisComponentService)
+        public LabAnalysisComponentController(ILabAnalysisComponentService labAnalysisComponentService)
         {
             _labAnalysisComponentService = labAnalysisComponentService;
         }

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class IngredientController
     {
-        private readonly IngredientService _ingredientService;
+        private readonly IIngredientService _ingredientService;
 
-        public IngredientController(IngredientService ingredientService)
+        public IngredientController(IIngredientService ingredientService)
         {
             _ingredientService = ingredientService;
         }

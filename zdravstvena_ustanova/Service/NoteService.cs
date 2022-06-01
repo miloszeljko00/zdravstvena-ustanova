@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class NoteService
+    public class NoteService : INoteService
     {
         private readonly INoteRepository _noteRepository;
         private IPatientRepository _patientRepository;
@@ -26,7 +27,7 @@ namespace zdravstvena_ustanova.Service
             return notes;
         }
 
-        public Note GetById(long Id)
+        public Note Get(long Id)
         {
             var patients = _patientRepository.GetAll();
             var note = _noteRepository.Get(Id);
@@ -55,13 +56,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _noteRepository.Create(note);
         }
-        public void Update(Note note)
+        public bool Update(Note note)
         {
-            _noteRepository.Update(note);
+            return _noteRepository.Update(note);
         }
-        public void Delete(long noteId)
+        public bool Delete(long noteId)
         {
-            _noteRepository.Delete(noteId);
+            return _noteRepository.Delete(noteId);
         }
     }
 }

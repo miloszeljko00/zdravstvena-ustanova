@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IPatientRepository _patientRepository;
@@ -44,7 +45,7 @@ namespace zdravstvena_ustanova.Service
                return _accountRepository.Update(account);
         }
 
-        public Account GetById(long id)
+        public Account Get(long id)
         {
             var patients = _patientRepository.GetAll();
             var doctors = _doctorRepository.GetAll();
@@ -87,7 +88,7 @@ namespace zdravstvena_ustanova.Service
 
             var accountId =  _accountRepository.GetByUsername(username).Id;
 
-            return GetById(accountId).Person;
+            return Get(accountId).Person;
         }
         private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
         {

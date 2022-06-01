@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class WarehouseService
+    public class WarehouseService : IWarehouseService
     {
         private readonly IWarehouseRepository _warehouseRepository;
         private readonly IItemRepository _itemRepository;
@@ -36,7 +37,7 @@ namespace zdravstvena_ustanova.Service
             BindStoredItemsWithWarehouses(storedItems, warehouses);
             return warehouses;
         }
-        public Warehouse GetById(long id)
+        public Warehouse Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemTypes = _itemTypeRepository.GetAll();

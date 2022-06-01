@@ -5,10 +5,11 @@ using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class RoomService
+    public class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IStoredItemRepository _storedItemRepository;
@@ -39,19 +40,19 @@ namespace zdravstvena_ustanova.Service
 
         public IEnumerable<StoredItem> FilterStoredItemsByType(long roomId, ItemType itemType)
         {
-            Room room = GetById(roomId);
+            Room room = Get(roomId);
 
             return room.StoredItems.FindAll(storedItem => storedItem.Item.ItemType.Id == itemType.Id);
         }
 
         public IEnumerable<StoredItem> FilterStoredItemsByName(long roomId, string searchText)
         {
-            Room room = GetById(roomId);
+            Room room = Get(roomId);
 
             return room.StoredItems.FindAll(storedItem => storedItem.Item.Name.Contains(searchText));
         }
 
-        public Room GetById(long id)
+        public Room Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemTypes = _itemTypeRepository.GetAll();

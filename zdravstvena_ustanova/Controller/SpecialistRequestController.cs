@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class SpecialistRequestController
     {
-        private readonly SpecialistRequestService _specialistRequestService;
+        private readonly ISpecialistRequestService _specialistRequestService;
 
-        public SpecialistRequestController(SpecialistRequestService specialistRequestService)
+        public SpecialistRequestController(ISpecialistRequestService specialistRequestService)
         {
             _specialistRequestService = specialistRequestService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public SpecialistRequest GetById(long id)
         {
-            return _specialistRequestService.GetById(id);
+            return _specialistRequestService.Get(id);
         }
         public SpecialistRequest Create(SpecialistRequest specialistRequest)
         {

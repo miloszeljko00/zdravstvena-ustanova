@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SurveyAnswersService
+    public class SurveyAnswersService : ISurveyAnswersService
     {
         private readonly ISurveyAnswersRepository _surveyAnswersRepository;
         private IPatientRepository _patientRepository;
@@ -30,7 +31,7 @@ namespace zdravstvena_ustanova.Service
             return surveysAnswers;
         }
 
-        public SurveyAnswers GetById(long Id)
+        public SurveyAnswers Get(long Id)
         {
             var patients = _patientRepository.GetAll();
             var surveyQuestions = _surveyQuestionsRepository.GetAll();
@@ -71,6 +72,16 @@ namespace zdravstvena_ustanova.Service
         {
             var surveyAnswers = GetAll();
             return surveyAnswers.Where(surveyAnswer => surveyAnswer.SurveyQuestions.Name == surveyName).ToList();
+        }
+
+        public bool Update(SurveyAnswers t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

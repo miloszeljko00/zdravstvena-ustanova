@@ -8,10 +8,11 @@ using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
 using System.Threading;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SystemService
+    public class SystemService : ISystemService
     {
         private readonly IScheduledItemTransferRepository _scheduledItemTransferRepository;
         private readonly IStoredItemRepository _storedItemRepository;

@@ -7,10 +7,11 @@ using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ScheduledItemTransferService
+    public class ScheduledItemTransferService : IScheduledItemTransferService
     {
         private readonly IScheduledItemTransferRepository _scheduledItemTransferRepository;
         private readonly IRoomRepository _roomRepository;
@@ -149,7 +150,7 @@ namespace zdravstvena_ustanova.Service
         }
        
 
-        public ScheduledItemTransfer GetById(long id)
+        public ScheduledItemTransfer Get(long id)
         {
             var rooms = _roomRepository.GetAll();
             var warehouses = _warehouseRepository.GetAll();
@@ -238,13 +239,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _scheduledItemTransferRepository.Create(scheduledItemTransfer);
         }
-        public void Update(ScheduledItemTransfer scheduledItemTransfer)
+        public bool Update(ScheduledItemTransfer scheduledItemTransfer)
         {
-            _scheduledItemTransferRepository.Update(scheduledItemTransfer);
+            return _scheduledItemTransferRepository.Update(scheduledItemTransfer);
         }
-        public void Delete(long scheduledItemTransferId)
+        public bool Delete(long scheduledItemTransferId)
         {
-            _scheduledItemTransferRepository.Delete(scheduledItemTransferId);
+            return _scheduledItemTransferRepository.Delete(scheduledItemTransferId);
         }
     }
 }

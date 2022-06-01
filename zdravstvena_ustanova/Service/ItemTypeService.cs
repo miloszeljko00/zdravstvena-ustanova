@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ItemTypeService
+    public class ItemTypeService : IItemTypeService
     {
         private readonly IItemTypeRepository _itemTypeRepository;
 
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Service
             return _itemTypeRepository.GetAll();
         }
 
-        public ItemType GetById(long id)
+        public ItemType Get(long id)
         {
             return _itemTypeRepository.Get(id);
         }

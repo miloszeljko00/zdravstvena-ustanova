@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PrescribedMedicineService
+    public class PrescribedMedicineService : IPrescribedMedicineService
     {
         private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
         private readonly IMedicationRepository _medicationRepository;
@@ -62,7 +63,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public PrescribedMedicine GetById(long id)
+        public PrescribedMedicine Get(long id)
         {
             var medications = _medicationRepository.GetAll();
             var medicationTypes = _medicationTypeRepository.GetAll();

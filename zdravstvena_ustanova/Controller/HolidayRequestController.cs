@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Windows;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class HolidayRequestController
     {
-        private readonly HolidayRequestService _holidayRequestService;
+        private readonly IHolidayRequestService _holidayRequestService;
 
-        public HolidayRequestController(HolidayRequestService holidayRequestService)
+        public HolidayRequestController(IHolidayRequestService holidayRequestService)
         {
             _holidayRequestService = holidayRequestService;
         }

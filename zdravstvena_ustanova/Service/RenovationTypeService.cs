@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class RenovationTypeService
+    public class RenovationTypeService : IRenovationTypeService
     {
         private readonly IRenovationTypeRepository _renovationTypeRepository;
 
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Service
             return _renovationTypeRepository.GetAll();
         }
 
-        public RenovationType GetById(long id)
+        public RenovationType Get(long id)
         {
             return _renovationTypeRepository.Get(id);
         }

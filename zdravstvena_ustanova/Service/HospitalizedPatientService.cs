@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HospitalizedPatientService
+    public class HospitalizedPatientService : IHospitalizedPatientService
     {
         private readonly IHospitalizedPatientRepository _hospitalizedPatientRepository;
         private readonly IPatientRepository _patientRepository;
@@ -43,7 +44,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public HospitalizedPatient GetById(long id)
+        public HospitalizedPatient Get(long id)
         {
             var hospitalizedPatient = _hospitalizedPatientRepository.Get(id);
             var patients = _patientRepository.GetAll();

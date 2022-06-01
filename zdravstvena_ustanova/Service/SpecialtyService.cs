@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SpecialtyService
+    public class SpecialtyService : ISpecialtyService
     {
         private readonly ISpecialtyRepository _specialtyRepository;
 
@@ -21,7 +22,7 @@ namespace zdravstvena_ustanova.Service
             var specialties = _specialtyRepository.GetAll();
             return specialties;
         }
-        public Specialty GetById(long id)
+        public Specialty Get(long id)
         {
             return _specialtyRepository.Get(id);
         }
@@ -48,13 +49,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _specialtyRepository.Create(specialty);
         }
-        public void Update(Specialty specialty)
+        public bool Update(Specialty specialty)
         {
-            _specialtyRepository.Update(specialty);
+            return _specialtyRepository.Update(specialty);
         }
-        public void Delete(long specialtyId)
+        public bool Delete(long specialtyId)
         {
-            _specialtyRepository.Delete(specialtyId);
+            return _specialtyRepository.Delete(specialtyId);
         }
     }
 }

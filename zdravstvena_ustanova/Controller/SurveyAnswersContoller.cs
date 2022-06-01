@@ -3,14 +3,15 @@ using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class SurveyAnswersController
    {
-        private readonly SurveyAnswersService _surveyAnswersService;
+        private readonly ISurveyAnswersService _surveyAnswersService;
 
-        public SurveyAnswersController(SurveyAnswersService surveyAnswersService)
+        public SurveyAnswersController(ISurveyAnswersService surveyAnswersService)
         {
             _surveyAnswersService = surveyAnswersService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
 
         public SurveyAnswers GetById(long Id)
         {
-            return _surveyAnswersService.GetById(Id);
+            return _surveyAnswersService.Get(Id);
         }
 
         public SurveyAnswers Create(SurveyAnswers surveyAnswers)

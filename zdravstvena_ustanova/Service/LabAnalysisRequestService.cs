@@ -4,10 +4,11 @@ using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class LabAnalysisRequestService
+    public class LabAnalysisRequestService : ILabAnalysisRequestService
     {
         private readonly ILabAnalysisRequestRepository _labAnalysisRequestRepository;
         private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
@@ -35,7 +36,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public LabAnalysisRequest GetById(long id)
+        public LabAnalysisRequest Get(long id)
         {
             var labAnalysisRequest = _labAnalysisRequestRepository.Get(id);
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();

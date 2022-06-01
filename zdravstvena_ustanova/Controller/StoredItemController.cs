@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class StoredItemController
    {
-        private readonly StoredItemService _storedItemService;
+        private readonly IStoredItemService _storedItemService;
 
-        public StoredItemController(StoredItemService storedItemService)
+        public StoredItemController(IStoredItemService storedItemService)
         {
             _storedItemService = storedItemService;
         }

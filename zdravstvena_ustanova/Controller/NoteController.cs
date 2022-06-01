@@ -4,14 +4,15 @@ using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class NoteController
    {
-        private readonly NoteService _noteService;
+        private readonly INoteService _noteService;
 
-        public NoteController(NoteService noteService)
+        public NoteController(INoteService noteService)
         {
             _noteService = noteService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Note GetById(long Id)
         {
-            return _noteService.GetById(Id);
+            return _noteService.Get(Id);
         }
         public Note Create(Note note)
         {

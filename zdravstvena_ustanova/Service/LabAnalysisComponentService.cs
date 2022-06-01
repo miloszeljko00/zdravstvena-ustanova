@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class LabAnalysisComponentService
+    public class LabAnalysisComponentService : ILabAnalysisComponentService
     {
         private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
 
@@ -37,6 +38,11 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long labAnalysisComponentId)
         {
             return _labAnalysisComponentRepository.Delete(labAnalysisComponentId);
+        }
+
+        public LabAnalysisComponent Get(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

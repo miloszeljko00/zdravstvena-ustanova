@@ -5,10 +5,11 @@ using zdravstvena_ustanova.Model;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-   public class StoredItemService
+   public class StoredItemService : IStoredItemService
    {
 
         private readonly IItemRepository _itemRepository;
@@ -32,7 +33,7 @@ namespace zdravstvena_ustanova.Service
             BindItemsWithItemTypes(items, itemTypes);
             return storedItems;
         }
-        public StoredItem GetById(long id)
+        public StoredItem Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemTypes = _itemTypeRepository.GetAll();

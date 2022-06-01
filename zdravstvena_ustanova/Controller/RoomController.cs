@@ -2,14 +2,15 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class RoomController
    {
-        private readonly RoomService _roomService;
+        private readonly IRoomService _roomService;
 
-        public RoomController(RoomService roomService)
+        public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
         }
@@ -20,7 +21,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Room GetById(long id)
         {
-            return _roomService.GetById(id);
+            return _roomService.Get(id);
         }
         public Room Create(Room room)
         {

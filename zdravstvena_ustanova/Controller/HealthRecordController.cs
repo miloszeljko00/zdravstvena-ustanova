@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class HealthRecordController
     {
-        private readonly HealthRecordService _healthRecordService;
+        private readonly IHealthRecordService _healthRecordService;
 
-        public HealthRecordController(HealthRecordService healthRecordService)
+        public HealthRecordController(IHealthRecordService healthRecordService)
         {
             _healthRecordService = healthRecordService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public HealthRecord GetById(long id)
         {
-            return _healthRecordService.GetById(id);
+            return _healthRecordService.Get(id);
         }
         public HealthRecord Create(HealthRecord healthRecord)
         {

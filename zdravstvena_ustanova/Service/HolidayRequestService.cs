@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HolidayRequestService
+    public class HolidayRequestService : IHolidayRequestService
     {
         private readonly IHolidayRequestRepository _holidayRequestRepository;
         private readonly IDoctorRepository _doctorRepository;
@@ -25,7 +26,7 @@ namespace zdravstvena_ustanova.Service
             BindHolidayRequestsWithDoctors(holidayRequests, doctors);
             return holidayRequests;
         }
-        public HolidayRequest GetById(long id)
+        public HolidayRequest Get(long id)
         {
             var holidayRequests = GetAll();
             HolidayRequest holidayRequest = FindHolidayRequestById(holidayRequests, id);

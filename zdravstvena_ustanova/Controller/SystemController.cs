@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class SystemController
     {
-        private readonly SystemService _systemService;
-        public SystemController(SystemService systemService)
+        private readonly ISystemService _systemService;
+        public SystemController(ISystemService systemService)
         {
             _systemService = systemService;
         }

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class RenovationAppointmentService
+    public class RenovationAppointmentService : IRenovationAppointmentService
     {
         private readonly IRenovationAppointmentRepository _renovationAppointmentRepository;
         private readonly IRoomRepository _roomRepository;
@@ -329,7 +330,7 @@ namespace zdravstvena_ustanova.Service
             });
         }
 
-        public RenovationAppointment GetById(long id)
+        public RenovationAppointment Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemRooms = _itemRoomRepository.GetAll();

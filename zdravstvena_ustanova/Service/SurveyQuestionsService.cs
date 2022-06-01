@@ -8,7 +8,7 @@ using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SurveyQuestionsService
+    public class SurveyQuestionsService : ISurveyQuestionsRepository
     {
         private readonly ISurveyQuestionsRepository _surveyQuestionsRepository;
         private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
@@ -28,7 +28,7 @@ namespace zdravstvena_ustanova.Service
             return surveysQuestions;
         }
 
-        public SurveyQuestions GetById(long Id)
+        public SurveyQuestions Get(long Id)
         {
             var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
             var surveyQuestions = _surveyQuestionsRepository.Get(Id);
@@ -87,6 +87,21 @@ namespace zdravstvena_ustanova.Service
             }
 
             return surveys;
+        }
+
+        public SurveyQuestions Create(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

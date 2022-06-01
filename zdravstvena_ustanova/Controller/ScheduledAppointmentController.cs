@@ -4,14 +4,15 @@ using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class ScheduledAppointmentController
    {
-        private readonly ScheduledAppointmentService _scheduledAppointmentService;
+        private readonly IScheduledAppointmentService _scheduledAppointmentService;
 
-        public ScheduledAppointmentController(ScheduledAppointmentService scheduledAppointmentService)
+        public ScheduledAppointmentController(IScheduledAppointmentService scheduledAppointmentService)
         {
             _scheduledAppointmentService = scheduledAppointmentService;
         }
@@ -35,7 +36,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public ScheduledAppointment GetById(long Id)
         {
-            return _scheduledAppointmentService.GetById(Id);
+            return _scheduledAppointmentService.Get(Id);
         }
 
         public ScheduledAppointment Create(ScheduledAppointment scheduledAppointment)

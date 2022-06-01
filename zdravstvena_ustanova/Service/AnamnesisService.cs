@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AnamnesisService
+    public class AnamnesisService : IAnamnesisService
     {
         private readonly IAnamnesisRepository _anamnesisRepository;
 
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Service
             return _anamnesisRepository.GetAll();
         }
 
-        public Anamnesis GetById(long id)
+        public Anamnesis Get(long id)
         {
             return _anamnesisRepository.Get(id);
         }

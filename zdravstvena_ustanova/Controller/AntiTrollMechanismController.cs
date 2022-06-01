@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class AntiTrollMechanismController
     {
-        private readonly AntiTrollMechanismService _antiTrollMechanismService;
+        private readonly IAntiTrollMechanismService _antiTrollMechanismService;
 
-        public AntiTrollMechanismController(AntiTrollMechanismService antiTrollMechanismService)
+        public AntiTrollMechanismController(IAntiTrollMechanismService antiTrollMechanismService)
         {
             _antiTrollMechanismService = antiTrollMechanismService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public AntiTrollMechanism GetById(long Id)
         {
-            return _antiTrollMechanismService.GetById(Id);
+            return _antiTrollMechanismService.Get(Id);
         }
 
         public AntiTrollMechanism Create(AntiTrollMechanism antiTrollMechanism)

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HealthRecordService
+    public class HealthRecordService : IHealthRecordService
     {
         private readonly IHealthRecordRepository _healthRecordRepository;
         private readonly IPatientRepository _patientRepository;
@@ -105,7 +106,7 @@ namespace zdravstvena_ustanova.Service
         }
 
 
-        public HealthRecord GetById(long id)
+        public HealthRecord Get(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
             var patients = _patientRepository.GetAll();

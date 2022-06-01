@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ScheduledAppointmentService
+    public class ScheduledAppointmentService : IScheduledAppointmentService
     {
         private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
         private readonly IPatientRepository _patientRepository;
@@ -41,7 +42,7 @@ namespace zdravstvena_ustanova.Service
             return _scheduledAppointmentRepository.GetAll();
             
         }
-        public ScheduledAppointment GetById(long Id)
+        public ScheduledAppointment Get(long Id)
         {
             var patients = _patientRepository.GetAll();
             var doctors = _doctorRepository.GetAll();
@@ -136,13 +137,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _scheduledAppointmentRepository.Create(scheduledAppointment);
         }
-        public void Update(ScheduledAppointment scheduledAppointment)
+        public bool Update(ScheduledAppointment scheduledAppointment)
         {
-            _scheduledAppointmentRepository.Update(scheduledAppointment);
+            return _scheduledAppointmentRepository.Update(scheduledAppointment);
         }
-        public void Delete(long scheduledAppointmentId)
+        public bool Delete(long scheduledAppointmentId)
         {
-            _scheduledAppointmentRepository.Delete(scheduledAppointmentId);
+            return _scheduledAppointmentRepository.Delete(scheduledAppointmentId);
         }
     }
 }

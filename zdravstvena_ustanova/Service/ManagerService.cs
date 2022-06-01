@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ManagerService
+    public class ManagerService : IManagerService
     {
         private readonly IManagerRepository _managerRepository;
         private readonly IAccountRepository _accountRepository;
@@ -25,7 +26,7 @@ namespace zdravstvena_ustanova.Service
             BindManagersWithAccounts(accounts, managers);
             return managers;
         }
-        public Manager GetById(long id)
+        public Manager Get(long id)
         {
             var accounts = _accountRepository.GetAll();
             var manager = _managerRepository.Get(id);
@@ -59,13 +60,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _managerRepository.Create(manager);
         }
-        public void Update(Manager manager)
+        public bool Update(Manager manager)
         {
-            _managerRepository.Update(manager);
+            return _managerRepository.Update(manager);
         }
-        public void Delete(long managerId)
+        public bool Delete(long managerId)
         {
-            _managerRepository.Delete(managerId);
+            return _managerRepository.Delete(managerId);
         }
     }
 }

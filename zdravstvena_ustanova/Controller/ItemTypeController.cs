@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class ItemTypeController
     {
-        private readonly ItemTypeService _itemTypeService;
+        private readonly IItemTypeService _itemTypeService;
 
-        public ItemTypeController(ItemTypeService itemTypeService)
+        public ItemTypeController(IItemTypeService itemTypeService)
         {
             _itemTypeService = itemTypeService;
         }

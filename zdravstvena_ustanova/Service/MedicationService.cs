@@ -4,10 +4,11 @@ using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationService
+    public class MedicationService : IMedicationService
     {
         private readonly IMedicationRepository _medicationRepository;
         private readonly IIngredientRepository _ingredientRepository;
@@ -56,7 +57,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Medication GetById(long id)
+        public Medication Get(long id)
         {
             var medication = _medicationRepository.Get(id);
             var ingredients = _ingredientRepository.GetAll();

@@ -7,10 +7,11 @@ using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationApprovalRequestService
+    public class MedicationApprovalRequestService : IMedicationApprovalRequestService
     {
         private readonly IMedicationApprovalRequestRepository _medicationApprovalRequestRepository;
         private readonly IMedicationRepository _medicationRepository;
@@ -137,7 +138,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public MedicationApprovalRequest GetById(long id)
+        public MedicationApprovalRequest Get(long id)
         {
             var medicationApprovalRequest = _medicationApprovalRequestRepository.Get(id);
             var doctors = _doctorRepository.GetAll();

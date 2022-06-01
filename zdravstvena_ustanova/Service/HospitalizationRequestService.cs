@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HospitalizationRequestService
+    public class HospitalizationRequestService : IHospitalizationRequestService
     {
         private readonly IHospitalizationRequestRepository _hospitalizationRequestRepository;
 
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Service
         {
             return _hospitalizationRequestRepository.GetAll();
         }
-        public HospitalizationRequest GetById(long id)
+        public HospitalizationRequest Get(long id)
         {
             return _hospitalizationRequestRepository.Get(id);
         }

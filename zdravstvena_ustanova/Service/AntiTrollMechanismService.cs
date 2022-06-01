@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AntiTrollMechanismService
+    public class AntiTrollMechanismService : IAntiTrollMechanismService
     {
         private readonly IAntiTrollMechanismRepository _antiTrollMechanismRepository;
         private readonly IPatientRepository _patientRepository;
@@ -30,7 +31,7 @@ namespace zdravstvena_ustanova.Service
                return _antiTrollMechanismRepository.Update(antiTrollMechanism);
         }
 
-        public AntiTrollMechanism GetById(long id)
+        public AntiTrollMechanism Get(long id)
         {
             var patients = _patientRepository.GetAll();
             var antiTrollMechanism = _antiTrollMechanismRepository.Get(id);
@@ -58,5 +59,9 @@ namespace zdravstvena_ustanova.Service
             return patients.SingleOrDefault(patient => patient.Id == patientId);
         }
 
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

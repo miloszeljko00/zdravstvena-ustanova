@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicalExaminationService
+    public class MedicalExaminationService : IMedicalExaminationService
     {
         private readonly IMedicalExaminationRepository _medicalExaminationRepository;
         private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
@@ -79,7 +80,7 @@ namespace zdravstvena_ustanova.Service
             return medicalExaminations;
         }
 
-        public MedicalExamination GetById(long id)
+        public MedicalExamination Get(long id)
         {
             var medicalExamination = _medicalExaminationRepository.Get(id);
             var scheduledAppointments = _scheduledAppointmentRepository.GetAll();

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Windows;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class PrescribedMedicineController
     {
-        private readonly PrescribedMedicineService _prescribedMedicineService;
+        private readonly IPrescribedMedicineService _prescribedMedicineService;
 
-        public PrescribedMedicineController(PrescribedMedicineService prescribedMedicineService)
+        public PrescribedMedicineController(IPrescribedMedicineService prescribedMedicineService)
         {
             _prescribedMedicineService = prescribedMedicineService;
         }
@@ -25,7 +26,7 @@ namespace zdravstvena_ustanova.Controller
 
         public PrescribedMedicine GetById(long id)
         {
-            return _prescribedMedicineService.GetById(id);
+            return _prescribedMedicineService.Get(id);
         }
 
         public PrescribedMedicine Create(PrescribedMedicine prescribedMedicine)

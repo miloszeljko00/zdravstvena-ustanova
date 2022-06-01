@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationTypeService
+    public class MedicationTypeService : IMedicationTypeService
     {
         private readonly IMedicationTypeRepository _medicationTypeRepository;
 
@@ -39,6 +40,11 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long medicationId)
         {
             return _medicationTypeRepository.Delete(medicationId);
+        }
+
+        public MedicationType Get(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

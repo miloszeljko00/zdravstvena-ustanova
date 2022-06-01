@@ -4,10 +4,11 @@ using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AllergensService
+    public class AllergensService : IAllergensService
     {
         private readonly IAllergensRepository _allergensRepository;
         private readonly IIngredientRepository _ingredientRepository;
@@ -35,7 +36,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Allergens GetById(long id)
+        public Allergens Get(long id)
         {
             var allergen = _allergensRepository.Get(id);
             var ingredients = _ingredientRepository.GetAll();

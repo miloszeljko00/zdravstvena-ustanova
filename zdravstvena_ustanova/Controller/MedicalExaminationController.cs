@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class MedicalExaminationController
     {
-        private readonly MedicalExaminationService _medicalExaminationService;
+        private readonly IMedicalExaminationService _medicalExaminationService;
 
-        public MedicalExaminationController(MedicalExaminationService medicalExaminationService)
+        public MedicalExaminationController(IMedicalExaminationService medicalExaminationService)
         {
             _medicalExaminationService = medicalExaminationService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public MedicalExamination GetById(long id)
         {
-            return _medicalExaminationService.GetById(id);
+            return _medicalExaminationService.Get(id);
         }
         public MedicalExamination Create(MedicalExamination medicalExamination)
         {

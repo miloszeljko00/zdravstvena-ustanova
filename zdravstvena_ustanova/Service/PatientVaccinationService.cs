@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PatientVaccinationService
+    public class PatientVaccinationService : IPatientVaccinationService
     {
         private readonly IPatientVaccinationRepository _patientVaccinationRepository;
         private readonly IVaccineRepository _vaccineRepository;
@@ -36,7 +37,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public PatientVaccination GetById(long id)
+        public PatientVaccination Get(long id)
         {
             var vaccinations = _vaccineRepository.GetAll();
             var patientVaccination = _patientVaccinationRepository.Get(id);

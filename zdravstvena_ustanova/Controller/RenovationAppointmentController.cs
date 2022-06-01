@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class RenovationAppointmentController
     {
-        private readonly RenovationAppointmentService _renovationAppointmentService;
+        private readonly IRenovationAppointmentService _renovationAppointmentService;
 
-        public RenovationAppointmentController(RenovationAppointmentService renovationAppointmentService)
+        public RenovationAppointmentController(IRenovationAppointmentService renovationAppointmentService)
         {
             _renovationAppointmentService = renovationAppointmentService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public RenovationAppointment GetById(long id)
         {
-            return _renovationAppointmentService.GetById(id);
+            return _renovationAppointmentService.Get(id);
         }
         public IEnumerable<RenovationAppointment> GetFromToDates(DateTime start, DateTime end)
         {

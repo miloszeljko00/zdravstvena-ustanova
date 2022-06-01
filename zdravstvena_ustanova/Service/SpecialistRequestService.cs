@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SpecialistRequestService
+    public class SpecialistRequestService : ISpecialistRequestService
     {
         private readonly ISpecialistRequestRepository _specialistRequestRepository;
         private readonly ISpecialtyRepository _specialtyRepository;
@@ -36,7 +37,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public SpecialistRequest GetById(long id)
+        public SpecialistRequest Get(long id)
         {
             var specialistRequest = _specialistRequestRepository.Get(id);
             var specialties = _specialtyRepository.GetAll();
