@@ -13,9 +13,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
     {
         public ObservableCollection<StoredItem> StoredItems { get; set; }
         public MedicalSupplyInventoryWindow MedicalSupplyInventoryWindow { get; set; }
+        public SpentMaterialFormView SpentMaterialFormView { get; set; }
         #region NotifyProperties
         private Warehouse _warehouse;
         public RelayCommand CloseCommand { get; set; }
+        public RelayCommand OpenAnotherWindowCommand { get; set; }
+        public RelayCommand OpenAnotherWindowCommand2 { get; set; }
         public Warehouse Warehouse
         {
             get
@@ -51,10 +54,27 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
             Warehouse = app.WarehouseController.GetAll().SingleOrDefault();
             StoredItems = new ObservableCollection<StoredItem>(Warehouse.StoredItems);
             CloseCommand = new RelayCommand(param => ExecuteClose());
+            OpenAnotherWindowCommand = new RelayCommand(param => ExecuteOpen());
+            OpenAnotherWindowCommand2 = new RelayCommand(param => ExecuteOpen2());
+        }
+        private void ExecuteOpen2()
+        {
+            var orderMaterialFormView = new OrderMaterialFormView();
+            orderMaterialFormView.ShowDialog();
+        }
+
+        private void ExecuteOpen()
+        {
+            SpentMaterialFormView = new SpentMaterialFormView();
+            SpentMaterialFormView.ShowDialog();
         }
         private void ExecuteClose()
         {
-            MedicalSupplyInventoryWindow.Close();
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                MedicalSupplyInventoryWindow.Close();
+            }
         }
     }
 }

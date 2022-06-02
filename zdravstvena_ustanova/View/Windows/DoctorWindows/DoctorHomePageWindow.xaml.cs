@@ -212,9 +212,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            this.Close();
+            MessageBoxResult answer = MessageBox.Show("Zelite da se odjavite?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                this.Close();
+            }
+            
         }
 
         private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
