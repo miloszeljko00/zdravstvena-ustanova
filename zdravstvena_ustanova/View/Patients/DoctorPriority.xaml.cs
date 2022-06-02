@@ -52,7 +52,6 @@ namespace zdravstvena_ustanova.View
 
             var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, docId, docRoom);
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
-            scheduledAppointment = app.ScheduledAppointmentController.GetById(scheduledAppointment.Id);
             this.Close();
         }
 

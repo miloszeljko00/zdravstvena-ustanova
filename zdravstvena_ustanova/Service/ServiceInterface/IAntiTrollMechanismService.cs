@@ -4,5 +4,5 @@ namespace zdravstvena_ustanova.Service.ServiceInterface;
 
 public interface IAntiTrollMechanismService : IService<AntiTrollMechanism>
 {
-    
+    AntiTrollMechanism GetAntiTrollMechanismByPatient(long patientId);
 }

@@ -27,6 +27,11 @@ namespace zdravstvena_ustanova.Controller
             return _antiTrollMechanismService.Get(Id);
         }
 
+        public AntiTrollMechanism GetAntiTrollMechanismByPatient(long patientId)
+        {
+            return _antiTrollMechanismService.GetAntiTrollMechanismByPatient(patientId);
+        }
+
         public AntiTrollMechanism Create(AntiTrollMechanism antiTrollMechanism)
         {
             return _antiTrollMechanismService.Create(antiTrollMechanism);

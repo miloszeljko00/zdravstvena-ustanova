@@ -5,6 +5,7 @@ using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Service
 {
@@ -35,6 +36,26 @@ namespace zdravstvena_ustanova.Service
             BindDoctorsWithRooms(rooms, doctors);
             BindDoctorsWithAccounts(accounts, doctors);
             return doctors;
+        }
+
+        public Doctor GetDoctorByShift(int hour)
+        {
+            var doctors = GetAll();
+            Doctor doctor = null;
+            foreach (Doctor d in doctors)
+            {
+                if (hour < 14 && d.Shift == Shift.FIRST)
+                {
+                    doctor = d;
+                    break;
+                }
+                else if (hour >= 14 && d.Shift == Shift.SECOND)
+                {
+                    doctor = d;
+                    break;
+                }
+            }
+            return doctor;
         }
         private void BindDoctorsWithSpecialties(IEnumerable<Specialty> specialties, IEnumerable<Doctor> doctors)
         {

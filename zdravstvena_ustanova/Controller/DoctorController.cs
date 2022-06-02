@@ -19,6 +19,11 @@ namespace zdravstvena_ustanova.Controller
         {
             return _doctorService.GetAll();
         }
+
+        public Doctor GetDoctorByShift(int hour)
+        {
+            return _doctorService.GetDoctorByShift(hour);
+        }
         public Doctor GetById(long id)
         {
             return _doctorService.Get(id);

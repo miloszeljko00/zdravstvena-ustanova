@@ -27,8 +27,38 @@ namespace zdravstvena_ustanova.Service
         }
 
         public bool Update(AntiTrollMechanism antiTrollMechanism) 
-        { 
-               return _antiTrollMechanismRepository.Update(antiTrollMechanism);
+        {
+            if (antiTrollMechanism.NumberOfDates < 5)
+            {
+                addingNewDate(antiTrollMechanism);
+            }
+            else if (antiTrollMechanism.NumberOfDates == 5)
+            {
+                updatingDates(antiTrollMechanism);
+            }
+            _antiTrollMechanismRepository.Update(antiTrollMechanism);
+            if (antiTrollMechanism.NumberOfDates == 5 && (antiTrollMechanism.DatesOfCanceledAppointments[4] - antiTrollMechanism.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+            {
+                Environment.Exit(0);
+            }
+            return true;
+        }
+
+        private AntiTrollMechanism updatingDates(AntiTrollMechanism antiTrollMechanism)
+        {
+            antiTrollMechanism.DatesOfCanceledAppointments[0] = antiTrollMechanism.DatesOfCanceledAppointments[1];
+            antiTrollMechanism.DatesOfCanceledAppointments[1] = antiTrollMechanism.DatesOfCanceledAppointments[2];
+            antiTrollMechanism.DatesOfCanceledAppointments[2] = antiTrollMechanism.DatesOfCanceledAppointments[3];
+            antiTrollMechanism.DatesOfCanceledAppointments[3] = antiTrollMechanism.DatesOfCanceledAppointments[4];
+            antiTrollMechanism.DatesOfCanceledAppointments[4] = DateTime.Now;
+            return antiTrollMechanism;
+        }
+
+        private AntiTrollMechanism addingNewDate(AntiTrollMechanism antiTrollMechanism)
+        {
+            antiTrollMechanism.NumberOfDates++;
+            antiTrollMechanism.DatesOfCanceledAppointments.Add(DateTime.Now);
+            return antiTrollMechanism;
         }
 
         public AntiTrollMechanism Get(long id)
@@ -49,6 +79,17 @@ namespace zdravstvena_ustanova.Service
                 BindPatientWithMechanism(patients, atm);
             }
             return antiTrollMechanisms;
+        }
+
+        public AntiTrollMechanism GetAntiTrollMechanismByPatient(long patientId)
+        {
+            var antiTrollMechanisms = GetAll();
+            foreach (AntiTrollMechanism atm in antiTrollMechanisms)
+            {
+                if(atm.Patient.Id == patientId)
+                    return atm;
+            }
+            return null;
         }
         private void BindPatientWithMechanism(IEnumerable<Patient> patients, AntiTrollMechanism antiTrollMechanism)
         {

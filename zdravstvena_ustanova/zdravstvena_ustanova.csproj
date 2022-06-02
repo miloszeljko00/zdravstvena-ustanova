@@ -202,4 +202,8 @@
     <Folder Include="Service\ServiceInterface\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
+  </ItemGroup>
+
 </Project>
