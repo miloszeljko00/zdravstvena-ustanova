@@ -56,6 +56,8 @@ namespace zdravstvena_ustanova
         private readonly string ANTI_TROLL_FILE = ProjectPath + "\\Resources\\Data\\AntiTrollMechanism.csv";
 
         private readonly string NOTE_FILE = ProjectPath + "\\Resources\\Data\\Note.csv";
+        private readonly string MEETINGS_FILE = ProjectPath + "\\Resources\\Data\\Meetings.csv";
+
 
         public ItemController ItemController { get; set; }
         public ItemTypeController ItemTypeController { get; set; }
@@ -99,6 +101,8 @@ namespace zdravstvena_ustanova
         public SurveyAnswersController SurveyAnswersController { get; set; }
         public AntiTrollMechanismController AntiTrollMechanismController { get; set; }
         public NoteController NoteController { get; set; }
+
+        public MeetingController MeetingController { get; set; }
 
 
         public Person? LoggedInUser { get; set; }
@@ -153,6 +157,7 @@ namespace zdravstvena_ustanova
             var surveyAnswersRepository = new SurveyAnswersRepository(SURVEY_ANSWERS_FILE, CSV_DELIMITER);
             var antiTrollMechanismRepository = new AntiTrollMechanismRepository(ANTI_TROLL_FILE, CSV_DELIMITER);
             var noteRepository = new NoteRepository(NOTE_FILE, CSV_DELIMITER);
+            var meetingRepository = new MeetingRepository(MEETINGS_FILE, CSV_DELIMITER);
 
 
 
@@ -216,6 +221,8 @@ namespace zdravstvena_ustanova
             var antiTrollMechanismService = new AntiTrollMechanismService(antiTrollMechanismRepository, patientRepository);
             var noteService = new NoteService(noteRepository, patientRepository);
 
+            var meetingService = new MeetingService(meetingRepository, accountRepository);
+
 
 
             ItemController = new ItemController(itemService);
@@ -261,6 +268,7 @@ namespace zdravstvena_ustanova
             SurveyAnswersController = new SurveyAnswersController(surveyAnswersService);
             AntiTrollMechanismController = new AntiTrollMechanismController(antiTrollMechanismService);
             NoteController = new NoteController(noteService);
+            MeetingController = new MeetingController(meetingService);
         }
     }
 }

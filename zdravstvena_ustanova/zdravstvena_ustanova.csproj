@@ -198,8 +198,6 @@
 
   <ItemGroup>
     <Folder Include="Controller\ControllerInterface\" />
-    <Folder Include="Repository\RepositoryInterface\" />
-    <Folder Include="Service\ServiceInterface\" />
   </ItemGroup>
 
   <ItemGroup>
