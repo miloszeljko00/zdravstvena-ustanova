@@ -36,7 +36,7 @@ namespace zdravstvena_ustanova.View
             foreach (Note n in notes)
             {
                 var t = (n.Time.StartsWith("0")) ? n.Time.Substring(1) : n.Time;
-                if (t.Equals(now.Hour + ":" + now.Minute))
+                if (t.Equals(now.Hour + ":" + ((now.Minute.ToString().Length == 1) ? ("0" + now.Minute) : now.Minute)))
                 {
                     NoteNoti nn = new NoteNoti(n);
                     nn.ShowDialog();
