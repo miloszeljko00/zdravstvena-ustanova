@@ -1,7 +1,5 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
@@ -25,6 +23,19 @@ namespace zdravstvena_ustanova.Service
             var notes = _noteRepository.GetAll();
             BindPatientsWithNotes(patients, notes);
             return notes;
+        }
+        public IEnumerable<Note> GetNotesByPatient(long patientId)
+        {
+            var notes = GetAll();
+            List<Note> patientsNotes = new List<Note>();
+            foreach (Note n in notes)
+            {
+                if (patientId == n.Patient.Id)
+                {
+                    patientsNotes.Add(n);
+                }
+            }
+            return patientsNotes;
         }
 
         public Note Get(long Id)

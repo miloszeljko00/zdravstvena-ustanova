@@ -21,6 +21,11 @@ namespace zdravstvena_ustanova.Controller
         {
             return _noteService.GetAll();
         }
+
+        public IEnumerable<Note> GetNotesByPatient(long patientId)
+        {
+            return _noteService.GetNotesByPatient(patientId);
+        }
         public Note GetById(long Id)
         {
             return _noteService.Get(Id);

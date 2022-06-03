@@ -1,6 +1,5 @@
 ﻿using zdravstvena_ustanova.Model;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 
 
@@ -14,14 +13,8 @@ namespace zdravstvena_ustanova.View
             InitializeComponent();
             ScheduledAppointment = sa;
             var app = Application.Current as App;
-            List<Doctor> doctors = new List<Doctor>(app.DoctorController.GetAll());
-            foreach (Doctor d in doctors)
-            {
-                if (d.Id == ScheduledAppointment.Doctor.Id)
-                {
-                    doctor.Text = d.Name + " " + d.Surname;
-                }
-            }
+            Doctor doc = app.DoctorController.GetById(ScheduledAppointment.Doctor.Id);
+            doctor.Text = doc.Name + " " + doc.Surname;
             time.Text = ScheduledAppointment.Start.Hour + ":00";
             if(!(DateTime.Compare(ScheduledAppointment.Start.Date,DateTime.Now.Date)<=0 || DateTime.Compare(ScheduledAppointment.Start.Date, DateTime.Now.AddDays(1).Date) == 0))
             {

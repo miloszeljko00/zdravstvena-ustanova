@@ -1,8 +1,6 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 
 

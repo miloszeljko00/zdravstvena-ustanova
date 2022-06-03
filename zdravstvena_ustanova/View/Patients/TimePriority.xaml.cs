@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace zdravstvena_ustanova.View
@@ -23,12 +21,12 @@ namespace zdravstvena_ustanova.View
     }
     public partial class TimePriority : Window
     {
-        public ObservableCollection<ScheduledAppointment> sa;
-        public ObservableCollection<DoctorsShift> dates;
+        public ObservableCollection<ScheduledAppointment> ScheduledAppointments;
+        public ObservableCollection<DoctorsShift> Dates;
         public TimePriority()
         {
             InitializeComponent();
-            dates = new ObservableCollection<DoctorsShift>();
+            Dates = new ObservableCollection<DoctorsShift>();
             string[] times = {" /", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
                                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" };
 
@@ -53,34 +51,33 @@ namespace zdravstvena_ustanova.View
                 if (today.Day == to) break;
                 DoctorsShift ds = new DoctorsShift();
                 ds.Time = today.ToString("dd.MM.yyyy. HH:mm");
-                dates.Add(ds);
+                Dates.Add(ds);
                 today = today.AddHours(1);
             }
             var app = Application.Current as App;
-            sa = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach (ScheduledAppointment sapp in sa)
+            ScheduledAppointments = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
-                foreach (DoctorsShift dShift in dates)
+                foreach (DoctorsShift ds in Dates)
                 {
-                    if(dShift.Time == sapp.Start.ToString("dd.MM.yyyy. HH:mm"))
+                    if(ds.Time == sa.Start.ToString("dd.MM.yyyy. HH:mm"))
                     {
-                        dates.Remove(dShift);
+                        Dates.Remove(ds);
                         break;
                     }
                 }
             }
-
-            foreach (ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
-                if (sapp.Patient.Id == app.LoggedInUser.Id)
+                if (sa.Patient.Id == app.LoggedInUser.Id)
                 {
                     for (int i = 7; i < 10; i++)
                     {
-                        foreach (DoctorsShift dShift in dates)
+                        foreach (DoctorsShift ds in Dates)
                         {
-                            if (dShift.Time == sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"))
+                            if (ds.Time == sa.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"))
                             {
-                                dates.Remove(dShift);
+                                Dates.Remove(ds);
                                 break;
                             }
                         }
@@ -88,11 +85,11 @@ namespace zdravstvena_ustanova.View
                     }
                     for (int i = 10; i < 21; i++)
                     {
-                        foreach (DoctorsShift dShift in dates)
+                        foreach (DoctorsShift ds in Dates)
                         {
-                            if (dShift.Time == sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"))
+                            if (ds.Time == sa.Start.ToString("dd.MM.yyyy. " + i + ":mm"))
                             {
-                                dates.Remove(dShift);
+                                Dates.Remove(ds);
                                 break;
                             }
                         }
@@ -100,7 +97,7 @@ namespace zdravstvena_ustanova.View
                 }
             }
             List<Doctor> doctors = new List<Doctor>(app.DoctorController.GetAll());
-            foreach (DoctorsShift dShift in dates)
+            foreach (DoctorsShift dShift in Dates)
             {
                 string[] parts = dShift.Time.Split(" ");
                 parts = parts[1].Split(":");
@@ -120,7 +117,7 @@ namespace zdravstvena_ustanova.View
                 }
             }
 
-            list1.ItemsSource = dates;
+            list1.ItemsSource = Dates;
 
         }
 
@@ -147,46 +144,27 @@ namespace zdravstvena_ustanova.View
                 date = Convert.ToDateTime(dat);
                 startDate = date;
             }
-            DateTime endDate = date.AddHours(1);
-            long docId = 0;
-            long docRoom = 0;
-            List<Doctor> doctors = new List<Doctor>(app.DoctorController.GetAll());
-            foreach (Doctor d in doctors)
-            {
-                if (startDate.Hour < 14 && d.Shift == Shift.FIRST)
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-                else if (startDate.Hour >= 14 && d.Shift == Shift.SECOND)
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-            }
-
-            var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, docId, docRoom);
+            DateTime endDate = date.AddHours(1);Doctor doctor = app.DoctorController.GetDoctorByShift(startDate.Hour);
+            var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, doctor.Id, doctor.Room.Id);
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
             this.Close();
         }
 
         private void changeList(object sender, SelectionChangedEventArgs e)
         {
-            ObservableCollection<string> novo = new ObservableCollection<string>();
+            ObservableCollection<DoctorsShift> novo = new ObservableCollection<DoctorsShift>();
             string value = (string)timeComboBox.SelectedItem;
-            foreach (DoctorsShift ds in dates)
+            foreach (DoctorsShift ds in Dates)
             {
                 if (ds.Time.Contains(value))
                 {
-                    novo.Add(ds.Time);
+                    novo.Add(ds);
                 }
             }
             list1.ItemsSource = novo;
             if (value.Equals(" /"))
             {
-                list1.ItemsSource = dates;
+                list1.ItemsSource = Dates;
             }
             Ok.IsEnabled = false;
         }
@@ -210,20 +188,20 @@ namespace zdravstvena_ustanova.View
                 timeCmbBox.IsEnabled = false;
                 return;
             }
-            foreach (ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
-                if (app.LoggedInUser.Id == sapp.Patient.Id)
+                if (app.LoggedInUser.Id == sa.Patient.Id)
                 {
                     continue;
                 }
-                if (sapp.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
+                if (sa.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
                 {
-                    times.Remove(sapp.Start.ToString("HH:mm"));
+                    times.Remove(sa.Start.ToString("HH:mm"));
                 }
             }
-            foreach (ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
-                if (app.LoggedInUser.Id == sapp.Patient.Id && sapp.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
+                if (app.LoggedInUser.Id == sa.Patient.Id && sa.Start.ToString("dd.MM.yyyy.").Contains(dat.ToString("dd.MM.yyyy.")))
                 {
                     timeCmbBox.IsEnabled = false;
                 }

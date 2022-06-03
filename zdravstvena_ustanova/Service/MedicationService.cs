@@ -1,6 +1,4 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
-using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;

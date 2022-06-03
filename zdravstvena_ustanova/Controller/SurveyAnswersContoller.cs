@@ -21,6 +21,10 @@ namespace zdravstvena_ustanova.Controller
             return _surveyAnswersService.GetAll();
         }
 
+        public IEnumerable<SurveyAnswers> GetAnswersByPatient(long patientId)
+        {
+            return _surveyAnswersService.GetAnswersByPatient(patientId);
+        }
         public SurveyAnswers GetById(long Id)
         {
             return _surveyAnswersService.Get(Id);

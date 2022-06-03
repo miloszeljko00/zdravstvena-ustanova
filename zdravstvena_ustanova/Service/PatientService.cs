@@ -1,7 +1,5 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
@@ -55,11 +53,6 @@ namespace zdravstvena_ustanova.Service
                     acc.Person = patient;
                 }
             }
-        }
-
-        private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)
-        {
-            return patients.SingleOrDefault(patient => patient.Id == patientId);
         }
 
         public Patient Create(Patient patient)
