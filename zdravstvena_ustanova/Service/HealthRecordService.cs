@@ -1,10 +1,7 @@
 ﻿using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
 
@@ -71,28 +68,10 @@ namespace zdravstvena_ustanova.Service
             var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
             var anamnesiss = _anamnesisRepository.GetAll();
-            /*var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
-            var hospitalizationRecords = _hospitalizationRecordRepository.GetAll();
-            var prescribedMedicines = _prescribedMedicineRepository.GetAll();
-            var patientDiseases = _patientDiseaseRepository.GetAll();
-            var patientVaccinations = _patientVaccinationRepository.GetAll();
-            var rooms = _roomRepository.GetAll();
-            var accounts = _accountRepository.GetAll();*/
             var ingredients = _ingredientRepository.GetAll();
-            /*var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
-            var medications = _medicationRepository.GetAll(); 
-            var medicationTypes = _medicationTypeRepository.GetAll();
-            var diseases = _diseaseRepository.GetAll();
-            var vaccines = _vaccineRepository.GetAll();*/
             BindPatientsWithHealthRecords(patients, healthRecords);
-            //BindMedicationsWithMedicationTypes(medications, medicationTypes);
             BindAllergensWithHealthRecords(allergens, healthRecords, ingredients);
             BindAnamnesissWithHealthRecords(anamnesiss, healthRecords);
-            //BindLabAnalysisRecordsWithHealthRecords(labAnalysisRecords, healthRecords, labAnalysisComponents);
-            //BindHospitalizationRecordsWithHealthRecords(hospitalizationRecords, healthRecords, rooms);
-            //BindPrescribedMedicinesWithHealthRecords(prescribedMedicines, healthRecords, medications, ingredients);
-            //BindPatientDiseasesWithHealthRecords(patientDiseases, healthRecords, diseases);
-            //BindPatientVaccinationsWithHealthRecords(patientVaccinations, healthRecords, vaccines);
             return healthRecords;
         }
 
@@ -122,7 +101,6 @@ namespace zdravstvena_ustanova.Service
         public HealthRecord Get(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
-            var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
             var anamnesiss = _anamnesisRepository.GetAll();
             var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
@@ -131,7 +109,6 @@ namespace zdravstvena_ustanova.Service
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             var rooms = _roomRepository.GetAll();
-            var accounts = _accountRepository.GetAll();
             var ingredients = _ingredientRepository.GetAll();
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
             var medications = _medicationRepository.GetAll();
@@ -279,13 +256,6 @@ namespace zdravstvena_ustanova.Service
             }
             healthRecord.LabAnalysisRecord = labAnalysisRecordsBinded;
         }
-        private void BindLabAnalysisRecordsWithHealthRecords(IEnumerable<LabAnalysisRecord> labAnalysisRecords, IEnumerable<HealthRecord> healthRecords, IEnumerable<LabAnalysisComponent> labAnalysisComponents)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, hr, labAnalysisComponents);
-            }
-        }
 
         private void BindHospitalizationRecordsWithHealthRecord(IEnumerable<HospitalizationRecord> hospitalizationRecords, HealthRecord healthRecord, IEnumerable<Room> rooms)
         {
@@ -315,13 +285,7 @@ namespace zdravstvena_ustanova.Service
 
             healthRecord.HospitalizationRecord = hospitalizationRecordsBinded;
         }
-        private void BindHospitalizationRecordsWithHealthRecords(IEnumerable<HospitalizationRecord> hospitalizationRecords, IEnumerable<HealthRecord> healthRecords, IEnumerable<Room> rooms)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindHospitalizationRecordsWithHealthRecord(hospitalizationRecords, hr, rooms);
-            }
-        }
+
         private void BindPrescribedMedicinesWithHealthRecord(IEnumerable<PrescribedMedicine> prescribedMedicines, HealthRecord healthRecord,
             IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
         {
@@ -367,14 +331,6 @@ namespace zdravstvena_ustanova.Service
 
             healthRecord.PrescribedMedicine = prescribedMedicinesBinded;
         }
-        private void BindPrescribedMedicinesWithHealthRecords(IEnumerable<PrescribedMedicine> prescribedMedicines, IEnumerable<HealthRecord> healthRecords,
-            IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, hr, medications, ingredients);
-            }
-        }
         private void BindPatientDiseasesWithHealthRecord(IEnumerable<PatientDisease> patientDiseases, HealthRecord healthRecord, IEnumerable<Disease> diseases)
         {
             List<PatientDisease> patientDiseasesBinded = new List<PatientDisease>();
@@ -403,13 +359,6 @@ namespace zdravstvena_ustanova.Service
 
             healthRecord.PatientDisease = patientDiseasesBinded;
         }
-        private void BindPatientDiseasesWithHealthRecords(IEnumerable<PatientDisease> patientDiseases, IEnumerable<HealthRecord> healthRecords, IEnumerable<Disease> diseases)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPatientDiseasesWithHealthRecord(patientDiseases, hr, diseases);
-            }
-        }
 
         private void BindPatientVaccinationsWithHealthRecord(IEnumerable<PatientVaccination> patientVaccinations, HealthRecord healthRecord, IEnumerable<Vaccine> vaccines)
         {
@@ -437,13 +386,6 @@ namespace zdravstvena_ustanova.Service
                 }
             }
             healthRecord.PatientVaccination = patientVaccinationsBinded;
-        }
-        private void BindPatientVaccinationsWithHealthRecords(IEnumerable<PatientVaccination> patientVaccinations, IEnumerable<HealthRecord> healthRecords, IEnumerable<Vaccine> vaccines)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPatientVaccinationsWithHealthRecord(patientVaccinations, hr, vaccines);
-            }
         }
 
         public HealthRecord Create(HealthRecord healthRecord)
@@ -475,37 +417,5 @@ namespace zdravstvena_ustanova.Service
             return null;
         }
 
-        //private void BindHealthRecordWithAllergens(HealthRecord healthRecord)
-        //{
-        //    var allergens = _allergensRepository.GetAll();
-        //    List<Allergens> bindedAllergens = new List<Allergens>();
-        //    foreach(Allergens a1 in allergens)
-        //    {
-        //        foreach(Allergens a2 in healthRecord.Allergens)
-        //        {
-        //            if (a1.Id == a2.Id)
-        //            {
-        //                bindedAllergens.Add(a1);
-        //            }
-        //        }
-        //    }
-        //    healthRecord.Allergens.Clear();
-        //    foreach(Allergens a3 in bindedAllergens)
-        //    {
-        //        healthRecord.Allergens.Add(a3);
-        //    }
-        //}
-
-        //private void BindHealthRecordWithPatient(HealthRecord healthRecord, long patientId)
-        //{
-        //    var patients = _patientRepository.GetAll();
-        //    foreach (Patient p in patients)
-        //    {
-        //        if (p.Id == patientId)
-        //        {
-        //            healthRecord.Patient = p;
-        //        }
-        //    }
-        //}
     }
 }

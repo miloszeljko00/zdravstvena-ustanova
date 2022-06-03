@@ -1,6 +1,4 @@
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;

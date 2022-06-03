@@ -3,67 +3,62 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Navigation;
 using System.Windows.Threading;
-using zdravstvena_ustanova.View.Pages;
 using System.Globalization;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class PatientMainWindow : Window
     {
-        public DispatcherTimer dt { get; private set; }
-        public DispatcherTimer tim { get; private set; }
+        public DispatcherTimer NotiTimer { get; private set; }
+        public DispatcherTimer NoteTimer { get; private set; }
         public PatientMainWindow()
         {
             InitializeComponent();
             CultureInfo provider = CultureInfo.InvariantCulture;
-            dt = new DispatcherTimer();
-            tim = new DispatcherTimer();
-            dt.Interval = new TimeSpan(0,1,0);
-            dt.IsEnabled = true;
-            dt.Tick += new EventHandler(dt_Tick);
-            tim.Interval = new TimeSpan(0,1,0);
-            tim.IsEnabled = true;
-            tim.Tick += new EventHandler(tim_Tick);
+            NotiTimer = new DispatcherTimer();
+            NoteTimer = new DispatcherTimer();
+            NotiTimer.Interval = new TimeSpan(0,1,0);
+            NotiTimer.IsEnabled = true;
+            NotiTimer.Tick += new EventHandler(notiTimer_Tick);
+            NoteTimer.Interval = new TimeSpan(0,1,0);
+            NoteTimer.IsEnabled = true;
+            NoteTimer.Tick += new EventHandler(noteTimer_Tick);
 
 
         }
-        private void tim_Tick(object sender, EventArgs e)
+        private void noteTimer_Tick(object sender, EventArgs e)
         {
-            tim.IsEnabled = false;
+            NoteTimer.IsEnabled = false;
             var app = Application.Current as App;
             DateTime now = DateTime.Now;
-            List<Note> notes = new List<Note>(app.NoteController.GetAll());
+            List<Note> notes = new List<Note>(app.NoteController.GetNotesByPatient(app.LoggedInUser.Id));
             foreach (Note n in notes)
             {
-                if (n.Patient.Id == app.LoggedInUser.Id)
+                var t = (n.Time.StartsWith("0")) ? n.Time.Substring(1) : n.Time;
+                if (t.Equals(now.Hour + ":" + ((now.Minute.ToString().Length == 1) ? ("0" + now.Minute) : now.Minute)))
                 {
-                    var t = (n.Time.StartsWith("0")) ? n.Time.Substring(1) : n.Time;
-                    if (t.Equals(now.Hour + ":" + now.Minute))
-                    {
-                        NoteNoti nn = new NoteNoti(n);
-                        nn.ShowDialog();
-                    }
+                    NoteNoti nn = new NoteNoti(n);
+                    nn.ShowDialog();
                 }
             }
-            tim.IsEnabled = true;
+            NoteTimer.IsEnabled = true;
         }
 
-        private void dt_Tick(object sender, EventArgs e)
+        private void notiTimer_Tick(object sender, EventArgs e)
         {
-            dt.IsEnabled = false;
+            NotiTimer.IsEnabled = false;
             ObservableCollection<PrescribedMedicine> pm = new ObservableCollection<PrescribedMedicine>();
             var app = Application.Current as App;
-            List<MedicalExamination> me = new List<MedicalExamination>(app.MedicalExaminationController.GetAll());
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach (MedicalExamination medEx in me)
+            List<MedicalExamination> medicalExaminations = new List<MedicalExamination>(app.MedicalExaminationController.GetAll());
+            List<ScheduledAppointment> scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetScheduledAppointmentsForPatient(app.LoggedInUser.Id));
+            foreach (MedicalExamination me in medicalExaminations)
             {
-                foreach (ScheduledAppointment scApp in sa)
+                foreach (ScheduledAppointment sa in scheduledAppointments)
                 {
-                    if (app.LoggedInUser.Id == scApp.Patient.Id && medEx.ScheduledAppointment.Id == scApp.Id)
+                    if (me.ScheduledAppointment.Id == sa.Id)
                     {
-                        foreach (PrescribedMedicine preMed in medEx.PrescribedMedicine)
+                        foreach (PrescribedMedicine preMed in me.PrescribedMedicine)
                         {
                             pm.Add(preMed);
                         }
@@ -78,7 +73,7 @@ namespace zdravstvena_ustanova.View
                     pmd.ShowDialog();
                 }
             }
-            dt.IsEnabled = true;
+            NotiTimer.IsEnabled = true;
         }
 
         private void goToAppointments(object sender, RoutedEventArgs e)
@@ -88,7 +83,7 @@ namespace zdravstvena_ustanova.View
 
         private void goToLogin(object sender, RoutedEventArgs e)
         {
-            dt.IsEnabled = false;
+            NotiTimer.IsEnabled = false;
             MainWindow mw = new MainWindow();
             mw.Show();
             this.Close();
@@ -107,7 +102,6 @@ namespace zdravstvena_ustanova.View
         {
             this.content.Content = new Notes();
         }
-
 
         private void goToSurveys(object sender, RoutedEventArgs e)
         {

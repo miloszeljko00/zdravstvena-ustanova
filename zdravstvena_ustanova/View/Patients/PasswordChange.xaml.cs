@@ -1,7 +1,4 @@
-﻿using zdravstvena_ustanova.Model;
-using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace zdravstvena_ustanova.View
