@@ -23,6 +23,7 @@
             <StackPanel MouseDown="panel_MouseDown" x:Name="panel" Width="109.1428" Height="58" Style="{StaticResource dayfieldStyle}">
                 <Label Height="20" Name="label" Content="{Binding DayNumber}" FontSize="8"></Label>
                 <Label Name="AppointmentsCountDisplay" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="14" Content=""></Label>
+                <Image Name="UnderConstruction" Width="57" Visibility="Collapsed" Source="/Resources/img/under-construction.png"></Image>
             </StackPanel>
         </Grid>
     </Border>
