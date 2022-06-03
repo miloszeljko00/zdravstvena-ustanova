@@ -28,7 +28,7 @@
         
         <WrapPanel Grid.Row="1">
             <Border Margin="80, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="750" Height="450">
-                <wpf:CartesianChart Width="746" Height="446">
+                <wpf:CartesianChart Width="746" Height="446" Name="AppointmentsChart">
                     <wpf:CartesianChart.Series>
                         <wpf:ColumnSeries Title="Zakazanih termina" Values="{Binding NumberOfAppointments}"/>
                     </wpf:CartesianChart.Series>
