@@ -1,0 +1,53 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.RoomsReportPDF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+        xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d" 
+        d:DesignHeight="1200" d:DesignWidth="800"
+        Title="RoomsReportPDF" WindowStyle="None">
+
+    <StackPanel Background="White" Name="Report">
+        <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,60,20,20">
+            <WrapPanel Margin="20,20,20,20">
+                <Image Source="/Resources/img/slikaUstanove.png" Width="200"></Image>
+                <Label FontSize="40" Margin="100,0,0,0" Content="Zdravo korporacija" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+             </WrapPanel>
+            </Border>
+        <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,20,20,20">
+            <StackPanel Margin="20,20,20,20" Height="270">
+                <WrapPanel Margin="10,0,10,0">
+                    <Label VerticalContentAlignment="Center" FontSize="18" Width="250" Content="Od:"></Label>
+                    <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Margin="10,0,10,0">
+                    <Label VerticalContentAlignment="Center" FontSize="18" Width="250" Content="Do:"></Label>
+                    <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
+                </WrapPanel>
+                <StackPanel Margin="10,20,10,0">
+                    <WrapPanel>
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Prostorija:"></Label>
+                        <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding Room.Name}"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,30,0,0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Broj rezervisanih termina:"></Label>
+                        <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding TotalNumberOfAppointments}"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,0,0,0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Prosečno sati dnevno:"></Label>
+                        <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding AvgHoursDaily, StringFormat=N2}"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,20,0,0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Najfrekventniji dan:"></Label>
+                        <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding MostFrequentDay}"></TextBlock>
+                    </WrapPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Image Margin="20,40,20,20" Height="450" Width="760" Name="AppointmentsChart">
+            
+        </Image>
+    </StackPanel>
+</Window>

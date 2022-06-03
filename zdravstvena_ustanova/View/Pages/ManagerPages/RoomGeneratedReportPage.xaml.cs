@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.View.Model;
+using System.Net.Mime;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using LiveCharts.Wpf;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -132,7 +135,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             EndDate = endDate;
             var app = Application.Current as App;
             DateTime date = new DateTime(startDate.Year, startDate.Month, startDate.Day);
-            //AppointmentsCountOnDays = new ObservableCollection<AppointmentsCountOnDay>();
             Dates = new ChartValues<string>();
             NumberOfAppointments = new ChartValues<int>();
             AvgHoursDaily = 0;
@@ -187,7 +189,31 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void PrintButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)AppointmentsChart.ActualWidth, (int)AppointmentsChart.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            rtb.Render(AppointmentsChart);
+
+
+
+            RoomsReportPDF roomsReportPdf = new RoomsReportPDF(Room, NumberOfAppointments, Dates,
+                TotalNumberOfAppointments, StartDate, EndDate, AvgHoursDaily, MostFrequentDay, rtb);
+
+            try
+            {
+                PrintDialog printDialog = new PrintDialog();
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(roomsReportPdf.Report, "Izveštaj o zauzeću prostorije");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                roomsReportPdf.Close();
+            }
         }
     }
 }
