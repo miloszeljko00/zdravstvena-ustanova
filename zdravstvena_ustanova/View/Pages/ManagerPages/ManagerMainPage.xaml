@@ -14,33 +14,33 @@
             <Button Name="homeButton" Width="158" Height="64" FontSize="18" Content="{root:Loc home}"></Button>
             <Button MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Name="reportsButton" Width="158" Height="64" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <WrapPanel>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Izveštaji</TextBlock>
-                    <Image Margin="5,5,0,0" Width="20" Height="20" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{root:Loc reports}"></TextBlock>
+                    <Image Margin="5,5,0,0" Width="18" Height="18" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
                 </WrapPanel>
             </Button>
-            <Button Name="warehouseButton" Width="158" Height="64" FontSize="18" Click="warehouseButton_Click">Magacin</Button>
-            <Button Name="roomsButton" Width="158" Height="64" FontSize="18" Click="roomsButton_Click">Prostorije</Button>
-            <Button Name="itemsButton" Width="158" Height="64" FontSize="18" Click="itemsButton_Click">Predmeti</Button>
-            <Button Name="drugsButton" Width="158" Height="64" FontSize="18" Click="drugsButton_Click">Lekovi</Button>
-            <Button Name="pollsButton" Width="158" Height="64" FontSize="18" Click="pollsButton_Click">Ankete</Button>
+            <Button Name="warehouseButton" Width="158" Height="64" FontSize="18" Click="warehouseButton_Click" Content="{root:Loc warehouse}"></Button>
+            <Button Name="roomsButton" Width="158" Height="64" FontSize="18" Click="roomsButton_Click" Content="{root:Loc rooms}"></Button>
+            <Button Name="itemsButton" Width="158" Height="64" FontSize="18" Click="itemsButton_Click" Content="{root:Loc items}"></Button>
+            <Button Name="drugsButton" Width="158" Height="64" FontSize="18" Click="drugsButton_Click" Content="{root:Loc medications}"></Button>
+            <Button Name="pollsButton" Width="158" Height="64" FontSize="18" Click="pollsButton_Click" Content="{root:Loc polls}"></Button>
             <Button Name="accountButton" MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Width="155" Height="64" FontSize="18">
                 <WrapPanel>
-                    <Image Width="40" Height="40" Source="/Resources/img/profile-picture.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Nalog</TextBlock>
-                    <Image Margin="5,5,0,0" Width="20" Height="20" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                    <Image Width="32" Height="32" Source="/Resources/img/profile-picture.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                    <TextBlock Width="68" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{root:Loc account}"></TextBlock>
+                    <Image Margin="5,5,0,0" Width="18" Height="18" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
                 </WrapPanel>
             </Button>
         </StackPanel>
         <StackPanel MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Panel.ZIndex="100" Name="ReportsDropDown" VerticalAlignment="Top" Width="158" Height="0"  Margin="-786,64,0,0" Cursor="Hand">
-            <Button Name="DoctorReportsButton" Width="158" Height="64" FontSize="18">Lekari</Button>
-            <Button Name="RoomReportsButton" Width="158" Height="64" FontSize="18" Click="RoomReportsButton_OnClick">Prostorije</Button>
-            <Button Name="RenovationReportsButton" Width="158" Height="64" FontSize="18" Click="RenovationReportsButton_Click">Renoviranja</Button>
-            <Button Name="ItemTransferReportsButton" Width="158" Height="64" FontSize="18" Click="ItemTransferReportsButton_Click">Premestanja</Button>
-            <Button Name="MedicationOrdersReportsButton" Width="158" Height="64" FontSize="18">Narudzbine</Button>
+            <Button Name="DoctorReportsButton" Width="158" Height="64" FontSize="18"  Content="{root:Loc doctors}"></Button>
+            <Button Name="RoomReportsButton" Width="158" Height="64" FontSize="18" Click="RoomReportsButton_OnClick" Content="{root:Loc rooms}"></Button>
+            <Button Name="RenovationReportsButton" Width="158" Height="64" FontSize="18" Click="RenovationReportsButton_Click" Content="{root:Loc renovations}"></Button>
+            <Button Name="ItemTransferReportsButton" Width="158" Height="64" FontSize="18" Click="ItemTransferReportsButton_Click" Content="{root:Loc transfers}"></Button>
+            <Button Name="MedicationOrdersReportsButton" Width="158" Height="64" FontSize="18" Content="{root:Loc orders}"></Button>
         </StackPanel>
         <StackPanel MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Panel.ZIndex="100" Name="AccountsDropDown" VerticalAlignment="Top" Width="155" Height="0" Margin="1106,64,0,0" Cursor="Hand">
-            <Button Name="AccountInfoButton" Width="158" Height="64" FontSize="18">Informacije</Button>
-            <Button Name="AccountRequestsButton" Width="158" Height="64" FontSize="18">Zahtevi</Button>
+            <Button Name="AccountInfoButton" Width="158" Height="64" FontSize="18" Content="{root:Loc information}"></Button>
+            <Button Name="AccountRequestsButton" Width="158" Height="64" FontSize="18" Content="{root:Loc requests}"></Button>
             <Button Name="DarkModeButton" Width="158" Height="64" FontSize="18">
                 <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Source="/Resources/img/dark-mode-icon.png" Width="32" Margin="10,10,20,10"></Image>
@@ -48,9 +48,9 @@
                 </WrapPanel>
             </Button>
             <Button Width="158" Height="64" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                <ComboBox Name="LanguangeCombobox" Width="158" Height="64" FontSize="18" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
+                <ComboBox Name="LanguangeCombobox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="158" Height="64" FontSize="18" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
             </Button>
-            <Button Name="LogoutButton" Width="158" Height="64" FontSize="18" Click="LogoutButton_Click">Odjava</Button>
+            <Button Name="LogoutButton" Width="158" Height="64" FontSize="18" Click="LogoutButton_Click" Content="{root:Loc logout}"></Button>
         </StackPanel>
         <Frame x:Name="ManagerMain" Panel.ZIndex="1" Margin="0,64,0,0"></Frame>
     </Grid>

@@ -61,11 +61,137 @@ namespace zdravstvena_ustanova.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        internal static string account {
+            get {
+                return ResourceManager.GetString("account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doctors.
+        /// </summary>
+        internal static string doctors {
+            get {
+                return ResourceManager.GetString("doctors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         internal static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string information {
+            get {
+                return ResourceManager.GetString("information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Items.
+        /// </summary>
+        internal static string items {
+            get {
+                return ResourceManager.GetString("items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string logout {
+            get {
+                return ResourceManager.GetString("logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medications.
+        /// </summary>
+        internal static string medications {
+            get {
+                return ResourceManager.GetString("medications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders.
+        /// </summary>
+        internal static string orders {
+            get {
+                return ResourceManager.GetString("orders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polls.
+        /// </summary>
+        internal static string polls {
+            get {
+                return ResourceManager.GetString("polls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renovations.
+        /// </summary>
+        internal static string renovations {
+            get {
+                return ResourceManager.GetString("renovations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        internal static string reports {
+            get {
+                return ResourceManager.GetString("reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requests.
+        /// </summary>
+        internal static string requests {
+            get {
+                return ResourceManager.GetString("requests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rooms.
+        /// </summary>
+        internal static string rooms {
+            get {
+                return ResourceManager.GetString("rooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfers.
+        /// </summary>
+        internal static string transfers {
+            get {
+                return ResourceManager.GetString("transfers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warehouse.
+        /// </summary>
+        internal static string warehouse {
+            get {
+                return ResourceManager.GetString("warehouse", resourceCulture);
             }
         }
     }

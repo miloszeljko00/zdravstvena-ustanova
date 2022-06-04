@@ -117,7 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="account" xml:space="preserve">
+    <value>Nalog</value>
+  </data>
+  <data name="doctors" xml:space="preserve">
+    <value>Lekari</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Početna</value>
+  </data>
+  <data name="information" xml:space="preserve">
+    <value>Informacije</value>
+  </data>
+  <data name="items" xml:space="preserve">
+    <value>Predmeti</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Odjava</value>
+  </data>
+  <data name="medications" xml:space="preserve">
+    <value>Lekovi</value>
+  </data>
+  <data name="orders" xml:space="preserve">
+    <value>Narudžbine</value>
+  </data>
+  <data name="polls" xml:space="preserve">
+    <value>Ankete</value>
+  </data>
+  <data name="renovations" xml:space="preserve">
+    <value>Renoviranja</value>
+  </data>
+  <data name="reports" xml:space="preserve">
+    <value>Izveštaji</value>
+  </data>
+  <data name="requests" xml:space="preserve">
+    <value>Zahtevi</value>
+  </data>
+  <data name="rooms" xml:space="preserve">
+    <value>Prostorije</value>
+  </data>
+  <data name="transfers" xml:space="preserve">
+    <value>Premeštanja</value>
+  </data>
+  <data name="warehouse" xml:space="preserve">
+    <value>Skladište</value>
   </data>
 </root>
