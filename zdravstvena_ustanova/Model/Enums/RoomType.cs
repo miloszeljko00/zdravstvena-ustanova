@@ -9,6 +9,7 @@ namespace zdravstvena_ustanova.Model.Enums
         INTENSIVE_CARE,
         EMERGENCY_ROOM,
         PHARMACY,
-        REGULAR_APPOINTMENT_ROOM
+        REGULAR_APPOINTMENT_ROOM,
+        MEETING_ROOM
     }
 }

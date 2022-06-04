@@ -8,20 +8,23 @@
      d:DesignHeight="620" d:DesignWidth="1024"
       Height="620" Width="1024"
       Title="SchedulePage">
+
     <Grid>
 
-        <DataGrid x:Name="dataGridMeetings" ItemsSource="{Binding OrderedItems}" IsReadOnly="True" SelectionMode="Single" 
+        <DataGrid x:Name="dataGridMeetings" ItemsSource="{Binding Meetings}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,116,30,0" Height="317" FontSize="16"  SelectedIndex="-1" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="1.5*"/>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="1.5*"/>
-                <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="2*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Time}" Width="1.5*"/>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding Room.Name}" Width="1*"/>
+                <DataGridTextColumn Header="Tema" Binding="{Binding Topic}" Width="1*"/>
+
 
             </DataGrid.Columns>
         </DataGrid>
-        <Image x:Name="Delivered" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-calendar-plus-64.png"/>
+        <Image x:Name="NewMeeting" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-calendar-plus-64.png" MouseDown="NewMeeting_MouseDown"/>
         <Label Content="Novi sastanak" HorizontalAlignment="Left" Margin="366,537,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Button x:Name="Holiday" Content="Pregled zahteva za godisnji" HorizontalAlignment="Left" Margin="39,458,0,0" VerticalAlignment="Top" FontSize="16" Height="70" Width="216"  Click="Holiday_Click"/>
         <TextBlock x:Name="validationTB" HorizontalAlignment="Left" Margin="710,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20" Foreground="#FF731E1E"/>
+        <TextBlock HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" Text="Zakazani sastanci:" VerticalAlignment="Top" FontSize="36"/>
     </Grid>
 </Page>
