@@ -4,13 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-
+using System.Windows.Threading;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class DoctorPriority : Window
     {
         public List<Doctor> Doctors;
+        public DispatcherTimer DemoTimer { get; private set; }
+        public int Phase { get; set; }
+        public bool Demo { get; set; }
         public DoctorPriority()
         {
             InitializeComponent();
@@ -24,6 +27,57 @@ namespace zdravstvena_ustanova.View
             doctorComboBox.ItemsSource = names;
         }
 
+        public DoctorPriority(bool isDemo)
+        {
+            InitializeComponent();
+            var app = Application.Current as App;
+            List<string> names = new List<string>();
+            Doctors = new List<Doctor>(app.DoctorController.GetAll());
+            foreach (Doctor doctor in Doctors)
+            {
+                names.Add(doctor.Name + " " + doctor.Surname);
+            }
+            doctorComboBox.ItemsSource = names;
+
+            Demo = isDemo;
+            Phase = 0;
+            DemoTimer = new DispatcherTimer();
+            DemoTimer.Interval = new TimeSpan(0, 0, 2);
+            if (Demo)
+                DemoTimer.IsEnabled = true;
+            else
+                DemoTimer.IsEnabled = false;
+            DemoTimer.Tick += new EventHandler(demoTimer_Tick);
+        }
+        private void demoTimer_Tick(object sender, EventArgs e)
+        {
+            switch (Phase)
+            {
+                case 0:
+                    doctorComboBox.Focus();
+                    Phase++;
+                    break;
+                case 1:
+                    doctorComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 2:
+                    list.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 3:
+                    Ok1.Focus();
+                    Phase++;
+                    break;
+                case 4:
+                    this.Close();
+                    Phase++;
+                    break;
+                default:
+                    DemoTimer.IsEnabled = false;
+                    break;
+            }
+        }
         private void goToAppointments(object sender, RoutedEventArgs e)
         {
             this.Close();
