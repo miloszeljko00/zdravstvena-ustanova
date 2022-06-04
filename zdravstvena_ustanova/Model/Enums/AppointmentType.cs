@@ -7,6 +7,5 @@ namespace zdravstvena_ustanova.Model.Enums
         REGULAR_APPOINTMENT,
         SPECIALIST_APPOINTMENT,
         EMERGENCY_APPOINTMENT
-
     }
 }
