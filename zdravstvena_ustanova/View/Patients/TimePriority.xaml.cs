@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace zdravstvena_ustanova.View
 {
@@ -22,7 +23,11 @@ namespace zdravstvena_ustanova.View
     public partial class TimePriority : Window
     {
         public ObservableCollection<ScheduledAppointment> ScheduledAppointments;
+
         public ObservableCollection<DoctorsShift> Dates;
+        public DispatcherTimer DemoTimer { get; private set; }
+        public int Phase { get; set; }
+        public bool Demo { get; set; }
         public TimePriority()
         {
             InitializeComponent();
@@ -120,6 +125,152 @@ namespace zdravstvena_ustanova.View
             list1.ItemsSource = Dates;
 
         }
+        public TimePriority(bool isDemo)
+        {
+            InitializeComponent();
+            Dates = new ObservableCollection<DoctorsShift>();
+            string[] times = {" /", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+                                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" };
+
+            timeComboBox.ItemsSource = times;
+            DateTime today = DateTime.Now;
+            today = today.AddMinutes(-today.Minute);
+            today = today.AddHours(1);
+            if (today.Hour >= 20)
+            {
+                today = new DateTime(today.Year, today.Month, today.Day + 1, 7, 0, 0);
+            }
+            if (today.Hour <= 7)
+            {
+                today = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
+            }
+            int days = DateTime.DaysInMonth(2022, DateTime.Now.Month);
+            int to = today.Day + 4;
+            if (to > days) { to -= days; }
+            while (true)
+            {
+                if (today.Hour == 21) { today = today.AddDays(1); today = today.AddHours(-14); }
+                if (today.Day == to) break;
+                DoctorsShift ds = new DoctorsShift();
+                ds.Time = today.ToString("dd.MM.yyyy. HH:mm");
+                Dates.Add(ds);
+                today = today.AddHours(1);
+            }
+            var app = Application.Current as App;
+            ScheduledAppointments = new ObservableCollection<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
+            {
+                foreach (DoctorsShift ds in Dates)
+                {
+                    if (ds.Time == sa.Start.ToString("dd.MM.yyyy. HH:mm"))
+                    {
+                        Dates.Remove(ds);
+                        break;
+                    }
+                }
+            }
+            foreach (ScheduledAppointment sa in ScheduledAppointments)
+            {
+                if (sa.Patient.Id == app.LoggedInUser.Id)
+                {
+                    for (int i = 7; i < 10; i++)
+                    {
+                        foreach (DoctorsShift ds in Dates)
+                        {
+                            if (ds.Time == sa.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"))
+                            {
+                                Dates.Remove(ds);
+                                break;
+                            }
+                        }
+
+                    }
+                    for (int i = 10; i < 21; i++)
+                    {
+                        foreach (DoctorsShift ds in Dates)
+                        {
+                            if (ds.Time == sa.Start.ToString("dd.MM.yyyy. " + i + ":mm"))
+                            {
+                                Dates.Remove(ds);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            List<Doctor> doctors = new List<Doctor>(app.DoctorController.GetAll());
+            foreach (DoctorsShift dShift in Dates)
+            {
+                string[] parts = dShift.Time.Split(" ");
+                parts = parts[1].Split(":");
+                int num = Convert.ToInt32(parts[0]);
+                foreach (Doctor d in doctors)
+                {
+                    if (num < 14 && d.Shift == Shift.FIRST)
+                    {
+                        dShift.Doctor = d.Name + " " + d.Surname;
+                        break;
+                    }
+                    else if (num >= 14 && d.Shift == Shift.SECOND)
+                    {
+                        dShift.Doctor = d.Name + " " + d.Surname;
+                        break;
+                    }
+                }
+            }
+
+            list1.ItemsSource = Dates;
+
+            Demo = isDemo;
+            Phase = 0;
+            DemoTimer = new DispatcherTimer();
+            DemoTimer.Interval = new TimeSpan(0, 0, 2);
+            DemoTimer.IsEnabled = true;
+            DemoTimer.Tick += new EventHandler(demoTimer_Tick);
+
+        }
+        private void demoTimer_Tick(object sender, EventArgs e)
+        {
+            switch (Phase)
+            {
+                case 0:
+                    datePicker.Focus();
+                    Phase++;
+                    break;
+                case 1:
+                    datePicker.Text = "29.6.2022.";
+                    Phase++;
+                    break;
+                case 2:
+                    timeCmbBox.Focus();
+                    Phase++;
+                    break;
+                case 3:
+                    timeCmbBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 4:
+                    Ok.Focus();
+                    Phase++;
+                    break;
+                case 5:
+                    var app = Application.Current as App;
+                    string dat;
+                    DateTime startDate;
+                    dat = "29.6.2022. 7:00";
+                    startDate = Convert.ToDateTime(dat);
+                    DateTime endDate = startDate.AddHours(1);
+                    Doctor doctor = app.DoctorController.GetDoctorByShift(startDate.Hour);
+                    var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, doctor.Id, doctor.Room.Id);
+                    scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
+                    this.Close();
+                    Phase++;
+                    break;
+                default:
+                    DemoTimer.IsEnabled = false;
+                    break;
+            }
+        }
 
         private void goToAppointments(object sender, RoutedEventArgs e)
         {
@@ -144,7 +295,8 @@ namespace zdravstvena_ustanova.View
                 date = Convert.ToDateTime(dat);
                 startDate = date;
             }
-            DateTime endDate = date.AddHours(1);Doctor doctor = app.DoctorController.GetDoctorByShift(startDate.Hour);
+            DateTime endDate = date.AddHours(1);
+            Doctor doctor = app.DoctorController.GetDoctorByShift(startDate.Hour);
             var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, doctor.Id, doctor.Room.Id);
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
             this.Close();

@@ -127,5 +127,11 @@ namespace zdravstvena_ustanova.View
         {
             this.content.Content = new HealthRecordPatient();
         }
+
+        private void startDemo(object sender, RoutedEventArgs e)
+        {
+            this.content.Content = new Appointments(true);
+        }
+
     }
 }

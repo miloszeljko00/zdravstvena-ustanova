@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-
+using System.Windows.Threading;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class ChangeAppointment : Window
     {
         public ScheduledAppointment ScheduledAppointment { get; set; }
+        public DispatcherTimer DemoTimer { get; private set; }
+        public int Phase { get; set; }
+        public bool Demo { get; set; }
         public ChangeAppointment(ScheduledAppointment sa)
         {
             InitializeComponent();
@@ -18,6 +21,65 @@ namespace zdravstvena_ustanova.View
             dates.Add(ScheduledAppointment.Start.AddDays(2).ToString("dd.MM.yyyy."));
             dates.Add(ScheduledAppointment.Start.AddDays(3).ToString("dd.MM.yyyy."));
             dateComboBox.ItemsSource = dates;
+        }
+        public ChangeAppointment(ScheduledAppointment sa, bool isDemo)
+        {
+            InitializeComponent();
+            ScheduledAppointment = sa;
+            List<string> dates = new List<string>();
+            dates.Add(ScheduledAppointment.Start.AddDays(1).ToString("dd.MM.yyyy."));
+            dates.Add(ScheduledAppointment.Start.AddDays(2).ToString("dd.MM.yyyy."));
+            dates.Add(ScheduledAppointment.Start.AddDays(3).ToString("dd.MM.yyyy."));
+            dateComboBox.ItemsSource = dates;
+
+            Demo = isDemo;
+            Phase = 0;
+            DemoTimer = new DispatcherTimer();
+            DemoTimer.Interval = new TimeSpan(0, 0, 2);
+            DemoTimer.IsEnabled = true;
+            DemoTimer.Tick += new EventHandler(demoTimer_Tick);
+        }
+        private void demoTimer_Tick(object sender, EventArgs e)
+        {
+            switch (Phase)
+            {
+                case 0:
+                    dateComboBox.Focus();
+                    Phase++;
+                    break;
+                case 1:
+                    dateComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 2:
+                    timeComboBox.Focus();
+                    Phase++;
+                    break;
+                case 3:
+                    timeComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 4:
+                    yes.Focus();
+                    Phase++;
+                    break;
+                case 5:
+                    var app = Application.Current as App;
+                    ScheduledAppointment.Start = Convert.ToDateTime((string)dateComboBox.SelectedItem + " " + (string)timeComboBox.SelectedItem);
+                    ScheduledAppointment.End = ScheduledAppointment.Start.AddHours(1);
+                    Doctor doctor = app.DoctorController.GetDoctorByShift(ScheduledAppointment.Start.Hour);
+                    ScheduledAppointment.Doctor.Id = doctor.Id;
+                    ScheduledAppointment.Room.Id = doctor.Room.Id;
+                    ScheduledAppointment.Doctor = app.DoctorController.GetById(doctor.Id);
+                    ScheduledAppointment.Room = app.RoomController.GetById(doctor.Room.Id);
+                    app.ScheduledAppointmentController.Update(ScheduledAppointment);
+                    this.Close();
+                    Phase++;
+                    break;
+                default:
+                    DemoTimer.IsEnabled = false;
+                    break;
+            }
         }
 
         private void goToManageAppointment(object sender, RoutedEventArgs e)
