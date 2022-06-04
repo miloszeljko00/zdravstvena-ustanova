@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,20 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
     {
         public LoginPage LoginPage { get; set; }
         private readonly Duration _dropdownAnimationDuration;
+        public ObservableCollection<string> Languages { get; set; }
+
+        public string CurrentLanguage { get; set; }
+
         public ManagerMainPage(LoginPage loginPage)
         {
             InitializeComponent();
             LoginPage = loginPage;
+            Languages = new ObservableCollection<string>();
+            Languages.Add("srpski");
+            Languages.Add("english");
+            LanguangeCombobox.ItemsSource = Languages;
+            CurrentLanguage = "en-US";
+            LanguangeCombobox.SelectedItem = "english";
             _dropdownAnimationDuration = new Duration(TimeSpan.FromSeconds(0.2));
         }
 
@@ -222,6 +233,20 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             }
 
             paletteHelper.SetTheme(theme);
+        }
+
+        private void LanguangeButton_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           var app = (App)Application.Current;
+                if ((string)LanguangeCombobox.SelectedItem == "srpski")
+                {
+                    CurrentLanguage = "sr-LATN";
+                }
+                else
+                {
+                    CurrentLanguage = "en-US";
+                }
+                app.ChangeLanguage(CurrentLanguage);
         }
     }
 }
