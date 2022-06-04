@@ -174,7 +174,7 @@ namespace zdravstvena_ustanova.Service
         public string[] GetAllAppointmentsAsStringArray()
         {
             return _scheduledAppointmentRepository.GetAllAppointmentsAsStringArray();
-
+        }
         public IEnumerable<Account> GetBusyDoctors(Meeting meeting)
         {
             List<Account> busyDoctors = new List<Account>();
