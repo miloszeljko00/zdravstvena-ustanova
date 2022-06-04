@@ -1,10 +1,10 @@
 using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
+using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Service
 {
@@ -91,6 +91,7 @@ namespace zdravstvena_ustanova.Service
 
             return listOfCorrectAppointments;
         }
+
         public IEnumerable<ScheduledAppointment> GetFromToDatesForRoom(DateTime start, DateTime end, long roomId)
         {
             var listOfAppointments = GetAll();
@@ -170,10 +171,51 @@ namespace zdravstvena_ustanova.Service
         {
             return _scheduledAppointmentRepository.Delete(scheduledAppointmentId);
         }
-
         public string[] GetAllAppointmentsAsStringArray()
         {
             return _scheduledAppointmentRepository.GetAllAppointmentsAsStringArray();
+
+        public IEnumerable<Account> GetBusyDoctors(Meeting meeting)
+        {
+            List<Account> busyDoctors = new List<Account>();
+            var _scheduledAppointments = GetForSpecificTime(meeting.Time);
+            foreach(Account a in meeting.Participants)
+            {
+                if (a.AccountType != AccountType.DOCTOR)
+                    continue;
+                if(IsBusyDoctor((Doctor)a.Person, _scheduledAppointments))
+                    busyDoctors.Add(a);
+            }
+            return busyDoctors;
+        }
+
+        private bool IsBusyDoctor(Doctor doctor, IEnumerable<ScheduledAppointment> scheduledAppointments)
+        {
+            bool ret = false;
+            foreach(ScheduledAppointment sa in scheduledAppointments)
+            {
+                if(sa.Doctor.Id == doctor.Id)
+                {
+                    ret = true;
+                    break;
+                }
+            }
+            return ret;
+        }
+
+        private IEnumerable<ScheduledAppointment> GetForSpecificTime(DateTime start)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start == start)
+                {
+                    listOfCorrectAppointments.Add(sa);
+                }
+            }
+
+            return listOfCorrectAppointments;
         }
     }
 }

@@ -72,8 +72,8 @@
         <DataGrid x:Name="RenovationAppointmentsDataGrid" ItemsSource="{Binding RenovationAppointments}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding Room.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding Room.RoomType}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prostorija" Binding="{Binding MainRoom.Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding MainRoom.RoomType}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum početka renoviranja" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum završetka renoviranja" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>

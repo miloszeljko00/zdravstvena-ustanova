@@ -73,33 +73,13 @@
             </Image>
         </StackPanel>
         <DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Margin="140,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                  AutoGenerateColumns="False" Margin="140,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MedicationDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip leka" Binding="{Binding MedicationType.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Odobren" Binding="{Binding IsApproved}" Width="68"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Sastojci" Width="68">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image x:Name="IngredientsIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="IngredientsIcon_MouseDown">
-                                <Image.Resources>
-                                    <Style TargetType="{x:Type Image}">
-                                        <!-- Default image -->
-                                        <Setter Property="Source" Value="/Resources/img/ingredients-icon.png"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <!-- Hover image -->
-                                                <Setter Property="Opacity" Value="0.8"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Resources>
-                            </Image>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
         <ListView Grid.Row="2" Width="400" Margin="600,0,0,0" DisplayMemberPath="Name"

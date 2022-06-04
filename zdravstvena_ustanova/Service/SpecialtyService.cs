@@ -1,7 +1,5 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
@@ -25,11 +23,6 @@ namespace zdravstvena_ustanova.Service
         public Specialty Get(long id)
         {
             return _specialtyRepository.Get(id);
-        }
-
-        private Specialty FindSpecialtyById(IEnumerable<Specialty> specialties, long specialtyId)
-        {
-            return specialties.SingleOrDefault(specialty => specialty.Id == specialtyId);
         }
 
         public List<Doctor> GetDoctorsBySpecialty(Specialty specialty, IEnumerable<Doctor> doctors)

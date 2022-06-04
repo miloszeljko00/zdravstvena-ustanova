@@ -1,36 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.View
 {
-    /// <summary>
-    /// Interaction logic for SurveyDetails.xaml
-    /// </summary>
     public partial class SurveyDetails : Window
     {
-        public SurveyQuestions sq { get; set; }
-        public SurveyAnswers sa { get; set; }
+        public SurveyQuestions SurveyQuestions { get; set; }
+        public SurveyAnswers SurveyAnswers { get; set; }
         public SurveyDetails(SurveyQuestions surveyQuestions)
         {
             InitializeComponent();
-            sq = surveyQuestions;
-            qOne.Content += sq.QuestionOne;
-            qTwo.Content += sq.QuestionTwo;
-            qThree.Content += sq.QuestionThree;
-            qFour.Content += sq.QuestionFour;
-            qFive.Content += sq.QuestionFive;
+            SurveyQuestions = surveyQuestions;
+            qOne.Content += SurveyQuestions.QuestionOne;
+            qTwo.Content += SurveyQuestions.QuestionTwo;
+            qThree.Content += SurveyQuestions.QuestionThree;
+            qFour.Content += SurveyQuestions.QuestionFour;
+            qFive.Content += SurveyQuestions.QuestionFive;
         }
 
         private void goBack(object sender, RoutedEventArgs e)
@@ -92,8 +77,8 @@ namespace zdravstvena_ustanova.View
                 checkedval5 = 4;
             else
                 checkedval5 = 5;
-            SurveyAnswers surveyA = new SurveyAnswers(0, sq.Id, app.LoggedInUser.Id, checkedval1, checkedval2, checkedval3, checkedval4, checkedval5);
-            sa = app.SurveyAnswersController.Create(surveyA);
+            SurveyAnswers surveyAnswers = new SurveyAnswers(0, SurveyQuestions.Id, app.LoggedInUser.Id, checkedval1, checkedval2, checkedval3, checkedval4, checkedval5);
+            SurveyAnswers = app.SurveyAnswersController.Create(surveyAnswers);
             this.Close();
         }
     }

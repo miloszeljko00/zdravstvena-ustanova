@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
 
 namespace zdravstvena_ustanova.View
 {
-    /// <summary>
-    /// Interaction logic for Surveys.xaml
-    /// </summary>
     public partial class Surveys : UserControl
     {
-        public ObservableCollection<SurveyQuestions> sq { get; set; }
+        public ObservableCollection<SurveyQuestions> SurveyQuestions { get; set; }
         public Surveys()
         {
             InitializeComponent();
@@ -41,36 +28,36 @@ namespace zdravstvena_ustanova.View
 
         public void refreshSurveyList()
         {
-            sq = new ObservableCollection<SurveyQuestions>();
+            SurveyQuestions = new ObservableCollection<SurveyQuestions>();
             var app = Application.Current as App;
-            List<SurveyQuestions> surQ = new List<SurveyQuestions>(app.SurveyQuestionsController.GetAll());
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            List<SurveyAnswers> surA = new List<SurveyAnswers>(app.SurveyAnswersController.GetAll());
-            foreach (SurveyQuestions survey in surQ)
+            List<SurveyQuestions> surveyQuestions = new List<SurveyQuestions>(app.SurveyQuestionsController.GetAll());
+            List<ScheduledAppointment> scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetScheduledAppointmentsForPatient(app.LoggedInUser.Id));
+            List<SurveyAnswers> surveyAnswers = new List<SurveyAnswers>(app.SurveyAnswersController.GetAnswersByPatient(app.LoggedInUser.Id));
+            foreach (SurveyQuestions sq in surveyQuestions)
             {
-                if (survey.ScheduledAppointment == null)
+                if (sq.ScheduledAppointment == null)
                 {
-                    sq.Add(survey);
+                    SurveyQuestions.Add(sq);
                 }
                 else
                 {
-                    foreach (ScheduledAppointment scApp in sa)
+                    foreach (ScheduledAppointment sa in scheduledAppointments)
                     {
-                        if (app.LoggedInUser.Id == scApp.Patient.Id && survey.ScheduledAppointment.Id == scApp.Id)
+                        if (sq.ScheduledAppointment.Id == sa.Id)
                         {
-                            sq.Add(survey);
+                            SurveyQuestions.Add(sq);
                         }
                     }
                 }
-                foreach (SurveyAnswers answer in surA)
+                foreach (SurveyAnswers answer in surveyAnswers)
                 {
-                    if (survey.Id == answer.SurveyQuestions.Id && app.LoggedInUser.Id == answer.Patient.Id)
+                    if (sq.Id == answer.SurveyQuestions.Id)
                     {
-                        sq.Remove(survey);
+                        SurveyQuestions.Remove(sq);
                     }
                 }
             }
-            surveyList.ItemsSource = sq;
+            surveyList.ItemsSource = SurveyQuestions;
         }
     }
 }

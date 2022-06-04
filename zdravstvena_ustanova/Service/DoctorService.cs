@@ -1,7 +1,5 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
@@ -50,6 +48,20 @@ namespace zdravstvena_ustanova.Service
                     break;
                 }
                 else if (hour >= 14 && d.Shift == Shift.SECOND)
+                {
+                    doctor = d;
+                    break;
+                }
+            }
+            return doctor;
+        }
+        public Doctor GetDoctorByNameSurname(string nameSurname)
+        {
+            var doctors = GetAll();
+            Doctor doctor = null;
+            foreach (Doctor d in doctors)
+            {
+                if (nameSurname.Equals(d.Name + " " + d.Surname))
                 {
                     doctor = d;
                     break;
@@ -132,11 +144,6 @@ namespace zdravstvena_ustanova.Service
                         return;
                     }
                 });
-        }
-
-        private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)
-        {
-            return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
         }
 
         public Doctor Create(Doctor doctor)

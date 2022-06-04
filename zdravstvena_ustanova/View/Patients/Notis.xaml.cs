@@ -7,10 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
-using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Windows;
 using Syncfusion.Pdf.Grid;
 using System.Data;
 
@@ -18,32 +15,32 @@ namespace zdravstvena_ustanova.View
 {
     public partial class Notis : UserControl
     {
-        public ObservableCollection<PrescribedMedicine> pm { get; set; }
+        public ObservableCollection<PrescribedMedicine> PrescribedMedicines { get; set; }
         public Notis()
         {
             InitializeComponent();
-            pm = new ObservableCollection<PrescribedMedicine>();
+            PrescribedMedicines = new ObservableCollection<PrescribedMedicine>();
             var app = Application.Current as App;
-            List<MedicalExamination> me = new List<MedicalExamination>(app.MedicalExaminationController.GetAll());
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach (MedicalExamination medEx in me)
+            List<MedicalExamination> medicalExaminations = new List<MedicalExamination>(app.MedicalExaminationController.GetAll());
+            List<ScheduledAppointment> scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetScheduledAppointmentsForPatient(app.LoggedInUser.Id));
+            foreach (MedicalExamination me in medicalExaminations)
             {
-                foreach (ScheduledAppointment scApp in sa)
+                foreach (ScheduledAppointment sa in scheduledAppointments)
                 {
-                    if (app.LoggedInUser.Id == scApp.Patient.Id && medEx.ScheduledAppointment.Id == scApp.Id)
+                    if (me.ScheduledAppointment.Id == sa.Id)
                     {
-                        foreach (PrescribedMedicine preMed in medEx.PrescribedMedicine)
+                        foreach (PrescribedMedicine preMed in me.PrescribedMedicine)
                         {
-                            pm.Add(preMed);
+                            PrescribedMedicines.Add(preMed);
                         }
                     }
             }
             }
-            pm.Add(new PrescribedMedicine(1, 4, 6, new DateTime(2022, 6, 5), "dodat lek 1", new Medication(1,"lek1")));
-            pm.Add(new PrescribedMedicine(1, 3, 8, new DateTime(2022, 6, 7), "dodat lek 2", new Medication(2, "lek2")));
-            pm.Add(new PrescribedMedicine(1, 2, 12, new DateTime(2022, 6, 3), "dodat lek 3", new Medication(3, "lek3")));
-            pm.Add(new PrescribedMedicine(1, 1, 24, new DateTime(2022, 7, 5), "dodat lek 4", new Medication(4, "lek4")));
-            therapyList.ItemsSource = pm;
+            PrescribedMedicines.Add(new PrescribedMedicine(1, 4, 6, new DateTime(2022, 6, 5), "dodat lek 1", new Medication(1,"lek1")));
+            PrescribedMedicines.Add(new PrescribedMedicine(1, 3, 8, new DateTime(2022, 6, 7), "dodat lek 2", new Medication(2, "lek2")));
+            PrescribedMedicines.Add(new PrescribedMedicine(1, 2, 12, new DateTime(2022, 6, 4), "dodat lek 3", new Medication(3, "lek3")));
+            PrescribedMedicines.Add(new PrescribedMedicine(1, 1, 24, new DateTime(2022, 7, 5), "dodat lek 4", new Medication(4, "lek4")));
+            therapyList.ItemsSource = PrescribedMedicines;
         }
 
         private void entered(object sender, System.Windows.Input.KeyEventArgs e)
@@ -69,9 +66,9 @@ namespace zdravstvena_ustanova.View
             dataTable.Columns.Add("Razmak izmedju doza (u satima)");
             dataTable.Columns.Add("Datum do kog se lek koristi");
             dataTable.Columns.Add("Opis leka");
-            foreach (PrescribedMedicine p in pm)
+            foreach (PrescribedMedicine p in PrescribedMedicines)
             {
-                if(DateTime.Compare(DateTime.Now, p.EndDate) < 0 && DateTime.Compare(DateTime.Now.AddDays(7), p.EndDate) > 0)
+                if(DateTime.Compare(DateTime.Now, p.EndDate) <= 0 && DateTime.Compare(DateTime.Now.AddDays(7), p.EndDate) >= 0)
                     dataTable.Rows.Add(new object[] {p.Medication.Name, p.TimesPerDay, p.OnHours, p.EndDate.Day.ToString() + "." + p.EndDate.Month.ToString() + "." + p.EndDate.Year.ToString(), p.Description});
             }
             pdfGrid.DataSource = dataTable;

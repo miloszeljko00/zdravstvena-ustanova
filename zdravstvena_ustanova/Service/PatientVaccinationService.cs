@@ -1,10 +1,5 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
 

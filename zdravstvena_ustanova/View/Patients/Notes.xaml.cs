@@ -1,6 +1,4 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,14 +37,7 @@ namespace zdravstvena_ustanova.View
             trazi.Text = "";
             allNotes = new ObservableCollection<Note>();
             var app = Application.Current as App;
-            List<Note> ns = new List<Note>(app.NoteController.GetAll());
-            foreach (Note no in ns)
-            {
-                if (app.LoggedInUser.Id == no.Patient.Id)
-                {
-                    allNotes.Add(no);
-                }
-            }
+            allNotes = new ObservableCollection<Note>(app.NoteController.GetNotesByPatient(app.LoggedInUser.Id));
             notesList.ItemsSource = allNotes;
             delete.IsEnabled = false;
         }

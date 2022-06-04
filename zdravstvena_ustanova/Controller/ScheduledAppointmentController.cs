@@ -152,5 +152,10 @@ namespace zdravstvena_ustanova.Controller
             }
             return true;
         }
+
+        public IEnumerable<Account> GetBusyDoctors(Meeting meeting)
+        {
+            return _scheduledAppointmentService.GetBusyDoctors(meeting);
+        }
     }
 }

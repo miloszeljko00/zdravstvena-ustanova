@@ -1,7 +1,5 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
@@ -50,10 +48,6 @@ namespace zdravstvena_ustanova.Service
                     manager.Account = account;
                 }
             });
-        }
-        private Manager FindManagerById(IEnumerable<Manager> managers, long managerId)
-        {
-            return managers.SingleOrDefault(manager => manager.Id == managerId);
         }
 
         public Manager Create(Manager manager)
