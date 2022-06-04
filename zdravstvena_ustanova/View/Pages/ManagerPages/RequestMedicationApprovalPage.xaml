@@ -13,7 +13,7 @@
             <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Border Margin="0, 20, 0, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Row="1">
+        <Border Margin="20, 20, 0, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Row="1">
 
 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch">
             <Label Margin="0,0,0,20" Content="Podaci o leku" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
@@ -36,7 +36,7 @@
         </StackPanel>
             </Border>
 
-        <Border Margin="0, 0, 0, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1">
+        <Border Margin="0, 20, 20, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1">
 
 <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
             <Label Margin="0,20,0,20" Content="Zahtev za odobrenje" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>

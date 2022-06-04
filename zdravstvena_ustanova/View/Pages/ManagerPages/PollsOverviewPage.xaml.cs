@@ -54,22 +54,22 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void DeleteSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void EditSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void AddSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

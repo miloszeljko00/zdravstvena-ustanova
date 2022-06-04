@@ -36,9 +36,9 @@
             </DataGrid.Columns>
         </DataGrid>
             </Border>
-        <Border Margin="0, 0, 0, 40" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1" Grid.Row="1">
+        <Border Margin="0, 0, 60, 40" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1" Grid.Row="1">
 
-<StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,60,40" Width="400" Height="450">
+<StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" Width="400" Height="450">
             <WrapPanel HorizontalAlignment="Stretch">
                 <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Sastojci:</Label>
                 <ListView Margin="0,20,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>

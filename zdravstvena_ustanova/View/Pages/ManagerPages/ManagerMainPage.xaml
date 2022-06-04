@@ -48,7 +48,7 @@
                 </WrapPanel>
             </Button>
             <Button Width="158" Height="64" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                <ComboBox Name="LanguangeCombobox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="158" Height="64" FontSize="18" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
+                <ComboBox Name="LanguangeCombobox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="158" Height="64" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
             </Button>
             <Button Name="LogoutButton" Width="158" Height="64" FontSize="18" Click="LogoutButton_Click" Content="{root:Loc logout}"></Button>
         </StackPanel>
