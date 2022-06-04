@@ -68,7 +68,9 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="ItemsDataGrid" ItemsSource="{Binding ItemViewModels}" IsReadOnly="True" SelectionMode="Single" 
+        <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
+
+<DataGrid x:Name="ItemsDataGrid" ItemsSource="{Binding ItemViewModels}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
@@ -76,5 +78,6 @@
                 <DataGridTextColumn Header="Ukupno u bolnici" Binding="{Binding TotalCount}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+            </Border>
     </Grid>
 </Page>

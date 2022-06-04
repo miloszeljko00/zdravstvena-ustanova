@@ -15,6 +15,7 @@
     <None Remove="Resources\img\back-icon.png" />
     <None Remove="Resources\img\calendar-icon.png" />
     <None Remove="Resources\img\clock-icon.png" />
+    <None Remove="Resources\img\dark-mode-icon.png" />
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\Edit-Document-icon.png" />
@@ -68,6 +69,7 @@
     <Content Include="Resources\img\Edit-Document-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\dark-mode-icon.png" />
     <Resource Include="Resources\img\icons8-calendar-plus-64.png" />
     <Resource Include="Resources\img\ingredients-icon.png" />
     <Content Include="Resources\img\medical-record-icon.png">
@@ -208,6 +210,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
   </ItemGroup>
 

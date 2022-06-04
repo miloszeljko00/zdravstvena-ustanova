@@ -1,6 +1,7 @@
 ﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
 using zdravstvena_ustanova.View.Pages.SecretaryPages;
 using zdravstvena_ustanova.View.Windows.DoctorWindows;
+using MaterialDesignThemes;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 
 
 namespace zdravstvena_ustanova.View.Pages
@@ -37,8 +41,8 @@ namespace zdravstvena_ustanova.View.Pages
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Password;
 
-            //username = "upravnik";
-            //password = "upravnik";
+            username = "upravnik";
+            password = "upravnik";
 
             if (username == null || password == null) return;
 
@@ -49,7 +53,13 @@ namespace zdravstvena_ustanova.View.Pages
 
             app.LoggedInUser = user;
 
-            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage(this));
+            if (app.LoggedInUser is Manager)
+            {
+                Mw.WindowStyle = WindowStyle.None;
+                Mw.ResizeMode = ResizeMode.NoResize;
+
+                NavigationService.Navigate(new ManagerMainPage(this));
+            }
             if (app.LoggedInUser is Secretary) 
             {
                 HomePagePatients hpp = new HomePagePatients(Mw);

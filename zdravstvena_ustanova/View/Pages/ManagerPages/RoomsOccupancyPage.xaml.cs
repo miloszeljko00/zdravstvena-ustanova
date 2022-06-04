@@ -38,6 +38,11 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void GenerateReportButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (StartDatePicker.SelectedDate == null || EndDatePicker.SelectedDate == null ||
+                RoomsDataGrid.SelectedItem == null)
+            {
+                return;
+            }
             DateTime startDate = (DateTime)StartDatePicker.SelectedDate;
             DateTime endDate = (DateTime)EndDatePicker.SelectedDate;
 

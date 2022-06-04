@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
   </ItemGroup>
 

@@ -69,11 +69,14 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="SurveyQuestionsDataGrid" ItemsSource="{Binding SurveyQuestions}" IsReadOnly="True" SelectionMode="Single" 
+        <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1" HorizontalAlignment="Left">
+
+<DataGrid x:Name="SurveyQuestionsDataGrid" ItemsSource="{Binding SurveyQuestions}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Pitanje" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+            </Border>
     </Grid>
 </Page>

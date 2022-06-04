@@ -72,8 +72,10 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Margin="140,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MedicationDataGrid_SelectionChanged">
+        <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="600" Grid.Row="1" HorizontalAlignment="Left">
+
+<DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Margin="0,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MedicationDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip leka" Binding="{Binding MedicationType.Name}" Width="*"></DataGridTextColumn>
@@ -82,8 +84,12 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <ListView Grid.Row="2" Width="400" Margin="600,0,0,0" DisplayMemberPath="Name"
+            </Border>
+        <Border Margin="600 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="400" Grid.Row="1">
+
+<ListView Grid.Row="2" Width="400" Margin="0,0,0,0" DisplayMemberPath="Name"
                   ItemsSource="{Binding Ingredients}">
         </ListView>
+            </Border>
     </Grid>
 </Page>

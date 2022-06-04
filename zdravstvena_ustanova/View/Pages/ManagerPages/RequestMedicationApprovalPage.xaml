@@ -13,7 +13,9 @@
             <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Background="LightGray">
+        <Border Margin="0, 20, 0, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Row="1">
+
+<StackPanel Grid.Column="0" HorizontalAlignment="Stretch">
             <Label Margin="0,0,0,20" Content="Podaci o leku" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             <WrapPanel HorizontalAlignment="Stretch">
                 <Label Width="150"  Margin="0,0,0,0" Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
@@ -32,10 +34,12 @@
                 <ListView Margin="0,20,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="150" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>
             </WrapPanel>
         </StackPanel>
+            </Border>
 
+        <Border Margin="0, 0, 0, 20" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1">
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Background="LightGray">
-            <Label Margin="0,0,0,20" Content="Zahtev za odobrenje" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+<StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+            <Label Margin="0,20,0,20" Content="Zahtev za odobrenje" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
 
             <WrapPanel HorizontalAlignment="Center">
                 <Label  Width="150" Margin="0,0,0,20" Grid.Column="0" Grid.Row="3" FontSize="18"  HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Lekar:</Label>
@@ -48,11 +52,12 @@
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center">
-                <Button x:Name="CancelButton" Margin="0,200,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
-                <Button x:Name="OkButton" Margin="500,200,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+                <Button x:Name="CancelButton" Margin="0,160,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+                    <Button x:Name="OkButton" Margin="500,160,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
             </WrapPanel>
 
 
         </StackPanel>
+            </Border>
     </Grid>
 </Page>
