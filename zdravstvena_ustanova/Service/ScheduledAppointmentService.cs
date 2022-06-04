@@ -217,5 +217,72 @@ namespace zdravstvena_ustanova.Service
 
             return listOfCorrectAppointments;
         }
+        private IEnumerable<ScheduledAppointment> GetForSpecificDate(DateTime start)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start.Date == start)
+                {
+                    listOfCorrectAppointments.Add(sa);
+                }
+            }
+
+            return listOfCorrectAppointments;
+        }
+
+
+        public IEnumerable<string> GetPossibleHoursForNewAppointment(DateTime dateTime, Doctor doctor, Patient patient, Room room)
+        {  
+            string[] times = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", 
+                                    "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
+
+            List<string> hours = new List<string>(times);
+            hours.RemoveAll(t => Int32.Parse(t.Split(":")[0]) - 8 < (int)doctor.Shift * 7 || Int32.Parse(t.Split(":")[0]) - 8 >= ((int)doctor.Shift + 1) * 7);
+            var _scheduledAppointments = GetForSpecificDate(dateTime);
+
+            foreach (ScheduledAppointment sa in _scheduledAppointments)
+            {
+                if (sa.Doctor.Id == doctor.Id || sa.Room.Id == room.Id || sa.Patient.Id == patient.Id)
+                {
+                    int time = sa.Start.Hour - 8;
+                    hours.Remove(times[time]);
+                } 
+            }
+            return hours;
+        }
+
+        public DateTime FindFirstFreeAppointment(ScheduledAppointment scheduledAppointment, DateTime today)
+        {    
+            while (true)
+            {
+                if (today.Hour >= 22) 
+                {
+                    int hours = today.Hour - 8;
+                    today = today.AddDays(1); 
+                    today =today.AddHours(-hours); 
+                }
+                if(IsAppropriateTime(scheduledAppointment, today))
+                    break;
+                today = today.AddHours(1);
+            }
+            return today;
+        }
+
+        private bool IsAppropriateTime(ScheduledAppointment scheduledAppointment, DateTime today)
+        {
+            var scheduledAppointments = GetForSpecificTime(today);
+            bool find = true;
+            foreach (ScheduledAppointment sa in scheduledAppointments)
+            {
+                if (scheduledAppointment.Doctor.Id == sa.Doctor.Id || scheduledAppointment.Room.Id == sa.Room.Id)
+                {
+                    find = false;
+                    break;
+                }
+            }
+            return find;
+        }
     }
 }
