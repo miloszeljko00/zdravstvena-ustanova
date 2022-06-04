@@ -171,6 +171,9 @@ namespace zdravstvena_ustanova.Service
         {
             return _scheduledAppointmentRepository.Delete(scheduledAppointmentId);
         }
+        public string[] GetAllAppointmentsAsStringArray()
+        {
+            return _scheduledAppointmentRepository.GetAllAppointmentsAsStringArray();
 
         public IEnumerable<Account> GetBusyDoctors(Meeting meeting)
         {

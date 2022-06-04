@@ -11,5 +11,6 @@ public interface IScheduledAppointmentService : IService<ScheduledAppointment>
     IEnumerable<ScheduledAppointment> GetFromToDatesForRoom(DateTime start, DateTime end, long roomId);
     IEnumerable<ScheduledAppointment> GetScheduledAppointmentsForPatient(long patientId);
     ScheduledAppointment GetScheduledAppointmentsForDate(DateTime date, long patientId);
+    public string[] GetAllAppointmentsAsStringArray();
     IEnumerable<Account> GetBusyDoctors(Meeting meeting);
 }

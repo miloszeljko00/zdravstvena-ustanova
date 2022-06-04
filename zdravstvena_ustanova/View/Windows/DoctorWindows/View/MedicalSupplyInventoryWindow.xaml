@@ -19,32 +19,30 @@
                 <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button FontSize="12" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="711,127,0,0" VerticalAlignment="Top" Height="63" Width="90" 
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <Button Command="{Binding OpenAnotherWindowCommand}" FontSize="12" HorizontalAlignment="Left"
+            Margin="711,127,0,0" VerticalAlignment="Top" Height="60" Width="90" 
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Content="Spent Materials" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Label Content="Spent Materials" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="707,143,-2,0" Height="31"/>
-        <Label Content="Materials for" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="712,210,4,0" Height="31" Panel.ZIndex="10"/>
-        <Label Content="ordering" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="727,230,4,0" Height="30" Panel.ZIndex="10"/>
-        <Button FontSize="12" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="711,286,0,0" VerticalAlignment="Top" Height="63" Width="90" 
+        <Button FontSize="12" HorizontalAlignment="Left"
+            Margin="711,286,0,0" VerticalAlignment="Top" Height="60" Width="90" 
             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
                 Command="{Binding CloseCommand}"
-                Content="Cancel">
+                Content="Cancel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button FontSize="12" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="711,204,0,0" VerticalAlignment="Top" Height="63" Width="90" 
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <Button Command="{Binding OpenAnotherWindowCommand2}" FontSize="12" HorizontalAlignment="Left"
+            Margin="711,204,0,0" VerticalAlignment="Top" Height="60" Width="90" 
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <TextBlock TextWrapping="Wrap">Materials for ordering</TextBlock>
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>

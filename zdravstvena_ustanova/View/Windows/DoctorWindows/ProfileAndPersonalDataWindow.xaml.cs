@@ -42,7 +42,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
@@ -74,7 +78,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
             if(sign==0)
             {
-                HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
+                HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow(this);
                 holidayRequest.ShowDialog();
             }
             else

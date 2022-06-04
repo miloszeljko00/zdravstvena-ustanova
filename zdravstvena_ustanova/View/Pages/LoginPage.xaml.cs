@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
 using zdravstvena_ustanova.View.Pages.SecretaryPages;
 using zdravstvena_ustanova.View.Windows.DoctorWindows;
-
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -36,6 +36,8 @@ namespace zdravstvena_ustanova.View.Pages
         {
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Password;
+            username = "velja";
+            password = "velja";
 
             //username = "upravnik";
             //password = "upravnik";
@@ -61,9 +63,9 @@ namespace zdravstvena_ustanova.View.Pages
             }  
             if (app.LoggedInUser is Doctor)
             {
-                var doctorHomePage = new DoctorHomePageWindow();
+                var doctorLoginWindow = new LoginView();
                 Mw.Close();
-                doctorHomePage.Show();
+                doctorLoginWindow.Show();
             }
             if (app.LoggedInUser is Patient) 
             {

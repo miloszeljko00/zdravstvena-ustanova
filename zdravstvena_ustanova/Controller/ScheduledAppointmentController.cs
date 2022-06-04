@@ -62,6 +62,10 @@ namespace zdravstvena_ustanova.Controller
             _scheduledAppointmentService.Delete(scheduledAppointmentId);
         }
 
+        public string[] GetAllAppointmentsAsStringArray()
+        {
+            return _scheduledAppointmentService.GetAllAppointmentsAsStringArray();
+        }
 
         public List<string> GetAppropriateTimes(DateTime dateTime, long doctorId,long patientId, long roomId, int shift)
         {

@@ -51,7 +51,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button FontSize="20" Canvas.Top="439" Content="Print your schedule" Canvas.Left="1020" Height="60" Background="#2ac4bd" Width="225">
+        <Button FontSize="20" Canvas.Top="439" Content="Print your schedule" Canvas.Left="1020" Height="60" Background="#2ac4bd" Width="225" Click="Button_Click_PrintYourSchedule">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -70,6 +70,20 @@
                   AutoGenerateColumns="False" Margin="10,48,10,0" Height="570" Width="995" Canvas.Top="84" Canvas.Left="-12" Background="#2ac4bd"
                   MinRowHeight="37.5" SelectedCellsChanged="dataGridScheduledAppointments_SelectionChanged"
                   ToolTip="By pressing on free appointment, you can create a new one at exact time">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="hours" Binding="{Binding  DateOfWeekStart.Hour }" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Monday" Binding="{Binding MondayAppointment.Patient.Name}" Width="*"></DataGridTextColumn>
@@ -97,5 +111,7 @@
 
         </ListView>
         <Label Canvas.Left="534" Width="30" Height="26" FontSize="12" Content="{Binding NumberOfUnSeenRequests}" FontWeight="Bold" Foreground="White" Canvas.Top="-5"/>
+
+
     </Canvas>
 </Window>
