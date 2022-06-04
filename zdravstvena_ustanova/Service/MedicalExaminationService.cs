@@ -84,8 +84,8 @@ namespace zdravstvena_ustanova.Service
                 if (me.Anamnesis.Id == anamnesisId)
                 {
                     scheduledAppointment = me.ScheduledAppointment;
+                    break;
                 }
-                break;
             }
             return scheduledAppointment;
         }
