@@ -12,4 +12,6 @@ public interface IScheduledAppointmentService : IService<ScheduledAppointment>
     IEnumerable<ScheduledAppointment> GetScheduledAppointmentsForPatient(long patientId);
     ScheduledAppointment GetScheduledAppointmentsForDate(DateTime date, long patientId);
     IEnumerable<Account> GetBusyDoctors(Meeting meeting);
+    IEnumerable<string> GetPossibleHoursForNewAppointment(DateTime dateTime, Doctor doctor, Patient patient, Room room);
+    DateTime FindFirstFreeAppointment(ScheduledAppointment scheduledAppointment, DateTime today);
 }
