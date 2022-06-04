@@ -15,6 +15,13 @@ namespace zdravstvena_ustanova.Model
         public string Topic { get; set; }
         public List<Account> Participants { get; set; }
 
+        public Meeting(long id)
+        {
+            Id = id;
+            Participants = new List<Account>();
+
+        }
+
         public Meeting(long id, DateTime time, Room room, string topic, List<Account> participants)
         {
             Id = id;

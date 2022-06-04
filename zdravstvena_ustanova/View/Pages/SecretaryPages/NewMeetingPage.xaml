@@ -1,0 +1,73 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.NewMeetingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ModalControl="clr-namespace:ModalControl;assembly=ModalControl"
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Height="620" Width="1024"
+      Title="NewMeetingPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+        <ListBox x:Name="ParticipantsList" ItemsSource="{Binding}" Margin="22,163,133,156" Grid.RowSpan="3" FontSize="24" Grid.Column="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Person.Name}"/>
+                        <TextBlock Margin="2" Text="{Binding Person.Surname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ComboBox x:Name="participantsCB" ItemsSource="{Binding}" SelectedValuePath="Id" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Width="240" FontSize="24" Grid.Column="1">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Person.Name}"/>
+                        <TextBlock Margin="2" Text="{Binding Person.Surname}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ModalControl:Modal Content="Modal" HorizontalAlignment="Left" Margin="1122,224,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="Add" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="266,70,0,0" VerticalAlignment="Top" Width="46" Source="/Resources/img/icons8-add.png" MouseDown="Add_MouseDown"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="844,84,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        <Image x:Name="Delete" Grid.Column="1" HorizontalAlignment="Left" Height="45" Margin="318,71,0,0" VerticalAlignment="Top" Width="45" Source="/Resources/img/delete-icon.png" MouseDown="Delete_MouseDown"/>
+        <DatePicker x:Name="DateDP" HorizontalAlignment="Left" Margin="96,58,0,0" VerticalAlignment="Top" FontSize="24" Width="240"/>
+        <ComboBox x:Name="TimeCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" FontSize="24" Margin="92,176,0,0" Grid.RowSpan="2"/>
+        <TextBox x:Name="TopicTB" HorizontalAlignment="Left" Margin="93,201,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Height="112" FontSize="24" RenderTransformOrigin="0.541,0.414" Grid.RowSpan="2"/>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="162,14,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Vreme:" HorizontalAlignment="Left" Margin="169,129,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Tema:" HorizontalAlignment="Left" Margin="171,156,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="1" Content="Učesnici:" HorizontalAlignment="Left" Margin="72,25,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Image x:Name="Save" HorizontalAlignment="Left" Height="80" Margin="411,58,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" Source="/Resources/img/save-icon.png" MouseDown="Save_MouseDown"/>
+        <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="80" Margin="11,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="80" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown"/>
+        <Label Content="Sačuvaj" HorizontalAlignment="Left" Margin="406,131,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="1.78,-6.625" FontSize="24"/>
+        <Label Content="Nazad" HorizontalAlignment="Left" Margin="22,133,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
+        <ComboBox x:Name="RoomCB" ItemsSource="{Binding}" SelectedValuePath="Id" HorizontalAlignment="Left" Margin="92,88,0,0" Grid.Row="1" VerticalAlignment="Top" Width="240" FontSize="24">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2" Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Prostorija:" HorizontalAlignment="Left" Margin="158,40,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+
+    </Grid>
+</Page>
