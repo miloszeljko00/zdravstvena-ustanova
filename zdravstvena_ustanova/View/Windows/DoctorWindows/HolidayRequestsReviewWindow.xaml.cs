@@ -37,7 +37,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
            
             var holidayRequest = (HolidayRequest)dataGridHolidayRequests.SelectedItem;
-            HolidayRequestStatusReviewWindow holidayRequestStatusReviewWindow = new HolidayRequestStatusReviewWindow(holidayRequest);
+            HolidayRequestStatusReviewWindow holidayRequestStatusReviewWindow = new HolidayRequestStatusReviewWindow(holidayRequest, this);
             holidayRequestStatusReviewWindow.ShowDialog();
             dataGridHolidayRequests.SelectedCells.Clear();
 

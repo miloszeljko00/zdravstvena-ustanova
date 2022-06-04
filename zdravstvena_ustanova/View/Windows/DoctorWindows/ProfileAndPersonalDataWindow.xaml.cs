@@ -78,7 +78,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
             if(sign==0)
             {
-                HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow();
+                HolidayRequestFormWindow holidayRequest = new HolidayRequestFormWindow(this);
                 holidayRequest.ShowDialog();
             }
             else

@@ -39,6 +39,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
         private void ExecuteOpenDoctorHomePageWindow()
         {
             var openDoctorHomePageWindow = new DoctorHomePageWindow();
+            LoginView.Close();
             openDoctorHomePageWindow.Show();
         }
 

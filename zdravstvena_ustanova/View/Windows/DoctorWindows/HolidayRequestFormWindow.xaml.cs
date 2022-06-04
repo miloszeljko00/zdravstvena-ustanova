@@ -37,11 +37,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public int ConstructorCheck { get; set; }
         public HolidayRequestsReviewWindow HolidayRequestsReviewWindow { get; set; }
         public ProfileAndPersonalDataWindow ProfileAndPersonalDataWindow { get; set; }
-        public HolidayRequestFormWindow()
+        public HolidayRequestFormWindow(ProfileAndPersonalDataWindow profileAndPersonalDataWindow)
         {
             InitializeComponent();
             DataContext = this;
             ConstructorCheck = 0;
+            ProfileAndPersonalDataWindow = profileAndPersonalDataWindow;
         }
         public HolidayRequestFormWindow(HolidayRequestsReviewWindow holidayRequestsReviewWindow, ProfileAndPersonalDataWindow profileAndPersonalDataWindow)
         {
@@ -131,9 +132,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
-                var refreshedHolidayRequests = ProfileAndPersonalDataWindow.RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow);
-                var holidayRequestsReviewWindowNew = new HolidayRequestsReviewWindow(refreshedHolidayRequests, ProfileAndPersonalDataWindow);
-                holidayRequestsReviewWindowNew.ShowDialog();
+                if (HolidayRequestsReviewWindow == null)
+                {
+                    this.Close();
+                    return;
+                }
+                //var refreshedHolidayRequests = ProfileAndPersonalDataWindow.RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow);
+                //var holidayRequestsReviewWindowNew = new HolidayRequestsReviewWindow(refreshedHolidayRequests, ProfileAndPersonalDataWindow);
+                //HolidayRequestsReviewWindow.Close();
+                //holidayRequestsReviewWindowNew.ShowDialog();
                 this.Close();
             }
             
