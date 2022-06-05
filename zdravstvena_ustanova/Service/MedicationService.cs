@@ -93,18 +93,24 @@ namespace zdravstvena_ustanova.Service
             {
                 if (medicationIngredient.Id == -1)
                 {
-                    foreach (var ingredient in ingredients)
-                    {
-                        if (ingredient.Name == medicationIngredient.Name)
-                        {
-                            medicationIngredient.Id = ingredient.Id;
-                        }
-                    }
+                    FindIdByName(ingredients, medicationIngredient);
                 }
                 
             }
             return _medicationRepository.Update(medication);
         }
+
+        private static void FindIdByName(IEnumerable<Ingredient> ingredients, Ingredient medicationIngredient)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                if (ingredient.Name == medicationIngredient.Name)
+                {
+                    medicationIngredient.Id = ingredient.Id;
+                }
+            }
+        }
+
         public bool Delete(long medicationId)
         {
             return _medicationRepository.Delete(medicationId);

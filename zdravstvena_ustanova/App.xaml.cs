@@ -260,7 +260,7 @@ namespace zdravstvena_ustanova
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
-            SystemController.StartCheckingForRenovationAppointments(10);
+            SystemController.StartCheckingForRenovationAppointments(300);
 
             OrderedItemController = new StoredItemController(orderedItemService);
 

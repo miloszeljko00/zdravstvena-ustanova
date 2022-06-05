@@ -41,14 +41,16 @@ namespace zdravstvena_ustanova.Service
 
         public bool CheckIfItsAlreadyContained(IEnumerable<Ingredient> ingredients, Ingredient ingredient)
         {
+            bool isContained = false;
             foreach(var i in ingredients)
             {
                 if(i.Name == ingredient.Name)
                 {
-                    return true;
+                    isContained = true;
+                    break;
                 }
             }
-            return false;
+            return isContained;
         }
 
         public void CreateIfNotSavedWithSameName(List<Ingredient> ingredients)
@@ -66,7 +68,7 @@ namespace zdravstvena_ustanova.Service
 
         public Ingredient Get(long id)
         {
-            throw new NotImplementedException();
+            return _ingredientRepository.Get(id);
         }
     }
 }
