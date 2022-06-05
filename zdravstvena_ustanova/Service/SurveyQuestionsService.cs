@@ -70,14 +70,7 @@ namespace zdravstvena_ustanova.Service
             foreach (var surveyQuestion in surveyQuestions)
             {
                 bool isAdded = false;
-                foreach (var survey in surveys)
-                {
-                    if (survey.Name == surveyQuestion.Name)
-                    {
-                        isAdded = true;
-                        break;
-                    }
-                }
+                isAdded = CheckIfAdded(surveys, surveyQuestion, isAdded);
 
                 if (!isAdded)
                 {
@@ -86,6 +79,20 @@ namespace zdravstvena_ustanova.Service
             }
 
             return surveys;
+        }
+
+        private static bool CheckIfAdded(List<SurveyQuestions> surveys, SurveyQuestions surveyQuestion, bool isAdded)
+        {
+            foreach (var survey in surveys)
+            {
+                if (survey.Name == surveyQuestion.Name)
+                {
+                    isAdded = true;
+                    break;
+                }
+            }
+
+            return isAdded;
         }
 
         public SurveyQuestions Create(SurveyQuestions t)
