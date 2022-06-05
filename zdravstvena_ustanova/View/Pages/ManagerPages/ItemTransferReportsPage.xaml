@@ -22,9 +22,9 @@
                 </TextBox.Background>
 
             </TextBox>
-            <Button x:Name="RescheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Content="Izaberi novi datum" Cursor="Hand" Click="RescheduleNewDateButton_Click"></Button>
-            
-            <Button x:Name="UnscheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Cursor="Hand" Click="UnscheduleNewDateButton_Click">
+            <Button IsEnabled="False" x:Name="RescheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Content="Izaberi novi datum" Cursor="Hand" Click="RescheduleNewDateButton_Click"></Button>
+
+            <Button IsEnabled="False" x:Name="UnscheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Cursor="Hand" Click="UnscheduleNewDateButton_Click">
                 <WrapPanel HorizontalAlignment="Center">
                     <Image Source="/Resources/img/delete-icon.png" Width="24" Height="24" Margin="-5,0,0,0"></Image>
                     <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0">Otkaži</TextBlock>
@@ -36,7 +36,7 @@
         </StackPanel>
         <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
                 <DataGrid x:Name="ItemTransfersDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
-                          AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                          AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ItemTransfersDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Predmet" Binding="{Binding ScheduledItemTransfer.Item.Name}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Količina" Binding="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="*"></DataGridTextColumn>

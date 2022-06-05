@@ -165,6 +165,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             app.LoggedInUser = null;
             LoginPage.Mw.WindowStyle = WindowStyle.SingleBorderWindow;
             LoginPage.Mw.ResizeMode = ResizeMode.CanResize;
+
+            BundledTheme rd2 = app.Resources["MaterialDesignBundledTheme"] as BundledTheme;
+            ResourceDictionary rd = app.Resources["MaterialDesignResourceDictionary"] as ResourceDictionary;
+
+            LoginPage.Mw.Foreground = Brushes.Black;
+            LoginPage.Mw.Background = Brushes.White;
+            LoginPage.Mw.FontWeight = FontWeights.Normal;
+
+            app.Resources.MergedDictionaries.Remove(rd2);
+            app.Resources.MergedDictionaries.Remove(rd);
+
             NavigationService.Navigate(LoginPage);
         }
 
@@ -226,13 +237,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             if (theme.GetBaseTheme() == BaseTheme.Dark)
             {
                 theme.SetBaseTheme(Theme.Light);
+                DarkModeIcon.Source = new BitmapImage(new Uri(App.ProjectPath + "/Resources/img/day-theme.png"));
             }
             else
             {
                 theme.SetBaseTheme(Theme.Dark);
+                DarkModeIcon.Source = new BitmapImage(new Uri(App.ProjectPath + "/Resources/img/night-theme.png"));
             }
 
             paletteHelper.SetTheme(theme);
+            var app = Application.Current as App;
+            LoginPage.Mw.Foreground = (Brush)app.Resources["MaterialDesignBody"];
+            LoginPage.Mw.Background = (Brush)app.Resources["MaterialDesignPaper"];
+            LoginPage.Mw.FontWeight = FontWeights.Medium;
         }
 
         private void LanguangeButton_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -241,9 +258,11 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 if ((string)LanguangeCombobox.SelectedItem == "srpski")
                 {
                     CurrentLanguage = "sr-LATN";
+                    FlagIcon.Source = new BitmapImage(new Uri(App.ProjectPath + "/Resources/img/rs-flag.png"));
                 }
                 else
                 {
+                    FlagIcon.Source = new BitmapImage(new Uri(App.ProjectPath + "/Resources/img/us-flag.png"));
                     CurrentLanguage = "en-US";
                 }
                 app.ChangeLanguage(CurrentLanguage);

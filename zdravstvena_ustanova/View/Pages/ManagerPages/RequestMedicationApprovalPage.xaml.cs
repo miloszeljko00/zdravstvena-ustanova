@@ -169,5 +169,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
             NavigationService.GoBack();
         }
+
+        private void DoctorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DoctorComboBox.SelectedItem == null)
+            {
+                OkButton.IsEnabled = false;
+            }
+            else
+            {
+                OkButton.IsEnabled = true;
+            }
+        }
     }
 }

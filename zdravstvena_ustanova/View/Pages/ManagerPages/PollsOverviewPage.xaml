@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button x:Name="SurveyResultsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="SurveyResultsButton_OnClick">Rezultati</Button>
-            <Button Margin="15,0,0,0" x:Name="ListOfQuestionsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ListOfQuestionsButton_OnClick">Spisak pitanja</Button>
+            <Button IsEnabled="False" x:Name="SurveyResultsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="SurveyResultsButton_OnClick">Rezultati</Button>
+            <Button IsEnabled="False" Margin="15,0,0,0" x:Name="ListOfQuestionsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ListOfQuestionsButton_OnClick">Spisak pitanja</Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="335,5,0,0" TextChanged="SearchTextBox_OnTextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -24,7 +24,7 @@
 
             </TextBox>
 
-            <Image Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteSurveyIcon_MouseDown">
+            <Image IsEnabled="False" Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteSurveyIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -39,7 +39,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditSurveyIcon_MouseDown">
+            <Image IsEnabled="False" Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditSurveyIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -73,7 +73,7 @@
         <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1" HorizontalAlignment="Left">
 
 <DataGrid x:Name="SurveysDataGrid" ItemsSource="{Binding Surveys}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="SurveysDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv ankete" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip ankete" Binding="{Binding SurveyType}" Width="*"></DataGridTextColumn>

@@ -17,7 +17,7 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
             
             <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="{Binding Room.Name}"></Label>
-            <Button x:Name="ScheduleItemTransferButton" Width="150" Height="48" Margin="90,0,0,0" FontSize="13" Content="Zakaži prebacivanje" Cursor="Hand" Click="ScheduleItemTransferButton_Click"></Button>
+            <Button IsEnabled="False" x:Name="ScheduleItemTransferButton" Width="150" Height="48" Margin="90,0,0,0" FontSize="13" Content="Zakaži prebacivanje" Cursor="Hand" Click="ScheduleItemTransferButton_Click"></Button>
             <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding ItemTypes}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" SelectedItem="{Binding SelectedItemType}" Margin="15,0,0,0" Height="48" Width="150" SelectionChanged="ComboBox_SelectionChanged"></ComboBox>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="20,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
@@ -27,7 +27,7 @@
             </TextBox>
 
 
-            <Image x:Name="RemoveItemToRoomIcon" MouseDown="RemoveItemFromRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
+            <Image IsEnabled="False" x:Name="RemoveItemToRoomIcon" MouseDown="RemoveItemFromRoomIcon_MouseDown" Width="48" Height="48" Margin="15,0,0,0">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -61,7 +61,7 @@
         <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
 
 <DataGrid x:Name="roomItemsDataGrid" ItemsSource="{Binding StoredItems}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="roomItemsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>

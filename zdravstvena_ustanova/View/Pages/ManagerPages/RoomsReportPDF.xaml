@@ -13,7 +13,7 @@
         <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,60,20,20">
             <WrapPanel Margin="20,20,20,20">
                 <Image Source="/Resources/img/slikaUstanove.png" Width="200"></Image>
-                <Label FontSize="40" Margin="100,0,0,0" Content="Zdravo korporacija" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <TextBlock FontSize="40" Margin="100,0,0,0" Text="Zdravo korporacija" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
              </WrapPanel>
             </Border>
         <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,20,20,20">

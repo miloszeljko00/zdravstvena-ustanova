@@ -48,5 +48,44 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
             NavigationService.Navigate(new RoomGeneratedReportPage((Room)RoomsDataGrid.SelectedItem, startDate, endDate));
         }
+
+        private void RoomsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RoomsDataGrid.SelectedItem == null || StartDatePicker.SelectedDate == null
+                                                   || EndDatePicker.SelectedDate == null)
+            {
+                GenerateReportButton.IsEnabled = false;
+            }
+            else
+            {
+                GenerateReportButton.IsEnabled = true;
+            }
+        }
+
+        private void StartDatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (RoomsDataGrid.SelectedItem == null || StartDatePicker.SelectedDate == null
+                                                   || EndDatePicker.SelectedDate == null)
+            {
+                GenerateReportButton.IsEnabled = false;
+            }
+            else
+            {
+                GenerateReportButton.IsEnabled = true;
+            }
+        }
+
+        private void EndDatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            if (RoomsDataGrid.SelectedItem == null || StartDatePicker.SelectedDate == null
+                                                   || EndDatePicker.SelectedDate == null)
+            {
+                GenerateReportButton.IsEnabled = false;
+            }
+            else
+            {
+                GenerateReportButton.IsEnabled = true;
+            }
+        }
     }
 }

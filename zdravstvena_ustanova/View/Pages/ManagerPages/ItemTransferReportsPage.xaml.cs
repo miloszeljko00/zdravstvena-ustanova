@@ -85,5 +85,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 SearchTextBox.Background = null;
             }
         }
+
+        private void ItemTransfersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ItemTransfersDataGrid.SelectedItem == null)
+            {
+                RescheduleNewDateButton.IsEnabled = false;
+                UnscheduleNewDateButton.IsEnabled = false;
+            }
+            else
+            {
+                RescheduleNewDateButton.IsEnabled = true;
+                UnscheduleNewDateButton.IsEnabled = true;
+            }
+        }
     }
 }

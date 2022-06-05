@@ -71,5 +71,23 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
             return;
         }
+
+        private void SurveysDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SurveysDataGrid.SelectedItem == null)
+            {
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false;
+                SurveyResultsButton.IsEnabled = false;
+                ListOfQuestionsButton.IsEnabled = false;
+            }
+            else
+            {
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+                SurveyResultsButton.IsEnabled = true;
+                ListOfQuestionsButton.IsEnabled = true;
+            }
+        }
     }
 }

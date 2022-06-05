@@ -43,12 +43,15 @@
             <Button Name="AccountRequestsButton" Width="158" Height="64" FontSize="18" Content="{root:Loc requests}"></Button>
             <Button Name="DarkModeButton" Width="158" Height="64" FontSize="18">
                 <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Image Source="/Resources/img/dark-mode-icon.png" Width="32" Margin="10,10,20,10"></Image>
+                    <Image Name="DarkModeIcon" Source="/Resources/img/night-theme.png" Width="32" Margin="10,10,20,10"></Image>
                     <ToggleButton IsChecked="True" Name="DarkModeToggle" Click="DarkModeButton_OnClick"></ToggleButton>
                 </WrapPanel>
             </Button>
             <Button Width="158" Height="64" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                <ComboBox Name="LanguangeCombobox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="158" Height="64" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
+                <WrapPanel>
+                    <Image Margin="0,0,10,0" Name="FlagIcon" Source="/Resources/img/us-flag.png" Width="28"></Image>
+                    <ComboBox Name="LanguangeCombobox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="85" Height="64" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LanguangeButton_OnSelectionChanged"></ComboBox>
+                </WrapPanel>
             </Button>
             <Button Name="LogoutButton" Width="158" Height="64" FontSize="18" Click="LogoutButton_Click" Content="{root:Loc logout}"></Button>
         </StackPanel>

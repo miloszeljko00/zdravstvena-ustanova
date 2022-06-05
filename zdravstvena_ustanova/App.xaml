@@ -6,10 +6,8 @@
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Amber" SecondaryColor="Yellow" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            <materialDesign:BundledTheme x:Key="MaterialDesignBundledTheme" BaseTheme="Dark" PrimaryColor="Amber" SecondaryColor="Yellow" />
+            <ResourceDictionary x:Key="MaterialDesignResourceDictionary" Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

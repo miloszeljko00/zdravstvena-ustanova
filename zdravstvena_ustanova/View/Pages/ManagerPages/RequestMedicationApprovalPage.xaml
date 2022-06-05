@@ -43,7 +43,7 @@
 
             <WrapPanel HorizontalAlignment="Center">
                 <Label  Width="150" Margin="0,0,0,20" Grid.Column="0" Grid.Row="3" FontSize="18"  HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Lekar:</Label>
-                <ComboBox FontSize="18" Margin="0,0,0,20" ItemsSource="{Binding Doctors}" DisplayMemberPath="Name" VerticalContentAlignment="Center" x:Name="DoctorComboBox" Width="500" ></ComboBox>
+                <ComboBox FontSize="18" Margin="0,0,0,20" ItemsSource="{Binding Doctors}" DisplayMemberPath="Name" VerticalContentAlignment="Center" x:Name="DoctorComboBox" Width="500" SelectionChanged="DoctorComboBox_SelectionChanged" ></ComboBox>
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center">
@@ -53,7 +53,7 @@
 
             <WrapPanel HorizontalAlignment="Center">
                 <Button x:Name="CancelButton" Margin="0,160,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
-                    <Button x:Name="OkButton" Margin="500,160,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+                    <Button IsEnabled="False" x:Name="OkButton" Margin="500,160,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
             </WrapPanel>
 
 

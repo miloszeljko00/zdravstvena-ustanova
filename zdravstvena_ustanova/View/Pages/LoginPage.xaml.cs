@@ -58,6 +58,16 @@ namespace zdravstvena_ustanova.View.Pages
                 Mw.WindowStyle = WindowStyle.None;
                 Mw.ResizeMode = ResizeMode.NoResize;
 
+                BundledTheme rd2 = app.Resources["MaterialDesignBundledTheme"] as BundledTheme;
+                ResourceDictionary rd = app.Resources["MaterialDesignResourceDictionary"] as ResourceDictionary;
+                    
+                app.Resources.MergedDictionaries.Add(rd2);
+                app.Resources.MergedDictionaries.Add(rd);
+
+                Mw.Foreground = (Brush)app.Resources["MaterialDesignBody"];
+                Mw.Background = (Brush)app.Resources["MaterialDesignPaper"];
+                Mw.FontWeight = FontWeights.Medium;
+
                 NavigationService.Navigate(new ManagerMainPage(this));
             }
             if (app.LoggedInUser is Secretary) 
