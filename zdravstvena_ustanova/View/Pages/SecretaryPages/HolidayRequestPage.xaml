@@ -12,7 +12,7 @@
     <Grid>
 
         <DataGrid x:Name="dataGridHolidayRequest" ItemsSource="{Binding RequestView}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,98,30,0" Height="317" FontSize="18"  SelectedIndex="-1" >
+                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,98,30,0" Height="317" FontSize="20"  SelectedIndex="-1" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Doktor" Width="*">
                     <DataGridTextColumn.Binding>
@@ -53,6 +53,7 @@
 
         <TextBlock x:Name="validationTB" HorizontalAlignment="Left" Margin="710,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20" Foreground="#FF731E1E"/>
         <Image x:Name="Back" HorizontalAlignment="Left" Height="80" Margin="499,432,0,0" VerticalAlignment="Top" Width="80" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown"/>
-        <Label Content="Nazad" HorizontalAlignment="Left" Margin="517,519,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Nazad" HorizontalAlignment="Left" Margin="499,513,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Margin="42,37,0,0" TextWrapping="Wrap" Text="Zahtevi za odsustvo:" VerticalAlignment="Top" FontSize="36"/>
     </Grid>
 </Page>

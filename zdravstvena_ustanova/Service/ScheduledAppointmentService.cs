@@ -1,10 +1,10 @@
-using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Model.Enums;
 using zdravstvena_ustanova.Repository.RepositoryInterface;
 using zdravstvena_ustanova.Service.ServiceInterface;
-using zdravstvena_ustanova.Model.Enums;
 
 namespace zdravstvena_ustanova.Service
 {
@@ -253,7 +253,7 @@ namespace zdravstvena_ustanova.Service
             return hours;
         }
 
-        public DateTime FindFirstFreeAppointment(ScheduledAppointment scheduledAppointment, DateTime today)
+        public DateTime FindFirstFreeAppointmentTime(ScheduledAppointment scheduledAppointment, DateTime today)
         {    
             while (true)
             {
@@ -283,6 +283,20 @@ namespace zdravstvena_ustanova.Service
                 }
             }
             return find;
+        }
+
+        public IEnumerable<ScheduledAppointment> GetFromToDatesForDoctor(DateTime start, DateTime end, long doctorId)
+        {
+            var listOfAppointments = GetAll();
+            var listOfCorrectAppointments = new List<ScheduledAppointment>();
+            foreach (ScheduledAppointment sa in listOfAppointments)
+            {
+                if (sa.Start.Date >= start.Date && sa.Start.Date <= end.Date)
+                {
+                    if (sa.Doctor.Id == doctorId) listOfCorrectAppointments.Add(sa);
+                }
+            }
+            return listOfCorrectAppointments;
         }
     }
 }
