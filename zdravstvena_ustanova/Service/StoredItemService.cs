@@ -87,105 +87,152 @@ namespace zdravstvena_ustanova.Service
 
         public bool MoveItemFromTo(Warehouse fromWarehouse, Room toRoom, Item item, int quantity)
         {
+            bool moved = false;
             foreach (var si in fromWarehouse.StoredItems)
             {
                 if (si.Item.Id == item.Id)
                 {
-                    foreach(StoredItem roomStoredItem in toRoom.StoredItems)
-                    {
-                        if (si.Item.Id == roomStoredItem.Item.Id)
-                        {
-                            roomStoredItem.Quantity += quantity;
-                            si.Quantity -= quantity;
-                            if (si.Quantity == 0)
-                            {
-                                Delete(si.Id);
-                                fromWarehouse.StoredItems.Remove(si);
-                            }
-                            else
-                            {
-                                Update(si);
-                            }
-                            Update(roomStoredItem);
-                            return true;
-                        }
-                    }
+                    moved = MoveItemInRoomWhereItemExists(fromWarehouse, toRoom, quantity, si);
 
+                    if (moved) break;
 
-                    si.Quantity -= quantity;
-                    if (si.Quantity == 0)
-                    {
-                        Delete(si.Id);
-                        fromWarehouse.StoredItems.Remove(si);
-                    }
-                    else
-                    {
-                        Update(si);
-                    }
-                    var storedItem = Create(new StoredItem(item, quantity, StorageType.ROOM, toRoom));
-                    toRoom.StoredItems.Add(storedItem);
-                    return true;
+                    moved = MoveItemInRoomWhereItemDoesNotExist(fromWarehouse, toRoom, item, quantity, si);
                 }
             }
-            return false;
+            return moved;
+        }
+
+        private bool MoveItemInRoomWhereItemDoesNotExist(Warehouse fromWarehouse, Room toRoom, Item item, int quantity,
+            StoredItem si)
+        {
+            si.Quantity -= quantity;
+            UpdateOrDeleteItemFromWarehouse(fromWarehouse, si);
+
+            var storedItem = Create(new StoredItem(item, quantity, StorageType.ROOM, toRoom));
+            toRoom.StoredItems.Add(storedItem);
+            return true;
+        }
+
+        private bool MoveItemInRoomWhereItemExists(Warehouse fromWarehouse, Room toRoom, int quantity, StoredItem si)
+        {
+            bool moved = false;
+            foreach (StoredItem roomStoredItem in toRoom.StoredItems)
+            {
+                if (si.Item.Id == roomStoredItem.Item.Id)
+                {
+                    roomStoredItem.Quantity += quantity;
+                    si.Quantity -= quantity;
+                    UpdateOrDeleteItemFromWarehouse(fromWarehouse, si);
+
+                    Update(roomStoredItem);
+                    moved = true;
+                }
+            }
+
+            return moved;
+        }
+
+        private void UpdateOrDeleteItemFromWarehouse(Warehouse fromWarehouse, StoredItem si)
+        {
+            if (si.Quantity == 0)
+            {
+                Delete(si.Id);
+                fromWarehouse.StoredItems.Remove(si);
+            }
+            else
+            {
+                Update(si);
+            }
         }
 
         public bool MoveItemFromTo(Room fromRoom, Room toRoom, Item item, int quantity)
         {
+            bool moved = false;
             foreach (var si in fromRoom.StoredItems)
             {
                 if (si.Item.Id == item.Id)
                 {
-                    if (si.Quantity == quantity)
-                    {
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
-                        storedItem = Create(storedItem);
-                        toRoom.StoredItems.Add(storedItem);
-                        Delete(si.Id);
-                        fromRoom.StoredItems.Remove(si);
-                        return true;
-                    }
-                    else
-                    {
-                        si.Quantity -= quantity;
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
-                        storedItem = Create(storedItem);
-                        toRoom.StoredItems.Add(storedItem);
-                        Update(si);
-                        return true;
-                    }
+                    moved = MoveItemFromRoomToRoom(fromRoom, toRoom, quantity, si);
                 }
             }
-            return false;
+            return moved;
         }
+
+        private bool MoveItemFromRoomToRoom(Room fromRoom, Room toRoom, int quantity, StoredItem si)
+        {
+            if (si.Quantity == quantity)
+            {
+                MovingAllItems(fromRoom, toRoom, quantity, si);
+            }
+            else
+            {
+                MovingSomeOfItems(toRoom, quantity, si);
+            }
+            return true;
+        }
+
+        private void MovingSomeOfItems(Room toRoom, int quantity, StoredItem si)
+        {
+            si.Quantity -= quantity;
+            StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
+            storedItem = Create(storedItem);
+            toRoom.StoredItems.Add(storedItem);
+            Update(si);
+        }
+
+        private void MovingAllItems(Room fromRoom, Room toRoom, int quantity, StoredItem si)
+        {
+            StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.ROOM, toRoom);
+            storedItem = Create(storedItem);
+            toRoom.StoredItems.Add(storedItem);
+            Delete(si.Id);
+            fromRoom.StoredItems.Remove(si);
+        }
+
         public bool MoveItemFromTo(Room fromRoom, Warehouse toWarehouse, Item item, int quantity)
         {
+            bool moved = false;
             foreach (var si in fromRoom.StoredItems)
             {
                 if (si.Item.Id == item.Id)
                 {
-                    if (si.Quantity == quantity)
-                    {
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.WAREHOUSE, toWarehouse);
-                        storedItem = Create(storedItem);
-                        toWarehouse.StoredItems.Add(storedItem);
-                        Delete(si.Id);
-                        fromRoom.StoredItems.Remove(si);
-                        return true;
-                    }
-                    else
-                    {
-                        si.Quantity -= quantity;
-                        StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.WAREHOUSE, toWarehouse);
-                        storedItem = Create(storedItem);
-                        toWarehouse.StoredItems.Add(storedItem);
-                        Update(si);
-                        return true;
-                    }
+                    moved =  MoveItemFromRoomToWarehouse(fromRoom, toWarehouse, quantity, si);
                 }
             }
-            return false;
+            return moved;
         }
+
+        private bool MoveItemFromRoomToWarehouse(Room fromRoom, Warehouse toWarehouse, int quantity, StoredItem si)
+        {
+            if (si.Quantity == quantity)
+            {
+                MovingAllItemsToWarehouse(fromRoom, toWarehouse, quantity, si);
+            }
+            else
+            {
+                MovingSomeOfItemsToWarehouse(toWarehouse, quantity, si);
+            }
+            return true;
+        }
+
+        private void MovingSomeOfItemsToWarehouse(Warehouse toWarehouse, int quantity, StoredItem si)
+        {
+            si.Quantity -= quantity;
+            StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.WAREHOUSE, toWarehouse);
+            storedItem = Create(storedItem);
+            toWarehouse.StoredItems.Add(storedItem);
+            Update(si);
+        }
+
+        private void MovingAllItemsToWarehouse(Room fromRoom, Warehouse toWarehouse, int quantity, StoredItem si)
+        {
+            StoredItem storedItem = new StoredItem(si.Item, quantity, StorageType.WAREHOUSE, toWarehouse);
+            storedItem = Create(storedItem);
+            toWarehouse.StoredItems.Add(storedItem);
+            Delete(si.Id);
+            fromRoom.StoredItems.Remove(si);
+        }
+
         private void BindItemsWithStoredItems(IEnumerable<Item> items, IEnumerable<StoredItem> itemRooms)
         {
             itemRooms.ToList().ForEach(itemRoom =>
