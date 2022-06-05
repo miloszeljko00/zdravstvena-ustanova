@@ -54,6 +54,12 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void Save_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(ScheduledAppointments.Count != 0)
+            {
+                SolidColorBrush orangeBrush = new SolidColorBrush(Colors.DarkOrange);
+                rectangle.Stroke = orangeBrush;
+                return;
+            }
             holidayRequest.HolidayRequestStatus = (HolidayRequestStatus)statusCB.SelectedValue;
             holidayRequest.ReasonForDenial = reasonTB.Text;
             var app = Application.Current as App;
@@ -68,7 +74,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void change_Click(object sender, RoutedEventArgs e)
         {
-
+            _homePagePatients.SecretaryFrame.Content = new MoveAppointmentsPage(_homePagePatients, ScheduledAppointments, holidayRequest);
         }
     }
 }

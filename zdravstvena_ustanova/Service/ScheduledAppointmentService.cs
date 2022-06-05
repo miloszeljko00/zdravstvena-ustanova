@@ -298,5 +298,16 @@ namespace zdravstvena_ustanova.Service
             }
             return listOfCorrectAppointments;
         }
+
+        public IEnumerable<Doctor> FindReplacementDoctors(ScheduledAppointment _scheduledAppointment)
+        {
+            List<Doctor> doctors = (List<Doctor>)_doctorRepository.GetAll();
+            var scheduledAppointments = GetForSpecificTime(_scheduledAppointment.Start);
+            foreach(ScheduledAppointment sa in scheduledAppointments)
+            {
+                doctors.RemoveAll(d => d.Id == sa.Doctor.Id);
+            }
+            return doctors;
+        }
     }
 }

@@ -118,5 +118,10 @@ namespace zdravstvena_ustanova.Controller
         {
             return _scheduledAppointmentService.GetFromToDatesForDoctor(start, end, doctorId);
         }
+
+        public IEnumerable<Doctor> FindReplacementDoctors(ScheduledAppointment _scheduledAppointment)
+        {
+            return _scheduledAppointmentService.FindReplacementDoctors(_scheduledAppointment);
+        }
     }
 }
