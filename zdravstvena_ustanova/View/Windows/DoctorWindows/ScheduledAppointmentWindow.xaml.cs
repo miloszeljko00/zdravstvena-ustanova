@@ -336,6 +336,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             { 
                 var app = Application.Current as App;
                 app.ScheduledAppointmentController.Delete(ScheduledAppointment.Id);
+                app.MedicalExaminationController.Delete(MedicalExamination.Id);
 
                 DoctorHomePageWindow.UpdateCalendar();
                 this.Close();
@@ -350,7 +351,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_Add_Therapy(object sender, RoutedEventArgs e)
         {
-            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine);
+            AddMedicineToTherapy addMedicineToTherapy = new AddMedicineToTherapy(PrescribedMedicine, ScheduledAppointment);
             addMedicineToTherapy.ShowDialog();
         }
         private void Button_Click_Edit_Therapy(object sender, RoutedEventArgs e)
@@ -440,39 +441,66 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             var app = Application.Current as App;
             Patient patient = ScheduledAppointment.Patient;
-            if(specialtiesComboBox.SelectedItem == null || doctorsBySpecialtyComboBox.SelectedItem==null)
+            string specialtiesComboBoxParameter = "";
+            string doctorsBySpeciltyComboBoxParameter = "";
+            string selectedTime = "";
+            int startTime = 0;
+            int endTime = 0;
+            if (!(specialtiesComboBox.SelectedItem == null))
             {
-                MessageBox.Show("Morate odabrati specijalnost i lekara!");
-                return;
+                specialtiesComboBoxParameter = specialtiesComboBox.SelectedItem.ToString();
             }
-            SelectedDoctor = (Doctor)doctorsBySpecialtyComboBox.SelectedItem;
-            if(TimeForSpecialistComboBox.SelectedItem == null)
+            if (!(doctorsBySpecialtyComboBox.SelectedItem == null))
             {
-                MessageBox.Show("Morate odabrati vreme");
-                    return;
+                doctorsBySpeciltyComboBoxParameter = doctorsBySpecialtyComboBox.SelectedItem.ToString();
+                SelectedDoctor = (Doctor)doctorsBySpecialtyComboBox.SelectedItem;
             }
-            string selectedTime = ((ComboBoxItem)TimeForSpecialistComboBox.SelectedItem).Content.ToString();
-            int startTime = int.Parse(selectedTime);
-            int endTime = int.Parse(selectedTime) + 1;
-            if (requestForSpecialistDataPicker.SelectedDate == null)
-            {
-                MessageBox.Show("Morate izabrati datum");
-                return;
-            }
-            if(requestForSpecialistDataPicker.SelectedDate <= DateTime.Now)
-            {
-                MessageBox.Show("Ne mozete zakazati termin u proslost!");
-                return;
+            //if(specialtiesComboBox.SelectedItem == null || doctorsBySpecialtyComboBox.SelectedItem==null)
+            //{
+            //    MessageBox.Show("Morate odabrati specijalnost i lekara!");
+            //    return;
+            //}
 
+            //if(TimeForSpecialistComboBox.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Morate odabrati vreme");
+            //        return;
+            //}
+            if (!(TimeForSpecialistComboBox.SelectedItem == null))
+            {
+                selectedTime = ((ComboBoxItem)TimeForSpecialistComboBox.SelectedItem).Content.ToString();
+                startTime = int.Parse(selectedTime);
+                endTime = int.Parse(selectedTime) + 1;
             }
-            DateTime selectedDate = (DateTime)requestForSpecialistDataPicker.SelectedDate;
-            DateTime startDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, startTime, 0, 0);
-            DateTime endDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, endTime, 0, 0);
-            SpecialistScheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.SPECIALIST_APPOINTMENT, ScheduledAppointment.Patient.Id,
-                SelectedDoctor.Id, SelectedDoctor.Room.Id);
-            SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
-            DoctorHomePageWindow.UpdateCalendar();
-            this.Close();
+
+            //if (requestForSpecialistDataPicker.SelectedDate == null)
+            //{
+            //    MessageBox.Show("Morate izabrati datum");
+            //    return;
+            //}
+            //if(requestForSpecialistDataPicker.SelectedDate <= DateTime.Now)
+            //{
+            //    MessageBox.Show("Ne mozete zakazati termin u proslost!");
+            //    return;
+
+            //}
+            DateTime? dateForValidation = requestForSpecialistDataPicker.SelectedDate;
+            if (app.ScheduledAppointmentController.ValidateFormForSpecialistAppointment(specialtiesComboBoxParameter, doctorsBySpeciltyComboBoxParameter, selectedTime, dateForValidation))
+            {
+
+
+                DateTime selectedDate = (DateTime)requestForSpecialistDataPicker.SelectedDate;
+                if(app.ScheduledAppointmentController.ValidateTime(selectedDate))
+                {
+                    DateTime startDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, startTime, 0, 0);
+                    DateTime endDate = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, endTime, 0, 0);
+                    SpecialistScheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.SPECIALIST_APPOINTMENT, ScheduledAppointment.Patient.Id,
+                        SelectedDoctor.Id, SelectedDoctor.Room.Id);
+                    SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
+                    DoctorHomePageWindow.UpdateCalendar();
+                    this.Close();
+                }
+            }
         }
 
         private void Button_Click_Cancel_Request_For_Specialist(object sender, RoutedEventArgs e)

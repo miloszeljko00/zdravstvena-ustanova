@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class ScheduledItemTransferController
     {
-        private readonly ScheduledItemTransferService _scheduledItemTransferService;
+        private readonly IScheduledItemTransferService _scheduledItemTransferService;
 
-        public ScheduledItemTransferController(ScheduledItemTransferService scheduledItemTransferService)
+        public ScheduledItemTransferController(IScheduledItemTransferService scheduledItemTransferService)
         {
             _scheduledItemTransferService = scheduledItemTransferService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public ScheduledItemTransfer GetById(long id)
         {
-            return _scheduledItemTransferService.GetById(id);
+            return _scheduledItemTransferService.Get(id);
         }
         public ScheduledItemTransfer Create(ScheduledItemTransfer scheduledItemTransfer)
         {

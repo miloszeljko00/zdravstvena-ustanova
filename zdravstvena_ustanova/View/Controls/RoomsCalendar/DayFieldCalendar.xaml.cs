@@ -69,10 +69,10 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
                 }
                 if(RenovationAppointment != null)
                 {
+                    AppointmentsCountDisplay.Visibility = Visibility.Collapsed;
+                    label.Visibility = Visibility.Collapsed;
+                    UnderConstruction.Visibility = Visibility.Visible;
                     panel.Background = Brushes.Red;
-                    AppointmentsCountDisplay.Content = "Renoviranje";
-                    AppointmentsCountDisplay.Foreground = Brushes.White;
-                    label.Foreground= Brushes.White;
                 }
             }
   
@@ -125,6 +125,7 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             if (RenovationAppointment != null) 
             {
                 RoomCalendarOverview.SelectedRenovationAppointment = RenovationAppointment;
+                RoomCalendarOverview.IsRenovationSelected = true;
                 RoomCalendarOverview.RenovationAppointment = RenovationAppointment;
                 RoomCalendarOverview.infoPanel.Children.Clear();
                 RoomCalendarOverview.infoPanel.Children.Add(new RenovationInfoControl(RoomCalendarOverview));
@@ -132,6 +133,7 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
             else
             {
                 RoomCalendarOverview.SelectedRenovationAppointment = null;
+                RoomCalendarOverview.IsRenovationSelected = false;
                 RoomCalendarOverview.infoPanel.Children.Clear();
                 RoomCalendarOverview.infoPanel.Children.Add(new SelectedScheduledAppointmentsListControl(RoomCalendarOverview));
             }

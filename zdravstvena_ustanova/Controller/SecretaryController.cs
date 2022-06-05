@@ -2,14 +2,15 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class SecretaryController
    {
-        private readonly SecretaryService _secretaryService;
+        private readonly ISecretaryService _secretaryService;
 
-        public SecretaryController(SecretaryService secretaryService)
+        public SecretaryController(ISecretaryService secretaryService)
         {
             _secretaryService = secretaryService;
         }

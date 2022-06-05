@@ -1,24 +1,23 @@
-﻿using zdravstvena_ustanova.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class RenovationAppointmentService
+    public class RenovationAppointmentService : IRenovationAppointmentService
     {
-        private readonly RenovationAppointmentRepository _renovationAppointmentRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly RoomRepository _roomUnderRenovationRepository;
-        private readonly StoredItemRepository _itemRoomRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private readonly ScheduledAppointmentRepository _unScheduledAppointmentRepository;
-        private readonly RenovationTypeRepository _renovationTypeRepository;
+        private readonly IRenovationAppointmentRepository _renovationAppointmentRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomUnderRenovationRepository;
+        private readonly IStoredItemRepository _itemRoomRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly IScheduledAppointmentRepository _unScheduledAppointmentRepository;
+        private readonly IRenovationTypeRepository _renovationTypeRepository;
 
         private const int StandardRenovationId = 1;
         private const int MergeRenovationId = 2;
@@ -26,11 +25,11 @@ namespace zdravstvena_ustanova.Service
 
 
 
-        public RenovationAppointmentService(RenovationAppointmentRepository renovationAppointmentRepository,
-            RoomRepository roomRepository, StoredItemRepository itemRoomRepository, ItemRepository itemRepository,
-            ScheduledAppointmentRepository scheduledAppointmentRepository,
-            ScheduledAppointmentRepository unScheduledAppointmentRepository, RenovationTypeRepository renovationTypeRepository,
-            RoomRepository roomUnderRenovationRepository)
+        public RenovationAppointmentService(IRenovationAppointmentRepository renovationAppointmentRepository,
+            IRoomRepository roomRepository, IStoredItemRepository itemRoomRepository, IItemRepository itemRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository,
+            IScheduledAppointmentRepository unScheduledAppointmentRepository, IRenovationTypeRepository renovationTypeRepository,
+            IRoomRepository roomUnderRenovationRepository)
         {
             _renovationAppointmentRepository = renovationAppointmentRepository;
             _roomRepository = roomRepository;
@@ -239,7 +238,7 @@ namespace zdravstvena_ustanova.Service
             
             var mergedRoom = renovationAppointment.RoomForMergeOrFirstRoomOfSplit;
             var mergedRoomRenovationAppointment = new RenovationAppointment(mergedRoom, renovationAppointment.StartDate,
-                DateTime.MaxValue, renovationAppointment.Description, _renovationTypeRepository.GetById(1));
+                DateTime.MaxValue, renovationAppointment.Description, _renovationTypeRepository.Get(1));
 
             renovationAppointment = Create(mergedRoomRenovationAppointment);
             return renovationAppointment;
@@ -328,7 +327,7 @@ namespace zdravstvena_ustanova.Service
             });
         }
 
-        public RenovationAppointment GetById(long id)
+        public RenovationAppointment Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemRooms = _itemRoomRepository.GetAll();

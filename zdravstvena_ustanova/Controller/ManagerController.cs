@@ -2,14 +2,15 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class ManagerController
    {
-        private readonly ManagerService _managerService;
+        private readonly IManagerService _managerService;
 
-        public ManagerController(ManagerService managerService)
+        public ManagerController(IManagerService managerService)
         {
             _managerService = managerService;
         }

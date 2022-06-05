@@ -4,28 +4,80 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-
+using System.Windows.Threading;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class DoctorPriority : Window
     {
-        public List<Doctor> doctors;
+        public List<Doctor> Doctors;
+        public DispatcherTimer DemoTimer { get; private set; }
+        public int Phase { get; set; }
+        public bool Demo { get; set; }
         public DoctorPriority()
         {
             InitializeComponent();
             var app = Application.Current as App;
             List<string> names = new List<string>();
-            doctors = new List<Doctor>(app.DoctorController.GetAll());
-            int i = 0;
-            foreach (Doctor doctor in doctors)
+            Doctors = new List<Doctor>(app.DoctorController.GetAll());
+            foreach (Doctor doctor in Doctors)
             {
                 names.Add(doctor.Name + " " + doctor.Surname);
-                i++;
             }
             doctorComboBox.ItemsSource = names;
         }
 
+        public DoctorPriority(bool isDemo)
+        {
+            InitializeComponent();
+            var app = Application.Current as App;
+            List<string> names = new List<string>();
+            Doctors = new List<Doctor>(app.DoctorController.GetAll());
+            foreach (Doctor doctor in Doctors)
+            {
+                names.Add(doctor.Name + " " + doctor.Surname);
+            }
+            doctorComboBox.ItemsSource = names;
+
+            Demo = isDemo;
+            Phase = 0;
+            DemoTimer = new DispatcherTimer();
+            DemoTimer.Interval = new TimeSpan(0, 0, 2);
+            if (Demo)
+                DemoTimer.IsEnabled = true;
+            else
+                DemoTimer.IsEnabled = false;
+            DemoTimer.Tick += new EventHandler(demoTimer_Tick);
+        }
+        private void demoTimer_Tick(object sender, EventArgs e)
+        {
+            switch (Phase)
+            {
+                case 0:
+                    doctorComboBox.Focus();
+                    Phase++;
+                    break;
+                case 1:
+                    doctorComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 2:
+                    list.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 3:
+                    Ok1.Focus();
+                    Phase++;
+                    break;
+                case 4:
+                    this.Close();
+                    Phase++;
+                    break;
+                default:
+                    DemoTimer.IsEnabled = false;
+                    break;
+            }
+        }
         private void goToAppointments(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -38,21 +90,9 @@ namespace zdravstvena_ustanova.View
             DateTime date = Convert.ToDateTime(dat);
             DateTime startDate = date;
             DateTime endDate = date.AddHours(1);
-            long docId = 0;
-            long docRoom = 0;
-            foreach (Doctor d in doctors)
-            {
-                if (doctorComboBox.Text.Equals(d.Name + " " + d.Surname))
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-            }
-
-            var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, docId, docRoom);
+            Doctor d = app.DoctorController.GetDoctorByNameSurname(doctorComboBox.Text);
+            var scheduledAppointment = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, app.LoggedInUser.Id, d.Id, d.Room.Id);
             scheduledAppointment = app.ScheduledAppointmentController.Create(scheduledAppointment);
-            scheduledAppointment = app.ScheduledAppointmentController.GetById(scheduledAppointment.Id);
             this.Close();
         }
 
@@ -60,7 +100,7 @@ namespace zdravstvena_ustanova.View
         {
             string value = (string)doctorComboBox.SelectedItem;
             Shift docS = Shift.THIRD;
-            foreach (Doctor d in doctors)
+            foreach (Doctor d in Doctors)
             {
                 if (value.Contains(d.Name + " " + d.Surname))
                 {
@@ -98,23 +138,21 @@ namespace zdravstvena_ustanova.View
                 today = today.AddHours(1);
             }
             var app = Application.Current as App;
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
-            foreach (ScheduledAppointment sapp in sa)
+            List<ScheduledAppointment> scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            foreach (ScheduledAppointment sapp in scheduledAppointments)
             {
                 dates.Remove(sapp.Start.ToString("dd.MM.yyyy. HH:mm"));
             }
-            foreach (ScheduledAppointment sapp in sa)
+            scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetScheduledAppointmentsForPatient(app.LoggedInUser.Id));
+            foreach (ScheduledAppointment sapp in scheduledAppointments)
             {
-                if (sapp.Patient.Id == app.LoggedInUser.Id)
+                for (int i = 7; i < 10; i++)
                 {
-                    for (int i = 7; i < 10; i++)
-                    {
-                        dates.Remove(sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"));
-                    }
-                    for (int i = 10; i < 21; i++)
-                    {
-                        dates.Remove(sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"));
-                    }
+                    dates.Remove(sapp.Start.ToString("dd.MM.yyyy. 0" + i + ":mm"));
+                }
+                for (int i = 10; i < 21; i++)
+                {
+                    dates.Remove(sapp.Start.ToString("dd.MM.yyyy. " + i + ":mm"));
                 }
             }
             list.ItemsSource = dates;

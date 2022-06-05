@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button x:Name="RequestApproval" Width="150" Height="48" Margin="0,0,0,0" FontSize="14" Content="Zatraži odobrenje" Cursor="Hand" Click="RequestApproval_Click"></Button>
+            <Button IsEnabled="False" x:Name="RequestApproval" Width="150" Height="48" Margin="0,0,0,0" FontSize="14" Content="Zatraži odobrenje" Cursor="Hand" Click="RequestApproval_Click"></Button>
             <Button x:Name="ActiveRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Aktivni zahtevi" Cursor="Hand" Click="ActiveRequests_Click"></Button>
             <Button x:Name="FinishedRequests" Width="150" Height="48" Margin="15,0,0,0" FontSize="14" Content="Završeni zahtevi" Cursor="Hand" Click="FinishedRequests_Click"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="170,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
@@ -26,7 +26,7 @@
             </TextBox>
 
 
-            <Image Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteRoomIcon_MouseDown">
+            <Image IsEnabled="False" Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteRoomIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -41,7 +41,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditRoomIcon_MouseDown">
+            <Image IsEnabled="False" Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditRoomIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -72,38 +72,24 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Margin="140,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="600" Grid.Row="1" HorizontalAlignment="Left">
+
+<DataGrid x:Name="MedicationDataGrid" ItemsSource="{Binding Medications}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Margin="0,0,0,0" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MedicationDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip leka" Binding="{Binding MedicationType.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Odobren" Binding="{Binding IsApproved}" Width="68"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Sastojci" Width="68">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image x:Name="IngredientsIcon" Width="32" Height="32" Margin="4,4,4,4" MouseDown="IngredientsIcon_MouseDown">
-                                <Image.Resources>
-                                    <Style TargetType="{x:Type Image}">
-                                        <!-- Default image -->
-                                        <Setter Property="Source" Value="/Resources/img/ingredients-icon.png"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <!-- Hover image -->
-                                                <Setter Property="Opacity" Value="0.8"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Resources>
-                            </Image>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
-        <ListView Grid.Row="2" Width="400" Margin="600,0,0,0" DisplayMemberPath="Name"
+            </Border>
+        <Border Margin="600 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="400" Grid.Row="1">
+
+<ListView Grid.Row="2" Width="400" Margin="0,0,0,0" DisplayMemberPath="Name"
                   ItemsSource="{Binding Ingredients}">
         </ListView>
+            </Border>
     </Grid>
 </Page>

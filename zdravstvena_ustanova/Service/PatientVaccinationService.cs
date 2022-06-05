@@ -1,19 +1,16 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PatientVaccinationService
+    public class PatientVaccinationService : IPatientVaccinationService
     {
-        private readonly PatientVaccinationRepository _patientVaccinationRepository;
-        private readonly VaccineRepository _vaccineRepository;
+        private readonly IPatientVaccinationRepository _patientVaccinationRepository;
+        private readonly IVaccineRepository _vaccineRepository;
 
-        public PatientVaccinationService(PatientVaccinationRepository patientVaccinationRepository, VaccineRepository vaccineRepository)
+        public PatientVaccinationService(IPatientVaccinationRepository patientVaccinationRepository, IVaccineRepository vaccineRepository)
         {
             _patientVaccinationRepository = patientVaccinationRepository;
             _vaccineRepository = vaccineRepository;
@@ -35,7 +32,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public PatientVaccination GetById(long id)
+        public PatientVaccination Get(long id)
         {
             var vaccinations = _vaccineRepository.GetAll();
             var patientVaccination = _patientVaccinationRepository.Get(id);

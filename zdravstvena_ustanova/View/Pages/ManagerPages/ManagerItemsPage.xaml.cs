@@ -94,5 +94,20 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             MainWindow.Modal.Content = new DeleteItemControl(ItemViewModels, ItemsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
+
+        private void ItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ItemsDataGrid.SelectedItem == null)
+            {
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false;
+            }
+            else
+            {
+
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+            }
+        }
     }
 }

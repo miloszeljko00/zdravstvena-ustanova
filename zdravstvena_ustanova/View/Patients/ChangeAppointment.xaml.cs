@@ -1,16 +1,17 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Model.Enums;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
-
+using System.Windows.Threading;
 
 namespace zdravstvena_ustanova.View
 {
     public partial class ChangeAppointment : Window
     {
         public ScheduledAppointment ScheduledAppointment { get; set; }
+        public DispatcherTimer DemoTimer { get; private set; }
+        public int Phase { get; set; }
+        public bool Demo { get; set; }
         public ChangeAppointment(ScheduledAppointment sa)
         {
             InitializeComponent();
@@ -20,6 +21,65 @@ namespace zdravstvena_ustanova.View
             dates.Add(ScheduledAppointment.Start.AddDays(2).ToString("dd.MM.yyyy."));
             dates.Add(ScheduledAppointment.Start.AddDays(3).ToString("dd.MM.yyyy."));
             dateComboBox.ItemsSource = dates;
+        }
+        public ChangeAppointment(ScheduledAppointment sa, bool isDemo)
+        {
+            InitializeComponent();
+            ScheduledAppointment = sa;
+            List<string> dates = new List<string>();
+            dates.Add(ScheduledAppointment.Start.AddDays(1).ToString("dd.MM.yyyy."));
+            dates.Add(ScheduledAppointment.Start.AddDays(2).ToString("dd.MM.yyyy."));
+            dates.Add(ScheduledAppointment.Start.AddDays(3).ToString("dd.MM.yyyy."));
+            dateComboBox.ItemsSource = dates;
+
+            Demo = isDemo;
+            Phase = 0;
+            DemoTimer = new DispatcherTimer();
+            DemoTimer.Interval = new TimeSpan(0, 0, 2);
+            DemoTimer.IsEnabled = true;
+            DemoTimer.Tick += new EventHandler(demoTimer_Tick);
+        }
+        private void demoTimer_Tick(object sender, EventArgs e)
+        {
+            switch (Phase)
+            {
+                case 0:
+                    dateComboBox.Focus();
+                    Phase++;
+                    break;
+                case 1:
+                    dateComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 2:
+                    timeComboBox.Focus();
+                    Phase++;
+                    break;
+                case 3:
+                    timeComboBox.SelectedIndex = 0;
+                    Phase++;
+                    break;
+                case 4:
+                    yes.Focus();
+                    Phase++;
+                    break;
+                case 5:
+                    var app = Application.Current as App;
+                    ScheduledAppointment.Start = Convert.ToDateTime((string)dateComboBox.SelectedItem + " " + (string)timeComboBox.SelectedItem);
+                    ScheduledAppointment.End = ScheduledAppointment.Start.AddHours(1);
+                    Doctor doctor = app.DoctorController.GetDoctorByShift(ScheduledAppointment.Start.Hour);
+                    ScheduledAppointment.Doctor.Id = doctor.Id;
+                    ScheduledAppointment.Room.Id = doctor.Room.Id;
+                    ScheduledAppointment.Doctor = app.DoctorController.GetById(doctor.Id);
+                    ScheduledAppointment.Room = app.RoomController.GetById(doctor.Room.Id);
+                    app.ScheduledAppointmentController.Update(ScheduledAppointment);
+                    this.Close();
+                    Phase++;
+                    break;
+                default:
+                    DemoTimer.IsEnabled = false;
+                    break;
+            }
         }
 
         private void goToManageAppointment(object sender, RoutedEventArgs e)
@@ -44,22 +104,22 @@ namespace zdravstvena_ustanova.View
                 times.Add(s);
             }
             var app = Application.Current as App;
-            List<ScheduledAppointment> sa = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
+            List<ScheduledAppointment> scheduledAppointments = new List<ScheduledAppointment>(app.ScheduledAppointmentController.GetAll());
             string dat = (string)dateComboBox.SelectedItem;
-            foreach (ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sa in scheduledAppointments)
             {
-                if(ScheduledAppointment.Patient.Id == sapp.Patient.Id)
+                if(ScheduledAppointment.Patient.Id == sa.Patient.Id)
                 {
                     continue;
                 }
-                if (sapp.Start.ToString("dd.MM.yyyy.").Contains(dat))
+                if (sa.Start.ToString("dd.MM.yyyy.").Contains(dat))
                 {
-                    times.Remove(sapp.Start.ToString("HH:mm"));
+                    times.Remove(ScheduledAppointment.Start.ToString("HH:mm"));
                 }
             }
-            foreach (ScheduledAppointment sapp in sa)
+            foreach (ScheduledAppointment sa in scheduledAppointments)
             {
-                if (ScheduledAppointment.Patient.Id == sapp.Patient.Id && sapp.Start.ToString("dd.MM.yyyy.").Contains(dat))
+                if (ScheduledAppointment.Patient.Id == sa.Patient.Id && sa.Start.ToString("dd.MM.yyyy.").Contains(dat))
                 {
                     timeComboBox.IsEnabled = false;
                 }
@@ -78,86 +138,28 @@ namespace zdravstvena_ustanova.View
         {
             var app = Application.Current as App;
 
-            List<AntiTrollMechanism> atms = new List<AntiTrollMechanism>(app.AntiTrollMechanismController.GetAll());
-            bool found = false;
+            AntiTrollMechanism atm = app.AntiTrollMechanismController.GetAntiTrollMechanismByPatient(app.LoggedInUser.Id);
 
-            if (atms.Count == 0)
+            if (atm == null)
             {
-                createAntiTrollMechanism(app);
+                List<DateTime> date = new List<DateTime>();
+                date.Add(DateTime.Now);
+                AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
             }
             else
             {
-                foreach (AntiTrollMechanism atm in atms)
-                {
-                    if(app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates < 5)
-                    {
-                        atm.NumberOfDates++;
-                        atm.DatesOfCanceledAppointments.Add(DateTime.Now);
-                        app.AntiTrollMechanismController.Update(atm);
-                        found = true;
-                        checkAntiTrollMechanism(atm);
-                        break;
-                    }
-                    else if(app.LoggedInUser.Id == atm.Patient.Id && atm.NumberOfDates == 5)
-                    {
-                        atm.DatesOfCanceledAppointments[0] = atm.DatesOfCanceledAppointments[1];
-                        atm.DatesOfCanceledAppointments[1] = atm.DatesOfCanceledAppointments[2];
-                        atm.DatesOfCanceledAppointments[2] = atm.DatesOfCanceledAppointments[3];
-                        atm.DatesOfCanceledAppointments[3] = atm.DatesOfCanceledAppointments[4];
-                        atm.DatesOfCanceledAppointments[4] = DateTime.Now;
-                        app.AntiTrollMechanismController.Update(atm);
-                        found = true;
-                        checkAntiTrollMechanism(atm);
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    createAntiTrollMechanism(app);
-                }
+                app.AntiTrollMechanismController.Update(atm);
             }
             ScheduledAppointment.Start = Convert.ToDateTime((string)dateComboBox.SelectedItem + " " + (string)timeComboBox.SelectedItem);
             ScheduledAppointment.End = ScheduledAppointment.Start.AddHours(1);
 
-            List<Doctor>  doctors = new List<Doctor>(app.DoctorController.GetAll());
-            long docId = 0;
-            long docRoom = 0;
-            foreach (Doctor d in doctors)
-            {
-                if (ScheduledAppointment.Start.Hour < 14 && d.Shift == Shift.FIRST)
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-                else if (ScheduledAppointment.Start.Hour >= 14 && d.Shift == Shift.SECOND)
-                {
-                    docId = d.Id;
-                    docRoom = d.Room.Id;
-                    break;
-                }
-            }
-            ScheduledAppointment.Doctor.Id = docId;
-            ScheduledAppointment.Room.Id = docRoom;
-            ScheduledAppointment.Doctor = app.DoctorController.GetById(docId);
-            ScheduledAppointment.Room = app.RoomController.GetById(docRoom);
+            Doctor  doctor = app.DoctorController.GetDoctorByShift(ScheduledAppointment.Start.Hour);
+            ScheduledAppointment.Doctor.Id = doctor.Id;
+            ScheduledAppointment.Room.Id = doctor.Room.Id;
+            ScheduledAppointment.Doctor = app.DoctorController.GetById(doctor.Id);
+            ScheduledAppointment.Room = app.RoomController.GetById(doctor.Room.Id);
             app.ScheduledAppointmentController.Update(ScheduledAppointment);
             this.Close();
-        }
-
-        private void createAntiTrollMechanism(App app)
-        {
-            List<DateTime> date = new List<DateTime>();
-            date.Add(DateTime.Now);
-            AntiTrollMechanism antiTrollMechanism = app.AntiTrollMechanismController.Create(new AntiTrollMechanism(0, app.LoggedInUser.Id, 1, date));
-        }
-
-        private void checkAntiTrollMechanism(AntiTrollMechanism atm)
-        {
-            if (atm.NumberOfDates == 5 && (atm.DatesOfCanceledAppointments[4] - atm.DatesOfCanceledAppointments[0]).TotalDays <= 30)
-            {
-                Environment.Exit(0);
-            }
         }
     }
 }

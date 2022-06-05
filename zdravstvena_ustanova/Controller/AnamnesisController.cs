@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class AnamnesisController
     {
-        private readonly AnamnesisService _anamnesisService;
+        private readonly IAnamnesisService _anamnesisService;
 
-        public AnamnesisController(AnamnesisService anamnesisService)
+        public AnamnesisController(IAnamnesisService anamnesisService)
         {
             _anamnesisService = anamnesisService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
        public Anamnesis GetById(long id)
         {
-            return _anamnesisService.GetById(id);
+            return _anamnesisService.Get(id);
         }
         public Anamnesis Create(Anamnesis anamnesis)
         {

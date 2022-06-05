@@ -24,10 +24,10 @@ namespace zdravstvena_ustanova.View.Controls
     {
         public ObservableCollection<Ingredient> Ingredients { get; set; }
         public Medication Medication { get; set; }
-        public ObservableCollection<Medication> Medications { get; set; }
+        public ObservableCollection<Medication>? Medications { get; set; }
         public EditMedication EditMedication { get; set; }
 
-        public EditMedicationPageTwo(ObservableCollection<Medication> medications, Medication selectedMedication, EditMedication editMedication)
+        public EditMedicationPageTwo(ObservableCollection<Medication>? medications, Medication selectedMedication, EditMedication editMedication)
         {
             InitializeComponent(); 
             DataContext = this;
@@ -85,8 +85,11 @@ namespace zdravstvena_ustanova.View.Controls
             }
             app.IngredientController.CreateIfNotSavedWithSameName(Medication.Ingredients);
             app.MedicationController.Update(Medication);
-            Medications.Remove(Medication);
-            Medications.Add(Medication);
+            if (Medications != null)
+            {
+                Medications.Remove(Medication);
+                Medications.Add(Medication);
+            }
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;
         }

@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ScheduledItemTransferService
+    public class ScheduledItemTransferService : IScheduledItemTransferService
     {
-        private readonly ScheduledItemTransferRepository _scheduledItemTransferRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly WarehouseRepository _warehouseRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
-        private readonly StoredItemRepository _storedItemRepository;
+        private readonly IScheduledItemTransferRepository _scheduledItemTransferRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IStoredItemRepository _storedItemRepository;
 
         public ScheduledItemTransferService(
-                        ScheduledItemTransferRepository scheduledItemTransferRepository, RoomRepository roomRepository,
-                        WarehouseRepository warehouseRepository, ItemRepository itemRepository,
-                        StoredItemRepository storedItemRepository, ItemTypeRepository itemTypeRepository)
+                        IScheduledItemTransferRepository scheduledItemTransferRepository, IRoomRepository roomRepository,
+                        IWarehouseRepository warehouseRepository, IItemRepository itemRepository,
+                        IStoredItemRepository storedItemRepository, IItemTypeRepository itemTypeRepository)
         {
             _scheduledItemTransferRepository = scheduledItemTransferRepository;
             _roomRepository = roomRepository;
@@ -130,25 +128,44 @@ namespace zdravstvena_ustanova.Service
             List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers = new List<ScheduledItemTransfer>();
             foreach (var scheduledItemTransfer in scheduledItemTransfers)
             {
-                if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
-                {
-                    if (scheduledItemTransfer.SourceRoom.Id == id)
-                    {
-                        sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
-                    }
-                }else if(scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
-                {
-                    if (scheduledItemTransfer.SourceWarehouse.Id == id)
-                    {
-                        sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
-                    }
-                }
+                AddItemTransfersToSourceStorage(id, scheduledItemTransfer, sourceStorageScheduledItemTransfers);
             }
             return sourceStorageScheduledItemTransfers;
         }
-       
 
-        public ScheduledItemTransfer GetById(long id)
+        private static void AddItemTransfersToSourceStorage(long id, ScheduledItemTransfer scheduledItemTransfer,
+            List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers)
+        {
+            if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+            {
+                AddItemTransferToSourceRoom(id, scheduledItemTransfer, sourceStorageScheduledItemTransfers);
+            }
+            else if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+            {
+                AddItemTransferToSourceWarehouse(id, scheduledItemTransfer, sourceStorageScheduledItemTransfers);
+            }
+        }
+
+        private static void AddItemTransferToSourceWarehouse(long id, ScheduledItemTransfer scheduledItemTransfer,
+            List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers)
+        {
+            if (scheduledItemTransfer.SourceWarehouse.Id == id)
+            {
+                sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
+            }
+        }
+
+        private static void AddItemTransferToSourceRoom(long id, ScheduledItemTransfer scheduledItemTransfer,
+            List<ScheduledItemTransfer> sourceStorageScheduledItemTransfers)
+        {
+            if (scheduledItemTransfer.SourceRoom.Id == id)
+            {
+                sourceStorageScheduledItemTransfers.Add(scheduledItemTransfer);
+            }
+        }
+
+
+        public ScheduledItemTransfer Get(long id)
         {
             var rooms = _roomRepository.GetAll();
             var warehouses = _warehouseRepository.GetAll();
@@ -176,24 +193,38 @@ namespace zdravstvena_ustanova.Service
         {
             scheduledItemTransfer.Item = FindItemById(items, scheduledItemTransfer.Item.Id);
 
-            if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
-            {
-                scheduledItemTransfer.SourceRoom = FindRoomById(rooms, scheduledItemTransfer.SourceRoom.Id);
-            }
-            else if(scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
-            {
-                scheduledItemTransfer.SourceWarehouse = FindWarehouseById(warehouses, scheduledItemTransfer.SourceWarehouse.Id);
-            }
+            BindSourceStorageWithItemTransfers(scheduledItemTransfer, rooms, warehouses);
 
+            BindDestinationStorageWithItemTransfers(scheduledItemTransfer, rooms, warehouses);
+        }
+
+        private void BindDestinationStorageWithItemTransfers(ScheduledItemTransfer scheduledItemTransfer, IEnumerable<Room> rooms,
+            IEnumerable<Warehouse> warehouses)
+        {
             if (scheduledItemTransfer.DestinationStorageType == StorageType.ROOM)
             {
                 scheduledItemTransfer.DestinationRoom = FindRoomById(rooms, scheduledItemTransfer.DestinationRoom.Id);
             }
-            else if(scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
+            else if (scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
             {
-                scheduledItemTransfer.DestinationWarehouse = FindWarehouseById(warehouses, scheduledItemTransfer.DestinationWarehouse.Id);
+                scheduledItemTransfer.DestinationWarehouse =
+                    FindWarehouseById(warehouses, scheduledItemTransfer.DestinationWarehouse.Id);
             }
         }
+
+        private void BindSourceStorageWithItemTransfers(ScheduledItemTransfer scheduledItemTransfer, IEnumerable<Room> rooms,
+            IEnumerable<Warehouse> warehouses)
+        {
+            if (scheduledItemTransfer.SourceStorageType == StorageType.ROOM)
+            {
+                scheduledItemTransfer.SourceRoom = FindRoomById(rooms, scheduledItemTransfer.SourceRoom.Id);
+            }
+            else if (scheduledItemTransfer.DestinationStorageType == StorageType.WAREHOUSE)
+            {
+                scheduledItemTransfer.SourceWarehouse = FindWarehouseById(warehouses, scheduledItemTransfer.SourceWarehouse.Id);
+            }
+        }
+
         private void BindRoomsAndWarehousesWithStoredItems(IEnumerable<Room> rooms, IEnumerable<Warehouse> warehouses,
             IEnumerable<StoredItem> storedItems)
         {
@@ -237,13 +268,13 @@ namespace zdravstvena_ustanova.Service
         {
             return _scheduledItemTransferRepository.Create(scheduledItemTransfer);
         }
-        public void Update(ScheduledItemTransfer scheduledItemTransfer)
+        public bool Update(ScheduledItemTransfer scheduledItemTransfer)
         {
-            _scheduledItemTransferRepository.Update(scheduledItemTransfer);
+            return _scheduledItemTransferRepository.Update(scheduledItemTransfer);
         }
-        public void Delete(long scheduledItemTransferId)
+        public bool Delete(long scheduledItemTransferId)
         {
-            _scheduledItemTransferRepository.Delete(scheduledItemTransferId);
+            return _scheduledItemTransferRepository.Delete(scheduledItemTransferId);
         }
     }
 }

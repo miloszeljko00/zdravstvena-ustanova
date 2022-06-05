@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.View.Controls;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -39,7 +40,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 if (value != _responseMessage)
                 {
                     _responseMessage = value;
-                    OnPropertyChanged("RequestMessage");
+                    OnPropertyChanged("ResponseMessage");
                 }
             }
         }
@@ -80,12 +81,51 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
             Ingredients.Clear();
             var medicationApprovalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
-            if (medicationApprovalRequest == null) return;
+            if (medicationApprovalRequest == null)
+            {
+                EditMedicationButton.IsEnabled = false;
+                RequestApprovalAgainButton.IsEnabled = false;
+                return;
+            }
+            EditMedicationButton.IsEnabled = true;
+            RequestApprovalAgainButton.IsEnabled = true;
             foreach (var ingredient in medicationApprovalRequest.Medication.Ingredients)
             {
                 Ingredients.Add(ingredient);
             }
             ResponseMessage = medicationApprovalRequest.ResponseMessage;
+        }
+
+        private void EditMedicationButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (FinishedMedicationApprovalRequestsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var approvalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
+            if(approvalRequest.RequestStatus == RequestStatus.APPROVED)return;
+
+            var medication = approvalRequest.Medication;
+
+            MainWindow.Modal.Content = new EditMedication(null, medication);
+            MainWindow.Modal.IsOpen = true;
+        }
+
+        private void RequestApprovalAgainButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (FinishedMedicationApprovalRequestsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Odaberi lek!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var approvalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
+            if (approvalRequest.RequestStatus == RequestStatus.APPROVED) return;
+
+            var medication = approvalRequest.Medication;
+            NavigationService.Navigate(new RequestMedicationApprovalPage(medication, approvalRequest.ApprovingDoctor, approvalRequest.RequestMessage));
         }
     }
 }

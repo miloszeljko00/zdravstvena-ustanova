@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class LabAnalysisRecordController
     {
-        private readonly LabAnalysisRecordService _labAnalysisRecordService;
+        private readonly ILabAnalysisRecordService _labAnalysisRecordService;
 
-        public LabAnalysisRecordController(LabAnalysisRecordService labAnalysisRecordService)
+        public LabAnalysisRecordController(ILabAnalysisRecordService labAnalysisRecordService)
         {
             _labAnalysisRecordService = labAnalysisRecordService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public LabAnalysisRecord GetById(long id)
         {
-            return _labAnalysisRecordService.GetById(id);
+            return _labAnalysisRecordService.Get(id);
         }
         public LabAnalysisRecord Create(LabAnalysisRecord labAnalysisRecord)
         {

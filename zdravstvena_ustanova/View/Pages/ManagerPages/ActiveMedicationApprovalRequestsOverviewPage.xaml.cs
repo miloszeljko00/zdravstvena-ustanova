@@ -83,9 +83,16 @@ public event PropertyChangedEventHandler PropertyChanged;
 
         private void ActiveMedicationApprovalRequestsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             Ingredients.Clear();
             var medicationApprovalRequest = (MedicationApprovalRequest)ActiveMedicationApprovalRequestsDataGrid.SelectedItem;
-            if (medicationApprovalRequest == null) return;
+            if (medicationApprovalRequest == null)
+            {
+
+                CancelRequestButton.IsEnabled = false;
+                return;
+            }
+            CancelRequestButton.IsEnabled = true;
             foreach (var ingredient in medicationApprovalRequest.Medication.Ingredients) 
             {
                 Ingredients.Add(ingredient);

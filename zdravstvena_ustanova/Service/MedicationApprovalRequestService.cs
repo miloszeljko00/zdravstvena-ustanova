@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using zdravstvena_ustanova.Repository;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationApprovalRequestService
+    public class MedicationApprovalRequestService : IMedicationApprovalRequestService
     {
-        private readonly MedicationApprovalRequestRepository _medicationApprovalRequestRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        private readonly DoctorRepository _doctorRepository;
+        private readonly IMedicationApprovalRequestRepository _medicationApprovalRequestRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
 
-        public MedicationApprovalRequestService(MedicationApprovalRequestRepository medicationApprovalRequestRepository, 
-            MedicationRepository medicationRepository, IngredientRepository ingredientRepository,
-            MedicationTypeRepository medicationTypeRepository, DoctorRepository doctorRepository)
+        public MedicationApprovalRequestService(IMedicationApprovalRequestRepository medicationApprovalRequestRepository,
+            IMedicationRepository medicationRepository, IIngredientRepository ingredientRepository,
+            IMedicationTypeRepository medicationTypeRepository, IDoctorRepository doctorRepository)
         {
             _medicationApprovalRequestRepository = medicationApprovalRequestRepository;
             _medicationRepository = medicationRepository;
@@ -136,7 +134,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public MedicationApprovalRequest GetById(long id)
+        public MedicationApprovalRequest Get(long id)
         {
             var medicationApprovalRequest = _medicationApprovalRequestRepository.Get(id);
             var doctors = _doctorRepository.GetAll();

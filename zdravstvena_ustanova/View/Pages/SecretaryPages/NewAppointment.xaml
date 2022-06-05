@@ -23,8 +23,8 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Rectangle HorizontalAlignment="Left" Height="169" Margin="19,10,0,0" Grid.RowSpan="2" Stroke="BlueViolet" VerticalAlignment="Top" Width="970" Grid.ColumnSpan="3" Grid.Row="1"/>
-        <Label x:Name="patientLabel" Content="Pacijent" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Content="Doktor:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
+        <Label x:Name="patientLabel" Content="Pacijent:" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Doktor:" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
         <DatePicker x:Name="dateDP" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Margin="0,81,0,0" Width="240" SelectedDateChanged="dateDP_SelectedDateChanged"/>
         <Label Content="Datum pregleda:" HorizontalAlignment="Left" Margin="55,33,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
         <ComboBox x:Name="roomCB" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Column="1" HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="240" FontSize="24" Grid.Row="2" SelectionChanged="roomCB_SelectionChanged">
@@ -39,13 +39,13 @@
         <Label Grid.Column="1" Content="Prostorija" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Grid.Row="2" Margin="0,38,0,0"/>
         <ComboBox x:Name="timeCB" Grid.Column="2" HorizontalAlignment="Left" Margin="58,80,0,0" Grid.Row="2 " VerticalAlignment="Top" Width="240" FontSize="24"/>
         <Label Grid.Column="2" Content="Vreme:" HorizontalAlignment="Left" Margin="122,36,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <Label Grid.Column="2" Content="Tip pregleda" HorizontalAlignment="Left" Margin="122,27,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="2" Content="Tip pregleda:" HorizontalAlignment="Left" Margin="108,17,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Image x:Name="Save" HorizontalAlignment="Left" Height="85" Margin="51,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="85" Source="/Resources/img/save-icon.png" RenderTransformOrigin="0.109,0.284" Grid.Column="1" Grid.RowSpan="2" MouseDown="Save_MouseDown"/>
         <Label Content="Sacuvaj" HorizontalAlignment="Left" Margin="51,73,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
         <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="218,152,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Source="/Resources/img/icons8-back.png" Grid.RowSpan="2" MouseDown="Back_MouseDown"/>
         <Label Grid.Column="1" Content="Nazad" HorizontalAlignment="Left" Margin="228,71,0,0" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="5.724,-1.815" FontSize="24"/>
-        <ComboBox x:Name="typeCB" Grid.Column="2" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="240" FontSize="24" SelectionChanged="typeCB_SelectionChanged"/>
-        <ComboBox x:Name="doctorCB" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="240" FontSize="24" Margin="0,74,0,0" SelectionChanged="doctorCB_SelectionChanged">
+        <ComboBox x:Name="typeCB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Width="240" FontSize="24" SelectionChanged="typeCB_SelectionChanged"/>
+        <ComboBox x:Name="doctorCB" ItemsSource="{Binding}" SelectedValuePath="Id" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" FontSize="24" Margin="43,61,0,0" SelectionChanged="doctorCB_SelectionChanged" SelectedIndex="0">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

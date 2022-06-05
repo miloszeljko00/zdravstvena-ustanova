@@ -2,14 +2,15 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class SpecialtyController
    {
-        private readonly SpecialtyService _specialtyService;
+        private readonly ISpecialtyService _specialtyService;
 
-        public SpecialtyController(SpecialtyService specialtyService)
+        public SpecialtyController(ISpecialtyService specialtyService)
         {
             _specialtyService = specialtyService;
         }
@@ -20,7 +21,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Specialty GetById(long id)
         {
-            return _specialtyService.GetById(id);
+            return _specialtyService.Get(id);
         }
 
         public Specialty Create(Specialty specialty)

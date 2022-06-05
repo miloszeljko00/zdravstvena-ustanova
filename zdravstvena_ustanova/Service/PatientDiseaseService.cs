@@ -1,19 +1,16 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PatientDiseaseService
+    public class PatientDiseaseService : IPatientDiseaseService
     {
-        private readonly PatientDiseaseRepository _patientDiseaseRepository;
-        private readonly DiseaseRepository _diseaseRepository;
+        private readonly IPatientDiseaseRepository _patientDiseaseRepository;
+        private readonly IDiseaseRepository _diseaseRepository;
 
-        public PatientDiseaseService(PatientDiseaseRepository patientDiseaseRepository, DiseaseRepository diseaseRepository)
+        public PatientDiseaseService(IPatientDiseaseRepository patientDiseaseRepository, IDiseaseRepository diseaseRepository)
         {
             _patientDiseaseRepository = patientDiseaseRepository;
             _diseaseRepository = diseaseRepository;
@@ -36,7 +33,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public PatientDisease GetById(long id)
+        public PatientDisease Get(long id)
         {
             var diseases = _diseaseRepository.GetAll();
             var patientDisease = _patientDiseaseRepository.Get(id);

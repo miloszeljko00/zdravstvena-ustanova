@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ItemTypeService
+    public class ItemTypeService : IItemTypeService
     {
-        private readonly ItemTypeRepository _itemTypeRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
 
-        public ItemTypeService(ItemTypeRepository itemTypeRepository)
+        public ItemTypeService(IItemTypeRepository itemTypeRepository)
         {
             _itemTypeRepository = itemTypeRepository;
         }
@@ -22,9 +19,9 @@ namespace zdravstvena_ustanova.Service
             return _itemTypeRepository.GetAll();
         }
 
-        public ItemType GetById(long id)
+        public ItemType Get(long id)
         {
-            return _itemTypeRepository.GetById(id);
+            return _itemTypeRepository.Get(id);
         }
 
         public ItemType Create(ItemType itemType)

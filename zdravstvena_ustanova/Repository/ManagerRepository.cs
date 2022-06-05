@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class ManagerRepository
+    public class ManagerRepository : IManagerRepository
     {
         private const string NOT_FOUND_ERROR = "MANAGER NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -54,7 +55,7 @@ namespace zdravstvena_ustanova.Repository
             return manager;
         }
 
-        public void Update(Manager manager)
+        public bool Update(Manager manager)
         {
             var managers = GetAll();
 
@@ -78,8 +79,9 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, ManagersToCSVFormat((List<Manager>)managers));
+            return true;
         }
-        public void Delete(long managerId)
+        public bool Delete(long managerId)
         {
             var managers = (List<Manager>)GetAll();
 
@@ -94,6 +96,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, ManagersToCSVFormat((List<Manager>)managers));
+            return true;
         }
 
         private string ManagerToCSVFormat(Manager manager)

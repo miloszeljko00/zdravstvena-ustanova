@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class RenovationTypeService
+    public class RenovationTypeService : IRenovationTypeService
     {
-        private readonly RenovationTypeRepository _renovationTypeRepository;
+        private readonly IRenovationTypeRepository _renovationTypeRepository;
 
-        public RenovationTypeService(RenovationTypeRepository renovationTypeRepository)
+        public RenovationTypeService(IRenovationTypeRepository renovationTypeRepository)
         {
             _renovationTypeRepository = renovationTypeRepository;
         }
@@ -22,9 +19,9 @@ namespace zdravstvena_ustanova.Service
             return _renovationTypeRepository.GetAll();
         }
 
-        public RenovationType GetById(long id)
+        public RenovationType Get(long id)
         {
-            return _renovationTypeRepository.GetById(id);
+            return _renovationTypeRepository.Get(id);
         }
 
         public RenovationType Create(RenovationType renovationType)

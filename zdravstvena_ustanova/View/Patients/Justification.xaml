@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.Justification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="584" d:DesignWidth="596">
+    <Grid>
+        <Label Content="Neophodni podaci" FontSize="20" HorizontalAlignment="Left" Margin="52,50,0,0" VerticalAlignment="Top" Width="317"/>
+        <Rectangle Stroke="Black" Margin="47,90,45,69"/>
+        <Label Content="Odeljenje:" FontSize="15" HorizontalAlignment="Left" Margin="224,115,0,0" VerticalAlignment="Top" Width="80"/>
+        <TextBox TabIndex="0" x:Name="odeljenje" HorizontalAlignment="Left" Margin="313,118,0,0" VerticalAlignment="Top" Width="207"  Height="23" GotFocus="focusOdeljenje"/>
+        <Label Content="Datum OD kog traje opravdanje:" FontSize="15" HorizontalAlignment="Left" Margin="76,230,0,0" VerticalAlignment="Top" Width="227"/>
+        <Label Content="Skola:" FontSize="15" HorizontalAlignment="Left" Margin="252,172,0,0" VerticalAlignment="Top" Width="52"/>
+        <TextBox TabIndex="1" x:Name="skola" HorizontalAlignment="Left" Margin="313,175,0,0" VerticalAlignment="Top" Width="207"  Height="23" GotFocus="focusSkola"/>
+        <DatePicker TabIndex="3" x:Name="datumOd" HorizontalAlignment="Left" Margin="313,233,0,0" VerticalAlignment="Top" Width="207" Height="23" GotKeyboardFocus="focusDatumOd" Loaded="loadedDatum"/>
+        <Label Content="Datum DO kog traje opravdanje:" FontSize="15" HorizontalAlignment="Left" Margin="76,289,0,0" VerticalAlignment="Top" Width="227"/>
+        <DatePicker TabIndex="4" x:Name="datumDo" HorizontalAlignment="Left" Margin="313,292,0,0" VerticalAlignment="Top" Width="207" Height="24" GotKeyboardFocus="focusDatumDo" Loaded="loadedDatum"/>
+        <Label Content="Razlog:" FontSize="15" HorizontalAlignment="Left" Margin="75,335,0,0" VerticalAlignment="Top" Width="81"/>
+        <Button TabIndex="6"  Content="_Podnesi zahtev" HorizontalAlignment="Left" Margin="248,462,0,0" VerticalAlignment="Top" Width="122" Height="33" Click="validate"/>
+        <TextBox TabIndex="5" x:Name="razlog" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top" Width="442"  Height="74" GotFocus="focusRazlog"/>
+
+    </Grid>
+</UserControl>

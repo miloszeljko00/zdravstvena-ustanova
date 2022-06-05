@@ -1,0 +1,44 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.ManagerPages.RoomsOccupancyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="1280"
+      Title="RoomsOccupancyPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="128"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
+
+            <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="Prostorije"></Label>
+            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="118,0,0,0"></Label>
+            <DatePicker SelectedDateChanged="StartDatePicker_OnSelectedDateChanged" Name="StartDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0"></Label>
+            <DatePicker SelectedDateChanged="EndDatePicker_OnSelectedDateChanged" Name="EndDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+            <Button IsEnabled="False" x:Name="GenerateReportButton" Width="150" Height="48" Margin="15,0,0,0" FontSize="13" Cursor="Hand" Click="GenerateReportButton_OnClick">
+                <WrapPanel>
+                    <Image Source="/Resources/img/reports-icon.png" Width="18"></Image>
+                    <Label Content="Generiši izveštaj" FontSize="12" Foreground="#FF000000"></Label>
+                </WrapPanel>
+            </Button>
+            
+        </StackPanel>
+        <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1" HorizontalAlignment="Left">
+
+<DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="RoomsDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+            </Border>
+    </Grid>
+</Page>

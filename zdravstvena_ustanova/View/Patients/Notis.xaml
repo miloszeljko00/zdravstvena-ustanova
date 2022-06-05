@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="584" d:DesignWidth="596">
     <Grid>
-        <ListView x:Name="therapyList" Margin="26,59,40,49" ItemsSource="{Binding PrescribedMedicine}" PreviewKeyDown="entered">
+        <ListView x:Name="therapyList" Margin="26,59,40,110" ItemsSource="{Binding PrescribedMedicine}" PreviewKeyDown="entered">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="60" Header="Lek" DisplayMemberBinding="{Binding Medication.Name}"/>
@@ -17,7 +17,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label FontSize="20" Content="Istorija koriscenih lekova i terapija" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="20" Content="Obavestenja o koriscenim lekovima i terapijama" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
+        <Button Content="_Preuzmi spisak nedeljnih terapija" HorizontalAlignment="Left" Margin="184,506,0,0" VerticalAlignment="Top" Width="200" Height="27" Click="pdfTherapies"/>
 
     </Grid>
 </UserControl>

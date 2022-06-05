@@ -1,18 +1,18 @@
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AntiTrollMechanismService
+    public class AntiTrollMechanismService : IAntiTrollMechanismService
     {
-        private readonly AntiTrollMechanismRepository _antiTrollMechanismRepository;
-        private readonly PatientRepository _patientRepository;
+        private readonly IAntiTrollMechanismRepository _antiTrollMechanismRepository;
+        private readonly IPatientRepository _patientRepository;
 
-        public AntiTrollMechanismService(AntiTrollMechanismRepository antiTrollMechanismRepository, PatientRepository patientRepository)
+        public AntiTrollMechanismService(IAntiTrollMechanismRepository antiTrollMechanismRepository, IPatientRepository patientRepository)
         {
             _antiTrollMechanismRepository = antiTrollMechanismRepository;
             _patientRepository = patientRepository;
@@ -25,14 +25,44 @@ namespace zdravstvena_ustanova.Service
         }
 
         public bool Update(AntiTrollMechanism antiTrollMechanism) 
-        { 
-               return _antiTrollMechanismRepository.Update(antiTrollMechanism);
+        {
+            if (antiTrollMechanism.NumberOfDates < 5)
+            {
+                addingNewDate(antiTrollMechanism);
+            }
+            else if (antiTrollMechanism.NumberOfDates == 5)
+            {
+                updatingDates(antiTrollMechanism);
+            }
+            _antiTrollMechanismRepository.Update(antiTrollMechanism);
+            if (antiTrollMechanism.NumberOfDates == 5 && (antiTrollMechanism.DatesOfCanceledAppointments[4] - antiTrollMechanism.DatesOfCanceledAppointments[0]).TotalDays <= 30)
+            {
+                Environment.Exit(0);
+            }
+            return true;
         }
 
-        public AntiTrollMechanism GetById(long id)
+        private AntiTrollMechanism updatingDates(AntiTrollMechanism antiTrollMechanism)
+        {
+            antiTrollMechanism.DatesOfCanceledAppointments[0] = antiTrollMechanism.DatesOfCanceledAppointments[1];
+            antiTrollMechanism.DatesOfCanceledAppointments[1] = antiTrollMechanism.DatesOfCanceledAppointments[2];
+            antiTrollMechanism.DatesOfCanceledAppointments[2] = antiTrollMechanism.DatesOfCanceledAppointments[3];
+            antiTrollMechanism.DatesOfCanceledAppointments[3] = antiTrollMechanism.DatesOfCanceledAppointments[4];
+            antiTrollMechanism.DatesOfCanceledAppointments[4] = DateTime.Now;
+            return antiTrollMechanism;
+        }
+
+        private AntiTrollMechanism addingNewDate(AntiTrollMechanism antiTrollMechanism)
+        {
+            antiTrollMechanism.NumberOfDates++;
+            antiTrollMechanism.DatesOfCanceledAppointments.Add(DateTime.Now);
+            return antiTrollMechanism;
+        }
+
+        public AntiTrollMechanism Get(long id)
         {
             var patients = _patientRepository.GetAll();
-            var antiTrollMechanism = _antiTrollMechanismRepository.GetById(id);
+            var antiTrollMechanism = _antiTrollMechanismRepository.Get(id);
            
             BindPatientWithMechanism(patients, antiTrollMechanism);
             return antiTrollMechanism;
@@ -48,6 +78,17 @@ namespace zdravstvena_ustanova.Service
             }
             return antiTrollMechanisms;
         }
+
+        public AntiTrollMechanism GetAntiTrollMechanismByPatient(long patientId)
+        {
+            var antiTrollMechanisms = GetAll();
+            foreach (AntiTrollMechanism atm in antiTrollMechanisms)
+            {
+                if(atm.Patient.Id == patientId)
+                    return atm;
+            }
+            return null;
+        }
         private void BindPatientWithMechanism(IEnumerable<Patient> patients, AntiTrollMechanism antiTrollMechanism)
         {
             antiTrollMechanism.Patient = FindPatientById(patients, antiTrollMechanism.Patient.Id);
@@ -57,5 +98,9 @@ namespace zdravstvena_ustanova.Service
             return patients.SingleOrDefault(patient => patient.Id == patientId);
         }
 
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

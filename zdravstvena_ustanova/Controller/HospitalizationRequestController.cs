@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class HospitalizationRequestController
     {
-        private readonly HospitalizationRequestService _hospitalizationRequestService;
+        private readonly IHospitalizationRequestService _hospitalizationRequestService;
 
-        public HospitalizationRequestController(HospitalizationRequestService hospitalizationRequestService)
+        public HospitalizationRequestController(IHospitalizationRequestService hospitalizationRequestService)
         {
             _hospitalizationRequestService = hospitalizationRequestService;
         }
@@ -22,7 +23,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public HospitalizationRequest GetById(long id)
         {
-            return _hospitalizationRequestService.GetById(id);
+            return _hospitalizationRequestService.Get(id);
         }
         public HospitalizationRequest Create(HospitalizationRequest hospitalizationRequest)
         {

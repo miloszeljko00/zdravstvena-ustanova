@@ -1,19 +1,16 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HospitalizationRecordService
+    public class HospitalizationRecordService : IHospitalizationRecordService
     {
-        private readonly HospitalizationRecordRepository _hospitalizationRecordRepository;
-        private readonly RoomRepository _roomRepository;
+        private readonly IHospitalizationRecordRepository _hospitalizationRecordRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public HospitalizationRecordService(HospitalizationRecordRepository hospitalizationRecordRepository, RoomRepository roomRepository)
+        public HospitalizationRecordService(IHospitalizationRecordRepository hospitalizationRecordRepository, IRoomRepository roomRepository)
         {
             _hospitalizationRecordRepository = hospitalizationRecordRepository;
             _roomRepository = roomRepository;
@@ -35,7 +32,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public HospitalizationRecord GetById(long id)
+        public HospitalizationRecord Get(long id)
         {
             var rooms = _roomRepository.GetAll();
             var hospitalizationRecord = _hospitalizationRecordRepository.Get(id);

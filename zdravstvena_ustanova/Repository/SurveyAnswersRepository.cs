@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class SurveyAnswersRepository
+    public class SurveyAnswersRepository : ISurveyAnswersRepository
     {
         private const string NOT_FOUND_ERROR = "SURVEY ANSWERS NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -87,6 +88,16 @@ namespace zdravstvena_ustanova.Repository
                int.Parse(tokens[6]),
                int.Parse(tokens[7])
                 );
+        }
+
+        public bool Update(SurveyAnswers t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,21 +1,19 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HospitalizedPatientService
+    public class HospitalizedPatientService : IHospitalizedPatientService
     {
-        private readonly HospitalizedPatientRepository _hospitalizedPatientRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
+        private readonly IHospitalizedPatientRepository _hospitalizedPatientRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public HospitalizedPatientService(HospitalizedPatientRepository hospitalizedPatientRepository, PatientRepository patientRepository, RoomRepository roomRepository, AccountRepository accountRepository)
+        public HospitalizedPatientService(IHospitalizedPatientRepository hospitalizedPatientRepository,
+            IPatientRepository patientRepository, IRoomRepository roomRepository, IAccountRepository accountRepository)
         {
             _hospitalizedPatientRepository = hospitalizedPatientRepository;
             _patientRepository = patientRepository;
@@ -41,7 +39,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public HospitalizedPatient GetById(long id)
+        public HospitalizedPatient Get(long id)
         {
             var hospitalizedPatient = _hospitalizedPatientRepository.Get(id);
             var patients = _patientRepository.GetAll();

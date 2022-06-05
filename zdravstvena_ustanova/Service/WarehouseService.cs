@@ -1,22 +1,23 @@
 using zdravstvena_ustanova.Model;
-using System;
-using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using Syncfusion.XPS;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class WarehouseService
+    public class WarehouseService : IWarehouseService
     {
-        private readonly WarehouseRepository _warehouseRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
-        private readonly StoredItemRepository _storedItemRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IStoredItemRepository _storedItemRepository;
 
 
-        public WarehouseService(WarehouseRepository warehouseRepository, ItemRepository itemRepository,
-            StoredItemRepository storedItemRepository, ItemTypeRepository itemTypeRepository)
+        public WarehouseService(IWarehouseRepository warehouseRepository, IItemRepository itemRepository,
+            IStoredItemRepository storedItemRepository, IItemTypeRepository itemTypeRepository)
         {
             _warehouseRepository = warehouseRepository;
             _itemRepository = itemRepository;
@@ -35,7 +36,7 @@ namespace zdravstvena_ustanova.Service
             BindStoredItemsWithWarehouses(storedItems, warehouses);
             return warehouses;
         }
-        public Warehouse GetById(long id)
+        public Warehouse Get(long id)
         {
             var items = _itemRepository.GetAll();
             var itemTypes = _itemTypeRepository.GetAll();
@@ -78,15 +79,12 @@ namespace zdravstvena_ustanova.Service
         {
             storedItems.ToList().ForEach(storedItem =>
             {
-                if (warehouse != null)
+                if(storedItem.StorageType == StorageType.WAREHOUSE)
                 {
-                    if(storedItem.StorageType == StorageType.WAREHOUSE)
+                    if (warehouse.Id == storedItem.Warehouse.Id)
                     {
-                        if (warehouse.Id == storedItem.Warehouse.Id)
-                        {
-                            storedItem.Warehouse = warehouse;
-                            warehouse.StoredItems.Add(storedItem);
-                        }
+                        storedItem.Warehouse = warehouse;
+                        warehouse.StoredItems.Add(storedItem);
                     }
                 }
             });
@@ -99,13 +97,10 @@ namespace zdravstvena_ustanova.Service
                 if (storedItem.StorageType == StorageType.WAREHOUSE)
                 {
                     var warehouse = FindWarehouseById(warehouses, storedItem.Warehouse.Id);
-                    if (warehouse != null)
+                    if (warehouse.Id == storedItem.Warehouse.Id)
                     {
-                        if (warehouse.Id == storedItem.Warehouse.Id)
-                        {
-                            storedItem.Warehouse = warehouse;
-                            warehouse.StoredItems.Add(storedItem);
-                        }
+                        storedItem.Warehouse = warehouse;
+                        warehouse.StoredItems.Add(storedItem);
                     }
                 }
                 

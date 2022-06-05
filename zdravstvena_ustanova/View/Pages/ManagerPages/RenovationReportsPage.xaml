@@ -23,7 +23,7 @@
 
             </TextBox>
 
-            <Image Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteIcon_MouseDown">
+            <Image IsEnabled="False" Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -38,7 +38,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditIcon_MouseDown">
+            <Image IsEnabled="False" Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -69,14 +69,16 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="RenovationAppointmentsDataGrid" ItemsSource="{Binding RenovationAppointments}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding Room.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tip prostorije" Binding="{Binding Room.RoomType}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum početka renoviranja" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum završetka renoviranja" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
+            <DataGrid x:Name="RenovationAppointmentsDataGrid" ItemsSource="{Binding RenovationAppointments}" IsReadOnly="True" SelectionMode="Single" 
+                      AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="RenovationAppointmentsDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Prostorija" Binding="{Binding MainRoom.Name}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tip prostorije" Binding="{Binding MainRoom.RoomType}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum početka renoviranja" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum završetka renoviranja" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
     </Grid>
 </Page>

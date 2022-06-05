@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class MedicationApprovalRequestRepository
+    public class MedicationApprovalRequestRepository : IMedicationApprovalRequestRepository
     {
         private const string NOT_FOUND_ERROR = "MEDICATION APPROVAL REQUEST NOT FOUND: {0} = {1}";
         private readonly string _path;

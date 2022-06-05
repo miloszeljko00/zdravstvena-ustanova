@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class MedicationController
     {
-        private readonly MedicationService _medicationService;
+        private readonly IMedicationService _medicationService;
 
-        public MedicationController(MedicationService medicationService)
+        public MedicationController(IMedicationService medicationService)
         {
             _medicationService = medicationService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Medication GetById(long id)
         {
-            return _medicationService.GetById(id);
+            return _medicationService.Get(id);
         }
         public Medication Create(Medication medication)
         {

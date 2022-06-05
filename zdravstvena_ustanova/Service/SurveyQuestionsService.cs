@@ -1,17 +1,19 @@
 using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SurveyQuestionsService
+    public class SurveyQuestionsService : ISurveyQuestionsService
     {
-        private readonly SurveyQuestionsRepository _surveyQuestionsRepository;
-        private ScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly ISurveyQuestionsRepository _surveyQuestionsRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
 
-        public SurveyQuestionsService(SurveyQuestionsRepository surveyQuestionsRepository, ScheduledAppointmentRepository scheduledAppointmentRepository)
+        public SurveyQuestionsService(ISurveyQuestionsRepository surveyQuestionsRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository)
         {
             _surveyQuestionsRepository = surveyQuestionsRepository;
             _scheduledAppointmentRepository = scheduledAppointmentRepository;
@@ -25,10 +27,10 @@ namespace zdravstvena_ustanova.Service
             return surveysQuestions;
         }
 
-        public SurveyQuestions GetById(long Id)
+        public SurveyQuestions Get(long Id)
         {
             var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
-            var surveyQuestions = _surveyQuestionsRepository.GetById(Id);
+            var surveyQuestions = _surveyQuestionsRepository.Get(Id);
             BindScheduledAppointmentsWithSurveyQuestions(scheduledAppointments, surveyQuestions);
             return surveyQuestions;
         }
@@ -57,6 +59,55 @@ namespace zdravstvena_ustanova.Service
         private ScheduledAppointment FindScheduledAppointmentById(IEnumerable<ScheduledAppointment> scheduledAppointments, long scheduledAppointmentId)
         {
             return scheduledAppointments.SingleOrDefault(scheduledAppointment => scheduledAppointment.Id == scheduledAppointmentId);
+        }
+
+        public IEnumerable<SurveyQuestions> GetAllUnique()
+        {
+            var surveyQuestions = GetAll();
+
+            var surveys = new List<SurveyQuestions>();
+
+            foreach (var surveyQuestion in surveyQuestions)
+            {
+                bool isAdded = false;
+                isAdded = CheckIfAdded(surveys, surveyQuestion, isAdded);
+
+                if (!isAdded)
+                {
+                    surveys.Add(surveyQuestion);
+                }
+            }
+
+            return surveys;
+        }
+
+        private static bool CheckIfAdded(List<SurveyQuestions> surveys, SurveyQuestions surveyQuestion, bool isAdded)
+        {
+            foreach (var survey in surveys)
+            {
+                if (survey.Name == surveyQuestion.Name)
+                {
+                    isAdded = true;
+                    break;
+                }
+            }
+
+            return isAdded;
+        }
+
+        public SurveyQuestions Create(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(SurveyQuestions t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

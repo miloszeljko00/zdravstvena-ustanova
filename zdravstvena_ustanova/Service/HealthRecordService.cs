@@ -1,38 +1,38 @@
 ﻿using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class HealthRecordService
+    public class HealthRecordService : IHealthRecordService
     {
-        private readonly HealthRecordRepository _healthRecordRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly AllergensRepository _allergensRepository;
-        private readonly AnamnesisRepository _anamnesisRepository;
-        private readonly LabAnalysisRecordRepository _labAnalysisRecordRepository;
-        private readonly HospitalizationRecordRepository _hospitalizationRecordRepository;
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly PatientDiseaseRepository _patientDiseaseRepository;
-        private readonly PatientVaccinationRepository _patientVaccinationRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly DiseaseRepository _diseaseRepository;
-        private readonly VaccineRepository _vaccineRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        public HealthRecordService(HealthRecordRepository healthRecordRepository, PatientRepository patientRepository, AllergensRepository allergensRepository,
-            AnamnesisRepository anamnesisRepository, LabAnalysisRecordRepository labAnalysisRecordRepository, HospitalizationRecordRepository hospitalizationRecordRepository,
-            PrescribedMedicineRepository prescribedMedicineRepository, PatientDiseaseRepository patientDiseaseRepository,
-            PatientVaccinationRepository patientVaccinationRepository, RoomRepository roomRepository, AccountRepository accountRepository,
-            IngredientRepository ingredientRepository, DiseaseRepository diseaseRepository, VaccineRepository vaccineRepository,
-            LabAnalysisComponentRepository labAnalysisComponent, MedicationRepository medicationRepository, MedicationTypeRepository medicationTypeRepository)
+        private readonly IHealthRecordRepository _healthRecordRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IAllergensRepository _allergensRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
+        private readonly ILabAnalysisRecordRepository _labAnalysisRecordRepository;
+        private readonly IHospitalizationRecordRepository _hospitalizationRecordRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IPatientDiseaseRepository _patientDiseaseRepository;
+        private readonly IPatientVaccinationRepository _patientVaccinationRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IDiseaseRepository _diseaseRepository;
+        private readonly IVaccineRepository _vaccineRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        public HealthRecordService(IHealthRecordRepository healthRecordRepository, IPatientRepository patientRepository,
+            IAllergensRepository allergensRepository, IAnamnesisRepository anamnesisRepository, 
+            ILabAnalysisRecordRepository labAnalysisRecordRepository, IHospitalizationRecordRepository hospitalizationRecordRepository,
+            IPrescribedMedicineRepository prescribedMedicineRepository, IPatientDiseaseRepository patientDiseaseRepository,
+            IPatientVaccinationRepository patientVaccinationRepository, IRoomRepository roomRepository, IAccountRepository accountRepository,
+            IIngredientRepository ingredientRepository, IDiseaseRepository diseaseRepository, IVaccineRepository vaccineRepository,
+            ILabAnalysisComponentRepository labAnalysisComponent, IMedicationRepository medicationRepository, IMedicationTypeRepository medicationTypeRepository)
         {
             _healthRecordRepository = healthRecordRepository;
             _patientRepository = patientRepository;
@@ -53,8 +53,10 @@ namespace zdravstvena_ustanova.Service
             _medicationTypeRepository = medicationTypeRepository;
         }
 
-        public HealthRecordService(HealthRecordRepository healthRecordRepository, IngredientRepository ingredientRepository, AllergensRepository allergensRepository)
+        public HealthRecordService(PatientRepository patientRepository, AnamnesisRepository anamnesisRepository, HealthRecordRepository healthRecordRepository, IngredientRepository ingredientRepository, AllergensRepository allergensRepository)
         {
+            _anamnesisRepository = anamnesisRepository;
+            _patientRepository = patientRepository;
             _healthRecordRepository = healthRecordRepository;
             _ingredientRepository = ingredientRepository;
             _allergensRepository = allergensRepository;
@@ -66,27 +68,10 @@ namespace zdravstvena_ustanova.Service
             var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
             var anamnesiss = _anamnesisRepository.GetAll();
-            var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
-            var hospitalizationRecords = _hospitalizationRecordRepository.GetAll();
-            var prescribedMedicines = _prescribedMedicineRepository.GetAll();
-            var patientDiseases = _patientDiseaseRepository.GetAll();
-            var patientVaccinations = _patientVaccinationRepository.GetAll();
-            var rooms = _roomRepository.GetAll();
-            var accounts = _accountRepository.GetAll();
             var ingredients = _ingredientRepository.GetAll();
-            var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
-            var medications = _medicationRepository.GetAll(); 
-            var medicationTypes = _medicationTypeRepository.GetAll();
-            var diseases = _diseaseRepository.GetAll();
-            var vaccines = _vaccineRepository.GetAll();
-            BindMedicationsWithMedicationTypes(medications, medicationTypes);
+            BindPatientsWithHealthRecords(patients, healthRecords);
             BindAllergensWithHealthRecords(allergens, healthRecords, ingredients);
             BindAnamnesissWithHealthRecords(anamnesiss, healthRecords);
-            BindLabAnalysisRecordsWithHealthRecords(labAnalysisRecords, healthRecords, labAnalysisComponents);
-            BindHospitalizationRecordsWithHealthRecords(hospitalizationRecords, healthRecords, rooms);
-            BindPrescribedMedicinesWithHealthRecords(prescribedMedicines, healthRecords, medications, ingredients);
-            BindPatientDiseasesWithHealthRecords(patientDiseases, healthRecords, diseases);
-            BindPatientVaccinationsWithHealthRecords(patientVaccinations, healthRecords, vaccines);
             return healthRecords;
         }
 
@@ -99,11 +84,23 @@ namespace zdravstvena_ustanova.Service
             return healthRecords;
         }
 
+        public IEnumerable<Anamnesis> GetAnamnesisForPatient(long patientId)
+        {
+            var healthRecords = GetAll();
+            List<Anamnesis> anamnesis = new List<Anamnesis>();
+            foreach (HealthRecord hr in healthRecords)
+                if (hr.Patient.Id == patientId) 
+                {
+                    anamnesis = hr.Anamnesis;
+                    break;
+                }
+            return anamnesis;
+        }
 
-        public HealthRecord GetById(long id)
+
+        public HealthRecord Get(long id)
         {
             var healthRecord = _healthRecordRepository.Get(id);
-            var patients = _patientRepository.GetAll();
             var allergens = _allergensRepository.GetAll();
             var anamnesiss = _anamnesisRepository.GetAll();
             var labAnalysisRecords = _labAnalysisRecordRepository.GetAll();
@@ -112,7 +109,6 @@ namespace zdravstvena_ustanova.Service
             var patientDiseases = _patientDiseaseRepository.GetAll();
             var patientVaccinations = _patientVaccinationRepository.GetAll();
             var rooms = _roomRepository.GetAll();
-            var accounts = _accountRepository.GetAll();
             var ingredients = _ingredientRepository.GetAll();
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();
             var medications = _medicationRepository.GetAll();
@@ -128,6 +124,25 @@ namespace zdravstvena_ustanova.Service
             BindPatientDiseasesWithHealthRecord(patientDiseases, healthRecord, diseases);
             BindPatientVaccinationsWithHealthRecord(patientVaccinations, healthRecord, vaccines);
             return healthRecord;
+        }
+
+        private void BindPatientsWithHealthRecords(IEnumerable<Patient> patients, IEnumerable<HealthRecord> healthRecords)
+        {
+            foreach (HealthRecord hr in healthRecords)
+            {
+                BindPatientsWithHealthRecord(patients, hr);
+            }
+        }
+        private void BindPatientsWithHealthRecord(IEnumerable<Patient> patients, HealthRecord healthRecord)
+        {
+            foreach (Patient p in patients)
+            {
+                if (p.Id == healthRecord.Patient.Id)
+                {
+                    healthRecord.Patient = p;
+                    break;
+                }
+            }
         }
         private void BindMedicationsWithMedicationTypes(IEnumerable<Medication> medications, IEnumerable<MedicationType> medicationTypes)
         {
@@ -241,13 +256,6 @@ namespace zdravstvena_ustanova.Service
             }
             healthRecord.LabAnalysisRecord = labAnalysisRecordsBinded;
         }
-        private void BindLabAnalysisRecordsWithHealthRecords(IEnumerable<LabAnalysisRecord> labAnalysisRecords, IEnumerable<HealthRecord> healthRecords, IEnumerable<LabAnalysisComponent> labAnalysisComponents)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindLabAnalysisRecordsWithHealthRecord(labAnalysisRecords, hr, labAnalysisComponents);
-            }
-        }
 
         private void BindHospitalizationRecordsWithHealthRecord(IEnumerable<HospitalizationRecord> hospitalizationRecords, HealthRecord healthRecord, IEnumerable<Room> rooms)
         {
@@ -277,13 +285,7 @@ namespace zdravstvena_ustanova.Service
 
             healthRecord.HospitalizationRecord = hospitalizationRecordsBinded;
         }
-        private void BindHospitalizationRecordsWithHealthRecords(IEnumerable<HospitalizationRecord> hospitalizationRecords, IEnumerable<HealthRecord> healthRecords, IEnumerable<Room> rooms)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindHospitalizationRecordsWithHealthRecord(hospitalizationRecords, hr, rooms);
-            }
-        }
+
         private void BindPrescribedMedicinesWithHealthRecord(IEnumerable<PrescribedMedicine> prescribedMedicines, HealthRecord healthRecord,
             IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
         {
@@ -329,14 +331,6 @@ namespace zdravstvena_ustanova.Service
 
             healthRecord.PrescribedMedicine = prescribedMedicinesBinded;
         }
-        private void BindPrescribedMedicinesWithHealthRecords(IEnumerable<PrescribedMedicine> prescribedMedicines, IEnumerable<HealthRecord> healthRecords,
-            IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPrescribedMedicinesWithHealthRecord(prescribedMedicines, hr, medications, ingredients);
-            }
-        }
         private void BindPatientDiseasesWithHealthRecord(IEnumerable<PatientDisease> patientDiseases, HealthRecord healthRecord, IEnumerable<Disease> diseases)
         {
             List<PatientDisease> patientDiseasesBinded = new List<PatientDisease>();
@@ -364,13 +358,6 @@ namespace zdravstvena_ustanova.Service
             }
 
             healthRecord.PatientDisease = patientDiseasesBinded;
-        }
-        private void BindPatientDiseasesWithHealthRecords(IEnumerable<PatientDisease> patientDiseases, IEnumerable<HealthRecord> healthRecords, IEnumerable<Disease> diseases)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPatientDiseasesWithHealthRecord(patientDiseases, hr, diseases);
-            }
         }
 
         private void BindPatientVaccinationsWithHealthRecord(IEnumerable<PatientVaccination> patientVaccinations, HealthRecord healthRecord, IEnumerable<Vaccine> vaccines)
@@ -400,13 +387,6 @@ namespace zdravstvena_ustanova.Service
             }
             healthRecord.PatientVaccination = patientVaccinationsBinded;
         }
-        private void BindPatientVaccinationsWithHealthRecords(IEnumerable<PatientVaccination> patientVaccinations, IEnumerable<HealthRecord> healthRecords, IEnumerable<Vaccine> vaccines)
-        {
-            foreach (HealthRecord hr in healthRecords)
-            {
-                BindPatientVaccinationsWithHealthRecord(patientVaccinations, hr, vaccines);
-            }
-        }
 
         public HealthRecord Create(HealthRecord healthRecord)
         {
@@ -424,15 +404,18 @@ namespace zdravstvena_ustanova.Service
         public HealthRecord FindHealthRecordByPatient(long patientId)
         {
             var healthRecords = GetAllOnlyWithAllergens();
-
+            var allergens = _allergensRepository.GetAll();
+            var ingredients = _ingredientRepository.GetAll();
             foreach (HealthRecord healthRecord in healthRecords)
             {
                 if(healthRecord.Patient.Id == patientId)
                 {
+                    BindAllergensWithHealthRecord(allergens, healthRecord, ingredients);
                     return healthRecord;
                 }
             }
             return null;
         }
+
     }
 }

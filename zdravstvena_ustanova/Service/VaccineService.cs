@@ -1,16 +1,16 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class VaccineService
+    public class VaccineService : IVaccineService
     {
-        private readonly VaccineRepository _vaccineRepository;
+        private readonly IVaccineRepository _vaccineRepository;
 
-        public VaccineService(VaccineRepository vaccineRepository)
+        public VaccineService(IVaccineRepository vaccineRepository)
         {
             _vaccineRepository = vaccineRepository;
         }
@@ -36,6 +36,11 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long vaccineId)
         {
             return _vaccineRepository.Delete(vaccineId);
+        }
+
+        public Vaccine Get(long id)
+        {
+            return _vaccineRepository.Get(id);
         }
     }
 }

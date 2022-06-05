@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationTypeService
+    public class MedicationTypeService : IMedicationTypeService
     {
-        private readonly MedicationTypeRepository _medicationTypeRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
 
-        public MedicationTypeService(MedicationTypeRepository medicationTypeRepository)
+        public MedicationTypeService(IMedicationTypeRepository medicationTypeRepository)
         {
             _medicationTypeRepository = medicationTypeRepository;
         }
@@ -38,6 +37,11 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long medicationId)
         {
             return _medicationTypeRepository.Delete(medicationId);
+        }
+
+        public MedicationType Get(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

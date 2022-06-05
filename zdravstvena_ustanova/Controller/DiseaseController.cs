@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class DiseaseController
     {
-        private readonly DiseaseService _diseaseService;
+        private readonly IDiseaseService _diseaseService;
 
-        public DiseaseController(DiseaseService diseaseService)
+        public DiseaseController(IDiseaseService diseaseService)
         {
             _diseaseService = diseaseService;
         }

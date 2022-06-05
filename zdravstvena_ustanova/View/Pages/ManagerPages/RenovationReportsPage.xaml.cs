@@ -73,5 +73,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
 
         }
+
+        private void RenovationAppointmentsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RenovationAppointmentsDataGrid.SelectedItem == null)
+            {
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false;
+            }
+            else
+            {
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+            }
+        }
     }
 }

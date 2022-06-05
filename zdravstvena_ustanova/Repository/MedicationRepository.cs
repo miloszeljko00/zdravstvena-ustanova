@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class MedicationRepository
+    public class MedicationRepository : IMedicationRepository
     {
         private const string NOT_FOUND_ERROR = "MEDICATION NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -116,6 +117,7 @@ namespace zdravstvena_ustanova.Repository
                 medication.MedicationType.Id,
                 medication.Quantity,
                 medication.IsApproved,
+                count,
                 ingredients
                 );
         }

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class PatientVaccinationController
     {
-        private readonly PatientVaccinationService _patientVaccinationService;
+        private readonly IPatientVaccinationService _patientVaccinationService;
 
-        public PatientVaccinationController(PatientVaccinationService patientVaccinationService)
+        public PatientVaccinationController(IPatientVaccinationService patientVaccinationService)
         {
             _patientVaccinationService = patientVaccinationService;
         }
@@ -24,7 +25,7 @@ namespace zdravstvena_ustanova.Controller
 
         public PatientVaccination GetById(long id)
         {
-            return _patientVaccinationService.GetById(id);
+            return _patientVaccinationService.Get(id);
         }
 
         public PatientVaccination Create(PatientVaccination patientVaccination)

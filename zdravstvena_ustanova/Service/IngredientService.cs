@@ -1,16 +1,17 @@
 ﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class IngredientService
+    public class IngredientService :IIngredientService
     {
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public IngredientService(IngredientRepository ingredientRepository)
+        public IngredientService(IIngredientRepository ingredientRepository)
         {
             _ingredientRepository = ingredientRepository;
         }
@@ -40,14 +41,16 @@ namespace zdravstvena_ustanova.Service
 
         public bool CheckIfItsAlreadyContained(IEnumerable<Ingredient> ingredients, Ingredient ingredient)
         {
+            bool isContained = false;
             foreach(var i in ingredients)
             {
                 if(i.Name == ingredient.Name)
                 {
-                    return true;
+                    isContained = true;
+                    break;
                 }
             }
-            return false;
+            return isContained;
         }
 
         public void CreateIfNotSavedWithSameName(List<Ingredient> ingredients)
@@ -61,6 +64,11 @@ namespace zdravstvena_ustanova.Service
                     Create(ingredient);
                 }
             }
+        }
+
+        public Ingredient Get(long id)
+        {
+            return _ingredientRepository.Get(id);
         }
     }
 }

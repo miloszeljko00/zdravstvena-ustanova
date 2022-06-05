@@ -1,23 +1,21 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class PrescribedMedicineService
+    public class PrescribedMedicineService : IPrescribedMedicineService
     {
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public PrescribedMedicineService(PrescribedMedicineRepository prescribedMedicineRepository,
-            MedicationRepository medicationRepository,MedicationTypeRepository medicationTypeRepository,
-            IngredientRepository ingredientRepository)
+        public PrescribedMedicineService(IPrescribedMedicineRepository prescribedMedicineRepository,
+            IMedicationRepository medicationRepository, IMedicationTypeRepository medicationTypeRepository,
+            IIngredientRepository ingredientRepository)
         {
             _prescribedMedicineRepository = prescribedMedicineRepository;
             _medicationRepository = medicationRepository;
@@ -61,7 +59,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public PrescribedMedicine GetById(long id)
+        public PrescribedMedicine Get(long id)
         {
             var medications = _medicationRepository.GetAll();
             var medicationTypes = _medicationTypeRepository.GetAll();

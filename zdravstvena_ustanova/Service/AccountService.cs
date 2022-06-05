@@ -1,23 +1,23 @@
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
-        private readonly AccountRepository _accountRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly DoctorRepository _doctorRepository;
-        private readonly SecretaryRepository _secretaryRepository;
-        private readonly ManagerRepository _managerRepository;
-        private readonly RoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly ISecretaryRepository _secretaryRepository;
+        private readonly IManagerRepository _managerRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public AccountService(AccountRepository accountsRepository, PatientRepository patientRepository, DoctorRepository doctorRepository,
-            SecretaryRepository secretaryRepository, ManagerRepository managerRepository, RoomRepository roomRepository)
+        public AccountService(IAccountRepository accountsRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository,
+            ISecretaryRepository secretaryRepository, IManagerRepository managerRepository, IRoomRepository roomRepository)
         {
             _accountRepository = accountsRepository;
             _patientRepository = patientRepository;
@@ -43,13 +43,13 @@ namespace zdravstvena_ustanova.Service
                return _accountRepository.Update(account);
         }
 
-        public Account GetById(long id)
+        public Account Get(long id)
         {
             var patients = _patientRepository.GetAll();
             var doctors = _doctorRepository.GetAll();
             var managers = _managerRepository.GetAll();
             var secretaries = _secretaryRepository.GetAll();
-            var account = _accountRepository.GetById(id);
+            var account = _accountRepository.Get(id);
             
             BindPersonWithAccount(patients, doctors, managers, secretaries, account);
             return account;
@@ -86,7 +86,7 @@ namespace zdravstvena_ustanova.Service
 
             var accountId =  _accountRepository.GetByUsername(username).Id;
 
-            return GetById(accountId).Person;
+            return Get(accountId).Person;
         }
         private void BindDoctorWithRoom(IEnumerable<Room> rooms, Doctor doctor)
         {

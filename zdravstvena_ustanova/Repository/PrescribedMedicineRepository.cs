@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class PrescribedMedicineRepository
+    public class PrescribedMedicineRepository : IPrescribedMedicineRepository
     {
         private const string NOT_FOUND_ERROR = "PRESCRIBED MEDICINE NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -68,11 +69,11 @@ namespace zdravstvena_ustanova.Repository
                     pm.EndDate = prescribedMedicine.EndDate;
                     pm.Description = prescribedMedicine.Description;
                     pm.Medication = prescribedMedicine.Medication;
-                    WriteLinesToFile(_path, PrescribedMedicinesToCSVFormat((List<PrescribedMedicine>)prescribedMedicines));
-                    return true;
+                    break;
                 }
             }
-            return false;
+            WriteLinesToFile(_path, PrescribedMedicinesToCSVFormat((List<PrescribedMedicine>)prescribedMedicines));
+            return true;
         }
         public bool Delete(long prescribedMedicineId)
         {

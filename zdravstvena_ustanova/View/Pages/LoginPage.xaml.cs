@@ -1,6 +1,7 @@
 ﻿using zdravstvena_ustanova.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Pages.ManagerPages;
 using zdravstvena_ustanova.View.Pages.SecretaryPages;
 using zdravstvena_ustanova.View.Windows.DoctorWindows;
-
+using MaterialDesignThemes;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
 
 namespace zdravstvena_ustanova.View.Pages
 {
@@ -36,6 +40,11 @@ namespace zdravstvena_ustanova.View.Pages
         {
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Password;
+            //username = "velja";
+            //password = "velja";
+
+            //username = "upravnik";
+            //password = "upravnik";
 
             if (username == null || password == null) return;
 
@@ -46,7 +55,23 @@ namespace zdravstvena_ustanova.View.Pages
 
             app.LoggedInUser = user;
 
-            if (app.LoggedInUser is Manager) NavigationService.Navigate(new ManagerMainPage(this));
+            if (app.LoggedInUser is Manager)
+            {
+                Mw.WindowStyle = WindowStyle.None;
+                Mw.ResizeMode = ResizeMode.NoResize;
+
+                BundledTheme rd2 = app.Resources["MaterialDesignBundledTheme"] as BundledTheme;
+                ResourceDictionary rd = app.Resources["MaterialDesignResourceDictionary"] as ResourceDictionary;
+                    
+                app.Resources.MergedDictionaries.Add(rd2);
+                app.Resources.MergedDictionaries.Add(rd);
+
+                Mw.Foreground = (Brush)app.Resources["MaterialDesignBody"];
+                Mw.Background = (Brush)app.Resources["MaterialDesignPaper"];
+                Mw.FontWeight = FontWeights.Medium;
+
+                NavigationService.Navigate(new ManagerMainPage(this));
+            }
             if (app.LoggedInUser is Secretary) 
             {
                 HomePagePatients hpp = new HomePagePatients(Mw);
@@ -58,9 +83,9 @@ namespace zdravstvena_ustanova.View.Pages
             }  
             if (app.LoggedInUser is Doctor)
             {
-                var doctorHomePage = new DoctorHomePageWindow();
+                var doctorLoginWindow = new LoginView();
                 Mw.Close();
-                doctorHomePage.Show();
+                doctorLoginWindow.Show();
             }
             if (app.LoggedInUser is Patient) 
             {
@@ -82,6 +107,12 @@ namespace zdravstvena_ustanova.View.Pages
                     pmw.Show();
             }
 
+        }
+
+        private void goToRegistration(object sender, RoutedEventArgs e)
+        {
+            Registration r = new Registration();
+            r.ShowDialog();
         }
     }
 }

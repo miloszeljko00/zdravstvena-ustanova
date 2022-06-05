@@ -55,6 +55,10 @@ namespace zdravstvena_ustanova
         private readonly string SURVEY_ANSWERS_FILE = ProjectPath + "\\Resources\\Data\\SurveyAnswers.csv";
         private readonly string ANTI_TROLL_FILE = ProjectPath + "\\Resources\\Data\\AntiTrollMechanism.csv";
 
+        private readonly string NOTE_FILE = ProjectPath + "\\Resources\\Data\\Note.csv";
+        private readonly string MEETINGS_FILE = ProjectPath + "\\Resources\\Data\\Meetings.csv";
+
+
         public ItemController ItemController { get; set; }
         public ItemTypeController ItemTypeController { get; set; }
         public StoredItemController StoredItemController { get; set; }
@@ -96,6 +100,10 @@ namespace zdravstvena_ustanova
         public SurveyQuestionsController SurveyQuestionsController { get; set; }
         public SurveyAnswersController SurveyAnswersController { get; set; }
         public AntiTrollMechanismController AntiTrollMechanismController { get; set; }
+        public NoteController NoteController { get; set; }
+
+        public MeetingController MeetingController { get; set; }
+
 
         public Person? LoggedInUser { get; set; }
 
@@ -139,7 +147,7 @@ namespace zdravstvena_ustanova
             var labAnalysisComponentRepository = new LabAnalysisComponentRepository(LAB_ANALYSIS_COMPONENT_FILE, CSV_DELIMITER);
 
             var healthRecordRepository = new HealthRecordRepository(HEALTH_RECORD_FILE, CSV_DELIMITER);
-            var allergenRepositroy = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
+            var allergenRepository = new AllergensRepository(ALLERGEN_FILE, CSV_DELIMITER);
 
 
             var holidayRequestRepository = new HolidayRequestRepository(HOLIDAY_REQUEST_FILE, CSV_DELIMITER);
@@ -148,6 +156,9 @@ namespace zdravstvena_ustanova
             var surveyQuestionsRepository = new SurveyQuestionsRepository(SURVEY_QUESTIONS_FILE, CSV_DELIMITER);
             var surveyAnswersRepository = new SurveyAnswersRepository(SURVEY_ANSWERS_FILE, CSV_DELIMITER);
             var antiTrollMechanismRepository = new AntiTrollMechanismRepository(ANTI_TROLL_FILE, CSV_DELIMITER);
+            var noteRepository = new NoteRepository(NOTE_FILE, CSV_DELIMITER);
+            var meetingRepository = new MeetingRepository(MEETINGS_FILE, CSV_DELIMITER);
+
 
 
             //var itemService = new ItemService(itemRepository);
@@ -196,8 +207,8 @@ namespace zdravstvena_ustanova
              medicationRepository, ingredientRepository);
 
 
-            var allergenService = new AllergensService(allergenRepositroy, ingredientRepository);
-            var healthRecordService = new HealthRecordService(healthRecordRepository, ingredientRepository, allergenRepositroy);
+            var allergenService = new AllergensService(allergenRepository, ingredientRepository);
+            var healthRecordService = new HealthRecordService(patientRepository, anamnesisRepository, healthRecordRepository, ingredientRepository, allergenRepository);
 
             var holidayRequestService = new HolidayRequestService(holidayRequestRepository, doctorRepository);
 
@@ -208,6 +219,10 @@ namespace zdravstvena_ustanova
             var surveyQuestionsService = new SurveyQuestionsService(surveyQuestionsRepository, scheduledAppointmentRepository);
             var surveyAnswersService = new SurveyAnswersService(surveyAnswersRepository, patientRepository, surveyQuestionsRepository);
             var antiTrollMechanismService = new AntiTrollMechanismService(antiTrollMechanismRepository, patientRepository);
+            var noteService = new NoteService(noteRepository, patientRepository);
+
+            var meetingService = new MeetingService(meetingRepository, accountRepository, roomRepository);
+
 
 
             ItemController = new ItemController(itemService);
@@ -245,13 +260,27 @@ namespace zdravstvena_ustanova
 
             SystemController = new SystemController(systemService);
             SystemController.StartCheckingForScheduledItemTransfers(300);
-            SystemController.StartCheckingForRenovationAppointments(10);
+            SystemController.StartCheckingForRenovationAppointments(300);
 
             OrderedItemController = new StoredItemController(orderedItemService);
 
             SurveyQuestionsController = new SurveyQuestionsController(surveyQuestionsService);
             SurveyAnswersController = new SurveyAnswersController(surveyAnswersService);
             AntiTrollMechanismController = new AntiTrollMechanismController(antiTrollMechanismService);
+            NoteController = new NoteController(noteService);
+            MeetingController = new MeetingController(meetingService);
+        }
+
+        public void ChangeLanguage(string currLang)
+        {
+            if (currLang.Equals("en-US"))
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            }
+            else
+            {
+                TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            }
         }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
-using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
-using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class AllergensService
+    public class AllergensService : IAllergensService
     {
-        private readonly AllergensRepository _allergensRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IAllergensRepository _allergensRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
 
-        public AllergensService(AllergensRepository allergensRepository, IngredientRepository ingredientRepository)
+        public AllergensService(IAllergensRepository allergensRepository, IIngredientRepository ingredientRepository)
         {
             _allergensRepository = allergensRepository;
             _ingredientRepository = ingredientRepository;
@@ -34,7 +33,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Allergens GetById(long id)
+        public Allergens Get(long id)
         {
             var allergen = _allergensRepository.Get(id);
             var ingredients = _ingredientRepository.GetAll();
@@ -56,7 +55,11 @@ namespace zdravstvena_ustanova.Service
                     }
                 }
             }
-            allergen.Ingredients = ingredientsBinded;
+            allergen.Ingredients.Clear();
+            foreach(Ingredient i in ingredientsBinded)
+            {
+                allergen.Ingredients.Add(i);
+            }
         }
 
         public Allergens Create(Allergens allergen)

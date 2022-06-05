@@ -111,17 +111,36 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             Medications.Remove((Medication)MedicationDataGrid.SelectedItem);
         }
 
-        private void IngredientsIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MedicationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var ingredientsIcon = (Image)e.OriginalSource;
-            var dataContext = ingredientsIcon.DataContext;
-            var dataSource = (Medication)dataContext;
+            if (MedicationDataGrid.SelectedItem == null)
+            {
+                RequestApproval.IsEnabled = false;
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false;
+                return;
+            }
+            
+            var dataSource = (Medication)MedicationDataGrid.SelectedItem;
+            if (dataSource.IsApproved == false)
+            {
+                RequestApproval.IsEnabled = true;
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+            }
+            else
+            {
+                RequestApproval.IsEnabled = false;
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = false;
+            }
 
             Ingredients.Clear();
-            foreach(var ingredient in dataSource.Ingredients)
+            foreach (var ingredient in dataSource.Ingredients)
             {
                 Ingredients.Add(ingredient);
             }
+            
         }
     }
 }

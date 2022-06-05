@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class WarehouseController
     {
-        private readonly WarehouseService _warehouseService;
+        private readonly IWarehouseService _warehouseService;
 
-        public WarehouseController(WarehouseService warehouseService)
+        public WarehouseController(IWarehouseService warehouseService)
         {
             _warehouseService = warehouseService;
         }

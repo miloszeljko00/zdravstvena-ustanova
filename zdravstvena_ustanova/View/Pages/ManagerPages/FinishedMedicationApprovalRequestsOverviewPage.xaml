@@ -17,11 +17,16 @@
             <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <WrapPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Label Width="650" Content="Obrađeni zahtevi za odobrenje leka" FontSize="40"></Label>
+        <WrapPanel Margin="60,0,60,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <Label Width="580" Content="Obrađeni zahtevi za odobrenje leka" FontSize="36"></Label>
+            <Button IsEnabled="False" x:Name="EditMedicationButton" Margin="265,0,0,0" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="EditMedicationButton_OnClick">Izmeni lek</Button>
+            <Button IsEnabled="False" x:Name="RequestApprovalAgainButton" Margin="15,0,0,0" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="RequestApprovalAgainButton_OnClick">Ponovo pošalji</Button>
+
         </WrapPanel>
-        <DataGrid Grid.Row="1" x:Name="FinishedMedicationApprovalRequestsDataGrid" ItemsSource="{Binding FinishedMedicationApprovalRequests}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="800" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="FinishedMedicationApprovalRequestsDataGrid_SelectionChanged">
+        <Border Margin="60, 0, 0, 40" BorderBrush="Gray" BorderThickness="1px" Width="740" Grid.Row="1">
+
+<DataGrid Grid.Row="1" x:Name="FinishedMedicationApprovalRequestsDataGrid" ItemsSource="{Binding FinishedMedicationApprovalRequests}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="740" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="FinishedMedicationApprovalRequestsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Medication.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip" Binding="{Binding Medication.MedicationType.Name}" Width="*"></DataGridTextColumn>
@@ -30,15 +35,22 @@
                 <DataGridTextColumn Header="Status zahteva" Binding="{Binding RequestStatus}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" Background="LightGray" Width="400" Height="450">
+            </Border>
+        <Border Margin="0, 0, 60, 40" BorderBrush="Gray" BorderThickness="1px" Grid.Column="1" Grid.Row="1">
+
+<StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" Width="400" Height="450">
             <WrapPanel HorizontalAlignment="Stretch">
                 <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Sastojci:</Label>
-                <ListView Margin="0,20,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>
+                <Border Margin="0, 20, 0, 0" BorderBrush="Gray" BorderThickness="1px" Grid.Row="1">
+
+                    <ListView Margin="0,0,0,0"  FontSize="18" DisplayMemberPath="Name" ItemsSource="{Binding Ingredients}" VerticalContentAlignment="Center" x:Name="MedicationIngredients" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Right"></ListView>
+</Border>
             </WrapPanel>
             <WrapPanel HorizontalAlignment="Stretch" Margin="0,10,0,0">
                 <Label Width="150" Margin="0,-150,0,0" Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalContentAlignment="Right" HorizontalAlignment="Right"  VerticalAlignment="Center">Napomena:</Label>
-                <TextBox Text="{Binding ResponseMessage}" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" FontSize="18" x:Name="RequestMessageTextBox" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"></TextBox>
+                <TextBox IsReadOnlyCaretVisible="False" BorderBrush="Gray" BorderThickness="1px" Text="{Binding ResponseMessage}" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" FontSize="18" x:Name="RequestMessageTextBox" Width="200" Height="200" HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"></TextBox>
             </WrapPanel>
         </StackPanel>
+            </Border>
     </Grid>
 </Page>

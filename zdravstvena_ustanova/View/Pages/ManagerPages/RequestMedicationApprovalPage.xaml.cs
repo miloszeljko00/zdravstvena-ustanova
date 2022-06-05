@@ -114,6 +114,33 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 Doctors.Add(doctor);
             }
         }
+        public RequestMedicationApprovalPage(Medication medication, Doctor selectedDoctor, string requestMessage)
+        {
+            InitializeComponent();
+            DataContext = this;
+            Medication = medication;
+            MedicationName = medication.Name;
+            MedicationType = medication.MedicationType;
+            MedicationQuantity = medication.Quantity;
+
+            Ingredients = new ObservableCollection<Ingredient>();
+            foreach (var ingredient in medication.Ingredients)
+            {
+                Ingredients.Add(ingredient);
+            }
+            var app = Application.Current as App;
+            Doctors = new ObservableCollection<Doctor>();
+            foreach (var doctor in app.DoctorController.GetAll())
+            {
+                Doctors.Add(doctor);
+                if (doctor.Id == selectedDoctor.Id)
+                {
+                    DoctorComboBox.SelectedItem = doctor;
+                }
+            }
+            RequestMessage = requestMessage;
+            RequestMessageTextBox.Text = requestMessage;
+        }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
@@ -141,6 +168,18 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void DoctorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DoctorComboBox.SelectedItem == null)
+            {
+                OkButton.IsEnabled = false;
+            }
+            else
+            {
+                OkButton.IsEnabled = true;
+            }
         }
     }
 }

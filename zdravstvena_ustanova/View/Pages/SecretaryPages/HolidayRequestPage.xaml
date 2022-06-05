@@ -1,0 +1,58 @@
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.HolidayRequestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.SecretaryPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1024"
+      Height="620" Width="1024"
+      Title="HolidayRequestPage">
+
+    <Grid>
+
+        <DataGrid x:Name="dataGridHolidayRequest" ItemsSource="{Binding RequestView}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" HeadersVisibility="All" VerticalAlignment="Top" Margin="22,98,30,0" Height="317" FontSize="18"  SelectedIndex="-1" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Doktor" Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Doctor.Name" />
+                            <Binding Path="Doctor.Surname" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Početak" Binding="{Binding StartDate}" Width="*"/>
+                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" Width="*"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Cause}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding HolidayRequestStatus}" Width="*"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="32" Height="32" Margin="4,4,4,4" MouseDown="Image_MouseDown">
+                                <Image.Resources>
+                                    <Style TargetType="{x:Type Image}">
+                                        <!-- Default image -->
+                                        <Setter Property="Source" Value="/Resources/img/icons8-edit.png"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <!-- Hover image -->
+                                                <Setter Property="Opacity" Value="0.8"/>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Resources>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock x:Name="validationTB" HorizontalAlignment="Left" Margin="710,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20" Foreground="#FF731E1E"/>
+        <Image x:Name="Back" HorizontalAlignment="Left" Height="80" Margin="499,432,0,0" VerticalAlignment="Top" Width="80" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown"/>
+        <Label Content="Nazad" HorizontalAlignment="Left" Margin="517,519,0,0" VerticalAlignment="Top" FontSize="24"/>
+    </Grid>
+</Page>

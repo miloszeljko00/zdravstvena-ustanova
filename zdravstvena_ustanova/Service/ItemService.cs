@@ -1,17 +1,18 @@
 using zdravstvena_ustanova.Model;
-using System;
 using System.Collections.Generic;
-using zdravstvena_ustanova.Repository;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class ItemService
-    {
-        private readonly ItemRepository _itemRepository;
-        private readonly ItemTypeRepository _itemTypeRepository;
+    public class ItemService : IItemService
 
-        public ItemService(ItemRepository itemRepository, ItemTypeRepository itemTypeRepository)
+    {
+        private readonly IItemRepository _itemRepository;
+        private readonly IItemTypeRepository _itemTypeRepository;
+
+        public ItemService(IItemRepository itemRepository, IItemTypeRepository itemTypeRepository)
         {
             _itemRepository = itemRepository;
             _itemTypeRepository = itemTypeRepository;
@@ -43,9 +44,9 @@ namespace zdravstvena_ustanova.Service
             return itemTypes.SingleOrDefault(itemType => itemType.Id == id);
         }
 
-        public Item GetById(long id)
+        public Item Get(long id)
         { 
-            var item = _itemRepository.GetById(id);
+            var item = _itemRepository.Get(id);
             var itemTypes = _itemTypeRepository.GetAll();
             BindItemWithItemTypes(item, itemTypes);
             return item;

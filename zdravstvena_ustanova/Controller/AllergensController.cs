@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class AllergensController
     {
-        private readonly AllergensService _allergenService;
+        private readonly IAllergensService _allergenService;
 
-        public AllergensController(AllergensService allergensService)
+        public AllergensController(IAllergensService allergensService)
         {
             _allergenService = allergensService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Allergens GetById(long id)
         {
-            return _allergenService.GetById(id);
+            return _allergenService.Get(id);
         }
         public Allergens Create(Allergens allergen)
         {

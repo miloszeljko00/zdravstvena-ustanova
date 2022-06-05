@@ -107,5 +107,21 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
             NavigationService.Navigate(new RoomCalendarOverview(roomId));
         }
+
+        private void RoomsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RoomsDataGrid.SelectedItem == null)
+            {
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false; 
+                InventoryOverviewButton.IsEnabled = false;
+            }
+            else
+            {
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+                InventoryOverviewButton.IsEnabled = true;
+            }
+        }
     }
 }

@@ -1,19 +1,16 @@
 ﻿using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class SpecialistRequestService
+    public class SpecialistRequestService : ISpecialistRequestService
     {
-        private readonly SpecialistRequestRepository _specialistRequestRepository;
-        private readonly SpecialtyRepository _specialtyRepository;
+        private readonly ISpecialistRequestRepository _specialistRequestRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
 
-        public SpecialistRequestService(SpecialistRequestRepository specialistRequestRepository, SpecialtyRepository specialtyRepository)
+        public SpecialistRequestService(ISpecialistRequestRepository specialistRequestRepository, ISpecialtyRepository specialtyRepository)
         {
             _specialistRequestRepository = specialistRequestRepository;
             _specialtyRepository = specialtyRepository;
@@ -35,7 +32,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public SpecialistRequest GetById(long id)
+        public SpecialistRequest Get(long id)
         {
             var specialistRequest = _specialistRequestRepository.Get(id);
             var specialties = _specialtyRepository.GetAll();

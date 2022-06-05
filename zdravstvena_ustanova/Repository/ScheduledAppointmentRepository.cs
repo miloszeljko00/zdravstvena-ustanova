@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class ScheduledAppointmentRepository
+    public class ScheduledAppointmentRepository : IScheduledAppointmentRepository
     {
         private const string NOT_FOUND_ERROR = "APPOINTMENT NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -35,6 +36,10 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
+        public string[] GetAllAppointmentsAsStringArray()  
+        {
+            return File.ReadAllLines(_path);
+        }
         public ScheduledAppointment Get(long id)
         {
             try
@@ -54,7 +59,7 @@ namespace zdravstvena_ustanova.Repository
             return scheduledAppointment;
         }
 
-        public void Update(ScheduledAppointment scheduledAppointment)
+        public bool Update(ScheduledAppointment scheduledAppointment)
         {
             var scheduledAppointments = GetAll();
 
@@ -68,14 +73,13 @@ namespace zdravstvena_ustanova.Repository
                     sa.Patient.Id = scheduledAppointment.Patient.Id;
                     sa.Doctor.Id = scheduledAppointment.Doctor.Id;
                     sa.Room.Id = scheduledAppointment.Room.Id;
-                    WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
                     break;
                 }
             }
-
-
+            WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
+            return true;
         }
-        public void Delete(long scheduledAppointmentId)
+        public bool Delete(long scheduledAppointmentId)
         {
             var scheduledAppointments = (List<ScheduledAppointment>)GetAll();
 
@@ -90,6 +94,7 @@ namespace zdravstvena_ustanova.Repository
 
 
             WriteLinesToFile(_path, ScheduledAppointmentsToCSVFormat((List<ScheduledAppointment>)scheduledAppointments));
+            return true;
         }
 
         private string ScheduledAppointmentToCSVFormat(ScheduledAppointment scheduledAppointment)

@@ -1,17 +1,17 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
-using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
-using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class LabAnalysisRecordService
+    public class LabAnalysisRecordService : ILabAnalysisRecordService
     {
-        private readonly LabAnalysisRecordRepository _labAnalysisRecordRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly ILabAnalysisRecordRepository _labAnalysisRecordRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
 
-        public LabAnalysisRecordService(LabAnalysisRecordRepository labAnalysisRecordRepository, LabAnalysisComponentRepository labAnalysisComponentRepository)
+        public LabAnalysisRecordService(ILabAnalysisRecordRepository labAnalysisRecordRepository,
+            ILabAnalysisComponentRepository labAnalysisComponentRepository)
         {
             _labAnalysisRecordRepository = labAnalysisRecordRepository;
             _labAnalysisComponentRepository = labAnalysisComponentRepository;
@@ -33,7 +33,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public LabAnalysisRecord GetById(long id)
+        public LabAnalysisRecord Get(long id)
         {
             var labAnalysisRecord = _labAnalysisRecordRepository.Get(id);
             var labAnalysisComponents = _labAnalysisComponentRepository.GetAll();

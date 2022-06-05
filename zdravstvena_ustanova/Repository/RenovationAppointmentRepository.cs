@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class RenovationAppointmentRepository
+    public class RenovationAppointmentRepository : IRenovationAppointmentRepository
     {
         private const string NOT_FOUND_ERROR = "RENOVATION APPOINTMENT NOT FOUND: {0} = {1}";
         private readonly string _path;

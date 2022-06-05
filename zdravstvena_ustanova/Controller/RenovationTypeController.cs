@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Service;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class RenovationTypeController
     {
-        private readonly RenovationTypeService _renovationTypeService;
+        private readonly IRenovationTypeService _renovationTypeService;
 
-        public RenovationTypeController(RenovationTypeService renovationTypeService)
+        public RenovationTypeController(IRenovationTypeService renovationTypeService)
         {
             _renovationTypeService = renovationTypeService;
         }

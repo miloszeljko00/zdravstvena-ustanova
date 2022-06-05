@@ -9,7 +9,7 @@
         Title="ScheduledAppointmentWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid Background="#067c7b">
         <TabControl TabStripPlacement="Left" Background="#067c7b">
-            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" Background="#067c7b">
+            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" Background="#067c7b" ToolTip="You can add anamnesis to patient health record">
                 <Canvas Background="#067c7b">
                     <Label Content="Diagnosis:" Margin="70,35,0,0" Height="51" Width="300" FontSize="22" Canvas.Top="84" Canvas.Left="-44"/>
                     <Label Content="Current diseases:" Margin="70,213,0,0" Height="37" Width="300"  FontSize="22" Canvas.Left="-49" Canvas.Top="80"/>
@@ -30,7 +30,7 @@
                     <Label Content="Anamnesis - Report" FontSize="24" Canvas.Left="262" Canvas.Top="52" Width="316"/>
                 </Canvas>
             </TabItem>
-            <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16">
+            <TabItem Header="therapy" Margin="-1,17,1,-17" FontSize="16" ToolTip="Issue a prescription for your patient">
                 <Grid>
                     <DataGrid x:Name="dataGridTherapy" ItemsSource="{Binding PrescribedMedicine}" IsReadOnly="True" SelectionMode="Single"
                   AutoGenerateColumns="False" VerticalAlignment="Top" Margin="0,186,-2,0" Height="562" Width="700" HorizontalAlignment="Left">
@@ -93,7 +93,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="hospitalization" Margin="-1,17,1,-17" FontSize="16">
+            <TabItem Header="hospitalization" Margin="-1,17,1,-17" FontSize="16" ToolTip="You can review existing hospitalization request or issue a new one">
                 <Grid Margin="0,0,0,140">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -162,7 +162,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="blood test requirement" Margin="-1,17,1,-17" FontSize="16">
+            <TabItem Header="blood test requirement" Margin="-1,17,1,-17" FontSize="16" ToolTip="Issue a new blood test request">
                 <Grid Margin="0,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -195,7 +195,7 @@
                     <Label Content="Selected components:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="39" Width="233" FontSize="22" Grid.Column="2" Grid.Row="0"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="request for specialist" Margin="-1,17,1,-17" FontSize="16">
+            <TabItem Header="request for specialist" Margin="-1,17,1,-17" FontSize="16" ToolTip="Schedule specialist appointment for your patient">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -248,7 +248,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="medical record" Margin="-1,17,1,-17" FontSize="16">
+            <TabItem Header="medical record" Margin="-1,17,1,-17" FontSize="16" ToolTip="Review of health record">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>

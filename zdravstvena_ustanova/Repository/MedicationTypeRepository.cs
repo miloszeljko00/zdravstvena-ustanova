@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class MedicationTypeRepository
+    public class MedicationTypeRepository : IMedicationTypeRepository
     {
         private const string NOT_FOUND_ERROR = "MEDICATION TYPE NOT FOUND: {0} = {1}";
         private readonly string _path;
@@ -34,7 +35,7 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
-        public MedicationType GetById(long id)
+        public MedicationType Get(long id)
         {
             try
             {

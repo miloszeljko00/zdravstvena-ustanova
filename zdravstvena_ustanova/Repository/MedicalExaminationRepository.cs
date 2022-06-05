@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Exception;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
 
 namespace zdravstvena_ustanova.Repository
 {
-    public class MedicalExaminationRepository
+    public class MedicalExaminationRepository : IMedicalExaminationRepository
     {
         private const string NOT_FOUND_ERROR = "MEDICAL EXAMINATION NOT FOUND: {0}={1}";
         private readonly string _path;

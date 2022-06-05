@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.Repository;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicalExaminationService
+    public class MedicalExaminationService : IMedicalExaminationService
     {
-        private readonly MedicalExaminationRepository _medicalExaminationRepository;
-        private readonly ScheduledAppointmentRepository _scheduledAppointmentRepository;
-        private readonly AnamnesisRepository _anamnesisRepository;
-        private readonly SpecialistRequestRepository _specialistRequestRepository;
-        private readonly LabAnalysisRequestRepository _labAnalysisRequestRepository;
-        private readonly HospitalizationRequestRepository _hospitalizationRequestRepository;
-        private readonly PrescribedMedicineRepository _prescribedMedicineRepository;
-        private readonly DoctorRepository _doctorRepository;
-        private readonly PatientRepository _patientRepository;
-        private readonly RoomRepository _roomRepository;
-        private readonly AccountRepository _accountRepository;
-        private readonly SpecialtyRepository _specialtyRepository;
-        private readonly LabAnalysisComponentRepository _labAnalysisComponentRepository;
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
+        private readonly IMedicalExaminationRepository _medicalExaminationRepository;
+        private readonly IScheduledAppointmentRepository _scheduledAppointmentRepository;
+        private readonly IAnamnesisRepository _anamnesisRepository;
+        private readonly ISpecialistRequestRepository _specialistRequestRepository;
+        private readonly ILabAnalysisRequestRepository _labAnalysisRequestRepository;
+        private readonly IHospitalizationRequestRepository _hospitalizationRequestRepository;
+        private readonly IPrescribedMedicineRepository _prescribedMedicineRepository;
+        private readonly IDoctorRepository _doctorRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
+        private readonly ILabAnalysisComponentRepository _labAnalysisComponentRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
 
-        public MedicalExaminationService(MedicalExaminationRepository medicalExaminationRepository, ScheduledAppointmentRepository scheduledAppointmentRepository,
-            AnamnesisRepository anamnesisRepository, SpecialistRequestRepository specialistRequestRepository,
-            LabAnalysisRequestRepository labAnalysisRequestRepository, HospitalizationRequestRepository hospitalizationRequestRepository,
-            PrescribedMedicineRepository prescribedMedicineRepository, DoctorRepository doctorRepository, PatientRepository patientRepository,
-            RoomRepository roomRepository, AccountRepository accountRepository, SpecialtyRepository specialtyRepository, LabAnalysisComponentRepository labAnalysisComponentRepository,
-            MedicationRepository medicationRepository, IngredientRepository ingredientRepository)
+        public MedicalExaminationService(IMedicalExaminationRepository medicalExaminationRepository,
+            IScheduledAppointmentRepository scheduledAppointmentRepository, IAnamnesisRepository anamnesisRepository,
+            ISpecialistRequestRepository specialistRequestRepository, ILabAnalysisRequestRepository labAnalysisRequestRepository,
+            IHospitalizationRequestRepository hospitalizationRequestRepository, IPrescribedMedicineRepository prescribedMedicineRepository,
+            IDoctorRepository doctorRepository, IPatientRepository patientRepository, IRoomRepository roomRepository,
+            IAccountRepository accountRepository, ISpecialtyRepository specialtyRepository,
+            ILabAnalysisComponentRepository labAnalysisComponentRepository, IMedicationRepository medicationRepository,
+            IIngredientRepository ingredientRepository)
         {
             _medicalExaminationRepository = medicalExaminationRepository;
             _scheduledAppointmentRepository = scheduledAppointmentRepository;
@@ -75,8 +74,23 @@ namespace zdravstvena_ustanova.Service
             BindPrescribedMedicinesWithMedicalExaminations(medicalExaminations, prescribedMedicines, medications, ingredients);
             return medicalExaminations;
         }
+        
+        public ScheduledAppointment GetScheduledAppointmentForAnamnesis(long anamnesisId)
+        {
+            var medicalExamination = GetAll();
+            ScheduledAppointment scheduledAppointment = null;
+            foreach (MedicalExamination me in medicalExamination)
+            {
+                if (me.Anamnesis.Id == anamnesisId)
+                {
+                    scheduledAppointment = me.ScheduledAppointment;
+                    break;
+                }
+            }
+            return scheduledAppointment;
+        }
 
-        public MedicalExamination GetById(long id)
+        public MedicalExamination Get(long id)
         {
             var medicalExamination = _medicalExaminationRepository.Get(id);
             var scheduledAppointments = _scheduledAppointmentRepository.GetAll();
@@ -105,47 +119,14 @@ namespace zdravstvena_ustanova.Service
         private void BindScheduledAppointmentWithMedicalExamination(MedicalExamination medicalExamination,
             IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients, IEnumerable<Room> rooms, IEnumerable<Account> accounts)
         {
-            foreach (ScheduledAppointment sa in scheduledAppointments)
-            {
-                if (medicalExamination.ScheduledAppointment.Id == sa.Id)
-                {
-                    medicalExamination.ScheduledAppointment = sa;
-                    break;
-                }
-            }
+            BindScheduledAppointmentWithMedicalExaminationById(medicalExamination, scheduledAppointments);
+            BindDoctorWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, doctors, accounts);
+            BindPatientWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, patients, accounts);
+            BindRoomWithScheduledAppointmentInCertainMedicalExamination(medicalExamination, rooms);
+        }
 
-            foreach (Doctor d in doctors)
-            {
-                if (medicalExamination.ScheduledAppointment.Doctor.Id == d.Id)
-                {
-                    medicalExamination.ScheduledAppointment.Doctor = d;
-                    foreach (Account a in accounts)
-                    {
-                        if (medicalExamination.ScheduledAppointment.Doctor.Account.Id == a.Id)
-                        {
-                            medicalExamination.ScheduledAppointment.Doctor.Account = a;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            foreach (Patient p in patients)
-            {
-                if (medicalExamination.ScheduledAppointment.Patient.Id == p.Id)
-                {
-                    medicalExamination.ScheduledAppointment.Patient = p;
-                    foreach (Account a in accounts)
-                    {
-                        if (medicalExamination.ScheduledAppointment.Patient.Account.Id == a.Id)
-                        {
-                            medicalExamination.ScheduledAppointment.Patient.Account = a;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
+        private void BindRoomWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Room> rooms)
+        {
             foreach (Room r in rooms)
             {
                 if (medicalExamination.ScheduledAppointment.Room.Id == r.Id)
@@ -155,6 +136,69 @@ namespace zdravstvena_ustanova.Service
                 }
             }
         }
+
+        private void BindPatientWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Patient> patients, IEnumerable<Account> accounts)
+        {
+            foreach (Patient p in patients)
+            {
+                if (medicalExamination.ScheduledAppointment.Patient.Id == p.Id)
+                {
+                    BindPatientWithAccount(p, accounts);
+                    medicalExamination.ScheduledAppointment.Patient = p;
+                    break;
+                }
+            }
+        }
+
+        private void BindPatientWithAccount(Patient p, IEnumerable<Account> accounts)
+        {
+            foreach (Account a in accounts)
+            {
+                if (p.Account.Id == a.Id)
+                {
+                    p.Account = a;
+                    break;
+                }
+            }
+        }
+
+        private void BindDoctorWithScheduledAppointmentInCertainMedicalExamination(MedicalExamination medicalExamination, IEnumerable<Doctor> doctors, IEnumerable<Account> accounts)
+        {
+            foreach (Doctor d in doctors)
+            {
+                if (medicalExamination.ScheduledAppointment.Doctor.Id == d.Id)
+                {
+                    BindDoctorWithAccount(d, accounts);
+                    medicalExamination.ScheduledAppointment.Doctor = d;
+                    break;
+                }
+            }
+        }
+
+        private void BindDoctorWithAccount(Doctor d, IEnumerable<Account> accounts)
+        {
+            foreach (Account a in accounts)
+            {
+                if (d.Id == a.Id)
+                {
+                    d.Account = a;
+                    break;
+                }
+            }
+        }
+
+        private void BindScheduledAppointmentWithMedicalExaminationById(MedicalExamination medicalExamination, IEnumerable<ScheduledAppointment> scheduledAppointments)
+        {
+            foreach (ScheduledAppointment sa in scheduledAppointments)
+            {
+                if (medicalExamination.ScheduledAppointment.Id == sa.Id)
+                {
+                    medicalExamination.ScheduledAppointment = sa;
+                    break;
+                }
+            }
+        }
+
         private void BindScheduledAppointmentsWithMedicalExaminations(IEnumerable<MedicalExamination> medicalExaminations,
            IEnumerable<ScheduledAppointment> scheduledAppointments, IEnumerable<Doctor> doctors, IEnumerable<Patient> patients, IEnumerable<Room> rooms, IEnumerable<Account> accounts)
         {

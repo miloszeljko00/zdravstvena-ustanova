@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.AnamnesisReview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="584" d:DesignWidth="596">
+    <Grid>
+        <ListView x:Name="anamnesisList" Margin="26,59,40,49" ItemsSource="{Binding AnamnesisInfo}" PreviewKeyDown="enterDetails">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200"  Header="Ime i prezime doktora" DisplayMemberBinding="{Binding Doctor}"/>
+                    <GridViewColumn Width="140" Header="Datum pregleda" DisplayMemberBinding="{Binding ScheduledAppointment.Start, StringFormat='d.M.yyyy.'}"/>
+                    <GridViewColumn Width="160" Header="Vreme pocetka pregleda" DisplayMemberBinding="{Binding ScheduledAppointment.Start, StringFormat='HH:mm'}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label FontSize="20" Content="Postojeci izvestaji pregleda:" HorizontalAlignment="Left" Margin="28,17,0,0" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" Margin="356,-1,28,512">
+            <TextBox x:Name="trazi" Width="200" Padding="0,0,30,0" Height="25" FontSize="16"/>
+            <Button Content="Trazi" Width="35" Height="23" Margin="-38,0,0,0" Click="search"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

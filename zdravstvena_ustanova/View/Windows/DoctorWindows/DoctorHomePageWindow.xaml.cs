@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.ComponentModel;
-using System.Collections;
 using System.Collections.ObjectModel;
 using zdravstvena_ustanova.View.Model;
 using zdravstvena_ustanova.Model;
-using zdravstvena_ustanova.View.Pages;
 using zdravstvena_ustanova.Model.Enums;
 using System.Threading;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using System.Drawing;
+
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
+using System.Globalization;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -85,7 +82,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             Username = app.LoggedInUser.Name;
             MedicationApprovalRequests = new ObservableCollection<MedicationApprovalRequest>();
             CheckForNewMedicationApprovalRequest();
-            StartCheckingForNewMedicationApprovalRequest(20);
+            StartCheckingForNewMedicationApprovalRequest(500);
             UpdateCalendar();
         }
 
@@ -134,27 +131,27 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                             {
                                 awbh.MondayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 1)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(1).Day)
                             {
                                 awbh.TuesdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 2)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(2).Day)
                             {
                                 awbh.WednesdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 3)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(3).Day)
                             {
                                 awbh.ThursdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 4)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(4).Day)
                             {
                                 awbh.FridayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 5)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(5).Day)
                             {
                                 awbh.SaturdayAppointment = sa;
                             }
-                            else if (sa.Start.Day == awbh.DateOfWeekStart.Day + 6)
+                            else if (sa.Start.Day == awbh.DateOfWeekStart.AddDays(6).Day)
                             {
                                 awbh.SundayAppointment = sa;
                             }
@@ -211,14 +208,19 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            this.Close();
+            MessageBoxResult answer = MessageBox.Show("Zelite da se odjavite?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                this.Close();
+            }
+            
         }
 
         private void Button_Click_Make_An_Appointment(object sender, RoutedEventArgs e)
         {
-            CreateNewAppointment createNewAppointment = new CreateNewAppointment();
+            CreateNewAppointment createNewAppointment = new CreateNewAppointment(this, "sramota koje stelovanje");
         }
 
         private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
@@ -277,6 +279,74 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             ProfileAndPersonalDataWindow profileAndPersonalDataWindow = new ProfileAndPersonalDataWindow();
             profileAndPersonalDataWindow.Show();
 
+        }
+
+        private void Button_Click_MedicalSupplyInventory(object sender, RoutedEventArgs e)
+        {
+            MedicalSupplyInventoryWindow medicalSupplyInventoryWindow = new MedicalSupplyInventoryWindow();
+            medicalSupplyInventoryWindow.ShowDialog();
+        }
+
+        private void Button_Click_PrintYourSchedule(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Formiracete pdf izvestaj Vasih zakazanih termina za narednih 7 dana.", "Creating PDF file", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            if (answer == MessageBoxResult.OK)
+            {
+                string tipPregleda = "";
+                string imePacijenta;
+                string prezimePacijenta;
+                string nazivSobe;
+                var app = Application.Current as App;
+                string[] sviPregledi = app.ScheduledAppointmentController.GetAllAppointmentsAsStringArray();
+                string sviPreglediMogLekaraZaIzvestaj = "Pregled Vasih zakazanih termina u narednih 7 dana:" + Environment.NewLine + Environment.NewLine;
+                foreach (string str in sviPregledi)
+                {
+                    string[] pojedinacanPregled = str.Split(";".ToCharArray());
+                    if(pojedinacanPregled[5] == (app.LoggedInUser.Id).ToString())
+                    {
+                        var timeFormat = "dd.MM.yyyy. HH:mm";
+                        DateTime datumPregleda;
+                        DateTime.TryParseExact(pojedinacanPregled[0], timeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out datumPregleda);
+                        if (DateTime.Now.AddDays(7) >= datumPregleda)
+                        {
+                            switch (pojedinacanPregled[2])
+                            {
+                                case "0":
+                                    tipPregleda = "operacija";
+                                    break;
+                                case "1":
+                                    tipPregleda = "laboratorija";
+                                    break;
+                                case "2":
+                                    tipPregleda = "kontrola";
+                                    break;
+                                case "3":
+                                    tipPregleda = "pregled kod specijaliste";
+                                    break;
+                                case "4":
+                                    tipPregleda = "hitan";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            Patient trenutniPacijent = app.PatientController.GetById(int.Parse(pojedinacanPregled[4]));
+                            imePacijenta = trenutniPacijent.Name;
+                            prezimePacijenta = trenutniPacijent.Surname;
+                            Room trenutnaSoba = app.RoomController.GetById(int.Parse(pojedinacanPregled[6]));
+                            nazivSobe = trenutnaSoba.Name;
+                            string[] datumIvreme = pojedinacanPregled[0].Split(" ".ToCharArray());
+                            sviPreglediMogLekaraZaIzvestaj = sviPreglediMogLekaraZaIzvestaj + "Dana - " + datumIvreme[0] + " u " + datumIvreme[1] + "h. "
+                                + "Tip pregleda - " + tipPregleda + ". Pacijent - " + imePacijenta + " " + prezimePacijenta + " u sobi - " + nazivSobe + "." + Environment.NewLine;
+                        } 
+                    }
+                }
+                PdfDocument document = new PdfDocument();
+                PdfPage page = document.Pages.Add();
+                PdfGraphics graphics = page.Graphics;
+                PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                graphics.DrawString(sviPreglediMogLekaraZaIzvestaj, font, PdfBrushes.Black, new PointF(0, 0));
+                document.Save("Izvestaj.pdf");
+            }
         }
     }
 }

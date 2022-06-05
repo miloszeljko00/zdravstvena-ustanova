@@ -1,20 +1,20 @@
 ﻿using zdravstvena_ustanova.Model;
-using System;
-using zdravstvena_ustanova.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using zdravstvena_ustanova.Repository.RepositoryInterface;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Service
 {
-    public class MedicationService
+    public class MedicationService : IMedicationService
     {
-        private readonly MedicationRepository _medicationRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private readonly MedicationTypeRepository _medicationTypeRepository;
+        private readonly IMedicationRepository _medicationRepository;
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMedicationTypeRepository _medicationTypeRepository;
 
 
-        public MedicationService(MedicationRepository medicationRepository, IngredientRepository ingredientRepository,
-            MedicationTypeRepository medicationTypeRepository)
+        public MedicationService(IMedicationRepository medicationRepository, IIngredientRepository ingredientRepository,
+            IMedicationTypeRepository medicationTypeRepository)
         {
             _medicationRepository = medicationRepository;
             _ingredientRepository = ingredientRepository;
@@ -55,7 +55,7 @@ namespace zdravstvena_ustanova.Service
             }
         }
 
-        public Medication GetById(long id)
+        public Medication Get(long id)
         {
             var medication = _medicationRepository.Get(id);
             var ingredients = _ingredientRepository.GetAll();
@@ -93,18 +93,24 @@ namespace zdravstvena_ustanova.Service
             {
                 if (medicationIngredient.Id == -1)
                 {
-                    foreach (var ingredient in ingredients)
-                    {
-                        if (ingredient.Name == medicationIngredient.Name)
-                        {
-                            medicationIngredient.Id = ingredient.Id;
-                        }
-                    }
+                    FindIdByName(ingredients, medicationIngredient);
                 }
                 
             }
             return _medicationRepository.Update(medication);
         }
+
+        private static void FindIdByName(IEnumerable<Ingredient> ingredients, Ingredient medicationIngredient)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                if (ingredient.Name == medicationIngredient.Name)
+                {
+                    medicationIngredient.Id = ingredient.Id;
+                }
+            }
+        }
+
         public bool Delete(long medicationId)
         {
             return _medicationRepository.Delete(medicationId);

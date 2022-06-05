@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
     using zdravstvena_ustanova.Model;
 using zdravstvena_ustanova.Model.Enums;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class MedicationApprovalRequestController
     {
-        private readonly MedicationApprovalRequestService _medicationApprovalRequestService;
+        private readonly IMedicationApprovalRequestService _medicationApprovalRequestService;
 
-        public MedicationApprovalRequestController(MedicationApprovalRequestService medicationApprovalRequestService)
+        public MedicationApprovalRequestController(IMedicationApprovalRequestService medicationApprovalRequestService)
         {
             _medicationApprovalRequestService = medicationApprovalRequestService;
         }
@@ -28,7 +29,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public MedicationApprovalRequest GetById(long id)
         {
-            return _medicationApprovalRequestService.GetById(id);
+            return _medicationApprovalRequestService.Get(id);
         }
         public MedicationApprovalRequest Create(MedicationApprovalRequest medicationApprovalRequest)
         {

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
     public class AccountController
     {
-        private readonly AccountService _accountService;
+        private readonly IAccountService _accountService;
 
-        public AccountController(AccountService accountService)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
         }
@@ -23,7 +24,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Account GetById(long Id)
         {
-            return _accountService.GetById(Id);
+            return _accountService.Get(Id);
         }
 
         public Account Create(Account account)

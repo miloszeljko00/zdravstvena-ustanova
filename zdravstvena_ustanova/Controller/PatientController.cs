@@ -2,14 +2,15 @@ using System;
 using zdravstvena_ustanova.Service;
 using zdravstvena_ustanova.Model;
 using System.Collections.Generic;
+using zdravstvena_ustanova.Service.ServiceInterface;
 
 namespace zdravstvena_ustanova.Controller
 {
    public class PatientController
    {
-        private readonly PatientService _patientService;
+        private readonly IPatientService _patientService;
 
-        public PatientController(PatientService patientService)
+        public PatientController(IPatientService patientService)
         {
             _patientService = patientService;
         }
@@ -20,7 +21,7 @@ namespace zdravstvena_ustanova.Controller
         }
         public Patient GetById(long id)
         {
-            return _patientService.GetById(id);
+            return _patientService.Get(id);
         }
 
         public Patient Create(Patient patient)
