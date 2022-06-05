@@ -36,6 +36,10 @@ namespace zdravstvena_ustanova.Repository
                 .ToList();
         }
 
+        public string[] GetAllAppointmentsAsStringArray()  
+        {
+            return File.ReadAllLines(_path);
+        }
         public ScheduledAppointment Get(long id)
         {
             try

@@ -62,59 +62,9 @@ namespace zdravstvena_ustanova.Controller
             _scheduledAppointmentService.Delete(scheduledAppointmentId);
         }
 
-
-        public List<string> GetAppropriateTimes(DateTime dateTime, long doctorId,long patientId, long roomId, int shift)
+        public string[] GetAllAppointmentsAsStringArray()
         {
-            string[] times = {"08:00", "09:00", "10:00", "11:00", "12:00",
-                                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
-            
-
-            var _scheduledAppointments = _scheduledAppointmentService.GetAllUnbound();
-            foreach(ScheduledAppointment sa in _scheduledAppointments)
-            {
-                if(sa.Start.Date == dateTime)
-                {
-                    if(sa.Doctor.Id == doctorId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                        continue;
-                    }
-                    if(sa.Room.Id == roomId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                        continue;
-                    }
-                    if(sa.Patient.Id == patientId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                    }
-                }
-            }
-            List<string> t = new List<string>();
-            for (int i=0; i<14; i++)
-            {
-                
-                if(doctorId != -1 && shift == 1)
-                {
-                    if (i >= 7)
-                        break;
-                }
-                else if(doctorId != -1 && shift == 2)
-                {
-                    if (i < 7)
-                        continue;
-                }
-                if (String.Compare(times[i], "-1") != 0)
-                    
-                    t.Add(times[i]);
-            }
-            return t;
+            return _scheduledAppointmentService.GetAllAppointmentsAsStringArray();
         }
         public bool ValidateTime(DateTime selectedDate)
         {
@@ -147,6 +97,21 @@ namespace zdravstvena_ustanova.Controller
                 return false;
             }
             return true;
+        }
+
+        public IEnumerable<Account> GetBusyDoctors(Meeting meeting)
+        {
+            return _scheduledAppointmentService.GetBusyDoctors(meeting);
+        }
+
+        public IEnumerable<string> GetPossibleHoursForNewAppointment(DateTime dateTime, Doctor doctor, Patient patient, Room room)
+        {
+            return _scheduledAppointmentService.GetPossibleHoursForNewAppointment(dateTime, doctor, patient, room);
+        }
+
+        public DateTime FindFirstFreeAppointment(ScheduledAppointment scheduledAppointment, DateTime today)
+        {
+            return _scheduledAppointmentService.FindFirstFreeAppointment(scheduledAppointment, today);
         }
     }
 }

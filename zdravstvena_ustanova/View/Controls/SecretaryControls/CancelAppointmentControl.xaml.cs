@@ -128,7 +128,7 @@ namespace zdravstvena_ustanova.View.Controls.SecretaryControls
 
             ScheduledAppointments.Remove(appointment);
 
-            CollectionViewSource.GetDefaultView(AppointmentsDataGrid.ItemsSource).Refresh();
+           // CollectionViewSource.GetDefaultView(AppointmentsDataGrid.ItemsSource).Refresh();
 
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;

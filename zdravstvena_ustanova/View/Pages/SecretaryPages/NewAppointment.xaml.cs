@@ -30,8 +30,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         public ObservableCollection<Room> Rooms { get; set; }
 
-        public ObservableCollection<string> Times { get; set; }
-
         public ObservableCollection<Doctor> Doctors { get; set; }
 
         public ObservableCollection<Patient> Patients { get; set; }
@@ -127,29 +125,27 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         private void doctorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             valiDate.Text = "";
-           // if (roomCB.SelectedItem == null)
-             //   return;
+            
             var app = Application.Current as App;
+
+            var d = doctorCB.SelectedItem as Doctor;
+            if (d == null)
+            {
+                return;
+            }
+
             var r = roomCB.SelectedItem as Room;
             long roomId = -1;
             if (r != null)
                 roomId = r.Id;
-            var d = doctorCB.SelectedItem as Doctor;
-            long doctorId = -1;
-            int shift = 0;
-            if (d != null)
-            {
-                doctorId = d.Id;
-                shift = (int)d.Shift + 1;
-            }
 
-                
             var p = patientCB.SelectedItem as Patient;
             long patientId = -1;
             if (p != null)
                 patientId = p.Id;
-            List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
-            timeCB.ItemsSource = times;
+            //List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment((DateTime)dateDP.SelectedDate, d, new Patient(patientId), new Room(roomId));
+            //timeCB.ItemsSource = times;
         }
 
         private void dateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -171,19 +167,18 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             if (r != null)
                 roomId = r.Id;
             var d = doctorCB.SelectedItem as Doctor;
-            long doctorId = -1;
-            int shift = 0;
-            if (d != null)
+            
+            if (d == null)
             {
-                doctorId = d.Id;
-                shift = (int)d.Shift + 1;
+                return;
             }
             var p = patientCB.SelectedItem as Patient;
             long patientId = -1;
             if (p != null)
                 patientId = p.Id;
-            List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
-            timeCB.ItemsSource = times;
+            //List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
+            // timeCB.ItemsSource = times;
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment((DateTime)dateDP.SelectedDate, d, new Patient(patientId), new Room(roomId));
 
         }
 
@@ -198,12 +193,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             if (r != null)
                 roomId = r.Id;
             var d = doctorCB.SelectedItem as Doctor;
-            long doctorId = -1;
-            int shift = 0;
-            if (d != null)
+            if (d == null)
             {
-                doctorId = d.Id;
-                shift = (int)d.Shift + 1;
+                return;
             }
             var p = patientCB.SelectedItem as Patient;
             long patientId = -1;
@@ -212,8 +204,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
             //if(dateDP.SelectedDate == null)
              //   dateDP.SelectedDate = DateTime.Today;
-            List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
-            timeCB.ItemsSource = times;
+           // List<string> times = GetAppropriateTimes((DateTime)dateDP.SelectedDate, doctorId, patientId, roomId, shift);
+           // timeCB.ItemsSource = times;
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment((DateTime)dateDP.SelectedDate, d, new Patient(patientId), new Room(roomId));
         }
 
 
@@ -291,60 +284,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         }
 
-        public List<string> GetAppropriateTimes(DateTime dateTime, long doctorId, long patientId, long roomId, int shift)
-        {
-            var app = Application.Current as App;
-
-            string[] times = {"08:00", "09:00", "10:00", "11:00", "12:00",
-                                "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" };
-
-
-            //var _scheduledAppointments = app.ScheduledAppointmentController.GetAllUnbound();
-            foreach (ScheduledAppointment sa in ScheduledAppointments)
-            {
-                if (sa.Start.Date == dateTime)
-                {
-                    if (sa.Doctor.Id == doctorId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                        continue;
-                    }
-                    if (sa.Room.Id == roomId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                        continue;
-                    }
-                    if (sa.Patient.Id == patientId)
-                    {
-                        int time = sa.Start.Hour;
-                        time -= 8;
-                        times[time] = "-1";
-                    }
-                }
-            }
-            List<string> t = new List<string>();
-            for (int i = 0; i < 14; i++)
-            {
-
-                if (doctorId != -1 && shift == 1)
-                {
-                    if (i >= 7)
-                        break;
-                }
-                else if (doctorId != -1 && shift == 2)
-                {
-                    if (i < 7)
-                        continue;
-                }
-                if (String.Compare(times[i], "-1") != 0)
-
-                    t.Add(times[i]);
-            }
-            return t;
-        }
+       
     }
 }

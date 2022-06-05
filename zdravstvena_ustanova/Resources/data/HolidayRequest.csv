@@ -1,5 +1,1 @@
-1;Godisnji odmor;01.06.2022. 00:00;04.06.2022. 00:00;1;True;1;
-2;Porodicne obaveze;01.06.2022. 00:00;04.06.2022. 00:00;2;True;1;Previse odsutnih lekara
-3;;02.06.2022. 00:00;03.06.2022. 00:00;2;True;1;Previse odsutnog osoblja
-4;;21.06.2022. 00:00;28.06.2022. 00:00;0;False;1;
-5;;08.07.2022. 00:00;27.07.2022. 00:00;0;True;1;
+1;CauseOfRequest;20.06.2022. 00:00;25.06.2022. 00:00;2;False;1;ReasonForDenial

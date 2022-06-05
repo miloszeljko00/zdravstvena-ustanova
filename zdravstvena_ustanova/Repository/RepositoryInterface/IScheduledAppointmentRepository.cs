@@ -4,5 +4,5 @@ namespace zdravstvena_ustanova.Repository.RepositoryInterface;
 
 public interface IScheduledAppointmentRepository : IRepository<ScheduledAppointment>
 {
-    
+    public string[] GetAllAppointmentsAsStringArray();
 }

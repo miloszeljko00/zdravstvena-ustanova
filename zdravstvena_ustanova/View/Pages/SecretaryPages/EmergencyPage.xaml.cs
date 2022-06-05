@@ -82,60 +82,21 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         private void createMovableAppointments()
         {
+            var app = Application.Current as App;
             DateTime today = DateTime.Now;
             today = today.AddMinutes(-today.Minute);
             today = today.AddHours(1);
             today = today.AddSeconds(-today.Second);
-            // today = today.AddMilliseconds(-today.Millisecond);
+            DateTime today1 = new DateTime(today.Year, today.Month, today.Day, today.Hour, 0, 0);
             foreach (ScheduledAppointment sa in ScheduledAppointments)
             {
                 if (DateTime.Compare(sa.Start.Date, today.Date) != 0 || sa.Start.Hour != today.Hour)
                     continue;
-                var nextTime = findNextTime(sa, today);
+                var nextTime = app.ScheduledAppointmentController.FindFirstFreeAppointment(sa, today1);
                 MovableAppointments.Add(new MovableAppointment(sa, nextTime));
             }
         }
 
-        private DateTime findNextTime(ScheduledAppointment sa, DateTime today)
-        {
-            //;
-            DateTime ret = today;
-            while(true)
-            {
-                bool find = true;
-                if (today.Hour == 22) { today = today.AddDays(1); today = today.AddHours(-14); }
-                /*if(ScheduledAppointments.Where(i => i.Doctor.Id == sa.Doctor.Id && i.Start.Date == sa.Start.Date && i.Start.Hour == sa.Start.Hour).Single()==null)
-                {
-                    ret = today;
-                    break;
-                }*/
-                foreach(ScheduledAppointment scheduledAppointment in ScheduledAppointments)
-                {
-                    if (scheduledAppointment.Start.Date != today.Date || today.Hour != scheduledAppointment.Start.Hour)
-                        continue;
-                    if (scheduledAppointment.Doctor.Id == sa.Doctor.Id)
-                    {
-                        find = false;
-                        break;
-                    }
-                    if (scheduledAppointment.Room.Id == sa.Room.Id)
-                    {
-                        find = false;
-                        break;
-                    }
-
-                }
-                if(find)
-                {
-                    ret = today;
-                    break;
-                }
-
-                today = today.AddHours(1);
-
-            }
-            return ret;
-        }
 
         private void Guest_Checked(object sender, RoutedEventArgs e)
         {
@@ -189,7 +150,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             today = today.AddSeconds(-today.Second);
             today = today.AddMilliseconds(-today.Millisecond);
 
-            //collection.Remove(collection.Where(i => i.Id == instance.Id).Single());
             foreach (Doctor d in doctors0)
             {
                 if (d.Specialty.Id != (long)specialtyCB.SelectedValue)
@@ -226,7 +186,6 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 appointmentTB.Text = "Nema slobodnih termina";
                 dataGridScheduledAppointments.IsEnabled = true;
             }
-                
 
             else
             {
@@ -238,12 +197,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
                 EmergencyAppointment.Doctor = Doctors.First();
                 EmergencyAppointment.Room = Rooms.First();
             }
-                //appointmentTB.Text = "Hitan slucaj resava doktor " + Doctors.First().Name +" " + Doctors.First().Surname + " u sobi "////
-                                 //   + Rooms.First().Name;
-
+                
             Doctors = new ObservableCollection<Doctor>(app.DoctorController.GetAll());
             Rooms = new ObservableCollection<Room>(app.RoomController.GetAll());
-            
         }
 
         private void Save_MouseDown(object sender, MouseButtonEventArgs e)

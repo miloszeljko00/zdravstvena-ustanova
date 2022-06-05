@@ -221,7 +221,7 @@ namespace zdravstvena_ustanova
             var antiTrollMechanismService = new AntiTrollMechanismService(antiTrollMechanismRepository, patientRepository);
             var noteService = new NoteService(noteRepository, patientRepository);
 
-            var meetingService = new MeetingService(meetingRepository, accountRepository);
+            var meetingService = new MeetingService(meetingRepository, accountRepository, roomRepository);
 
 
 

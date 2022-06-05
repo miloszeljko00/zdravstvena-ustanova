@@ -20,10 +20,12 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     /// </summary>
     public partial class HolidayRequestStatusReviewWindow : Window
     {
-        public HolidayRequestStatusReviewWindow(HolidayRequest holidayRequest)
+        public HolidayRequestsReviewWindow HolidayRequestsReviewWindow { get; set; }
+        public HolidayRequestStatusReviewWindow(HolidayRequest holidayRequest, HolidayRequestsReviewWindow holidayRequestsReviewWindow)
         {
             InitializeComponent();
             DataContext = this;
+            HolidayRequestsReviewWindow = holidayRequestsReviewWindow;
             ReasonForDenialTextBox.Text = holidayRequest.ReasonForDenial;
             StartDateDatePicker.SelectedDate = holidayRequest.StartDate;
             StartDateDatePicker.IsEnabled = false;
@@ -36,7 +38,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)

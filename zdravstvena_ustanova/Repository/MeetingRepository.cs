@@ -102,7 +102,10 @@ namespace zdravstvena_ustanova.Repository
             string participants = "";
             for (int i = 0; i < count; i++)
             {
-                participants = string.Join(_delimiter, participants, meeting.Participants[i].Id);
+                if (i == 0)
+                    participants = meeting.Participants[i].Id.ToString();
+                else
+                    participants = string.Join(_delimiter, participants, meeting.Participants[i].Id);
             }
             return string.Join(_delimiter,
                 meeting.Id,
@@ -129,7 +132,7 @@ namespace zdravstvena_ustanova.Repository
             var tokens = meetingCSVFormat.Split(_delimiter.ToCharArray());
 
             List<Account> participants = new List<Account>();
-            for (int i = 5; i < 5 + int.Parse(tokens[3]); i++)
+            for (int i = 5; i < 5 + int.Parse(tokens[4]); i++)
             {
                 var participant = new Account(int.Parse(tokens[i]));
                 participants.Add(participant);

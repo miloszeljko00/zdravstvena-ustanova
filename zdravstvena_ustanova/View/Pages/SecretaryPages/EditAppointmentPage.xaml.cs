@@ -82,7 +82,8 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             };
             roomCB.ItemsSource = RoomView;
             roomCB.SelectedValue = _scheduledAppointment.Room.Id;
-            timeCB.ItemsSource = app.ScheduledAppointmentController.GetAppropriateTimes(_scheduledAppointment.Start.Date, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, _scheduledAppointment.Room.Id, (int)_scheduledAppointment.Doctor.Shift + 1);
+            //timeCB.ItemsSource = app.ScheduledAppointmentController.GetAppropriateTimes(_scheduledAppointment.Start.Date, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, _scheduledAppointment.Room.Id, (int)_scheduledAppointment.Doctor.Shift + 1);
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment(_scheduledAppointment.Start.Date, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, _scheduledAppointment.Room);
         }
 
         public void dateDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -100,8 +101,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             long roomId = -1;
             if (r != null)
                 roomId = r.Id;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
-            timeCB.ItemsSource = times;
+           // List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
+           // timeCB.ItemsSource = times;
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, new Room(roomId));
         }
 
         private void roomCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -111,8 +113,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             long roomId = -1;
             if (r != null)
                 roomId = r.Id;
-            List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
-            timeCB.ItemsSource = times;
+            //List<string> times = app.ScheduledAppointmentController.GetAppropriateTimes((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor.Id, _scheduledAppointment.Patient.Id, roomId, (int)_scheduledAppointment.Doctor.Shift + 1);
+            //timeCB.ItemsSource = times;
+            timeCB.ItemsSource = app.ScheduledAppointmentController.GetPossibleHoursForNewAppointment((DateTime)dateDP.SelectedDate, _scheduledAppointment.Doctor, _scheduledAppointment.Patient, new Room(roomId));
         }
 
         private void Save_MouseDown(object sender, MouseButtonEventArgs e)
