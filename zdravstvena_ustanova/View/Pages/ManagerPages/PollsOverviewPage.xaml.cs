@@ -54,22 +54,40 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void DeleteSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void EditSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void AddSurveyIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            return;
+        }
+
+        private void SurveysDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SurveysDataGrid.SelectedItem == null)
+            {
+                DeleteIcon.IsEnabled = false;
+                EditIcon.IsEnabled = false;
+                SurveyResultsButton.IsEnabled = false;
+                ListOfQuestionsButton.IsEnabled = false;
+            }
+            else
+            {
+                DeleteIcon.IsEnabled = true;
+                EditIcon.IsEnabled = true;
+                SurveyResultsButton.IsEnabled = true;
+                ListOfQuestionsButton.IsEnabled = true;
+            }
         }
     }
 }

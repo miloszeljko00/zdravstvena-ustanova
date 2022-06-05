@@ -40,7 +40,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 if (value != _responseMessage)
                 {
                     _responseMessage = value;
-                    OnPropertyChanged("RequestMessage");
+                    OnPropertyChanged("ResponseMessage");
                 }
             }
         }
@@ -81,7 +81,14 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         {
             Ingredients.Clear();
             var medicationApprovalRequest = (MedicationApprovalRequest)FinishedMedicationApprovalRequestsDataGrid.SelectedItem;
-            if (medicationApprovalRequest == null) return;
+            if (medicationApprovalRequest == null)
+            {
+                EditMedicationButton.IsEnabled = false;
+                RequestApprovalAgainButton.IsEnabled = false;
+                return;
+            }
+            EditMedicationButton.IsEnabled = true;
+            RequestApprovalAgainButton.IsEnabled = true;
             foreach (var ingredient in medicationApprovalRequest.Medication.Ingredients)
             {
                 Ingredients.Add(ingredient);

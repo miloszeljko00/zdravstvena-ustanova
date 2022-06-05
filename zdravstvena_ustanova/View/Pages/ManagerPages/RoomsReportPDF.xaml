@@ -13,34 +13,34 @@
         <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,60,20,20">
             <WrapPanel Margin="20,20,20,20">
                 <Image Source="/Resources/img/slikaUstanove.png" Width="200"></Image>
-                <Label FontSize="40" Margin="100,0,0,0" Content="Zdravo korporacija" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <TextBlock FontSize="40" Margin="100,0,0,0" Text="Zdravo korporacija" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
              </WrapPanel>
             </Border>
         <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,20,20,20">
             <StackPanel Margin="20,20,20,20" Height="270">
                 <WrapPanel Margin="10,0,10,0">
-                    <Label VerticalContentAlignment="Center" FontSize="18" Width="250" Content="Od:"></Label>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Od:"></TextBlock>
                     <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                 </WrapPanel>
                 <WrapPanel Margin="10,0,10,0">
-                    <Label VerticalContentAlignment="Center" FontSize="18" Width="250" Content="Do:"></Label>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Do:"></TextBlock>
                     <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                 </WrapPanel>
                 <StackPanel Margin="10,20,10,0">
                     <WrapPanel>
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Prostorija:"></Label>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Prostorija:"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding Room.Name}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,30,0,0">
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Broj rezervisanih termina:"></Label>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Broj rezervisanih termina:"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding TotalNumberOfAppointments}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,0,0,0">
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Prosečno sati dnevno:"></Label>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Prosečno sati dnevno:"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding AvgHoursDaily, StringFormat=N2}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,20,0,0">
-                        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Content="Najfrekventniji dan:"></Label>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Najfrekventniji dan:"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="250" Text="{Binding MostFrequentDay}"></TextBlock>
                     </WrapPanel>
                 </StackPanel>

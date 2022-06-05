@@ -21,8 +21,8 @@
                                     <VisualBrush Visual="{Binding ElementName=border}" />
                                 </Grid.OpacityMask>
                                 <Border
-                                    x:Name="border"
-                                    Background="White"
+                                    Name="border"
+                                    Background ="Gray"
                                     CornerRadius="5" />
                                 <ContentControl Content="{TemplateBinding Content}" />
                             </Grid>
@@ -30,7 +30,7 @@
                                 <DropShadowEffect
                                     BlurRadius="10"
                                     ShadowDepth="10"
-                                    Color="Gray" />
+                                    Color="Black" />
                             </Border.Effect>
                         </Border>
                     </Grid>

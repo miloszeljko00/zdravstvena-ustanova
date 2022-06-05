@@ -114,5 +114,19 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             MainWindow.Modal.Content = new ScheduleItemTransferFromWarehouse(Warehouse, WarehouseItemsDataGrid);
             MainWindow.Modal.IsOpen = true;
         }
+
+        private void WarehouseItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (WarehouseItemsDataGrid.SelectedItem == null)
+            {
+                ScheduleItemTransferButton.IsEnabled = false;
+                RemoveItemIcon.IsEnabled = false;
+            }
+            else
+            {
+                ScheduleItemTransferButton.IsEnabled = true;
+                RemoveItemIcon.IsEnabled = true;
+            }
+        }
     }
 }

@@ -15,16 +15,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Label FontSize="40" Margin="15,0,0,0" Width="300" Content="Premeštanja"></Label>
-            <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="195,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center">
+            <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="Premeštanja"></Label>
+            <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="210,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
                 </TextBox.Background>
 
             </TextBox>
-            <Button x:Name="RescheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Content="Izaberi novi datum" Cursor="Hand" Click="RescheduleNewDateButton_Click"></Button>
-            
-            <Button x:Name="UnscheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Cursor="Hand" Click="UnscheduleNewDateButton_Click">
+            <Button IsEnabled="False" x:Name="RescheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Content="Izaberi novi datum" Cursor="Hand" Click="RescheduleNewDateButton_Click"></Button>
+
+            <Button IsEnabled="False" x:Name="UnscheduleNewDateButton" Width="150" Height="48" Margin="20,0,0,0" FontSize="14" Cursor="Hand" Click="UnscheduleNewDateButton_Click">
                 <WrapPanel HorizontalAlignment="Center">
                     <Image Source="/Resources/img/delete-icon.png" Width="24" Height="24" Margin="-5,0,0,0"></Image>
                     <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Margin="5,0,0,0">Otkaži</TextBlock>
@@ -34,15 +34,17 @@
 
 
         </StackPanel>
-        <DataGrid x:Name="ItemTransfersDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Predmet" Binding="{Binding ScheduledItemTransfer.Item.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Količina" Binding="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Iz prostorije" Binding="{Binding SourceStorageName}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="U prostoriju" Binding="{Binding DestinationStorageName}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum premeštanja" Binding="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
+                <DataGrid x:Name="ItemTransfersDataGrid" ItemsSource="{Binding ItemTransferViewModels}" IsReadOnly="True" SelectionMode="Single" 
+                          AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ItemTransfersDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Predmet" Binding="{Binding ScheduledItemTransfer.Item.Name}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Količina" Binding="{Binding ScheduledItemTransfer.ItemsForTransfer}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Iz prostorije" Binding="{Binding SourceStorageName}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="U prostoriju" Binding="{Binding DestinationStorageName}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Datum premeštanja" Binding="{Binding ScheduledItemTransfer.TransferDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
     </Grid>
 </Page>

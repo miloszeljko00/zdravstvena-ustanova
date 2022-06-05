@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button x:Name="InventoryOverviewButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="InventoryOverviewButton_Click">Pregled inventara</Button>
+            <Button IsEnabled="False" x:Name="InventoryOverviewButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="InventoryOverviewButton_Click">Pregled inventara</Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="500,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -23,7 +23,7 @@
 
             </TextBox>
 
-            <Image Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteRoomIcon_MouseDown">
+            <Image IsEnabled="False" Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteRoomIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -38,7 +38,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditRoomIcon_MouseDown">
+            <Image IsEnabled="False" Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditRoomIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -69,8 +69,10 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <Border Margin="0, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1">
+
+<DataGrid x:Name="RoomsDataGrid" ItemsSource="{Binding Rooms}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="RoomsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Prostorija" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
@@ -99,5 +101,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+            </Border>
     </Grid>
 </Page>

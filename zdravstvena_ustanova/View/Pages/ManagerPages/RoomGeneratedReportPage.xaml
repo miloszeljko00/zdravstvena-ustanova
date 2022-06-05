@@ -27,7 +27,7 @@
         </WrapPanel>
         
         <WrapPanel Grid.Row="1">
-            <Border Margin="80, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="750" Height="450">
+            <Border Margin="80, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="750" Height="450">
                 <wpf:CartesianChart Width="746" Height="446" Name="AppointmentsChart">
                     <wpf:CartesianChart.Series>
                         <wpf:ColumnSeries Title="Zakazanih termina" Values="{Binding NumberOfAppointments}"/>
@@ -48,8 +48,8 @@
                     </wpf:CartesianChart.AxisY>
                 </wpf:CartesianChart>
             </Border>
-            <Border Margin="30, 0, 0, 0" BorderBrush="Gray" BorderThickness="2px" Width="350" Height="450" Grid.Row="1">
-                <StackPanel Width="346" Height="446" Background="LightGray">
+            <Border Margin="30, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="350" Height="450" Grid.Row="1">
+                <StackPanel Width="346" Height="446" >
                     <WrapPanel Margin="10,30,10,0">
                         <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
                         <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="258" Text="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
