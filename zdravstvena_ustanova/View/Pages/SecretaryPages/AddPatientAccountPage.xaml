@@ -21,31 +21,36 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBox x:Name= "usernameTB" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" TextAlignment="Left" HorizontalAlignment="Center"/>
-        <TextBox x:Name ="passwordTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <TextBox x:Name ="jmbgTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Row="1"/>
-        <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="59,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Grid.Column="1" Content="Lozinka:" HorizontalAlignment="Left" Margin="89,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Label Grid.Column="2" Content="JMBG:" HorizontalAlignment="Center" Margin="0,65,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="nameTB" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="117,65,0,0"/>
-        <TextBox x:Name ="surnameTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="1" Content="Prezime" HorizontalAlignment="Left" Margin="89,65,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
-        <Button Grid.Column="3" Content="dodaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Click="Button_Click" Margin="0,111,0,0"/>
-        <TextBox x:Name ="emailTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="2" Content="E-mail:" HorizontalAlignment="Left" Margin="92,95,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="phoneTB" Grid.Column="3" HorizontalAlignment="Center" Margin="0,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="3" Content="Broj telefona:" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <DatePicker x:Name ="dateDP" Grid.Column="3" HorizontalAlignment="Left" Margin="36,116,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Visibility="Visible" Width="200"/>
-        <Label Grid.Column="3" Content="Datum rodjenja" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,61,0,0"/>
-        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
-        <Label Content="Ulica i broj:" HorizontalAlignment="Left" Margin="73,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
-        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Left" Margin="80,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
-        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
-        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="80,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name= "usernameTB" Margin="0,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" TextAlignment="Left" HorizontalAlignment="Center"/>
+        <TextBox x:Name ="passwordTB" Grid.Column="1" HorizontalAlignment="Center" Margin="0,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <TextBox x:Name ="jmbgTB" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Grid.Row="1" Margin="0,77,0,0"/>
+        <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="59,52,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="1" Content="Lozinka:" HorizontalAlignment="Left" Margin="89,46,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="2" Content="JMBG:" HorizontalAlignment="Center" Margin="0,26,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="nameTB" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Margin="0,77,0,0"/>
+        <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="117,17,0,0"/>
+        <TextBox x:Name ="surnameTB" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24" Margin="0,77,0,0"/>
+        <Label Grid.Column="1" Content="Prezime" HorizontalAlignment="Left" Margin="89,20,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Button Grid.Column="3" Content="dodaj" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Width="140" Height="45" Click="Button_Click" Margin="0,78,0,0"/>
+        <TextBox x:Name ="emailTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="2" Content="E-mail:" HorizontalAlignment="Left" Margin="92,43,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="phoneTB" Grid.Column="3" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="3" Content="Broj telefona:" HorizontalAlignment="Left" Margin="50,45,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <DatePicker x:Name ="dateDP" Grid.Column="3" HorizontalAlignment="Left" Margin="36,80,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Visibility="Visible" Width="200"/>
+        <Label Grid.Column="3" Content="Datum rodjenja" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Margin="0,28,0,0"/>
+        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="14,54,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="24"/>
+        <Label Content="Ulica i broj:" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="numTB" HorizontalAlignment="Left" Margin="199,54,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="24"/>
+        <TextBox x:Name="cityTB" Grid.Column="1" HorizontalAlignment="Left" Margin="20,54,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="1" Content="Grad:" HorizontalAlignment="Center" Margin="0,7,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="countryTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,54,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="24"/>
+        <Label Grid.Column="2" Content="Drzava:" HorizontalAlignment="Left" Margin="79,3,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="80" Grid.Row="3" VerticalAlignment="Top" Width="80" Source="/Resources/img/save-icon.png" Margin="145,2,0,0"/>
+        <Image Grid.Column="2" HorizontalAlignment="Left" Height="80" Margin="18,9,0,0" Grid.Row="3" VerticalAlignment="Top" Width="80" Source="/Resources/img/icons8-back.png"/>
+        <Label Grid.Column="1" Content="Sačuvaj" HorizontalAlignment="Left" Margin="143,71,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="2" Content="Nazad" HorizontalAlignment="Left" Margin="25,71,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="24"/>
 
     </Grid>
 </Page>

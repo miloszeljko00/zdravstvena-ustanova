@@ -109,9 +109,19 @@ namespace zdravstvena_ustanova.Controller
             return _scheduledAppointmentService.GetPossibleHoursForNewAppointment(dateTime, doctor, patient, room);
         }
 
-        public DateTime FindFirstFreeAppointment(ScheduledAppointment scheduledAppointment, DateTime today)
+        public DateTime FindFirstFreeAppointmentTime(ScheduledAppointment scheduledAppointment, DateTime today)
         {
-            return _scheduledAppointmentService.FindFirstFreeAppointment(scheduledAppointment, today);
+            return _scheduledAppointmentService.FindFirstFreeAppointmentTime(scheduledAppointment, today);
+        }
+
+        public IEnumerable<ScheduledAppointment> GetFromToDatesForDoctor(DateTime start, DateTime end, long doctorId)
+        {
+            return _scheduledAppointmentService.GetFromToDatesForDoctor(start, end, doctorId);
+        }
+
+        public IEnumerable<Doctor> FindReplacementDoctors(ScheduledAppointment _scheduledAppointment)
+        {
+            return _scheduledAppointmentService.FindReplacementDoctors(_scheduledAppointment);
         }
     }
 }

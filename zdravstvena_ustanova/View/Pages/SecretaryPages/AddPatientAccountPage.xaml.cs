@@ -57,17 +57,5 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         }
 
-        /* private void Button_Click(object sender, RoutedEventArgs e)
-         {
-             
-             double id = Convert.ToDouble(jmbgTB.Text);
-             string phone = phoneTB.Text;
-             string email = emailTB.Text;
-             
-             xt;
-             
-             //
-            
-         }*/
     }
 }

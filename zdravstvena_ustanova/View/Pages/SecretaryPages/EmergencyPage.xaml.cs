@@ -92,7 +92,7 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             {
                 if (DateTime.Compare(sa.Start.Date, today.Date) != 0 || sa.Start.Hour != today.Hour)
                     continue;
-                var nextTime = app.ScheduledAppointmentController.FindFirstFreeAppointment(sa, today1);
+                var nextTime = app.ScheduledAppointmentController.FindFirstFreeAppointmentTime(sa, today1);
                 MovableAppointments.Add(new MovableAppointment(sa, nextTime));
             }
         }

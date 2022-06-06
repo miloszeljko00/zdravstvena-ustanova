@@ -27,16 +27,18 @@
         <Label x:Name="startLBL" Content="Početak odsustva" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
         <Label x:Name="Opis" Content="Opis" HorizontalAlignment="Left" Margin="69,25,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
         <Label x:Name="Status" Grid.Column="1" Content="Status" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Grid.Row="1" Margin="0,52,0,0"/>
-        <Label Grid.Column="2" Content="Obrazlozenje" HorizontalAlignment="Left" Margin="100,30,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
+        <Label Grid.Column="2" Content="Obrazloženje" HorizontalAlignment="Left" Margin="100,30,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
         <TextBox x:Name="endTB" Grid.Column="2" HorizontalAlignment="Center" Margin="0,129,0,0" TextWrapping="Wrap" Text="Kraj odsustva" VerticalAlignment="Top" Width="260" FontSize="24" IsEnabled="False"/>
         <Label Grid.Column="2" Content="Kraj odsustva" HorizontalAlignment="Left" Margin="93,78,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Image x:Name="Save" HorizontalAlignment="Left" Height="85" Margin="86,16,0,0" Grid.Row="2" VerticalAlignment="Top" Width="85" Source="/Resources/img/save-icon.png" RenderTransformOrigin="0.109,0.284" Grid.Column="1" MouseDown="Save_MouseDown" />
         <Label Content="Sacuvaj" HorizontalAlignment="Left" Margin="82,92,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" Grid.Column="1"/>
         <Image x:Name="Back" Grid.Column="1" HorizontalAlignment="Left" Height="75" Margin="215,22,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Source="/Resources/img/icons8-back.png" MouseDown="Back_MouseDown" />
         <Label Grid.Column="1" Content="Nazad" HorizontalAlignment="Left" Margin="215,98,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="5.724,-1.815" FontSize="24"/>
-        <TextBlock x:Name="validate" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="24" Width="240" Foreground="#FFCC6C6C"/>
-        <TextBox x:Name="causeTB" HorizontalAlignment="Left" Margin="39,87,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="100" FontSize="24" IsEnabled="False"/>
+        <TextBox x:Name="causeTB" HorizontalAlignment="Left" Margin="39,81,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="100" FontSize="24" IsEnabled="False"/>
         <ComboBox x:Name="statusCB" Grid.Column="1" HorizontalAlignment="Left" Margin="58,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="240" FontSize="24"/>
         <TextBox x:Name="reasonTB" Grid.Column="2" HorizontalAlignment="Left" Margin="67,79,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="100" FontSize="24"/>
+        <TextBlock x:Name="appointmentsTB" HorizontalAlignment="Left" Margin="42,24,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Pregledi u periodu odsustva: " VerticalAlignment="Top" FontSize="20" Width="321" Grid.ColumnSpan="2"/>
+        <Button x:Name="change" Content="Izmeni" HorizontalAlignment="Left" Margin="124,64,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" Height="50" FontSize="20" Click="change_Click"/>
+        <Rectangle x:Name="rectangle" HorizontalAlignment="Center" Height="100" Margin="0,22,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="321"/>
     </Grid>
 </Page>
