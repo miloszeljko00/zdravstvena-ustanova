@@ -124,6 +124,12 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             if(busyDoctors.Count == 0)
             {
                 Meeting m = app.MeetingController.Create(meeting);
+                foreach(Account a in Participants)
+                {
+                    string message = "Sastanak " + m.Time.ToString() + " u prostoriji " + m.Room.Name + " na temu " + m.Topic;
+                    Notification n = new Notification(-1, a, message);
+                    app.NotificationController.Create(n);
+                }
                 _homePagePatients.SecretaryFrame.Content = new SchedulePage(_homePagePatients);
                 return;
             }

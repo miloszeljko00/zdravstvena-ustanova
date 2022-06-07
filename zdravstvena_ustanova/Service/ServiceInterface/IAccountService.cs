@@ -6,4 +6,6 @@ public interface IAccountService : IService<Account>
 {
     Person Login(string username, string password);
     bool IsUniqueUsername(string username);
+
+    Account FindAccountByDoctorId(long doctorId);
 }

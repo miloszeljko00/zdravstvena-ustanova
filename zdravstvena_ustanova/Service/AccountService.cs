@@ -100,7 +100,7 @@ namespace zdravstvena_ustanova.Service
             });
         }
 
-        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
+        private void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
             if (account.Person == null) return;
             switch(account.AccountType)
@@ -162,6 +162,22 @@ namespace zdravstvena_ustanova.Service
                     ret = false;
                     break;
                 }
+            }
+            return ret;
+        }
+
+        public Account FindAccountByDoctorId(long doctorId)
+        {
+            var accounts = GetAll();
+            Account ret = null;
+            foreach(Account a in accounts)
+            {
+                if (a.AccountType == AccountType.DOCTOR && a.Person.Id == doctorId)
+                {
+                    ret = a;
+                    break;
+                }
+
             }
             return ret;
         }

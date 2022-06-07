@@ -64,6 +64,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             holidayRequest.ReasonForDenial = reasonTB.Text;
             var app = Application.Current as App;
             app.HolidayRequestController.Update(holidayRequest);
+            Account doctorAccount = app.AccountController.FindAccountByDoctorId(holidayRequest.Doctor.Id);
+            Notification n = new Notification(-1, doctorAccount, "Status zahteva promenjen!");
+            app.NotificationController.Create(n);
             _homePagePatients.SecretaryFrame.Content = new HolidayRequestPage(_homePagePatients);
         }
 

@@ -58,6 +58,8 @@ namespace zdravstvena_ustanova
         private readonly string NOTE_FILE = ProjectPath + "\\Resources\\Data\\Note.csv";
         private readonly string MEETINGS_FILE = ProjectPath + "\\Resources\\Data\\Meetings.csv";
 
+        private readonly string NOTIFICATIONS_FILE = ProjectPath + "\\Resources\\Data\\Notifications.csv";
+
 
         public ItemController ItemController { get; set; }
         public ItemTypeController ItemTypeController { get; set; }
@@ -103,6 +105,8 @@ namespace zdravstvena_ustanova
         public NoteController NoteController { get; set; }
 
         public MeetingController MeetingController { get; set; }
+
+        public NotificationController NotificationController { get; set; }
 
 
         public Person? LoggedInUser { get; set; }
@@ -158,6 +162,7 @@ namespace zdravstvena_ustanova
             var antiTrollMechanismRepository = new AntiTrollMechanismRepository(ANTI_TROLL_FILE, CSV_DELIMITER);
             var noteRepository = new NoteRepository(NOTE_FILE, CSV_DELIMITER);
             var meetingRepository = new MeetingRepository(MEETINGS_FILE, CSV_DELIMITER);
+            var notificationRepository = new NotificationRepository(NOTIFICATIONS_FILE, CSV_DELIMITER);
 
 
 
@@ -222,7 +227,7 @@ namespace zdravstvena_ustanova
             var noteService = new NoteService(noteRepository, patientRepository);
 
             var meetingService = new MeetingService(meetingRepository, accountRepository, roomRepository);
-
+            var notificationService = new NotificationService(notificationRepository);
 
 
             ItemController = new ItemController(itemService);
@@ -269,6 +274,8 @@ namespace zdravstvena_ustanova
             AntiTrollMechanismController = new AntiTrollMechanismController(antiTrollMechanismService);
             NoteController = new NoteController(noteService);
             MeetingController = new MeetingController(meetingService);
+
+            NotificationController = new NotificationController(notificationService);
         }
 
         public void ChangeLanguage(string currLang)
