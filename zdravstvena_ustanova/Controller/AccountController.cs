@@ -55,5 +55,15 @@ namespace zdravstvena_ustanova.Controller
         {
             return _accountService.Login(username, password);
         }
+
+        public bool IsUniqueUsername(string username)
+        {
+            return _accountService.IsUniqueUsername(username);
+        }
+
+        public Account FindAccountByDoctorId(long doctorId)
+        {
+            return _accountService.FindAccountByDoctorId(doctorId);
+        }
     }
 }

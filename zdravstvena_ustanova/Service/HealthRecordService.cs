@@ -27,7 +27,7 @@ namespace zdravstvena_ustanova.Service
         private readonly IMedicationRepository _medicationRepository;
         private readonly IMedicationTypeRepository _medicationTypeRepository;
         public HealthRecordService(IHealthRecordRepository healthRecordRepository, IPatientRepository patientRepository,
-            IAllergensRepository allergensRepository, IAnamnesisRepository anamnesisRepository, 
+            IAllergensRepository allergensRepository, IAnamnesisRepository anamnesisRepository,
             ILabAnalysisRecordRepository labAnalysisRecordRepository, IHospitalizationRecordRepository hospitalizationRecordRepository,
             IPrescribedMedicineRepository prescribedMedicineRepository, IPatientDiseaseRepository patientDiseaseRepository,
             IPatientVaccinationRepository patientVaccinationRepository, IRoomRepository roomRepository, IAccountRepository accountRepository,
@@ -89,7 +89,7 @@ namespace zdravstvena_ustanova.Service
             var healthRecords = GetAll();
             List<Anamnesis> anamnesis = new List<Anamnesis>();
             foreach (HealthRecord hr in healthRecords)
-                if (hr.Patient.Id == patientId) 
+                if (hr.Patient.Id == patientId)
                 {
                     anamnesis = hr.Anamnesis;
                     break;
@@ -162,6 +162,7 @@ namespace zdravstvena_ustanova.Service
         }
         private void BindAllergensWithHealthRecord(IEnumerable<Allergens> allergens, HealthRecord healthRecord, IEnumerable<Ingredient> ingredients)
         {
+
             List<Allergens> allergensBinded = new List<Allergens>();
             foreach (Allergens a1 in healthRecord.Allergens)
             {
@@ -169,27 +170,11 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (a2.Id == a1.Id)
                     {
-                        allergensBinded.Add(a2);
+                        var allergen = BindAllergensWithIngredients(a2, ingredients);
+                        allergensBinded.Add(allergen);
                         break;
                     }
                 }
-            }
-            List<Ingredient> ingredientsBinded = new List<Ingredient>();
-            foreach (Allergens a3 in allergensBinded)
-            {
-                foreach (Ingredient i1 in a3.Ingredients)
-                {
-                    foreach (Ingredient i2 in ingredients)
-                    {
-                        if (i1.Id == i2.Id)
-                        {
-                            ingredientsBinded.Add(i2);
-                            break;
-                        }
-                    }
-                }
-                a3.Ingredients =new List<Ingredient>(ingredientsBinded);
-                ingredientsBinded.Clear();
             }
             healthRecord.Allergens = allergensBinded;
         }
@@ -233,26 +218,11 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (lar2.Id == lar1.Id)
                     {
-                        labAnalysisRecordsBinded.Add(lar2);
+                        var LabAnalysisRecord = BindLabAnlysisRecordWithComponents(lar2, labAnalysisComponents);
+                        labAnalysisRecordsBinded.Add(LabAnalysisRecord);
                         break;
                     }
                 }
-            }
-            List<LabAnalysisComponent> labAnalysisComponentsBinded = new List<LabAnalysisComponent>();
-            foreach(LabAnalysisRecord lar3 in labAnalysisRecordsBinded)
-            {
-                foreach(LabAnalysisComponent lac1 in lar3.LabAnalysisComponent)
-                {
-                    foreach(LabAnalysisComponent lac2 in labAnalysisComponents)
-                    {
-                        if(lac1.Id==lac2.Id)
-                        {
-                            labAnalysisComponentsBinded.Add(lac2);
-                        }
-                    }
-                }
-                lar3.LabAnalysisComponent=new List<LabAnalysisComponent>(labAnalysisComponentsBinded);
-                labAnalysisComponentsBinded.Clear();
             }
             healthRecord.LabAnalysisRecord = labAnalysisRecordsBinded;
         }
@@ -266,23 +236,12 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (hr2.Id == hr1.Id)
                     {
-                        hospitalizationRecordsBinded.Add(hr2);
+                        var hr3 = BindHospitalizationRecordWithRoom(hr2, rooms);
+                        hospitalizationRecordsBinded.Add(hr3);
                         break;
                     }
                 }
             }
-            foreach(HospitalizationRecord hr3 in hospitalizationRecordsBinded)
-            {
-                foreach(Room r in rooms)
-                {
-                    if(hr3.Room.Id==r.Id)
-                    {
-                        hr3.Room = r;
-                        break;
-                    }
-                }
-            }
-
             healthRecord.HospitalizationRecord = hospitalizationRecordsBinded;
         }
 
@@ -296,40 +255,14 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (pm2.Id == pm1.Id)
                     {
-                        prescribedMedicinesBinded.Add(pm2);
+                        var pm3 = BindPrescribedMedicineWithMedication(pm2, ingredients, medications);
+                        prescribedMedicinesBinded.Add(pm3);
                         break;
                     }
                 }
-            }
-            foreach(PrescribedMedicine pm3 in prescribedMedicinesBinded)
-            {
-                foreach(Medication m2 in medications)
-                {
-                    if(pm3.Medication.Id==m2.Id)
-                    {
-                        pm3.Medication = m2;
-                        break;
-                    }
-                }
-            }
-            List<Ingredient> ingredientsBinded = new List<Ingredient>();
-            foreach(PrescribedMedicine pm4 in prescribedMedicinesBinded)
-            {
-                foreach(Ingredient i1 in pm4.Medication.Ingredients)
-                {
-                    foreach(Ingredient i2 in ingredients)
-                    {
-                        if(i1.Id==i2.Id)
-                        {
-                            ingredientsBinded.Add(i2);
-                        }
-                    }
-                }
-                pm4.Medication.Ingredients =new List<Ingredient>(ingredientsBinded);
-                ingredientsBinded.Clear();
             }
 
-            healthRecord.PrescribedMedicine = prescribedMedicinesBinded;
+            healthRecord.PrescribedMedicine = new List<PrescribedMedicine>(prescribedMedicinesBinded);
         }
         private void BindPatientDiseasesWithHealthRecord(IEnumerable<PatientDisease> patientDiseases, HealthRecord healthRecord, IEnumerable<Disease> diseases)
         {
@@ -340,24 +273,14 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (pd2.Id == pd1.Id)
                     {
-                        patientDiseasesBinded.Add(pd2);
-                        break;
-                    }
-                }
-            }
-            foreach(PatientDisease pd3 in patientDiseasesBinded)
-            {
-                foreach(Disease d1 in diseases)
-                {
-                    if(pd3.Disease.Id==d1.Id)
-                    {
-                        pd3.Disease = d1;
+                        var patientDisease = BindPatientDiseaseWithDisease(pd2, diseases);
+                        patientDiseasesBinded.Add(patientDisease);
                         break;
                     }
                 }
             }
 
-            healthRecord.PatientDisease = patientDiseasesBinded;
+            healthRecord.PatientDisease = new List<PatientDisease>(patientDiseasesBinded);
         }
 
         private void BindPatientVaccinationsWithHealthRecord(IEnumerable<PatientVaccination> patientVaccinations, HealthRecord healthRecord, IEnumerable<Vaccine> vaccines)
@@ -369,23 +292,13 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (pv2.Id == pv1.Id)
                     {
-                        patientVaccinationsBinded.Add(pv2);
+                        var patientVaccination = BindPatientVacinationWIthVaccine(pv2, vaccines);
+                        patientVaccinationsBinded.Add(patientVaccination);
                         break;
                     }
                 }
             }
-            foreach(PatientVaccination pv3 in patientVaccinationsBinded)
-            {
-                foreach(Vaccine v1 in vaccines)
-                {
-                    if(pv3.Vaccine.Id==v1.Id)
-                    {
-                        pv3.Vaccine = v1;
-                        break;
-                    }
-                }
-            }
-            healthRecord.PatientVaccination = patientVaccinationsBinded;
+            healthRecord.PatientVaccination = new List<PatientVaccination>(patientVaccinationsBinded);
         }
 
         public HealthRecord Create(HealthRecord healthRecord)
@@ -408,7 +321,7 @@ namespace zdravstvena_ustanova.Service
             var ingredients = _ingredientRepository.GetAll();
             foreach (HealthRecord healthRecord in healthRecords)
             {
-                if(healthRecord.Patient.Id == patientId)
+                if (healthRecord.Patient.Id == patientId)
                 {
                     BindAllergensWithHealthRecord(allergens, healthRecord, ingredients);
                     return healthRecord;
@@ -417,5 +330,108 @@ namespace zdravstvena_ustanova.Service
             return null;
         }
 
+        private Allergens BindAllergensWithIngredients(Allergens allergen, IEnumerable<Ingredient> ingredients)
+        {
+            List<Ingredient> ingredientsBinded = new List<Ingredient>();
+            foreach (Ingredient i1 in allergen.Ingredients)
+            {
+                foreach (Ingredient i2 in ingredients)
+                {
+                    if (i1.Id == i2.Id)
+                    {
+                        ingredientsBinded.Add(i2);
+                        break;
+                    }
+                }
+            }
+            allergen.Ingredients = new List<Ingredient>(ingredientsBinded);
+            return allergen;
+        }
+
+        private LabAnalysisRecord BindLabAnlysisRecordWithComponents(LabAnalysisRecord lar, IEnumerable<LabAnalysisComponent> labAnalysisComponents)
+        {
+            List<LabAnalysisComponent> labAnalysisComponentsBinded = new List<LabAnalysisComponent>();
+            foreach (LabAnalysisComponent lac1 in lar.LabAnalysisComponent)
+            {
+                foreach (LabAnalysisComponent lac2 in labAnalysisComponents)
+                {
+                    if (lac1.Id == lac2.Id)
+                    {
+                        labAnalysisComponentsBinded.Add(lac2);
+                    }
+                }
+            }
+            lar.LabAnalysisComponent = new List<LabAnalysisComponent>(labAnalysisComponentsBinded);
+            return lar;
+        }
+
+        private HospitalizationRecord BindHospitalizationRecordWithRoom(HospitalizationRecord hr, IEnumerable<Room> rooms)
+        {
+            foreach (Room r in rooms)
+            {
+                if (hr.Room.Id == r.Id)
+                {
+                    hr.Room = r;
+                    break;
+                }
+            }
+            return hr;
+        }
+        private Medication BindMedicationWithIngredients(Medication medication, IEnumerable<Ingredient> ingredients)
+        {
+            List<Ingredient> ingredientsBinded = new List<Ingredient>();
+            foreach (Ingredient i1 in medication.Ingredients)
+            {
+                foreach (Ingredient i2 in ingredients)
+                {
+                    if (i1.Id == i2.Id)
+                    {
+                        ingredientsBinded.Add(i2);
+                    }
+                }
+            }
+            medication.Ingredients = new List<Ingredient>(ingredientsBinded);
+            return medication;
+        }
+
+        private PrescribedMedicine BindPrescribedMedicineWithMedication(PrescribedMedicine prescribedMedicine, IEnumerable<Ingredient> ingredients, IEnumerable<Medication> medications)
+        {
+            foreach (Medication m in medications)
+            {
+                if (prescribedMedicine.Medication.Id == m.Id)
+                {
+                    var medication = BindMedicationWithIngredients(m, ingredients);
+                    prescribedMedicine.Medication = medication;
+                    break;
+                }
+            }
+            return prescribedMedicine;
+        }
+
+        private PatientDisease BindPatientDiseaseWithDisease(PatientDisease pd, IEnumerable<Disease> diseases)
+        {
+            foreach (Disease d1 in diseases)
+            {
+                if (pd.Disease.Id == d1.Id)
+                {
+                    pd.Disease = d1;
+                    break;
+                }
+            }
+            return pd;
+        }
+
+        private PatientVaccination BindPatientVacinationWIthVaccine(PatientVaccination pv, IEnumerable<Vaccine> vaccines)
+        {
+            foreach (Vaccine v1 in vaccines)
+            {
+                if (pv.Vaccine.Id == v1.Id)
+                {
+                    pv.Vaccine = v1;
+                    break;
+                }
+            }
+            return pv;
+        }
     }
 }

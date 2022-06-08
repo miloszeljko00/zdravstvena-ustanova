@@ -72,29 +72,16 @@ namespace zdravstvena_ustanova.Service
 
         private void BindPrescribedMedicineWithMedication(PrescribedMedicine prescribedMedicine, IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
         {
-            List<Ingredient> ingredientsBinded = new List<Ingredient>();
             foreach(Medication m in medications)
             {
                 if(prescribedMedicine.Medication.Id==m.Id)
                 {
-                    prescribedMedicine.Medication = m;
+                    var medication = BindMedicationWithIngredients(m, ingredients);
+                    prescribedMedicine.Medication = medication;
                     break;
                 }
             }
-            foreach(Ingredient i1 in prescribedMedicine.Medication.Ingredients)
-            {
-                foreach(Ingredient i2 in ingredients)
-                {
-                    if(i1.Id==i2.Id)
-                    {
-                        ingredientsBinded.Add(i2);
-                        break;
-                    }
-                }
-            }
-            prescribedMedicine.Medication.Ingredients = ingredientsBinded;
         }
-
         public PrescribedMedicine Create(PrescribedMedicine prescribedMedicine)
         {
             return _prescribedMedicineRepository.Create(prescribedMedicine);
@@ -106,6 +93,23 @@ namespace zdravstvena_ustanova.Service
         public bool Delete(long prescribedMedicineId)
         {
             return _prescribedMedicineRepository.Delete(prescribedMedicineId);
+        }
+
+        private Medication BindMedicationWithIngredients(Medication medication, IEnumerable<Ingredient> ingredients)
+        {
+            List<Ingredient> ingredientsBinded = new List<Ingredient>();
+            foreach (Ingredient i1 in medication.Ingredients)
+            {
+                foreach (Ingredient i2 in ingredients)
+                {
+                    if (i1.Id == i2.Id)
+                    {
+                        ingredientsBinded.Add(i2);
+                    }
+                }
+            }
+            medication.Ingredients = new List<Ingredient>(ingredientsBinded);
+            return medication;
         }
     }
 }

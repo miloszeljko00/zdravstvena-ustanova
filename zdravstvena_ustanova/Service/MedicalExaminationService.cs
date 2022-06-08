@@ -310,40 +310,14 @@ namespace zdravstvena_ustanova.Service
                 {
                     if (pm1.Id == pm2.Id)
                     {
-                        prescribedMedicinesBinded.Add(pm2);
+                        var prescribedMedicine = BindPrescribedMedicineWithMedication(pm2, ingredients, medications);
+                        prescribedMedicinesBinded.Add(prescribedMedicine);
                         break;
                     }
                 }
             }
-            foreach (PrescribedMedicine pm3 in prescribedMedicinesBinded)
-            {
-                foreach (Medication m1 in medications)
-                {
-                    if (pm3.Medication.Id == m1.Id)
-                    {
-                        pm3.Medication = m1;
-                        break;
-                    }
-                }
-            }
-            List<Ingredient> ingredientsBinded = new List<Ingredient>();
-            foreach (PrescribedMedicine pm4 in prescribedMedicinesBinded)
-            {
-                foreach (Ingredient i1 in pm4.Medication.Ingredients)
-                {
-                    foreach (Ingredient i2 in ingredients)
-                    {
-                        if (i1.Id == i2.Id)
-                        {
-                            ingredientsBinded.Add(i2);
-                            break;
-                        }
-                    }
-                }
-                pm4.Medication.Ingredients = new List<Ingredient>(ingredientsBinded);
-                ingredientsBinded.Clear();
-            }
-            medicalExamination.PrescribedMedicine = prescribedMedicinesBinded;
+            
+            medicalExamination.PrescribedMedicine = new List<PrescribedMedicine> (prescribedMedicinesBinded);
         }
         private void BindPrescribedMedicinesWithMedicalExaminations(IEnumerable<MedicalExamination> medicalExaminations, IEnumerable<PrescribedMedicine> prescribedMedicines, IEnumerable<Medication> medications, IEnumerable<Ingredient> ingredients)
         {
@@ -375,6 +349,37 @@ namespace zdravstvena_ustanova.Service
                 }               
             }
             return null;
+        }
+
+        private Medication BindMedicationWithIngredients(Medication medication, IEnumerable<Ingredient> ingredients)
+        {
+            List<Ingredient> ingredientsBinded = new List<Ingredient>();
+            foreach (Ingredient i1 in medication.Ingredients)
+            {
+                foreach (Ingredient i2 in ingredients)
+                {
+                    if (i1.Id == i2.Id)
+                    {
+                        ingredientsBinded.Add(i2);
+                    }
+                }
+            }
+            medication.Ingredients = new List<Ingredient>(ingredientsBinded);
+            return medication;
+        }
+
+        private PrescribedMedicine BindPrescribedMedicineWithMedication(PrescribedMedicine prescribedMedicine, IEnumerable<Ingredient> ingredients, IEnumerable<Medication> medications)
+        {
+            foreach (Medication m in medications)
+            {
+                if (prescribedMedicine.Medication.Id == m.Id)
+                {
+                    var medication = BindMedicationWithIngredients(m, ingredients);
+                    prescribedMedicine.Medication = medication;
+                    break;
+                }
+            }
+            return prescribedMedicine;
         }
     }
 }
