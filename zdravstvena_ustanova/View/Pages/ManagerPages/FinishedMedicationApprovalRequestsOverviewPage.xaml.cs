@@ -87,8 +87,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 RequestApprovalAgainButton.IsEnabled = false;
                 return;
             }
-            EditMedicationButton.IsEnabled = true;
-            RequestApprovalAgainButton.IsEnabled = true;
+
+            if (medicationApprovalRequest.RequestStatus == RequestStatus.DISAPPROVED)
+            {
+                EditMedicationButton.IsEnabled = true;
+                RequestApprovalAgainButton.IsEnabled = true;
+            }
+            else
+            {
+                EditMedicationButton.IsEnabled = false;
+                RequestApprovalAgainButton.IsEnabled = false;
+            }
             foreach (var ingredient in medicationApprovalRequest.Medication.Ingredients)
             {
                 Ingredients.Add(ingredient);
