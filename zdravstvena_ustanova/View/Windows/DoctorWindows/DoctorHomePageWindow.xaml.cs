@@ -307,7 +307,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                         var timeFormat = "dd.MM.yyyy. HH:mm";
                         DateTime datumPregleda;
                         DateTime.TryParseExact(pojedinacanPregled[0], timeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out datumPregleda);
-                        if (DateTime.Now.AddDays(7) >= datumPregleda)
+                        if (DateTime.Now.AddDays(7) >= datumPregleda && DateTime.Now < datumPregleda)
                         {
                             switch (pojedinacanPregled[2])
                             {

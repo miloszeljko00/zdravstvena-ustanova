@@ -22,10 +22,10 @@
                     <Button Content="Cancel" FontSize="18"
             Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis"/>
                     <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Diagnosis}" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
                     <TextBox x:Name="AnamnesisConclusionTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Conclusion}" Width="340" Height="110" Canvas.Left="490" Canvas.Top="512"/>
                     <Label Content="Anamnesis - Report" FontSize="24" Canvas.Left="262" Canvas.Top="52" Width="316"/>
                 </Canvas>

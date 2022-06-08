@@ -28,6 +28,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ObservableCollection<Room> Rooms { get; set; }
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public int ConstructorCheck { get; set; }
+        public SolidColorBrush Brush { get; set; }
 
 
         #region NotifyProperties
@@ -97,6 +98,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public CreateNewAppointment(DoctorHomePageWindow dhpw, string sign)
         {
             InitializeComponent();
+            Brush = (SolidColorBrush)patientNameTextBox.BorderBrush;
             DataContext = this;
             ConstructorCheck = 0;
             DoctorHomePageWindow = dhpw;
@@ -128,7 +130,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             DoctorHomePageWindow = dhpw;
             Patients = new ObservableCollection<Patient>();
             datePickerCreateNewAppointment.IsEnabled = false;
-            TimeComboBox.IsEnabled = false;
+            TimeComboBox.IsReadOnly = true;
             var app = Application.Current as App;
             var patients = app.PatientController.GetAll();
             var dg = dhpw.dataGridScheduledAppointments;
@@ -192,6 +194,75 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
+            ///////////////////////////////////////////////////////////// fensi glupava submit validacija
+
+            if (SelectedDate < DateTime.Now)
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
+                datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+            }
+            else
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
+                datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                CheckIfCanEnableSubmitButton();
+            }
+
+
+            if (string.IsNullOrEmpty(pComboBox.Text))
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
+                patientNameTextBox.BorderBrush = Brushes.Red;
+                patientSurnameTextBox.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                patientNameTextBox.BorderBrush = Brush;
+                patientSurnameTextBox.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(typeOfAppointment.Text))
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(rComboBox.Text))
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(TimeComboBox.Text))
+            {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+            ////////////////////////////////////////////////////////////
             var app = Application.Current as App;
             if (ConstructorCheck == 0)
             {
@@ -224,7 +295,10 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
                     sa = app.ScheduledAppointmentController.Create(sa);
                 }
-                else return;
+                else
+                {
+                    return;
+                }
             }
             else
             {
@@ -239,14 +313,17 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
                     sa = app.ScheduledAppointmentController.Create(sa);
                 }
-                else return;
+                else 
+                {
+                    return;
+                }
             }
             //////////////////////////////////
             if(DoctorHomePageWindow != null)
             {
                 DoctorHomePageWindow.UpdateCalendar();
             }
-
+            
             this.Close();
             
         }
@@ -257,6 +334,91 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if(answer==MessageBoxResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private void datePickerCreateNewAppointment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SelectedDate < DateTime.Now)
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
+                datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+            } else
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
+                datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+        private void pComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(pComboBox.Text))
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
+                patientNameTextBox.BorderBrush = Brushes.Red;
+                patientSurnameTextBox.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                patientNameTextBox.BorderBrush = Brush;
+                patientSurnameTextBox.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void typeOfAppointment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(typeOfAppointment.Text))
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void rComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(rComboBox.Text))
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void TimeComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+             if (string.IsNullOrEmpty(TimeComboBox.Text))
+             {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+             }
+            else
+            {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        public void CheckIfCanEnableSubmitButton()
+        {
+            if(string.IsNullOrEmpty(TimeComboBox.Text) || string.IsNullOrEmpty(rComboBox.Text) || string.IsNullOrEmpty(typeOfAppointment.Text) || string.IsNullOrEmpty(pComboBox.Text) || SelectedDate < DateTime.Now)
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
             }
         }
     }

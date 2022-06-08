@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
         mc:Ignorable="d"
-        Title="UpdateMedicineInTherapy" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="UpdateMedicineInTherapy" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#067c7b">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>

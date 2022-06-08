@@ -370,8 +370,13 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Remove_Therapy(object sender, RoutedEventArgs e)
         {
-            PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
-            PrescribedMedicine.Remove(pm);
+            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da obirsete lek iz terapije?", "Brisanje leka iz terapije...", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
+                PrescribedMedicine.Remove(pm);
+            }
+            return;
         }
         //Drag&Drop
         private void ListView_DragOver(object sender, DragEventArgs e)
