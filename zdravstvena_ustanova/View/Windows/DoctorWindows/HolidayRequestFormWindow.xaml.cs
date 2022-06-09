@@ -85,7 +85,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             bool ValidationDateReturnValue = app.HolidayRequestController.ValidateDateFromHolidayRequestForm(startDate, endDate);
             if (!ValidationDateReturnValue)
             {
+                startDate_datePicker.BorderBrush = Brushes.Red;
+                endDate_datePicker.BorderBrush = Brushes.Red;
                 return;
+            }
+            else
+            {
+                startDate_datePicker.BorderBrush = Brushes.Gray;
+                endDate_datePicker.BorderBrush = Brushes.Gray;
             }
             bool isUrgent = (bool)isUrgent_comboBox.IsChecked;
             Doctor myDoctor = (Doctor)app.LoggedInUser;
@@ -144,6 +151,75 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 this.Close();
             }
             
+        }
+
+        private void startDate_datePicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(startDate_datePicker.SelectedDate < DateTime.Now)
+            {
+                startDate_datePicker.BorderBrush = Brushes.Red;
+                startDate_datePicker.ToolTip = "Ne mozete zakazivati termin u proslost!";
+                startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else if(startDate_datePicker.SelectedDate < DateTime.Now.AddDays(3))
+            {
+                startDate_datePicker.BorderBrush = Brushes.Red;
+                startDate_datePicker.ToolTip = "Morate zatraziti odmor miniumum 3 dana ranije!";
+                startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else if (endDate_datePicker.SelectedDate < startDate_datePicker.SelectedDate)
+            {
+                startDate_datePicker.BorderBrush = Brushes.Red;
+                startDate_datePicker.ToolTip = "Da l sam pos'o il sam dos'o... :|";
+                startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                startDate_datePicker.BorderBrush = Brushes.Gray;
+                startDate_datePicker.ToolTip = "This field is required!";
+                startDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void endDate_datePicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (endDate_datePicker.SelectedDate < DateTime.Now)
+            {
+                endDate_datePicker.BorderBrush = Brushes.Red;
+                endDate_datePicker.ToolTip = "Ne mozete zakazivati termin u proslost!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else if (endDate_datePicker.SelectedDate < startDate_datePicker.SelectedDate)
+            {
+                endDate_datePicker.BorderBrush = Brushes.Red;
+                endDate_datePicker.ToolTip = "Da l sam pos'o il sam dos'o... :|";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                endDate_datePicker.BorderBrush = Brushes.Gray;
+                endDate_datePicker.ToolTip = "This field is required!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+        public void CheckIfCanEnableSubmitButton()
+        {
+            if (startDate_datePicker.SelectedDate < DateTime.Now || startDate_datePicker.SelectedDate < DateTime.Now.AddDays(3) ||
+                startDate_datePicker.SelectedDate > endDate_datePicker.SelectedDate || endDate_datePicker.SelectedDate<DateTime.Now)
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
+            }
         }
     }
 }

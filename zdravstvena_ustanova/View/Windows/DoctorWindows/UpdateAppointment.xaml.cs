@@ -145,29 +145,35 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             int endTime = int.Parse(selectedTime) + 1;
             DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
             DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
-            if (SelectedPatient == null)
-            {
-                if (typeOfAppointment.SelectedItem == null)
-                {
-                    MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
-                    return;
-                }
-                MessageBox.Show("Morate odabrati pacijenta!");
-                return;
-            }
-            else if (typeOfAppointment.SelectedItem == null)
-            {
-                MessageBox.Show("Morate odabrati tip pregleda!");
-                return;
-            }
-            else
+            //if (SelectedPatient == null)
+            //{
+            //    if (typeOfAppointment.SelectedItem == null)
+            //    {
+            //        MessageBox.Show("Morate odabrati pacijenta i tip pregleda!");
+            //        return;
+            //    }
+            //    MessageBox.Show("Morate odabrati pacijenta!");
+            //    return;
+            //}
+            //else if (typeOfAppointment.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Morate odabrati tip pregleda!");
+            //    return;
+            //}
+            //else
+            //{
+            //    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate,
+            //     (AppointmentType)typeOfAppointment.SelectedItem, ScheduledAppointment.Id, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+            //    app.ScheduledAppointmentController.Update(sa);
+            //}
+            if (app.ScheduledAppointmentController.ValidateForm(startDate, SelectedPatient, typeOfAppointment.SelectedItem.ToString(), startDate.Hour.ToString(), 1))
             {
                 ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate,
-                 (AppointmentType)typeOfAppointment.SelectedItem, ScheduledAppointment.Id, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                (AppointmentType)typeOfAppointment.SelectedItem, ScheduledAppointment.Id, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
                 app.ScheduledAppointmentController.Update(sa);
+                DoctorHomePageWindow.UpdateCalendar();
+                this.Close();
             }
-            DoctorHomePageWindow.UpdateCalendar();
-            this.Close();
             
         }
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)

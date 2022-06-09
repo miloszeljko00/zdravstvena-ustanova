@@ -60,6 +60,24 @@
     <None Remove="Resources\img\user-icon.png" />
     <None Remove="Resources\img\User-Interface-Logout-icon.png" />
     <None Remove="Resources\img\user-man-info-icon.png" />
+    <None Remove="Resources\img\ZaVeljinIzvestaj.png" />
+    <None Remove="View\Windows\DoctorWindows\img\AddingMedicineInTherapyForm.png" />
+    <None Remove="View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtButton.png" />
+    <None Remove="View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtTable.png" />
+    <None Remove="View\Windows\DoctorWindows\img\DoctorHomePage.png" />
+    <None Remove="View\Windows\DoctorWindows\img\FinalSubmit.png" />
+    <None Remove="View\Windows\DoctorWindows\img\HolidayRequestForm.png" />
+    <None Remove="View\Windows\DoctorWindows\img\HolidayRequestReview.png" />
+    <None Remove="View\Windows\DoctorWindows\img\HolidayRequestStatusReview.png" />
+    <None Remove="View\Windows\DoctorWindows\img\HomePageForHoliday.png" />
+    <None Remove="View\Windows\DoctorWindows\img\MedicationApprovalRequestForm.png" />
+    <None Remove="View\Windows\DoctorWindows\img\Notifications.png" />
+    <None Remove="View\Windows\DoctorWindows\img\ProfileAndPersonalData.png" />
+    <None Remove="View\Windows\DoctorWindows\img\ScheduledAppointmentTabAnamnesis.png" />
+    <None Remove="View\Windows\DoctorWindows\img\ScheduledAppointmentTabRequestForSpecialist.png" />
+    <None Remove="View\Windows\DoctorWindows\img\ScheduledAppointmentTabTherapy.png" />
+    <None Remove="View\Windows\DoctorWindows\img\SelectedMedicineInTable.png" />
+    <None Remove="View\Windows\DoctorWindows\img\TableAfterAddingMedicine.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +90,8 @@
     <Content Include="Resources\img\Edit-Document-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\ZaVeljinIzvestaj.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\DoctorHomePage.png" />
     <Resource Include="Resources\img\day-theme.png" />
     <Resource Include="Resources\img\icons8-calendar-plus-64.png" />
     <Resource Include="Resources\img\ingredients-icon.png" />
@@ -143,6 +163,22 @@
     <Resource Include="Resources\img\under-construction.png" />
     <Resource Include="Resources\img\us-flag.png" />
     <Resource Include="Resources\img\work-time.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\AddingMedicineInTherapyForm.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtButton.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtTable.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\FinalSubmit.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\HolidayRequestForm.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\HolidayRequestReview.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\HolidayRequestStatusReview.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\HomePageForHoliday.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\MedicationApprovalRequestForm.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\Notifications.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\ProfileAndPersonalData.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\ScheduledAppointmentTabAnamnesis.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\ScheduledAppointmentTabRequestForSpecialist.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\ScheduledAppointmentTabTherapy.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\SelectedMedicineInTable.png" />
+    <Resource Include="View\Windows\DoctorWindows\img\TableAfterAddingMedicine.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -216,6 +252,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Repository\RepositoryInterface\" />
+    <Folder Include="Service\ServiceInterface\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
   </ItemGroup>
@@ -223,6 +265,7 @@
   <ItemGroup>
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

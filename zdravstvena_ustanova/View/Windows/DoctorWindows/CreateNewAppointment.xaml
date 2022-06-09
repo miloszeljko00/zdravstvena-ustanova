@@ -17,7 +17,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="pComboBox" HorizontalAlignment="Center" SelectedItem="{Binding SelectedPatient}" ItemsSource="{Binding Patients}" Width="160"  Height="30" VerticalAlignment="Top" Margin="0,51,0,0" ToolTip="This field is required!">
+        <ComboBox x:Name="pComboBox" LostFocus="pComboBox_LostFocus" HorizontalAlignment="Center" SelectedItem="{Binding SelectedPatient}" ItemsSource="{Binding Patients}" Width="160"  Height="30" VerticalAlignment="Top" Margin="0,51,0,0" ToolTip="This field is required!">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -29,11 +29,11 @@
         </ComboBox>
         <Label Content="Select patient:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22"/>
         <Label Content="Patient name:" HorizontalAlignment="Left" Margin="120,7,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22"/>
-        <TextBox Text="{Binding SelectedPatient.Name}" HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18" ToolTip="This field is required!"/>
+        <TextBox Text="{Binding SelectedPatient.Name}" x:Name="patientNameTextBox" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18" ToolTip="This field is required!"/>
         <Label Content="Patient surname:" HorizontalAlignment="Left" Margin="120,108,0,0" VerticalAlignment="Top" Width="170" Grid.Row="1" FontSize="22" Grid.RowSpan="2"/>
-        <TextBox Text="{Binding SelectedPatient.Surname}" HorizontalAlignment="Center" Margin="0,59,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" ToolTip="This field is required!"/>
+        <TextBox Text="{Binding SelectedPatient.Surname}" x:Name="patientSurnameTextBox" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,59,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" ToolTip="This field is required!"/>
         <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="105,1,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.Column="1"/>
-        <ComboBox x:Name="TimeComboBox" HorizontalAlignment="Center" Margin="0,46,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" Grid.Column="1" ToolTip="This field is required!">
+        <ComboBox LostFocus="TimeComboBox_LostFocus" x:Name="TimeComboBox" HorizontalAlignment="Center" Margin="0,46,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="2" FontSize="18" Grid.Column="1" ToolTip="This field is required!">
             <ComboBoxItem Content="8"></ComboBoxItem>
             <ComboBoxItem Content="9"></ComboBoxItem>
             <ComboBoxItem Content="10"></ComboBoxItem>
@@ -49,15 +49,19 @@
             <ComboBoxItem Content="20"></ComboBoxItem>
             <ComboBoxItem Content="21"></ComboBoxItem>
         </ComboBox>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="261,40,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
+        <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="261,40,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
         <Button Content="Cancel" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Cancel"/>
         <Label Content="Type of an appointment:" HorizontalAlignment="Left" Margin="105,103,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.RowSpan="2"/>
-        <ComboBox x:Name="typeOfAppointment" HorizontalAlignment="Center" Text="" VerticalAlignment="Center" Width="160" Grid.Row="3" FontSize="18" ToolTip="This field is required!"/>
-        <ComboBox x:Name="rComboBox" Text="" SelectedIndex="0" ItemsSource="{Binding Rooms}" DisplayMemberPath="Name"
+        <ComboBox LostFocus="typeOfAppointment_LostFocus" x:Name="typeOfAppointment" HorizontalAlignment="Center" Text="" VerticalAlignment="Center" Width="160" Grid.Row="3" FontSize="18" ToolTip="This field is required!"/>
+        <ComboBox LostFocus="rComboBox_LostFocus" x:Name="rComboBox" Text="" SelectedIndex="0" ItemsSource="{Binding Rooms}" DisplayMemberPath="Name"
                   HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="1" ToolTip="This field is required!"/>
         <Label Content="Select room:" HorizontalAlignment="Left" Margin="120,13,0,0" VerticalAlignment="Top" Width="167" FontSize="22" Grid.Column="1"/>
         <Label Content="Date of an appointment:" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="255" Grid.Row="1" FontSize="22" Grid.Column="1"/>
         <DatePicker x:Name="datePickerCreateNewAppointment" SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center"
-                    Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24" ToolTip="This field is required!"/>
+                    Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24" ToolTip="This field is required!" LostFocus="datePickerCreateNewAppointment_LostFocus"/>
+        <TextBlock x:Name="selectedPatientPreventErrorTextBlock" Margin="286,49,0,10" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="pacijenta!"/></TextBlock>
+        <TextBlock x:Name="selectedTypeOfAnAppointmentPreventErrorTextBlock" Margin="288,34,0,24" Foreground="red" FontSize="14" Grid.Row="3" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="tip pregleda!"/></TextBlock>
+        <TextBlock x:Name="selectedRoomPreventErrorTextBlock" Margin="285,48,0,10" Foreground="red" Grid.Column="1" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="sobu!"/></TextBlock>
+        <TextBlock x:Name="selectedTimeOfAnAppointmentPreventErrorTextBlock" Margin="285,40,0,18" Foreground="red" FontSize="14" Grid.Column="1" Grid.Row="2" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
     </Grid>
 </Window>
