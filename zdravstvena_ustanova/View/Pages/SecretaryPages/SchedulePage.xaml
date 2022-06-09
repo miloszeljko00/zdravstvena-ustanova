@@ -21,8 +21,8 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Image x:Name="NewMeeting" HorizontalAlignment="Left" Height="95" Margin="390,444,0,0" VerticalAlignment="Top" Width="95" Source="/Resources/img/icons8-calendar-plus-64.png" MouseDown="NewMeeting_MouseDown"/>
-        <Label Content="Novi sastanak" HorizontalAlignment="Left" Margin="366,537,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Image x:Name="NewMeeting" HorizontalAlignment="Left" Height="80" Margin="390,444,0,0" VerticalAlignment="Top" Width="80" Source="/Resources/img/icons8-calendar-plus-64.png" MouseDown="NewMeeting_MouseDown"/>
+        <Label Content="Novi sastanak" HorizontalAlignment="Left" Margin="362,515,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Button x:Name="Holiday" Content="Pregled zahteva za godisnji" HorizontalAlignment="Left" Margin="39,458,0,0" VerticalAlignment="Top" FontSize="16" Height="70" Width="216"  Click="Holiday_Click"/>
         <TextBlock x:Name="validationTB" HorizontalAlignment="Left" Margin="710,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="20" Foreground="#FF731E1E"/>
         <TextBlock HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" Text="Zakazani sastanci:" VerticalAlignment="Top" FontSize="36"/>

@@ -23,7 +23,7 @@
 
             </TextBox>
 
-            <Image Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteSurveyQuestionIcon_MouseDown">
+            <Image IsEnabled="False" Name="DeleteIcon" Width="48" Height="48" Margin="26,0,0,0" MouseDown="DeleteSurveyQuestionIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -38,7 +38,7 @@
                     </Style>
                 </Image.Resources>
             </Image>
-            <Image Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditSurveyQuestionIcon_MouseDown">
+            <Image IsEnabled="False" Name="EditIcon" Width="48" Height="48" Margin="15,0,0,0" MouseDown="EditSurveyQuestionIcon_MouseDown">
                 <Image.Resources>
                     <Style TargetType="{x:Type Image}">
                         <!-- Default image -->
@@ -69,11 +69,14 @@
                 </Image.Resources>
             </Image>
         </StackPanel>
-        <DataGrid x:Name="SurveyQuestionsDataGrid" ItemsSource="{Binding SurveyQuestions}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <Border Margin="140, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="1000" Grid.Row="1" HorizontalAlignment="Left">
+
+<DataGrid x:Name="SurveyQuestionsDataGrid" ItemsSource="{Binding SurveyQuestions}" IsReadOnly="True" SelectionMode="Single" 
+                  AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="SurveyQuestionsDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Pitanje" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+            </Border>
     </Grid>
 </Page>

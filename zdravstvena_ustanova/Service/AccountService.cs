@@ -100,57 +100,87 @@ namespace zdravstvena_ustanova.Service
             });
         }
 
-        public void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
+        private void BindPersonWithAccount(IEnumerable<Patient> patients, IEnumerable<Doctor> doctors, IEnumerable<Manager> managers, IEnumerable<Secretary> secretaries, Account account)
         {
             if (account.Person == null) return;
             switch(account.AccountType)
             {
                 case AccountType.GUEST:
                 case AccountType.PATIENT:
-                    Patient patient = FindPatientById(patients, account.Person.Id);
-                    patient.Account = account;
-                    account.Person = patient;
+                    BindPatientWithAccount(patients, account.Person.Id, account);
                     break;
                 case AccountType.DOCTOR:
-                    Doctor doctor = FindDoctorById(doctors, account.Person.Id);
-                    doctor.Account = account;
-                    account.Person = doctor;
-                    var rooms = _roomRepository.GetAll();
-                    BindDoctorWithRoom(rooms, doctor);
+                    BindDoctorWithAccount(doctors, account.Person.Id, account);
                     break;
                 case AccountType.MANAGER:
-                    Manager manager = FindManagerById(managers, account.Person.Id);
-                    manager.Account = account;
-                    account.Person = manager;
+                    BindManagerWithAccount(managers, account.Person.Id, account);
                     break;
                 case AccountType.SECRETARY:
-                    Secretary secretary = FindSecretaryById(secretaries, account.Person.Id);
-                    secretary.Account = account;
-                    account.Person = secretary;
+                    BindSecretaryWithAccount(secretaries, account.Person.Id, account);
                     break;
                 default:
                     break;
             }
         }
-        private Patient FindPatientById(IEnumerable<Patient> patients, long patientId)
+        private void BindPatientWithAccount(IEnumerable<Patient> patients, long patientId, Account account)
         {
-            return patients.SingleOrDefault(patient => patient.Id == patientId);
+            Patient patient = patients.SingleOrDefault(patient => patient.Id == patientId);
+            patient.Account = account;
+            account.Person = patient;
         }
 
-        private Doctor FindDoctorById(IEnumerable<Doctor> doctors, long doctorId)
+        private void BindDoctorWithAccount(IEnumerable<Doctor> doctors, long doctorId, Account account)
         {
-            return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
+            Doctor doctor = doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
+            doctor.Account = account;
+            account.Person = doctor;
+            var rooms = _roomRepository.GetAll();
+            BindDoctorWithRoom(rooms, doctor);
         }
 
-        private Manager FindManagerById(IEnumerable<Manager> managers, long managerId)
+        private void BindManagerWithAccount(IEnumerable<Manager> managers, long managerId, Account account)
         {
-            return managers.SingleOrDefault(manager => manager.Id == managerId);
+            Manager manager = managers.SingleOrDefault(manager => manager.Id == managerId);
+            manager.Account = account;
+            account.Person = manager;
         }
-        private Secretary FindSecretaryById(IEnumerable<Secretary> secrearies, long secretaryId)
+        private void BindSecretaryWithAccount(IEnumerable<Secretary> secrearies, long secretaryId, Account account)
         {
-            return secrearies.SingleOrDefault(secretary => secretary.Id == secretaryId);
+            Secretary secretary = secrearies.SingleOrDefault(secretary => secretary.Id == secretaryId);
+            secretary.Account = account;
+            account.Person = secretary;
         }
 
+        public bool IsUniqueUsername(string username)
+        {
+            var accounts = _accountRepository.GetAll();
+            bool ret = true;
+            foreach(Account a in accounts)
+            {
+                if(a.Username.Equals(username))
+                {
+                    ret = false;
+                    break;
+                }
+            }
+            return ret;
+        }
+
+        public Account FindAccountByDoctorId(long doctorId)
+        {
+            var accounts = GetAll();
+            Account ret = null;
+            foreach(Account a in accounts)
+            {
+                if (a.AccountType == AccountType.DOCTOR && a.Person.Id == doctorId)
+                {
+                    ret = a;
+                    break;
+                }
+
+            }
+            return ret;
+        }
 
     }
 }

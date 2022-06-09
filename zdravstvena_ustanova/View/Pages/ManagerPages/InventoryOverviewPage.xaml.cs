@@ -97,11 +97,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 StoredItems.Add(storedItem);
             }
         }
-
-        private void GoBackButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
+        
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (SearchTextBox.Text == "")
@@ -187,6 +183,21 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 {
                     StoredItems.Add(storedItem);
                 }
+            }
+        }
+
+        private void roomItemsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (roomItemsDataGrid.SelectedItem == null)
+            {
+                RemoveItemToRoomIcon.IsEnabled = false;
+                ScheduleItemTransferButton.IsEnabled = false;
+            }
+            else
+            {
+
+                RemoveItemToRoomIcon.IsEnabled = true;
+                ScheduleItemTransferButton.IsEnabled = true;
             }
         }
     }

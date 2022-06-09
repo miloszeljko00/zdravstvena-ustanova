@@ -62,6 +62,24 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
             }
         }
+
+        private bool _isRenovationSelected;
+        public bool IsRenovationSelected
+        {
+            get
+            {
+                return _isRenovationSelected;
+            }
+            set
+            {
+                if (Equals(_isRenovationSelected, value)) return;
+
+                _isRenovationSelected = value;
+
+                OnPropertyChanged("IsRenovationSelected");
+
+            }
+        }
         #endregion
 
         public Room Room { get; set; }

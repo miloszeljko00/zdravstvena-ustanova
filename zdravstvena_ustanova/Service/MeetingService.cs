@@ -85,8 +85,7 @@ namespace zdravstvena_ustanova.Service
                         break;
                     }
                 }
-            }
-           
+            }       
         }
 
         public Meeting Create(Meeting meeting)

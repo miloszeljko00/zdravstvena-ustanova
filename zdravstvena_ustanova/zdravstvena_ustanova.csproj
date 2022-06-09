@@ -15,6 +15,7 @@
     <None Remove="Resources\img\back-icon.png" />
     <None Remove="Resources\img\calendar-icon.png" />
     <None Remove="Resources\img\clock-icon.png" />
+    <None Remove="Resources\img\day-theme.png" />
     <None Remove="Resources\img\delete-icon.png" />
     <None Remove="Resources\img\drop-down-arrow.png" />
     <None Remove="Resources\img\Edit-Document-icon.png" />
@@ -34,17 +35,20 @@
     <None Remove="Resources\img\logout-icon8.png" />
     <None Remove="Resources\img\medical-record.png" />
     <None Remove="Resources\img\new-user.png" />
+    <None Remove="Resources\img\night-theme.png" />
     <None Remove="Resources\img\order-icon.png" />
     <None Remove="Resources\img\printer.png" />
     <None Remove="Resources\img\profile-picture.png" />
     <None Remove="Resources\img\quest-icon.png" />
     <None Remove="Resources\img\reports-icon.png" />
+    <None Remove="Resources\img\rs-flag.png" />
     <None Remove="Resources\img\save-icon.png" />
     <None Remove="Resources\img\schedule-icon.png" />
     <None Remove="Resources\img\search-name.png" />
     <None Remove="Resources\img\slikaUstanove.png" />
     <None Remove="Resources\img\statistic.png" />
     <None Remove="Resources\img\under-construction.png" />
+    <None Remove="Resources\img\us-flag.png" />
     <None Remove="Resources\img\work-time.png" />
     <None Remove="Resources\img\medical-record-icon.png" />
     <None Remove="Resources\img\medical-report-icon.png" />
@@ -88,6 +92,7 @@
     </Content>
     <Resource Include="Resources\img\ZaVeljinIzvestaj.png" />
     <Resource Include="View\Windows\DoctorWindows\img\DoctorHomePage.png" />
+    <Resource Include="Resources\img\day-theme.png" />
     <Resource Include="Resources\img\icons8-calendar-plus-64.png" />
     <Resource Include="Resources\img\ingredients-icon.png" />
     <Content Include="Resources\img\medical-record-icon.png">
@@ -105,8 +110,10 @@
     <Resource Include="Resources\img\icons8-delivered.png" />
     <Resource Include="Resources\img\icons8-high-priority-64.png" />
     <Resource Include="Resources\img\icons8-new.png" />
+    <Resource Include="Resources\img\night-theme.png" />
     <Resource Include="Resources\img\printer.png" />
     <Resource Include="Resources\img\reports-icon.png" />
+    <Resource Include="Resources\img\rs-flag.png" />
     <Resource Include="Resources\img\slikaUstanove.png" />
     <Content Include="Resources\img\surveys-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -154,6 +161,7 @@
     <Resource Include="Resources\img\search-name.png" />
     <Resource Include="Resources\img\statistic.png" />
     <Resource Include="Resources\img\under-construction.png" />
+    <Resource Include="Resources\img\us-flag.png" />
     <Resource Include="Resources\img\work-time.png" />
     <Resource Include="View\Windows\DoctorWindows\img\AddingMedicineInTherapyForm.png" />
     <Resource Include="View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtButton.png" />
@@ -174,6 +182,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="View\Patients\AnamnesisReview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -245,6 +258,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.58" />
   </ItemGroup>
 
@@ -252,6 +266,13 @@
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

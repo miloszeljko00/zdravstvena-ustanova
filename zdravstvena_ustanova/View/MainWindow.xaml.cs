@@ -27,7 +27,6 @@ namespace zdravstvena_ustanova.View
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
-
         private void Button_Click_Nalozi(object sender, RoutedEventArgs e)
         {
             /*Repository.AccountsRepository accountsRepository = new Repository.AccountsRepository();

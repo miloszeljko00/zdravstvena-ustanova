@@ -48,6 +48,9 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
             Patient patient = new Patient(name, surname, phone, email, date1, address, -1);
             var app = Application.Current as App;
             patient = app.PatientController.Create(patient);
+            bool isUnique = app.AccountController.IsUniqueUsername(username);
+            if (!isUnique)
+                return;
             Account account2 = new Account(username, password, true, patient, AccountType.PATIENT);
             account2 = app.AccountController.Create(account2);
             patient.Account = account2;
@@ -57,17 +60,5 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
 
         }
 
-        /* private void Button_Click(object sender, RoutedEventArgs e)
-         {
-             
-             double id = Convert.ToDouble(jmbgTB.Text);
-             string phone = phoneTB.Text;
-             string email = emailTB.Text;
-             
-             xt;
-             
-             //
-            
-         }*/
     }
 }
