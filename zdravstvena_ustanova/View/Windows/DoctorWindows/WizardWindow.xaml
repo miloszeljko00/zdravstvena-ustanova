@@ -1,0 +1,165 @@
+﻿<Window x:Class="zdravstvena_ustanova.View.Windows.DoctorWindows.WizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zdravstvena_ustanova.View.Windows.DoctorWindows"
+        mc:Ignorable="d"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="WizardWindow" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <xctk:Wizard FinishButtonClosesWindow="True">
+            <xctk:WizardPage x:Name="IntroPage"
+                             Title="Welcome to my Wizard"
+                             Description="Wizard will walk you trought funcionality one by one. ">
+                <Button x:Name="skipButton" Content="SKIP" ToolTip="You will skip wizard and be redirected to home page." Click="skipButton_Click" Margin="0,0,953,499"/>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page1" PageType="Interior"
+                             Title="MAKING APPOINTMENTS"
+                             Description="You can make a new appointment in two ways. You can click on the selected button on the right, or you can select a free appointment in the table. "
+                             NextPage="{Binding ElementName=Page2}"
+                             PreviousPage="{Binding ElementName=IntroPage}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\DoctorHomePage.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page2" PageType="Interior"
+                             Title="MAKING APPOINTMENTS"
+                             Description="As you can see, the difference is quite obvious, if you select appointment through the table your date and time are chosen automatically."
+                             NextPage="{Binding ElementName=Page3}"
+                             PreviousPage="{Binding ElementName=Page1}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtButton.png" Height="600" Width="570" HorizontalAlignment="Left"/>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\CreateNewAppointmentTroughtTable.png" Height="600" Width="570" HorizontalAlignment="Right"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page3" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT - ANAMNESIS"
+                             Description="After you schedule an appointment, you can see the details about it and start your examination. We will walk trought all options, first of it is writting an anamnesiss."
+                             NextPage="{Binding ElementName=Page4}"
+                             PreviousPage="{Binding ElementName=Page2}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\ScheduledAppointmentTabAnamnesis.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page4" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT - PRESCRIBED MEDICINES"
+                             Description="As you can see, by changing tabs on the left you can do different stuffs. Here you can prescribe medicines. We will see the details about every button selected on the right."
+                             NextPage="{Binding ElementName=Page5}"
+                             PreviousPage="{Binding ElementName=Page3}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\ScheduledAppointmentTabTherapy.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page5" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT - PRESCRIBED MEDICINES"
+                             Description="After clicking on the button 'ADD', form for adding medicine will show, here is an example of good fulfilled form."
+                             NextPage="{Binding ElementName=Page6}"
+                             PreviousPage="{Binding ElementName=Page4}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\AddingMedicineInTherapyForm.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page6" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT - PRESCRIBED MEDICINES"
+                             Description="When you submit, prescribed medicine table is going to refresh and to show again. If you want to edit, or remove some medicine, you need to select it first and click on certain button. If you want to edit, fulfilled form will show and you can change it. After editing or removing again the table will refresh and show to you."
+                             NextPage="{Binding ElementName=Page7}"
+                             PreviousPage="{Binding ElementName=Page5}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\SelectedMedicineInTable.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page7" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT - REQUEST FOR SPECIALIST"
+                             Description="Selecting the tab 'Request for specialist' you can schedule an appointment for your patient at a doctor of a certain specialty. When you choose specialty, system will recomend you doctors with that specialty. On the picture you can see an example of the valid form."
+                             NextPage="{Binding ElementName=Page8}"
+                             PreviousPage="{Binding ElementName=Page6}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\ScheduledAppointmentTabRequestForSpecialist.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page8" PageType="Interior"
+                             Title="ACTIVE APPOINTMENT"
+                             Description="After you finished your examination, if you want to save data in the system, you need to press button 'Final submit'."
+                             NextPage="{Binding ElementName=Page9}"
+                             PreviousPage="{Binding ElementName=Page7}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\FinalSubmit.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page9" PageType="Interior"
+                             Title="MEDICATION APPROVAL REQUESTS"
+                             Description="Next funcionality that we will cover is 'Medication approval requests'. System will check on every 5 minutes is there any new request. If there are requests for you, it will be shown to you as you can see. If u see the request and decide not to process it right now, it will be shown to you but not bolded anymore. After you process it will be cleared from your notifications."
+                             NextPage="{Binding ElementName=Page10}"
+                             PreviousPage="{Binding ElementName=Page8}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\Notifications.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page10" PageType="Interior"
+                             Title="MEDICATION APPROVAL REQUESTS"
+                             Description="Here is an example of proccesed request."
+                             NextPage="{Binding ElementName=Page11}"
+                             PreviousPage="{Binding ElementName=Page9}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\MedicationApprovalRequestForm.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page11" PageType="Interior"
+                             Title="HOLIDAY REQUEST"
+                             Description="If you click on the menu item 'Profile data' which is selected on the left picture, you are going to get window on your right, and then clicking on the 'Holiday request' you can create your new holiday request."
+                             NextPage="{Binding ElementName=Page12}"
+                             PreviousPage="{Binding ElementName=Page10}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\HomePageForHoliday.png" Height="600" Width="570" HorizontalAlignment="Left"/>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\ProfileAndPersonalData.png" Height="600" Width="570" HorizontalAlignment="Right"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page12" PageType="Interior"
+                             Title="HOLIDAY REQUEST"
+                             Description="If you already have active holiday requests, first you will have them showed in the table, then by clicking on the button 'Add' system will give you form to fulfill, after you add a new request, refreshed table will be showen to you. If this is your first request, system will automaticaly get you form. After you create new request, if you try again to click on button 'Holiday request' now the table with active request is going to show."
+                             NextPage="{Binding ElementName=Page13}"
+                             PreviousPage="{Binding ElementName=Page11}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\HolidayRequestForm.png" Height="600" Width="570" HorizontalAlignment="Left"/>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\HolidayRequestReview.png" Height="600" Width="570" HorizontalAlignment="Right"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page13" PageType="Interior"
+                             Title="HOLIDAY REQUEST"
+                             Description="Clicking on the active request on the table, status review window will show, there if your request is denied you can see an explanation."
+                             NextPage="{Binding ElementName=PageFinish}"
+                             PreviousPage="{Binding ElementName=Page12}"
+                             CanSelectNextPage="True">
+                <Grid>
+                    <Image Source="C:\Users\mihai\Desktop\sims\zdravstvena-ustanova\zdravstvena_ustanova\View\Windows\DoctorWindows\img\HolidayRequestStatusReview.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="PageFinish" PageType="Interior"
+                             Title="PRIVATE POLICY"
+                             Description="Private policy control."
+                             NextPage="{Binding ElementName=LastPage}"
+                             PreviousPage="{Binding ElementName=Page13}"
+                             CanSelectNextPage="False">
+                <CheckBox x:Name="checkBox" Content="I understand in principle how to use this app and i understand private policy." Click="checkBox_Click"/>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="LastPage" PageType="Interior"
+                             Title="Finishing"
+                             Description="About validation rules which you have to observe you can read details in the documentation of the softver."
+                             CanFinish="True">
+            </xctk:WizardPage>
+        </xctk:Wizard>
+    </Grid>
+</Window>

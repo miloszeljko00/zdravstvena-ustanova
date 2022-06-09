@@ -298,7 +298,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 string nazivSobe;
                 var app = Application.Current as App;
                 string[] sviPregledi = app.ScheduledAppointmentController.GetAllAppointmentsAsStringArray();
-                string sviPreglediMogLekaraZaIzvestaj = "Pregled Vasih zakazanih termina u narednih 7 dana:" + Environment.NewLine + Environment.NewLine;
+                string sviPreglediMogLekaraZaIzvestaj ="ZDRAVO - KORPORACIJA" + Environment.NewLine + Environment.NewLine + "Kontakt telefon: " + Environment.NewLine + "Email adresa:" + Environment.NewLine + "Lokacija:" + Environment.NewLine + "Broj izvestaja:" + Environment.NewLine + "Datum:" + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                    "Pregled Vasih zakazanih termina u narednih 7 dana:" + Environment.NewLine + Environment.NewLine + Environment.NewLine;
                 foreach (string str in sviPregledi)
                 {
                     string[] pojedinacanPregled = str.Split(";".ToCharArray());
@@ -335,8 +336,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                             Room trenutnaSoba = app.RoomController.GetById(int.Parse(pojedinacanPregled[6]));
                             nazivSobe = trenutnaSoba.Name;
                             string[] datumIvreme = pojedinacanPregled[0].Split(" ".ToCharArray());
-                            sviPreglediMogLekaraZaIzvestaj = sviPreglediMogLekaraZaIzvestaj + "Dana - " + datumIvreme[0] + " u " + datumIvreme[1] + "h. "
-                                + "Tip pregleda - " + tipPregleda + ". Pacijent - " + imePacijenta + " " + prezimePacijenta + " u sobi - " + nazivSobe + "." + Environment.NewLine;
+                            sviPreglediMogLekaraZaIzvestaj = sviPreglediMogLekaraZaIzvestaj  + datumIvreme[0] + " u " + datumIvreme[1] + "h." + Environment.NewLine
+                                + "Tip pregleda - " + tipPregleda + ". Pacijent - " + imePacijenta + " " + prezimePacijenta + " u sobi - " + nazivSobe + "." + Environment.NewLine + Environment.NewLine;
                         } 
                     }
                 }
@@ -344,9 +345,17 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 PdfPage page = document.Pages.Add();
                 PdfGraphics graphics = page.Graphics;
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                PdfBitmap image = new PdfBitmap("C:/Users/mihai/Desktop/sims/zdravstvena-ustanova/zdravstvena_ustanova/Resources/img/ZaVeljinIzvestaj.png");
+                graphics.DrawImage(image, 300, 0);
                 graphics.DrawString(sviPreglediMogLekaraZaIzvestaj, font, PdfBrushes.Black, new PointF(0, 0));
                 document.Save("Izvestaj.pdf");
             }
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var win = new WizardWindow();
+            win.ShowDialog();
         }
     }
 }

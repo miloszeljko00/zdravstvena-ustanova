@@ -50,24 +50,5 @@ namespace zdravstvena_ustanova.View
            //MainWindowAccount mwa = new MainWindowAccount();
            // mwa.Show();
         }
-
-        private void Button_Click_Prostorije(object sender, RoutedEventArgs e)
-        {
-            RoomsTestPage rtp = new RoomsTestPage();
-            rtp.Show();
-        }
-
-        private void Button_Click_Doktor(object sender, RoutedEventArgs e)
-        {
-            ScheduledAppointmentDoctorTest sadt = new ScheduledAppointmentDoctorTest();
-            sadt.Show();
-        }
-
-        private void Button_Click_Pacijent(object sender, RoutedEventArgs e)
-        {
-            ScheduledAppointmentPatient sap = new ScheduledAppointmentPatient();
-            sap.Show();
-        }
-
     }
 }

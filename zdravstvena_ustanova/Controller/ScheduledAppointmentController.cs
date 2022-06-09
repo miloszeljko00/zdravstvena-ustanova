@@ -129,16 +129,20 @@ namespace zdravstvena_ustanova.Controller
             }
             return true;
         }
-        public bool ValidateForm(string selectedTime, DateTime selectedDate, Patient selectedPatient, string selectedTypeOfAnAppointment, string selectedTimeOfAnAppointment)
+        public bool ValidateForm(DateTime selectedDate, Patient selectedPatient, string selectedTypeOfAnAppointment, string selectedTimeOfAnAppointment, int blockCheck)
         {
-            if (selectedDate < DateTime.Now)
+            if(blockCheck == 0)
             {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
-                return false;
+                selectedTypeOfAnAppointment = "";
             }
-            else if (selectedPatient == null || selectedTypeOfAnAppointment == null || selectedTimeOfAnAppointment == null || selectedTypeOfAnAppointment == "" || selectedTimeOfAnAppointment == "")
+            if (selectedPatient == null || selectedTypeOfAnAppointment == null || selectedTimeOfAnAppointment == null || selectedTypeOfAnAppointment == "" || selectedTimeOfAnAppointment == "")
             {
                 MessageBox.Show("Morate odabrati sve podatke!");
+                return false;
+            }
+            else if (selectedDate < DateTime.Now)
+            {
+                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
                 return false;
             }
             return true;

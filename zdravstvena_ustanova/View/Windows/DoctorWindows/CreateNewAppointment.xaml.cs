@@ -194,111 +194,144 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Submit(object sender, RoutedEventArgs e)
         {
-            ///////////////////////////////////////////////////////////// fensi glupava submit validacija
-
-            if (SelectedDate < DateTime.Now)
-            {
-                datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
-                datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
-            }
-            else
-            {
-                datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
-                datePickerCreateNewAppointment.ToolTip = "This field is required!";
-                CheckIfCanEnableSubmitButton();
-            }
-
-
-            if (string.IsNullOrEmpty(pComboBox.Text))
-            {
-                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
-                patientNameTextBox.BorderBrush = Brushes.Red;
-                patientSurnameTextBox.BorderBrush = Brushes.Red;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                patientNameTextBox.BorderBrush = Brush;
-                patientSurnameTextBox.BorderBrush = Brush;
-                CheckIfCanEnableSubmitButton();
-            }
-
-
-
-            if (string.IsNullOrEmpty(typeOfAppointment.Text))
-            {
-                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-
-
-
-            if (string.IsNullOrEmpty(rComboBox.Text))
-            {
-                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-
-
-
-            if (string.IsNullOrEmpty(TimeComboBox.Text))
-            {
-                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-            ////////////////////////////////////////////////////////////
+           
             var app = Application.Current as App;
+            int blockCheck = 0;
+            int allValidationSucceded = 0;
             if (ConstructorCheck == 0)
-            {
-                if (TimeComboBox.Text == "")
+              {
+                //    if (TimeComboBox.Text == "")
+                //    {
+                //        if (SelectedPatient == null || typeOfAppointment.SelectedItem == null)
+                //        {
+                //            MessageBox.Show("Niste uneli neophodne podatke!");
+                //            return;
+                //        }
+                //        else
+                //        {
+                //            MessageBox.Show("Morate uneti vreme pregleda!");
+                //            return;
+                //        }
+                //    }
+                string selectedTime = "";
+                int startTime = 0;
+                int endTime = 0;
+                if (!((ComboBoxItem)TimeComboBox.SelectedItem == null))
                 {
-                    if (SelectedPatient == null || typeOfAppointment.SelectedItem == null)
-                    {
-                        MessageBox.Show("Niste uneli neophodne podatke!");
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Morate uneti vreme pregleda!");
-                        return;
-                    }
-                }
-                string selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
-                int startTime = int.Parse(selectedTime);
-                int endTime = int.Parse(selectedTime) + 1;
-                if ((DateTime?)datePickerCreateNewAppointment.SelectedDate == null)
-                {
-                    MessageBox.Show("Morate izabrati datum");
-                    return;
-                }
-                SelectedDate = (DateTime)datePickerCreateNewAppointment.SelectedDate;
-                DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
-                DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
-                if (app.ScheduledAppointmentController.ValidateForm(selectedTime, SelectedDate, SelectedPatient, typeOfAppointment.SelectedItem.ToString(), TimeComboBox.Text.ToString()))
-                {
-                    ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
-                    sa = app.ScheduledAppointmentController.Create(sa);
+                    selectedTime = ((ComboBoxItem)TimeComboBox.SelectedItem).Content.ToString();
+                    startTime = int.Parse(selectedTime);
+                    endTime = int.Parse(selectedTime) + 1;
                 }
                 else
                 {
-                    return;
+                    TimeComboBox.Text = "";
                 }
+                if (typeOfAppointment.Text == null)
+                {
+                    typeOfAppointment.Text = "";
+                }
+                //if ((DateTime?)datePickerCreateNewAppointment.SelectedDate == null)
+                //{
+                //    MessageBox.Show("Morate izabrati datum");
+                //    return;
+                //}
+                SelectedDate = (DateTime)datePickerCreateNewAppointment.SelectedDate;
+                DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
+                DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
+                if(typeOfAppointment.Text == "")
+                {
+                    blockCheck = 0;
+                    if (app.ScheduledAppointmentController.ValidateForm(SelectedDate, SelectedPatient, typeOfAppointment.Text.ToString(), TimeComboBox.Text.ToString(), blockCheck))
+                    {
+                        allValidationSucceded = 1;
+                        ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, AppointmentType.REGULAR_APPOINTMENT, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                        sa = app.ScheduledAppointmentController.Create(sa);
+                    }
+                }
+                else
+                {
+                    blockCheck = 1;
+                    if (app.ScheduledAppointmentController.ValidateForm(SelectedDate, SelectedPatient, typeOfAppointment.SelectedItem.ToString(), TimeComboBox.Text.ToString(), blockCheck))
+                    {
+                        allValidationSucceded = 1;
+                        ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
+                        sa = app.ScheduledAppointmentController.Create(sa);
+                    }
+                }
+                ///////////////////////////////////////////////////////////// fensi glupava submit validacija
+
+                if (SelectedDate < DateTime.Now)
+                {
+                    datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
+                    datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                    allValidationSucceded = 0;
+                }
+                else
+                {
+                    datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
+                    datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                    CheckIfCanEnableSubmitButton();
+                }
+
+
+                if (string.IsNullOrEmpty(pComboBox.Text))
+                {
+                    selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    patientNameTextBox.BorderBrush = Brushes.Red;
+                    patientSurnameTextBox.BorderBrush = Brushes.Red;
+                    submitButton.IsEnabled = false;
+                    allValidationSucceded = 0;
+                }
+                else
+                {
+                    selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    patientNameTextBox.BorderBrush = Brush;
+                    patientSurnameTextBox.BorderBrush = Brush;
+                    CheckIfCanEnableSubmitButton();
+                }
+
+
+
+                if (string.IsNullOrEmpty(typeOfAppointment.Text))
+                {
+                    selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                    allValidationSucceded = 0;
+                }
+                else
+                {
+                    selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+
+
+
+                if (string.IsNullOrEmpty(rComboBox.Text))
+                {
+                    selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                    allValidationSucceded = 0;
+                }
+                else
+                {
+                    selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+
+
+
+                if (string.IsNullOrEmpty(TimeComboBox.Text))
+                {
+                    selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                    allValidationSucceded = 0;
+                }
+                else
+                {
+                    selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+                ////////////////////////////////////////////////////////////
             }
             else
             {
@@ -308,23 +341,105 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 int endTime = int.Parse(selectedTime) + 1;
                 DateTime startDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, startTime, 0, 0);
                 DateTime endDate = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, endTime, 0, 0);
-                if (app.ScheduledAppointmentController.ValidateForm(selectedTime, SelectedDate, SelectedPatient, typeOfAppointment.Text, TimeComboBox.Text))
+                if (app.ScheduledAppointmentController.ValidateForm(SelectedDate, SelectedPatient, typeOfAppointment.Text, TimeComboBox.Text, 1))
                 {
+                    allValidationSucceded = 1;
                     ScheduledAppointment sa = new ScheduledAppointment(startDate, endDate, (AppointmentType)typeOfAppointment.SelectedItem, SelectedPatient.Id, app.LoggedInUser.Id, SelectedRoom.Id);
                     sa = app.ScheduledAppointmentController.Create(sa);
                 }
-                else 
+                else
                 {
-                    return;
+                    ///////////////////////////////////////////////////////////// fensi glupava submit validacija
+
+                    if (SelectedDate < DateTime.Now)
+                    {
+                        datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
+                        datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                        allValidationSucceded = 0;
+                    }
+                    else
+                    {
+                        datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
+                        datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                        CheckIfCanEnableSubmitButton();
+                    }
+
+
+                    if (string.IsNullOrEmpty(pComboBox.Text))
+                    {
+                        selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
+                        patientNameTextBox.BorderBrush = Brushes.Red;
+                        patientSurnameTextBox.BorderBrush = Brushes.Red;
+                        submitButton.IsEnabled = false;
+                        allValidationSucceded = 0;
+                    }
+                    else
+                    {
+                        selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                        patientNameTextBox.BorderBrush = Brush;
+                        patientSurnameTextBox.BorderBrush = Brush;
+                        CheckIfCanEnableSubmitButton();
+                    }
+
+
+
+                    if (string.IsNullOrEmpty(typeOfAppointment.Text))
+                    {
+                        selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                        submitButton.IsEnabled = false;
+                        allValidationSucceded = 0;
+                    }
+                    else
+                    {
+                        selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                        CheckIfCanEnableSubmitButton();
+                    }
+
+
+
+                    if (string.IsNullOrEmpty(rComboBox.Text))
+                    {
+                        selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
+                        submitButton.IsEnabled = false;
+                        allValidationSucceded = 0;
+                    }
+                    else
+                    {
+                        selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                        CheckIfCanEnableSubmitButton();
+                    }
+
+
+
+                    if (string.IsNullOrEmpty(TimeComboBox.Text))
+                    {
+                        selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                        submitButton.IsEnabled = false;
+                        allValidationSucceded = 0;
+                    }
+                    else
+                    {
+                        selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                        CheckIfCanEnableSubmitButton();
+                    }
+                    ////////////////////////////////////////////////////////////
                 }
+
             }
             //////////////////////////////////
-            if(DoctorHomePageWindow != null)
+            if(allValidationSucceded == 1)
             {
-                DoctorHomePageWindow.UpdateCalendar();
+                if (DoctorHomePageWindow != null)
+                {
+                    DoctorHomePageWindow.UpdateCalendar();
+                }
+
+                this.Close();
             }
-            
-            this.Close();
+            else
+            {
+                return;
+            }
             
         }
 

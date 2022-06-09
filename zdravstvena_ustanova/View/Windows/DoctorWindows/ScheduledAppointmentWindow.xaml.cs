@@ -107,6 +107,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ObservableCollection<LabAnalysisComponent> LabAnalysisComponents2 { get; set; }
         public LabAnalysisComponent LabAnalysisComponent { get; set; }
         public ObservableCollection<Specialty> Specialties { get; set; }
+        public SolidColorBrush Brush { get; set; }
         public Doctor SelectedDoctor;
 
         private Specialty _selectedSpecialty;
@@ -370,6 +371,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Remove_Therapy(object sender, RoutedEventArgs e)
         {
+            if (dataGridTherapy.SelectedItem == null)
+            {
+                MessageBox.Show("Niste selektovali lek");
+                return;
+            }
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da obirsete lek iz terapije?", "Brisanje leka iz terapije...", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
@@ -444,6 +450,48 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Submit_Request_For_Specialist(object sender, RoutedEventArgs e)
         {
+            ///////////////////////////////// FENSI VALIDACIJA KRS KOD
+            if (string.IsNullOrEmpty(specialtiesComboBox.Text))
+            {
+                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (string.IsNullOrEmpty(doctorsBySpecialtyComboBox.Text))
+            {
+                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (requestForSpecialistDataPicker.SelectedDate < DateTime.Now || requestForSpecialistDataPicker.SelectedDate == null)
+            {
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (string.IsNullOrEmpty(TimeForSpecialistComboBox.Text))
+            {
+                selectedTimePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTimePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+            ////////////////////////////////////////////////////////////////////////
             var app = Application.Current as App;
             Patient patient = ScheduledAppointment.Patient;
             string specialtiesComboBoxParameter = "";
@@ -508,6 +556,18 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
         }
 
+        private void CheckIfCanEnableSubmitButton()
+        {
+            if (string.IsNullOrEmpty(specialtiesComboBox.Text) || string.IsNullOrEmpty(doctorsBySpecialtyComboBox.Text) || requestForSpecialistDataPicker.SelectedDate < DateTime.Now || requestForSpecialistDataPicker.SelectedDate == null || string.IsNullOrEmpty(TimeForSpecialistComboBox.Text))
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
+            }
+        }
+
         private void Button_Click_Cancel_Request_For_Specialist(object sender, RoutedEventArgs e)
         {
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje zahteva", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -525,6 +585,62 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             var doctors = app.DoctorController.GetAll();
             SelectedSpecialty = (Specialty)specialtiesComboBox.SelectedItem;
             DoctorsBySpecialty = app.SpecialtyController.GetDoctorsBySpecialty(SelectedSpecialty, doctors);
+        }
+
+        private void specialtiesComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(specialtiesComboBox.Text))
+            {
+                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void doctorsBySpecialtyComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(doctorsBySpecialtyComboBox.Text))
+            {
+                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void requestForSpecialistDataPicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (requestForSpecialistDataPicker.SelectedDate < DateTime.Now || requestForSpecialistDataPicker.SelectedDate == null)
+            {
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void TimeForSpecialistComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TimeForSpecialistComboBox.Text))
+            {
+                selectedTimePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTimePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
         }
 
         //\Drag&Drop
