@@ -1,4 +1,4 @@
-﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.ProfilePage"
+﻿<Page x:Class="zdravstvena_ustanova.View.Pages.SecretaryPages.StatisticsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1024"
       Height="620" Width="1024"
-      Title="ProfilePage">
+      Title="StatisticsPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,12 +17,13 @@
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="207*" />
-            <RowDefinition Height="83*" />
-            <RowDefinition Height="123*"/>
-            <RowDefinition Height="207*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
-        <Image x:Name="Logout" Grid.Column="1" HorizontalAlignment="Center" Height="100" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Source="/Resources/img/logout-icon8.png" MouseDown="Logout_MouseDown" Grid.RowSpan="2"/>
-        <Label Grid.Column="1" Content="Odjavi se" HorizontalAlignment="Left" Margin="114,32,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24"/>
+        <Button x:Name="pdfBTN" Grid.Column="2" Content="Generisi" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Width="100" Height="50" Click="pdfBTN_Click"/>
+        <DatePicker x:Name="startDP" HorizontalAlignment="Left" Margin="141,0,0,0" VerticalAlignment="Center" FontSize="24"/>
+        <DatePicker x:Name="endDP" Grid.Column="1" HorizontalAlignment="Left" Margin="102,0,0,0" VerticalAlignment="Center" FontSize="24"/>
     </Grid>
 </Page>

@@ -77,6 +77,11 @@ namespace zdravstvena_ustanova.View.Pages.SecretaryPages
         {
             SecretaryFrame.Content = new SchedulePage(this);
         }
+
+        private void Statistics_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SecretaryFrame.Content = new StatisticsPage(this);
+        }
     }
 
 }
