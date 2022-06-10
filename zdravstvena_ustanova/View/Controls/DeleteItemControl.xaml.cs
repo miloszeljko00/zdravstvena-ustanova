@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.ManagerMVVM.Model;
 using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Controls
@@ -24,7 +25,7 @@ namespace zdravstvena_ustanova.View.Controls
     /// </summary>
     public partial class DeleteItemControl : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<ItemViewModel> ItemViewModels;
+        public ObservableCollection<ItemModel> ItemViewModels;
         public DataGrid ItemsDataGrid { get; set; }
 
         #region NotifyProperties
@@ -88,7 +89,7 @@ namespace zdravstvena_ustanova.View.Controls
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public DeleteItemControl(ObservableCollection<ItemViewModel> itemViewModels, DataGrid itemsDataGrid)
+        public DeleteItemControl(ObservableCollection<ItemModel> itemViewModels, DataGrid itemsDataGrid)
         {
             InitializeComponent();
             DataContext = this;
@@ -96,7 +97,7 @@ namespace zdravstvena_ustanova.View.Controls
             ItemsDataGrid = itemsDataGrid;
             
 
-            var selectedItemViewModel = ((ItemViewModel)ItemsDataGrid.SelectedItem);
+            var selectedItemViewModel = ((ItemModel)ItemsDataGrid.SelectedItem);
 
             ItemName = selectedItemViewModel.Item.Name;
             ItemDescription = selectedItemViewModel.Item.Description;
@@ -111,7 +112,7 @@ namespace zdravstvena_ustanova.View.Controls
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            var itemViewModel = (ItemViewModel)ItemsDataGrid.SelectedItem;
+            var itemViewModel = (ItemModel)ItemsDataGrid.SelectedItem;
             if (itemViewModel == null)
             {
                 MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -40,5 +40,13 @@ namespace zdravstvena_ustanova.Model
         {
             Id = id;
         }
+
+        public Item()
+        {
+            Id = -1;
+            Name = "";
+            Description = "";
+            ItemType = new ItemType();
+        }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
+using zdravstvena_ustanova.View.ManagerMVVM.View;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
 {
@@ -40,86 +41,33 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             CurrentLanguage = "en-US";
             LanguangeCombobox.SelectedItem = "english";
             _dropdownAnimationDuration = new Duration(TimeSpan.FromSeconds(0.2));
+            ManagerMain.Content = new ManagerHomeView();
         }
 
 
         private void roomsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
-
-            ManagerMain.Content = new ManagerRoomsPage();
+            ManagerMain.Content = new ManagerRoomsView(ManagerMain);
         }
 
         private void itemsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
-            ManagerMain.Content = new ManagerItemsPage();
+            ManagerMain.Content = new ManagerItemsView(ManagerMain);
         }
 
         private void warehouseButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
             ManagerMain.Content = new WarehouseInventoryOverviewPage();
         }
 
         private void ItemTransferReportsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
             ManagerMain.Content = new ItemTransferReportsPage();
         }
 
         private void RenovationReportsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
-            ManagerMain.Content = new RenovationReportsPage();
+           ManagerMain.Content = new RenovationReportsPage();
         }
 
         private void reportsButton_LostFocus(object sender, RoutedEventArgs e)
@@ -181,50 +129,17 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void drugsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
             ManagerMain.Content = new MedicationPage();
         }
 
         private void pollsButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
             ManagerMain.Content = new PollsOverviewPage();
         }
 
         private void RoomReportsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            /*
-            homeButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            reportsButton.Background = new SolidColorBrush(Color.FromRgb(97, 164, 188));
-            warehouseButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            roomsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            itemsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            drugsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            pollsButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            accountButton.Background = new SolidColorBrush(Color.FromRgb(247, 226, 226));
-            */
-
-            ManagerMain.Content = new RoomsOccupancyPage();
+            ManagerMain.Content = new RoomOccupancyView(ManagerMain);
         }
 
         private void DarkModeButton_OnClick(object sender, RoutedEventArgs e)
@@ -266,6 +181,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                     CurrentLanguage = "en-US";
                 }
                 app.ChangeLanguage(CurrentLanguage);
+        }
+
+        private void homeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            ManagerMain.Content = new ManagerHomeView();
         }
     }
 }
