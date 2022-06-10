@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.ManagerMVVM.Model;
 using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Controls
@@ -24,7 +25,7 @@ namespace zdravstvena_ustanova.View.Controls
     /// </summary>
     public partial class EditItemControl : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<ItemViewModel> ItemViewModels;
+        public ObservableCollection<ItemModel> ItemViewModels;
         public DataGrid ItemsDataGrid { get; set; }
 
         #region NotifyProperties
@@ -88,7 +89,7 @@ namespace zdravstvena_ustanova.View.Controls
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public EditItemControl(ObservableCollection<ItemViewModel> itemViewModels, DataGrid itemsDataGrid)
+        public EditItemControl(ObservableCollection<ItemModel> itemViewModels, DataGrid itemsDataGrid)
         {
             InitializeComponent();
             DataContext = this;
@@ -99,13 +100,13 @@ namespace zdravstvena_ustanova.View.Controls
             ItemTypeComboBox.ItemsSource = itemTypes;
             foreach (var itemType in itemTypes)
             {
-                if(itemType.Id == ((ItemViewModel)ItemsDataGrid.SelectedItem).Item.ItemType.Id)
+                if(itemType.Id == ((ItemModel)ItemsDataGrid.SelectedItem).Item.ItemType.Id)
                 {
                     ItemTypeComboBox.SelectedItem = itemType;
                     ItemType = itemType;
                 }
             }
-            var selectedItem = ((ItemViewModel)ItemsDataGrid.SelectedItem).Item;
+            var selectedItem = ((ItemModel)ItemsDataGrid.SelectedItem).Item;
             ItemName = selectedItem.Name;
             ItemDescription = selectedItem.Description;
             ItemType = selectedItem.ItemType;
@@ -123,7 +124,7 @@ namespace zdravstvena_ustanova.View.Controls
                 MessageBox.Show("Popuni sva polja prvo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var itemViewModel = (ItemViewModel)ItemsDataGrid.SelectedItem;
+            var itemViewModel = (ItemModel)ItemsDataGrid.SelectedItem;
             if (itemViewModel == null)
             {
                 MessageBox.Show("Odaberi predmet!", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);

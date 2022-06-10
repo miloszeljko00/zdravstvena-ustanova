@@ -43,13 +43,14 @@ namespace zdravstvena_ustanova.View.Pages
             //username = "velja";
             //password = "velja";
 
-            //username = "upravnik";
-            //password = "upravnik";
+            username = "upravnik";
+            password = "upravnik";
 
             if (username == null || password == null) return;
 
             var app = Application.Current as App;
             var user = app.AccountController.Login(username, password);
+            
 
             if (user == null) return;
 

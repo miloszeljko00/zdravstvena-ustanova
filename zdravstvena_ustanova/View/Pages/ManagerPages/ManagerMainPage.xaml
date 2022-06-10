@@ -11,7 +11,7 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Cursor="Hand">
-            <Button Name="homeButton" Width="158" Height="64" FontSize="18" Content="{root:Loc home}"></Button>
+            <Button Name="homeButton" Width="158" Height="64" FontSize="18" Content="{root:Loc home}" Click="homeButton_Click"></Button>
             <Button MouseEnter="reportsButton_GotFocus" MouseLeave="reportsButton_LostFocus" Name="reportsButton" Width="158" Height="64" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <WrapPanel>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{root:Loc reports}"></TextBlock>
@@ -25,8 +25,10 @@
             <Button Name="pollsButton" Width="158" Height="64" FontSize="18" Click="pollsButton_Click" Content="{root:Loc polls}"></Button>
             <Button Name="accountButton" MouseEnter="accountButton_GotFocus" MouseLeave="accountButton_LostFocus" Width="155" Height="64" FontSize="18">
                 <WrapPanel>
-                    <Image Width="32" Height="32" Source="/Resources/img/profile-picture.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-                    <TextBlock Width="68" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{root:Loc account}"></TextBlock>
+                    <Border Background="DarkGray" BorderBrush="Gray" BorderThickness="1px" CornerRadius="1000" Width="28" Height="28" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image Source="/Resources/img/manager-icon.png" Width="26" Height="26"></Image>
+                    </Border>
+                    <TextBlock Margin="4,0,0,0" Width="68" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{root:Loc account}"></TextBlock>
                     <Image Margin="5,5,0,0" Width="18" Height="18" Source="/Resources/img/drop-down-arrow.png" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
                 </WrapPanel>
             </Button>
