@@ -50,8 +50,20 @@
             <ComboBoxItem Content="20"></ComboBoxItem>
             <ComboBoxItem Content="21"></ComboBoxItem>
         </ComboBox>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="276,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="157,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Cancel"/>
+        <Button Background="White" Content="Submit" HorizontalAlignment="Left" Margin="276,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Background="White" Content="Cancel" HorizontalAlignment="Left" Margin="157,42,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Cancel">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label Content="Type of an appointment:" HorizontalAlignment="Left" Margin="105,103,0,0" VerticalAlignment="Top" Width="270" Grid.Row="2" FontSize="22" Grid.RowSpan="2"/>
         <ComboBox x:Name="typeOfAppointment" HorizontalAlignment="Center" Text="" VerticalAlignment="Center" Width="160" Grid.Row="3" FontSize="18">
         </ComboBox>

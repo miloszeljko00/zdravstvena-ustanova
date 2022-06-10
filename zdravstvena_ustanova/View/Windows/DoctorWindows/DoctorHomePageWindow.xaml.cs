@@ -298,7 +298,9 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 string nazivSobe;
                 var app = Application.Current as App;
                 string[] sviPregledi = app.ScheduledAppointmentController.GetAllAppointmentsAsStringArray();
-                string sviPreglediMogLekaraZaIzvestaj ="ZDRAVO - KORPORACIJA" + Environment.NewLine + Environment.NewLine + "Kontakt telefon: " + Environment.NewLine + "Email adresa:" + Environment.NewLine + "Lokacija:" + Environment.NewLine + "Broj izvestaja:" + Environment.NewLine + "Datum:" + Environment.NewLine + Environment.NewLine + Environment.NewLine +
+                string datum = "Datum: " + DateTime.Now.ToString();
+                string naslov = "ZDRAVO - KORPORACIJA";
+                string sviPreglediMogLekaraZaIzvestaj = Environment.NewLine + Environment.NewLine + "Kontakt telefon: 021/486/397 " + Environment.NewLine + "Email adresa: zdravo@gmail.com" + Environment.NewLine + "Lokacija: Patrijarha Pavla 28 - Beograd" + Environment.NewLine + "Broj izvestaja: 147" + Environment.NewLine + datum + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                     "Pregled Vasih zakazanih termina u narednih 7 dana:" + Environment.NewLine + Environment.NewLine + Environment.NewLine;
                 foreach (string str in sviPregledi)
                 {
@@ -345,8 +347,10 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 PdfPage page = document.Pages.Add();
                 PdfGraphics graphics = page.Graphics;
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 10);
+                PdfFont font2 = new PdfStandardFont(PdfFontFamily.Helvetica, 14, PdfFontStyle.Bold);
                 PdfBitmap image = new PdfBitmap("C:/Users/mihai/Desktop/sims/zdravstvena-ustanova/zdravstvena_ustanova/Resources/img/ZaVeljinIzvestaj.png");
                 graphics.DrawImage(image, 300, 0);
+                graphics.DrawString(naslov, font2, PdfBrushes.Black, new PointF(0, 0));
                 graphics.DrawString(sviPreglediMogLekaraZaIzvestaj, font, PdfBrushes.Black, new PointF(0, 0));
                 document.Save("Izvestaj.pdf");
             }

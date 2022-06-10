@@ -138,28 +138,28 @@
                         <ComboBoxItem Content="5-Died"></ComboBoxItem>
                     </ComboBox>
                     <Canvas>
-                        <Button Content="Cancel" Margin="50,662,0,0"  Height="48" Width="114" Background="White">
+                        <Button Content="Cancel" Margin="50,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="20"/>
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Content="Hospitalize " Margin="210,662,0,0"  Height="48" Width="114" Background="White">
+                        <Button Content="Hospitalize " Margin="210,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="20"/>
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Content="Release" Margin="530,662,0,0"  Height="48" Width="114" Background="White">
+                        <Button Content="Release" Margin="530,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="20"/>
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <Button Content="Cancel" Margin="680,662,0,0"  Height="48" Width="114" Background="White">
+                        <Button Content="Cancel" Margin="680,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="20"/>
@@ -203,14 +203,14 @@
                     <Label Content="Issued by:" HorizontalAlignment="Left" Margin="20,9,0,0" VerticalAlignment="Top" Height="39" Width="153" FontSize="22" Grid.Column="0" Grid.Row="2"/>
                     <TextBox HorizontalAlignment="Left" Margin="20,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="0" Grid.Row="2"/>
                     <RadioButton Content="Urgent" IsChecked="True" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" Margin="20,139,0,0" Width="118" Grid.RowSpan="2"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White">
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White" IsEnabled="False">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White">
+                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White" IsEnabled="False">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
