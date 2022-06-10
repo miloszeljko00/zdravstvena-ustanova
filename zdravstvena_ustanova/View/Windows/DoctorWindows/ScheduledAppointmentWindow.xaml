@@ -18,9 +18,21 @@
                     <Label Content="Anamnesis conclusion:" Margin="530,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Top="51"/>
                     <Label Content="Earlier diseases:" Margin="70,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Left="-48" Canvas.Top="51"/>
                     <Button Content="Submit" FontSize="18"
-            Margin="363,620,0,0" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-189" Canvas.Top="49" Click="Button_Click_Submit_TabAnamnesis"/>
+            Margin="363,620,0,0" Height="48" Width="114" Background="White" Canvas.Left="-189" Canvas.Top="49" Click="Button_Click_Submit_TabAnamnesis">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Button Content="Cancel" FontSize="18"
-            Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis"/>
+            Margin="214,620,0,69" Height="48" Width="114" Background="White" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Diagnosis}" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
                     <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
@@ -49,47 +61,31 @@
 
                     <Label Content="Date:" HorizontalAlignment="Left" Margin="64,37,0,0" VerticalAlignment="Top" Width="95" FontSize="22"/>
                     <Label Content="Served by:" HorizontalAlignment="Left" Margin="627,37,0,0" VerticalAlignment="Top" Width="112" FontSize="22"/>
-                    <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="710,180,0,0" VerticalAlignment="Top" Height="77" Width="121" 
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Add_Therapy">
+                    <Button FontSize="16" Margin="710,247,0,0" Height="48" Width="114" HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Click="Button_Click_Add_Therapy" Background="White" Content="ADD" VerticalContentAlignment="Center">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
                             </Style>
                         </Button.Resources>
-                        <Grid>
-                            <Label Content="ADD" FontSize="16" Margin="15,5,-15,-5"></Label>
-                            <Label Content="add medicine" FontSize="12" Margin="0,32,0,-32"/>
-                            <Label Content="to therapy" FontSize="12" Margin="0,46,0,-46"></Label>
-                        </Grid>
                     </Button>
-                    <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="710,267,0,0" VerticalAlignment="Top" Height="77" Width="121" 
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Edit_Therapy">
+                    <Button FontSize="16" HorizontalAlignment="Left"
+                Margin="710,310,0,0" VerticalAlignment="Top" Height="48" Width="114" 
+                            Background="White" Click="Button_Click_Edit_Therapy" Content="EDIT" VerticalContentAlignment="Center">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
                             </Style>
                         </Button.Resources>
-                        <Grid>
-                            <Label Content="EDIT" FontSize="16" Margin="15,5,-15,-5"></Label>
-                            <Label Content="edit current" FontSize="12" Margin="0,32,0,-32"/>
-                            <Label Content="medicine" FontSize="12" Margin="0,46,0,-46"></Label>
-                        </Grid>
                     </Button>
-                    <Button FontSize="16" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="710,355,0,0" VerticalAlignment="Top" Height="77" Width="121" 
-                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Remove_Therapy">
+                    <Button FontSize="16" VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                Margin="710,373,0,0" VerticalAlignment="Top" Height="48" Width="114" 
+                            Background="White" Click="Button_Click_Remove_Therapy" Content="REMOVE">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
                             </Style>
                         </Button.Resources>
-                        <Grid>
-                            <Label Content="REMOVE" FontSize="16" Margin="-3,5,3,-5"></Label>
-                            <Label Content="selected" FontSize="12" Margin="0,32,0,-32"/>
-                            <Label Content="medicine" FontSize="12" Margin="0,46,0,-46"></Label>
-                        </Grid>
                     </Button>
                 </Grid>
             </TabItem>
@@ -142,10 +138,34 @@
                         <ComboBoxItem Content="5-Died"></ComboBoxItem>
                     </ComboBox>
                     <Canvas>
-                        <Button Content="Cancel" Margin="50,662,0,0"  Height="48" Width="114"/>
-                        <Button Content="Submit" Margin="210,662,0,0"  Height="48" Width="114"/>
-                        <Button Content="Release" Margin="530,662,0,0"  Height="48" Width="114"/>
-                        <Button Content="Cancel" Margin="680,662,0,0"  Height="48" Width="114"/>
+                        <Button Content="Cancel" Margin="50,662,0,0"  Height="48" Width="114" Background="White">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button Content="Hospitalize " Margin="210,662,0,0"  Height="48" Width="114" Background="White">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button Content="Release" Margin="530,662,0,0"  Height="48" Width="114" Background="White">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button Content="Cancel" Margin="680,662,0,0"  Height="48" Width="114" Background="White">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
                         <Rectangle HorizontalAlignment="Left" Height="752" Margin="420,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="2" RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
                                 <TransformGroup>
@@ -176,23 +196,36 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="JMBG:" HorizontalAlignment="Left" Margin="20,27,0,0" VerticalAlignment="Top" Height="39" Width="108" FontSize="22" Grid.Column="0" Grid.Row="0"/>
-                    <TextBox HorizontalAlignment="Left" Margin="20,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Column="0" Grid.Row="0"/>
-                    <Label Content="LBO:" HorizontalAlignment="Left" Margin="20,27,0,0" VerticalAlignment="Top" Height="39" Width="108" FontSize="22" Grid.Column="0" Grid.Row="1"/>
-                    <TextBox HorizontalAlignment="Left" Margin="20,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Column="0" Grid.Row="1"/>
-                    <Label Content="Issued by doctor:" HorizontalAlignment="Left" Margin="20,27,0,0" VerticalAlignment="Top" Height="39" Width="108" FontSize="22" Grid.Column="0" Grid.Row="2"/>
-                    <TextBox HorizontalAlignment="Left" Margin="20,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Column="0" Grid.Row="2"/>
-                    <RadioButton Content="Urgent" IsChecked="True" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" Margin="10,0,0,0" Width="118"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4"/>
-                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4"/>
+                    <Label Content="JMBG:" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top" Height="39" Width="108" FontSize="22" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox HorizontalAlignment="Left" Margin="20,145,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+                    <Label Content="LBO:" HorizontalAlignment="Left" Margin="20,49,0,0" VerticalAlignment="Top" Height="39" Width="108" FontSize="22" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox HorizontalAlignment="Left" Margin="20,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="0" Grid.Row="1"/>
+                    <Label Content="Issued by:" HorizontalAlignment="Left" Margin="20,9,0,0" VerticalAlignment="Top" Height="39" Width="153" FontSize="22" Grid.Column="0" Grid.Row="2"/>
+                    <TextBox HorizontalAlignment="Left" Margin="20,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" FontSize="18" Grid.Column="0" Grid.Row="2"/>
+                    <RadioButton Content="Urgent" IsChecked="True" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" Margin="20,139,0,0" Width="118" Grid.RowSpan="2"/>
+                    <Button Content="Submit" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Height="48" Width="114" Grid.Row="4" Background="White">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <ListView ItemsSource="{Binding LabAnalysisComponents}" DisplayMemberPath="Name" Margin="10,149,10,22" Grid.RowSpan="5" Grid.Column="1"
                               PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
                     </ListView>
                     <ListView ItemsSource="{Binding LabAnalysisComponents2}" DisplayMemberPath="Name" Margin="10,149,10,22" Grid.RowSpan="5" Grid.Column="2"
                               AllowDrop="True" DragOver="ListView_DragOver" Drop="ListView_Drop" Panel.ZIndex="10">
                     </ListView>
-                    <Label Content="Blood components:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="39" Width="205" FontSize="22" Grid.Column="1" Grid.Row="0"/>
-                    <Label Content="Selected components:" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="39" Width="233" FontSize="22" Grid.Column="2" Grid.Row="0"/>
+                    <Label Content="Blood components:" HorizontalAlignment="Center" Margin="0,86,0,0" VerticalAlignment="Top" Height="38" Width="205" FontSize="22" Grid.Column="1" Grid.Row="0"/>
+                    <Label Content="Selected components:" HorizontalAlignment="Center" Margin="0,86,0,0" VerticalAlignment="Top" Height="39" Width="233" FontSize="22" Grid.Column="2" Grid.Row="0"/>
+                    <Label Grid.Column="1" Content="Blood test requirement" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top" FontSize="24" Grid.ColumnSpan="2" Width="280"/>
                 </Grid>
             </TabItem>
             <TabItem Header="request for specialist" Margin="-1,17,1,-17" FontSize="16" ToolTip="Schedule specialist appointment for your patient">
@@ -207,10 +240,24 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="Required specialization:" HorizontalAlignment="Left" Margin="68,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
-                    <ComboBox LostFocus="specialtiesComboBox_LostFocus" x:Name="specialtiesComboBox" ItemsSource="{Binding Specialties}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Margin="20,137,0,0" Grid.RowSpan="2" SelectionChanged="specialtiesComboBox_SelectionChanged"/>
-                    <Label Content="Doctor's name:" HorizontalAlignment="Left" Margin="68,45,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1"/>
-                    <ComboBox LostFocus="doctorsBySpecialtyComboBox_LostFocus" x:Name="doctorsBySpecialtyComboBox" ItemsSource="{Binding DoctorsBySpecialty}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="20,93,0,0">
+                    <Button Background="White" Content="Cancel" HorizontalAlignment="Left" Margin="17,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="48" Width="114" Click="Button_Click_Cancel_Request_For_Specialist">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Background="White" x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="148,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Label Content="Required specialization:" HorizontalAlignment="Left" Margin="53,96,0,0" VerticalAlignment="Top" Width="217" FontSize="20"/>
+                    <ComboBox LostFocus="specialtiesComboBox_LostFocus" x:Name="specialtiesComboBox" ItemsSource="{Binding Specialties}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="68,137,0,0" Grid.RowSpan="2" SelectionChanged="specialtiesComboBox_SelectionChanged"/>
+                    <Label Content="Doctor's name:" HorizontalAlignment="Left" Margin="68,55,0,0" VerticalAlignment="Top" Width="160" FontSize="20" Grid.Row="1"/>
+                    <ComboBox LostFocus="doctorsBySpecialtyComboBox_LostFocus" x:Name="doctorsBySpecialtyComboBox" ItemsSource="{Binding DoctorsBySpecialty}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Grid.Row="1" Margin="68,91,0,0">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -220,17 +267,14 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock x:Name="selectedSpecialtyPreventErrorTextBlock" Margin="443,64,236,29" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="3"><Run Text="Morate odabrati"/><LineBreak/><Run Text="potrebnu specijalnost!"/></TextBlock>
                     <Label Content="Cause of request:" HorizontalAlignment="Left" Margin="106,8,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="2"/>
                     <CheckBox Content="Urgent" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Grid.Row="2" FontSize="24" IsChecked="True"/>
-                    <Button Content="Cancel" HorizontalAlignment="Left" Margin="56,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel_Request_For_Specialist"/>
-                    <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist"/>
                     <TextBox x:Name="causeForSpecialistTextBox" HorizontalAlignment="Left" Margin="20,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="362" Grid.Row="2" Height="150" Grid.RowSpan="2"/>
-                    <DatePicker LostFocus="requestForSpecialistDataPicker_LostFocus" x:Name="requestForSpecialistDataPicker" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Width="355" Grid.RowSpan="2"/>
-                    <Label Content="Start:" HorizontalAlignment="Left" Margin="558,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
-                    <Label Content="REQUEST FOR SPECIALIST:" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Width="297" FontSize="24"/>
-                    <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="516,47,0,0" VerticalAlignment="Top" Width="270" Grid.Row="1" FontSize="22"/>
-                    <ComboBox LostFocus="TimeForSpecialistComboBox_LostFocus" x:Name="TimeForSpecialistComboBox" HorizontalAlignment="Left" Margin="469,91,0,0" Text="" VerticalAlignment="Top" Width="362" Grid.Row="1" FontSize="18">
+                    <DatePicker LostFocus="requestForSpecialistDataPicker_LostFocus" x:Name="requestForSpecialistDataPicker" HorizontalAlignment="Left" Margin="524,136,0,0" VerticalAlignment="Top" Width="160" Grid.RowSpan="2"/>
+                    <Label Content="Start:" HorizontalAlignment="Left" Margin="549,95,0,0" VerticalAlignment="Top" Width="81" FontSize="22"/>
+                    <Label Content="REQUEST FOR SPECIALIST" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Width="297" FontSize="24"/>
+                    <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="516,55,0,0" VerticalAlignment="Top" Width="230" Grid.Row="1" FontSize="20"/>
+                    <ComboBox LostFocus="TimeForSpecialistComboBox_LostFocus" x:Name="TimeForSpecialistComboBox" HorizontalAlignment="Left" Margin="524,91,0,0" Text="" VerticalAlignment="Top" Width="160" Grid.Row="1" FontSize="18">
                         <ComboBoxItem Content="8"/>
                         <ComboBoxItem Content="9"/>
                         <ComboBoxItem Content="10"/>
@@ -246,9 +290,10 @@
                         <ComboBoxItem Content="20"/>
                         <ComboBoxItem Content="21"/>
                     </ComboBox>
-                    <TextBlock x:Name="selectedDoctorPreventErrorTextBlock" Margin="443,0,236,93" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="4"><Run Text="Morate odabrati"/><LineBreak/><Run Text="lekara!"/></TextBlock>
-                    <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="646,63,33,29" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="3"><Run Text="Morate odabrati"/><LineBreak/><Run Text="validan datum!"/></TextBlock>
-                    <TextBlock x:Name="selectedTimePreventErrorTextBlock" Margin="646,0,33,93" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="4"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
+                    <TextBlock x:Name="selectedSpecialtyPreventErrorTextBlock" Margin="282,131,398,111" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="Morate odabrati"/><LineBreak/><Run Text="potrebnu specijalnost!"/></TextBlock>
+                    <TextBlock x:Name="selectedDoctorPreventErrorTextBlock" Margin="281,80,398,13" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="Morate odabrati"/><LineBreak/><Run Text="lekara!"/></TextBlock>
+                    <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="706,125,-27,115" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="Morate odabrati"/><LineBreak/><Run Text="validan datum!"/></TextBlock>
+                    <TextBlock x:Name="selectedTimePreventErrorTextBlock" Margin="706,90,-27,2" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
 
                 </Grid>
             </TabItem>
@@ -295,12 +340,30 @@
             <Label Content="Date of birth:" Height="40" Width="140" FontSize="20"/>
             <TextBox TextWrapping="Wrap" Text="{Binding PatientBirthday}" Height="26" Width="120" FontSize="18" IsReadOnly="True"/>
         </StackPanel>
-        <Button Content="Cancel &#x0a;this appointment" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-                Margin="23,653,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Cancel_Appointment"/>
+        <Button Content="Cancel &#x0a;appointment" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
+                Margin="23,653,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="White" Click="Button_Click_Cancel_Appointment">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Rectangle HorizontalAlignment="Left" Height="1" Stroke="Black" VerticalAlignment="Top" Width="1013" Margin="0,1,0,0"/>
-        <Button Content="Final &#x0a;submit" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="23,502,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_FinalSubmit"/>
+        <Button Content="Final &#x0a;submit" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left" Background="White"
+            Margin="23,502,0,0" VerticalAlignment="Top" Height="57" Width="141" Click="Button_Click_FinalSubmit">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button Content="Update&#xA;source data" FontSize="18" VerticalContentAlignment="Top" HorizontalAlignment="Left"
-            Margin="23,577,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="Button_Click_Update_Appointment" />
+            Margin="23,577,0,0" VerticalAlignment="Top" Height="57" Width="141" Background="White" Click="Button_Click_Update_Appointment">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

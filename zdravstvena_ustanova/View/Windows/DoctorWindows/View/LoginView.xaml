@@ -8,7 +8,7 @@
         Title="LoginView" Height="704" Width="1280" Background="#067c7b" WindowStartupLocation="CenterScreen">
     <Grid>
 
-        <Border BorderBrush="White" BorderThickness="5px" Width="460" Height="460" Margin="410,198,410,46">
+        <Border BorderBrush="White" BorderThickness="5px" Margin="410,198,406,41">
             <StackPanel Background="#2ac4bd" Width="450" Height="450">
                 <Label Margin="0,80,0,0" FontSize="40" FontWeight="Bold" FontStyle="Normal" HorizontalContentAlignment="Center" Content="Zdravo klinika"/>
                 <Label Margin="0,10,0,0" HorizontalContentAlignment="Center" FontSize="14" Content="Korisničko ime:"/>

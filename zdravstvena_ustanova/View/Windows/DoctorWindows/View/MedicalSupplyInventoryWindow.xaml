@@ -9,10 +9,10 @@
     <Grid>
 
 
-        <Label FontSize="40" Margin="10,0,490,0" Width="300" Content="{Binding Warehouse.Name}"></Label>
+        <Label FontSize="22" Margin="10,0,490,0" Width="300" Content="{Binding Warehouse.Name}"></Label>
 
         <DataGrid x:Name="WarehouseItemsDataGrid" ItemsSource="{Binding StoredItems}" IsReadOnly="True" SelectionMode="Single" 
-                  AutoGenerateColumns="False" Height="360" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Bottom" Margin="0,0,120,0">
+                  AutoGenerateColumns="False" Height="350" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Bottom" Margin="10,0,129,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Predmet" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
@@ -20,8 +20,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Command="{Binding OpenAnotherWindowCommand}" FontSize="12" HorizontalAlignment="Left"
-            Margin="711,127,0,0" VerticalAlignment="Top" Height="60" Width="90" 
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Content="Spent Materials" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            Margin="685,138,0,0" VerticalAlignment="Top" Height="48" Width="114" 
+            Background="White" Content="Spent Materials" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -29,8 +29,8 @@
             </Button.Resources>
         </Button>
         <Button FontSize="12" HorizontalAlignment="Left"
-            Margin="711,286,0,0" VerticalAlignment="Top" Height="60" Width="90" 
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            Margin="685,264,0,0" VerticalAlignment="Top" Height="48" Width="114" 
+            Background="White"
                 Command="{Binding CloseCommand}"
                 Content="Cancel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Button.Resources>
@@ -40,8 +40,8 @@
             </Button.Resources>
         </Button>
         <Button Command="{Binding OpenAnotherWindowCommand2}" FontSize="12" HorizontalAlignment="Left"
-            Margin="711,204,0,0" VerticalAlignment="Top" Height="60" Width="90" 
-            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            Margin="685,201,0,0" VerticalAlignment="Top" Height="48" Width="114" 
+            Background="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <TextBlock TextWrapping="Wrap">Materials for ordering</TextBlock>
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">

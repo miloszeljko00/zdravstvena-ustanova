@@ -276,8 +276,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         private void MenuItem_Click_ProfileAndPersonalData(object sender, RoutedEventArgs e)
         {
             
-            ProfileAndPersonalDataWindow profileAndPersonalDataWindow = new ProfileAndPersonalDataWindow();
-            profileAndPersonalDataWindow.Show();
+            ProfileAndPersonalDataView profileAndPersonalDataView = new ProfileAndPersonalDataView();
+            profileAndPersonalDataView.Show();
 
         }
 

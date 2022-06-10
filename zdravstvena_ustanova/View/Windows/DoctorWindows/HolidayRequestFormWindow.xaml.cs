@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -36,21 +38,23 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public HolidayRequest HolidayRequest { get; set; }
         public int ConstructorCheck { get; set; }
         public HolidayRequestsReviewWindow HolidayRequestsReviewWindow { get; set; }
-        public ProfileAndPersonalDataWindow ProfileAndPersonalDataWindow { get; set; }
-        public HolidayRequestFormWindow(ProfileAndPersonalDataWindow profileAndPersonalDataWindow)
+        public ProfileAndPersonalDataView ProfileAndPersonalDataView { get; set; }
+        public ProfileAndPersonalDataViewModel ProfileAndPersonalDataViewModel { get; set; }
+        public HolidayRequestFormWindow(ProfileAndPersonalDataView profileAndPersonalDataView)
         {
             InitializeComponent();
             DataContext = this;
             ConstructorCheck = 0;
-            ProfileAndPersonalDataWindow = profileAndPersonalDataWindow;
+            ProfileAndPersonalDataView = profileAndPersonalDataView;
         }
-        public HolidayRequestFormWindow(HolidayRequestsReviewWindow holidayRequestsReviewWindow, ProfileAndPersonalDataWindow profileAndPersonalDataWindow)
+        public HolidayRequestFormWindow(HolidayRequestsReviewWindow holidayRequestsReviewWindow, ProfileAndPersonalDataView profileAndPersonalDataView)
         {
             InitializeComponent();
             DataContext = this;
             ConstructorCheck = 1;
             HolidayRequestsReviewWindow = holidayRequestsReviewWindow;
-            ProfileAndPersonalDataWindow = profileAndPersonalDataWindow;
+            ProfileAndPersonalDataView = profileAndPersonalDataView;
+            ProfileAndPersonalDataViewModel = new ProfileAndPersonalDataViewModel(ProfileAndPersonalDataView);
         }
 
         private void Button_Click_Submit_HolidayRequest(object sender, RoutedEventArgs e)
@@ -127,8 +131,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 this.Close();
                 return;
             }
-            var refreshedHolidayRequests = ProfileAndPersonalDataWindow.RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow);
-            var holidayRequestsReviewWindowNew = new HolidayRequestsReviewWindow(refreshedHolidayRequests, ProfileAndPersonalDataWindow);
+            var refreshedHolidayRequests = ProfileAndPersonalDataViewModel.RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow);
+            var holidayRequestsReviewWindowNew = new HolidayRequestsReviewWindow(refreshedHolidayRequests, ProfileAndPersonalDataView);
             holidayRequestsReviewWindowNew.ShowDialog();
             HolidayRequestsReviewWindow.Close();
             this.Close();

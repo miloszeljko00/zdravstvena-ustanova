@@ -450,48 +450,6 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Submit_Request_For_Specialist(object sender, RoutedEventArgs e)
         {
-            ///////////////////////////////// FENSI VALIDACIJA KRS KOD
-            if (string.IsNullOrEmpty(specialtiesComboBox.Text))
-            {
-                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-            if (string.IsNullOrEmpty(doctorsBySpecialtyComboBox.Text))
-            {
-                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-            if (requestForSpecialistDataPicker.SelectedDate < DateTime.Now || requestForSpecialistDataPicker.SelectedDate == null)
-            {
-                selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-            if (string.IsNullOrEmpty(TimeForSpecialistComboBox.Text))
-            {
-                selectedTimePreventErrorTextBlock.Visibility = Visibility.Visible;
-                submitButton.IsEnabled = false;
-            }
-            else
-            {
-                selectedTimePreventErrorTextBlock.Visibility = Visibility.Hidden;
-                CheckIfCanEnableSubmitButton();
-            }
-            ////////////////////////////////////////////////////////////////////////
             var app = Application.Current as App;
             Patient patient = ScheduledAppointment.Patient;
             string specialtiesComboBoxParameter = "";
@@ -554,6 +512,51 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     this.Close();
                 }
             }
+            else
+            {
+                ///////////////////////////////// FENSI VALIDACIJA KRS KOD
+                if (string.IsNullOrEmpty(specialtiesComboBox.Text))
+                {
+                    selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                }
+                else
+                {
+                    selectedSpecialtyPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+                if (string.IsNullOrEmpty(doctorsBySpecialtyComboBox.Text))
+                {
+                    selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                }
+                else
+                {
+                    selectedDoctorPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+                if (requestForSpecialistDataPicker.SelectedDate < DateTime.Now || requestForSpecialistDataPicker.SelectedDate == null)
+                {
+                    selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                }
+                else
+                {
+                    selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+                if (string.IsNullOrEmpty(TimeForSpecialistComboBox.Text))
+                {
+                    selectedTimePreventErrorTextBlock.Visibility = Visibility.Visible;
+                    submitButton.IsEnabled = false;
+                }
+                else
+                {
+                    selectedTimePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                    CheckIfCanEnableSubmitButton();
+                }
+                ////////////////////////////////////////////////////////////////////////
+            }
         }
 
         private void CheckIfCanEnableSubmitButton()
@@ -573,7 +576,10 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje zahteva", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
-                this.Close();
+                specialtiesComboBox.SelectedItem = null;
+                doctorsBySpecialtyComboBox.SelectedItem = null;
+                requestForSpecialistDataPicker.SelectedDate = null;
+                TimeForSpecialistComboBox.SelectedItem = null;
                 return;
             }
             

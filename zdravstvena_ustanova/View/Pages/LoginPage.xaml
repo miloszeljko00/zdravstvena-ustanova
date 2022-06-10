@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="704" d:DesignWidth="1280"
-      Title="LoginPage" Background="#067c7b">
+      Title="LoginPage" Background="Gray">
 
     <Grid>
 

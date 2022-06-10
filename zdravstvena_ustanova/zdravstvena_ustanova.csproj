@@ -49,6 +49,9 @@
     <None Remove="Resources\img\statistic.png" />
     <None Remove="Resources\img\under-construction.png" />
     <None Remove="Resources\img\us-flag.png" />
+    <None Remove="Resources\img\veljinLogoutIcon.png" />
+    <None Remove="Resources\img\veljinNotificationIcon.png" />
+    <None Remove="Resources\img\veljinProfileDataIcon.png" />
     <None Remove="Resources\img\work-time.png" />
     <None Remove="Resources\img\medical-record-icon.png" />
     <None Remove="Resources\img\medical-report-icon.png" />
@@ -90,6 +93,9 @@
     <Content Include="Resources\img\Edit-Document-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\img\veljinLogoutIcon.png" />
+    <Resource Include="Resources\img\veljinNotificationIcon.png" />
+    <Resource Include="Resources\img\veljinProfileDataIcon.png" />
     <Resource Include="Resources\img\ZaVeljinIzvestaj.png" />
     <Resource Include="View\Windows\DoctorWindows\img\DoctorHomePage.png" />
     <Resource Include="Resources\img\day-theme.png" />

@@ -34,7 +34,19 @@
         <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Margin="200,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Column="1"/>
         <Label Content="Last name:" HorizontalAlignment="Left" Margin="50,9,0,0" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="1"/>
         <TextBox x:Name="SurnameTextBox" HorizontalAlignment="Left" Margin="50,43,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="1"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="261,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" ToolTip="Register"/>
-        <Button Command="{Binding CloseCommand}" Content="Cancel" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" ToolTip="Go back to login page"/>
+        <Button Content="Submit" IsEnabled="False" HorizontalAlignment="Left" Margin="261,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" ToolTip="Register" Background="White">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Command="{Binding CloseCommand}" Content="Cancel" Background="White" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top" Grid.Row="4" Height="48" Width="114" Grid.Column="1" ToolTip="Go back to login page">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

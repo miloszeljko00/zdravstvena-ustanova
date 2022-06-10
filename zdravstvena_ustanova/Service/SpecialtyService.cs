@@ -30,10 +30,14 @@ namespace zdravstvena_ustanova.Service
             var doctorsBySpecialty = new List<Doctor>();
             foreach (var doctor in doctors)
             {
-                if (doctor.Specialty.Id == specialty.Id)
+                if(!(specialty==null))
                 {
-                    doctorsBySpecialty.Add(doctor);
+                    if (doctor.Specialty.Id == specialty.Id)
+                    {
+                        doctorsBySpecialty.Add(doctor);
+                    }
                 }
+                
             }
             return doctorsBySpecialty;
         }

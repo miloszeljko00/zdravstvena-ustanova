@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
+using zdravstvena_ustanova.View.Windows.DoctorWindows.View;
 
 namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 {
@@ -22,14 +23,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
     public partial class HolidayRequestsReviewWindow : Window
     {
         public ObservableCollection<HolidayRequest> HolidayRequests { get; set; }
-        public ProfileAndPersonalDataWindow ProfileAndPersonalDataWindow { get; set; }
-        public HolidayRequestsReviewWindow(List<HolidayRequest> holidayRequests, ProfileAndPersonalDataWindow profileAndPersonalDataWindow)
+        public ProfileAndPersonalDataView ProfileAndPersonalDataView { get; set; }
+        public HolidayRequestsReviewWindow(List<HolidayRequest> holidayRequests, ProfileAndPersonalDataView profileAndPersonalDataView)
         {
             InitializeComponent();
             this.DataContext = this;
             var app = Application.Current as App;
             HolidayRequests = new ObservableCollection<HolidayRequest>(holidayRequests);
-            ProfileAndPersonalDataWindow = profileAndPersonalDataWindow;
+            ProfileAndPersonalDataView = profileAndPersonalDataView;
 
         }
 
@@ -53,7 +54,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_CreateNewHolidayRequest(object sender, RoutedEventArgs e)
         {
-            HolidayRequestFormWindow holidayRequestFormWindow = new HolidayRequestFormWindow(this, ProfileAndPersonalDataWindow);
+            HolidayRequestFormWindow holidayRequestFormWindow = new HolidayRequestFormWindow(this, ProfileAndPersonalDataView);
             holidayRequestFormWindow.ShowDialog();
         }
     }
