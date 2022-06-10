@@ -27,9 +27,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public ScheduledAppointment ActiveScheduledAppointment { get; set; }
         public Patient PatientFromActiveAppointment { get; set; }
         public ObservableCollection<Medication> Medications { get; set; }
+        public SolidColorBrush Brush { get; set; }
         public AddMedicineToTherapy(ObservableCollection<PrescribedMedicine> pm, ScheduledAppointment scheduledAppointment)
         {
             InitializeComponent();
+            Brush = (SolidColorBrush)allergensAlertTextBox.BorderBrush;
             DataContext = this;
             var app = Application.Current as App;
             Medications = new ObservableCollection<Medication>(app.MedicationController.GetAll());
@@ -144,8 +146,64 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 PrescribedMedicine.Add(new PrescribedMedicine(-1, int.Parse(tpd), int.Parse(oh), (DateTime)ed, desc, med));
                 this.Close();
-            }   
+            }
 
+            /////////////////////////////////// fensi submit validacija ali ce biti dupliran i prljav kod
+            if (string.IsNullOrEmpty(medComboBox.Text))
+            {
+                selectedMedicinePreventErrorTextBlock.Visibility = Visibility.Visible;
+                medIdTextBox.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedMedicinePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                medIdTextBox.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (string.IsNullOrEmpty(timesPerDay.Text))
+            {
+                timesPerDay.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                timesPerDay.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (string.IsNullOrEmpty(quantity.Text))
+            {
+                quantity.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                quantity.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (string.IsNullOrEmpty(onHours.Text))
+            {
+                onHours.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                onHours.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+            if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
+            {
+                endDate.BorderBrush = Brushes.Red;
+                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                endDate.BorderBrush = Brushes.Gray;
+                endDate.ToolTip = "This field is required!";
+                CheckIfCanEnableSubmitButton();
+            }
+            /////////////////////////////////////////////
 
         }
 
@@ -155,6 +213,90 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (answer == MessageBoxResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private void medComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(medComboBox.Text))
+            {
+                selectedMedicinePreventErrorTextBlock.Visibility = Visibility.Visible;
+                medIdTextBox.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedMedicinePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                medIdTextBox.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void timesPerDay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(timesPerDay.Text))
+            {
+                timesPerDay.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                timesPerDay.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void quantity_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(quantity.Text))
+            {
+                quantity.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                quantity.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void onHours_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(onHours.Text))
+            {
+                onHours.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                onHours.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+        private void endDate_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
+            {
+                endDate.BorderBrush = Brushes.Red;
+                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                endDate.BorderBrush = Brushes.Gray;
+                endDate.ToolTip = "This field is required!";
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+        public void CheckIfCanEnableSubmitButton()
+        {
+            if (string.IsNullOrEmpty(medComboBox.Text) || endDate.SelectedDate < DateTime.Now || endDate.SelectedDate==null || timesPerDay.BorderBrush == Brushes.Red || quantity.BorderBrush == Brushes.Red || onHours.BorderBrush == Brushes.Red)
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
             }
         }
     }

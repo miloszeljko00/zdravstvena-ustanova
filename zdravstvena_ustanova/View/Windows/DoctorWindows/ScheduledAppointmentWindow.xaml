@@ -22,10 +22,10 @@
                     <Button Content="Cancel" FontSize="18"
             Margin="214,620,0,69" Height="48" Width="114" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Canvas.Left="-185" Canvas.Top="49" Click="Button_Click_Cancel_TabAnamnesis"/>
                     <TextBox x:Name="AnamnesisDiagnosisTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Diagnosis}" Width="340" Height="110" Canvas.Left="10" Canvas.Top="178"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="351" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="10" Canvas.Top="512" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="178" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="" Width="340" Height="110" Canvas.Left="490" Canvas.Top="351" IsEnabled="False"/>
                     <TextBox x:Name="AnamnesisConclusionTextBoxInput" TextWrapping="Wrap" Text="{Binding Anamnesis.Conclusion}" Width="340" Height="110" Canvas.Left="490" Canvas.Top="512"/>
                     <Label Content="Anamnesis - Report" FontSize="24" Canvas.Left="262" Canvas.Top="52" Width="316"/>
                 </Canvas>
@@ -208,9 +208,9 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Required specialization:" HorizontalAlignment="Left" Margin="68,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
-                    <ComboBox x:Name="specialtiesComboBox" ItemsSource="{Binding Specialties}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Margin="20,137,0,0" Grid.RowSpan="2" SelectionChanged="specialtiesComboBox_SelectionChanged"/>
+                    <ComboBox LostFocus="specialtiesComboBox_LostFocus" x:Name="specialtiesComboBox" ItemsSource="{Binding Specialties}" DisplayMemberPath="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Margin="20,137,0,0" Grid.RowSpan="2" SelectionChanged="specialtiesComboBox_SelectionChanged"/>
                     <Label Content="Doctor's name:" HorizontalAlignment="Left" Margin="68,45,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="1"/>
-                    <ComboBox x:Name="doctorsBySpecialtyComboBox" ItemsSource="{Binding DoctorsBySpecialty}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="20,93,0,0">
+                    <ComboBox LostFocus="doctorsBySpecialtyComboBox_LostFocus" x:Name="doctorsBySpecialtyComboBox" ItemsSource="{Binding DoctorsBySpecialty}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="362" Grid.Row="1" Margin="20,93,0,0">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -220,16 +220,17 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                    <TextBlock x:Name="selectedSpecialtyPreventErrorTextBlock" Margin="443,64,236,29" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="3"><Run Text="Morate odabrati"/><LineBreak/><Run Text="potrebnu specijalnost!"/></TextBlock>
                     <Label Content="Cause of request:" HorizontalAlignment="Left" Margin="106,8,0,0" VerticalAlignment="Top" Width="266" FontSize="24" Grid.Row="2"/>
                     <CheckBox Content="Urgent" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Grid.Row="2" FontSize="24" IsChecked="True"/>
                     <Button Content="Cancel" HorizontalAlignment="Left" Margin="56,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel_Request_For_Specialist"/>
-                    <Button Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist"/>
+                    <Button x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="211,55,0,0" Grid.Row="4" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist"/>
                     <TextBox x:Name="causeForSpecialistTextBox" HorizontalAlignment="Left" Margin="20,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="362" Grid.Row="2" Height="150" Grid.RowSpan="2"/>
-                    <DatePicker x:Name="requestForSpecialistDataPicker" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Width="355" Grid.RowSpan="2"/>
+                    <DatePicker LostFocus="requestForSpecialistDataPicker_LostFocus" x:Name="requestForSpecialistDataPicker" HorizontalAlignment="Left" Margin="469,0,0,0" VerticalAlignment="Center" Width="355" Grid.RowSpan="2"/>
                     <Label Content="Start:" HorizontalAlignment="Left" Margin="558,86,0,0" VerticalAlignment="Top" Width="266" FontSize="24"/>
                     <Label Content="REQUEST FOR SPECIALIST:" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Width="297" FontSize="24"/>
                     <Label Content="Time of an appointment:" HorizontalAlignment="Left" Margin="516,47,0,0" VerticalAlignment="Top" Width="270" Grid.Row="1" FontSize="22"/>
-                    <ComboBox x:Name="TimeForSpecialistComboBox" HorizontalAlignment="Left" Margin="469,91,0,0" Text="" VerticalAlignment="Top" Width="362" Grid.Row="1" FontSize="18">
+                    <ComboBox LostFocus="TimeForSpecialistComboBox_LostFocus" x:Name="TimeForSpecialistComboBox" HorizontalAlignment="Left" Margin="469,91,0,0" Text="" VerticalAlignment="Top" Width="362" Grid.Row="1" FontSize="18">
                         <ComboBoxItem Content="8"/>
                         <ComboBoxItem Content="9"/>
                         <ComboBoxItem Content="10"/>
@@ -245,6 +246,9 @@
                         <ComboBoxItem Content="20"/>
                         <ComboBoxItem Content="21"/>
                     </ComboBox>
+                    <TextBlock x:Name="selectedDoctorPreventErrorTextBlock" Margin="443,0,236,93" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="4"><Run Text="Morate odabrati"/><LineBreak/><Run Text="lekara!"/></TextBlock>
+                    <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="646,63,33,29" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="3"><Run Text="Morate odabrati"/><LineBreak/><Run Text="validan datum!"/></TextBlock>
+                    <TextBlock x:Name="selectedTimePreventErrorTextBlock" Margin="646,0,33,93" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="4"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
 
                 </Grid>
             </TabItem>
