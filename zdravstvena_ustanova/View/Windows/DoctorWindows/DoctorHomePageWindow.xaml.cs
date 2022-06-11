@@ -84,6 +84,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             CheckForNewMedicationApprovalRequest();
             StartCheckingForNewMedicationApprovalRequest(30);
             UpdateCalendar();
+            //app.Show(alertTextBox);
         }
 
         public void UpdateCalendar()

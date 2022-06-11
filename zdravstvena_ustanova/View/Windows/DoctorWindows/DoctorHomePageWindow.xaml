@@ -99,6 +99,6 @@
         <Image Source="\Resources\img\veljinLogoutIcon.png" Height="27" Width="30" Canvas.Left="1185"/>
         <Image Source="\Resources\img\veljinNotificationIcon.png" Height="27" Width="30" Canvas.Left="941"/>
         <Image Source="\Resources\img\veljinProfileDataIcon.png" Height="27" Width="30" Canvas.Left="1057"/>
-
+        <TextBox x:Name="alertTextBox" TextWrapping="Wrap" Text="Successfull!!!" Visibility="Hidden" Canvas.Left="422" Canvas.Top="262" Height="58" Width="218" FontSize="36"/>
     </Canvas>
 </Window>
