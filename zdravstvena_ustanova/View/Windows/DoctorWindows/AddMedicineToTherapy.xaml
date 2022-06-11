@@ -47,8 +47,9 @@
         <TextBox ToolTip="This field is required!" x:Name="quantity" LostFocus="quantity_LostFocus" HorizontalAlignment="Left" Margin="45,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="3"/>
         <DatePicker ToolTip="This field is required!" LostFocus="endDate_LostFocus" x:Name="endDate" Grid.Column="1" HorizontalAlignment="Left" Margin="47,50,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="120"/>
         <TextBox x:Name="allergensAlertTextBox" HorizontalAlignment="Left" Margin="232,19,0,0" TextWrapping="Wrap" 
-                 Text="Pacijent je alergican na odredjeni/odredjene sastojke ovog leka, molimo Vas da odaberete drugi lek!"
+                 Text="The patient is allergic to certain ingredients of this medicine, please choose another medicine!"
                  VerticalAlignment="Top" Width="152" Height="68" Grid.RowSpan="2" Background="#ffc0cb" Visibility="Hidden"/>
-        <TextBlock x:Name="selectedMedicinePreventErrorTextBlock" Margin="200,51,65,1" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><Run Text=" lek!"/></TextBlock>
+        <TextBlock x:Name="selectedMedicinePreventErrorTextBlock" Margin="200,51,25,1" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="You must select"/><Run Text=" medicine!"/></TextBlock>
+        <TextBlock x:Name="endDatePreventErrorTextBlock" Margin="189,50,36,2" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Text="You must select date!"/>
     </Grid>
 </Window>

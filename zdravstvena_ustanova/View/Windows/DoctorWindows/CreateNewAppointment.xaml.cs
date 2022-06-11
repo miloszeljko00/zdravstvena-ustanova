@@ -263,13 +263,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 if (SelectedDate < DateTime.Now)
                 {
                     datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
-                    datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                    datePickerCreateNewAppointment.ToolTip = "You cant select date in the past!";
+                    selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                     allValidationSucceded = 0;
                 }
                 else
                 {
                     datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
                     datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                    selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                     CheckIfCanEnableSubmitButton();
                 }
 
@@ -354,13 +356,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                     if (SelectedDate < DateTime.Now)
                     {
                         datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
-                        datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                        datePickerCreateNewAppointment.ToolTip = "You cant select date in the past!";
+                        selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                         allValidationSucceded = 0;
                     }
                     else
                     {
                         datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
                         datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                        selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                         CheckIfCanEnableSubmitButton();
                     }
 
@@ -453,11 +457,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (SelectedDate < DateTime.Now)
             {
                 datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
-                datePickerCreateNewAppointment.ToolTip = "Ne mozete zakazivati termine u proslost!";
-            } else
+                datePickerCreateNewAppointment.ToolTip = "You cant select date in the past!";
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
             {
                 datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
                 datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableSubmitButton();
             }
         }

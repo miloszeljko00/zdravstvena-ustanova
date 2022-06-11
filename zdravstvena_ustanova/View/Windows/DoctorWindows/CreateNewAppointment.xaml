@@ -71,9 +71,10 @@
         <Label Content="Date of an appointment:" HorizontalAlignment="Left" Margin="105,7,0,0" VerticalAlignment="Top" Width="255" Grid.Row="1" FontSize="22" Grid.Column="1"/>
         <DatePicker x:Name="datePickerCreateNewAppointment" SelectedDate="{Binding SelectedDate}" Grid.Column="1" HorizontalAlignment="Center"
                     Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" Height="24" ToolTip="This field is required!" LostFocus="datePickerCreateNewAppointment_LostFocus"/>
-        <TextBlock x:Name="selectedPatientPreventErrorTextBlock" Margin="286,49,0,10" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="pacijenta!"/></TextBlock>
-        <TextBlock x:Name="selectedTypeOfAnAppointmentPreventErrorTextBlock" Margin="288,34,0,24" Foreground="red" FontSize="14" Grid.Row="3" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="tip pregleda!"/></TextBlock>
-        <TextBlock x:Name="selectedRoomPreventErrorTextBlock" Margin="285,48,0,10" Foreground="red" Grid.Column="1" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="sobu!"/></TextBlock>
-        <TextBlock x:Name="selectedTimeOfAnAppointmentPreventErrorTextBlock" Margin="285,40,0,18" Foreground="red" FontSize="14" Grid.Column="1" Grid.Row="2" Visibility="Hidden"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
+        <TextBlock x:Name="selectedPatientPreventErrorTextBlock" Margin="286,49,0,10" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="You must choose"/><LineBreak/><Run Text="patient!"/></TextBlock>
+        <TextBlock x:Name="selectedTypeOfAnAppointmentPreventErrorTextBlock" Margin="288,34,370,24" Foreground="red" FontSize="14" Grid.Row="3" Visibility="Hidden" Grid.ColumnSpan="2"><Run Text="You must choose"/><LineBreak/><Run Text="type of appointment!"/></TextBlock>
+        <TextBlock x:Name="selectedRoomPreventErrorTextBlock" Margin="285,48,0,10" Foreground="red" Grid.Column="1" FontSize="14" Visibility="Hidden"><Run Text="You must choose"/><LineBreak/><Run Text="room!"/></TextBlock>
+        <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="285,40,0,17" Foreground="red" Grid.Column="1" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="You must choose"/><LineBreak/><Run Text="valid date!"/></TextBlock>
+        <TextBlock TextWrapping="Wrap" x:Name="selectedTimeOfAnAppointmentPreventErrorTextBlock" Margin="285,40,0,6" Foreground="red" FontSize="14" Grid.Column="1" Grid.Row="2" Visibility="Hidden"><Run Text="You must choose"/><LineBreak/><Run Text="time of appointment!"/></TextBlock>
     </Grid>
 </Window>

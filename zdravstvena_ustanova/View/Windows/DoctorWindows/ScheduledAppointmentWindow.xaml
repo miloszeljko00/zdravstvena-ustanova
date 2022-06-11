@@ -292,10 +292,10 @@
                         <ComboBoxItem Content="20"/>
                         <ComboBoxItem Content="21"/>
                     </ComboBox>
-                    <TextBlock x:Name="selectedSpecialtyPreventErrorTextBlock" Margin="282,131,398,111" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="Morate odabrati"/><LineBreak/><Run Text="potrebnu specijalnost!"/></TextBlock>
-                    <TextBlock x:Name="selectedDoctorPreventErrorTextBlock" Margin="281,80,398,13" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="Morate odabrati"/><LineBreak/><Run Text="lekara!"/></TextBlock>
-                    <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="706,125,-27,115" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="Morate odabrati"/><LineBreak/><Run Text="validan datum!"/></TextBlock>
-                    <TextBlock x:Name="selectedTimePreventErrorTextBlock" Margin="706,90,-27,2" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="Morate odabrati"/><LineBreak/><Run Text="vreme pregleda!"/></TextBlock>
+                    <TextBlock x:Name="selectedSpecialtyPreventErrorTextBlock" Margin="282,131,398,111" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="You must choose"/><LineBreak/><Run Text="required specialization!"/></TextBlock>
+                    <TextBlock x:Name="selectedDoctorPreventErrorTextBlock" Margin="281,80,398,13" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="You must choose"/><LineBreak/><Run Text="doctor!"/></TextBlock>
+                    <TextBlock x:Name="selectedDatePreventErrorTextBlock" Margin="706,125,-27,115" Foreground="red" FontSize="14" Visibility="Hidden" Grid.RowSpan="2"><Run Text="You must choose"/><LineBreak/><Run Text="valid date!"/></TextBlock>
+                    <TextBlock x:Name="selectedTimePreventErrorTextBlock" Margin="697,90,-18,2" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Row="1"><Run Text="You must choose"/><LineBreak/><Run Text="time of appointment!"/></TextBlock>
 
                 </Grid>
             </TabItem>

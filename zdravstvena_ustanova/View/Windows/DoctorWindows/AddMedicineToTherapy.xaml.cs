@@ -194,13 +194,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
             {
                 endDate.BorderBrush = Brushes.Red;
-                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                endDate.ToolTip = "You must enter valid date!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else
             {
                 endDate.BorderBrush = Brushes.Gray;
                 endDate.ToolTip = "This field is required!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableSubmitButton();
             }
             /////////////////////////////////////////////
@@ -278,13 +280,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
             {
                 endDate.BorderBrush = Brushes.Red;
-                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                endDate.ToolTip = "You must ender valid date!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else
             {
                 endDate.BorderBrush = Brushes.Gray;
                 endDate.ToolTip = "This field is required!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableSubmitButton();
             }
         }

@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="ZDRAVO" Height="720" Width="1280" WindowStyle="SingleBorderWindow" SizeToContent="Manual" Background="#067c7b" WindowStartupLocation="CenterScreen">
     <Canvas>
-        <Menu Margin="0,0,129,77" Background="#2ac4bd">
-            <MenuItem Header="ABOUT US">
+        <Menu Margin="0,0,129,77" Background="#2ac4bd" Canvas.Left="28" Width="375" Height="27">
+            <MenuItem Header="ABOUT US" Width="97">
             </MenuItem>
-            <MenuItem Header="OUR DOCTORS" Height="27">
+            <MenuItem Header="OUR DOCTORS" Height="27" Width="126">
             </MenuItem>
-            <MenuItem Header="CONTACT">
+            <MenuItem Header="CONTACT" Width="103">
             </MenuItem>
-            <MenuItem Header="HELP">
+            <MenuItem Header="HELP" Width="45">
             </MenuItem>
         </Menu>
         <Menu Background="#2ac4bd" Canvas.Left="970" Width="310">
@@ -22,7 +22,7 @@
             </MenuItem>
             <MenuItem Header="NOTIFICATIONS           " MouseEnter="MenuItem_MouseEnter" MouseLeave="MenuItem_MouseLeave" Width="127">
             </MenuItem>
-            <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout" Width="60" HorizontalContentAlignment="Right">
+            <MenuItem Header="LOGOUT" Click="MenuItem_Click_Logout" Width="70" HorizontalContentAlignment="Right">
             </MenuItem>
         </Menu>
         <Image Source="\Resources\img\logo.png" Height="100" Width="100" Canvas.Left="1119" Canvas.Top="580" MouseDown="Image_MouseDown"/>
@@ -99,6 +99,10 @@
         <Image Source="\Resources\img\veljinLogoutIcon.png" Height="27" Width="30" Canvas.Left="1185"/>
         <Image Source="\Resources\img\veljinNotificationIcon.png" Height="27" Width="30" Canvas.Left="941"/>
         <Image Source="\Resources\img\veljinProfileDataIcon.png" Height="27" Width="30" Canvas.Left="1057"/>
+        <Image Source="\Resources\img\veljinOurDoctorsIcon.png" Height="26" Width="30" Canvas.Left="98" Canvas.Top="1"/>
+        <Image Source="\Resources\img\veljinContactIcon.png" Height="28" Width="30" Canvas.Left="224" Canvas.Top="-1"/>
+        <Image Source="\Resources\img\veljinHelpIcon.png" Height="27" Width="30" Canvas.Left="325"/>
+        <Image Source="\Resources\img\veljinAboutUsIcon.png" Height="28" Width="30" Canvas.Left="-1"/>
         <TextBox x:Name="alertTextBox" TextWrapping="Wrap" Text="Successfull!!!" Visibility="Hidden" Canvas.Left="422" Canvas.Top="262" Height="58" Width="218" FontSize="36"/>
     </Canvas>
 </Window>

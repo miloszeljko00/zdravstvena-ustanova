@@ -93,7 +93,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
             {
                 endDate.BorderBrush = Brushes.Red;
-                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                endDate.ToolTip = "You must select valid date!";
                 submitButton.IsEnabled = false;
             }
             else
@@ -249,7 +249,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             if (endDate.SelectedDate < DateTime.Now || endDate.SelectedDate == null)
             {
                 endDate.BorderBrush = Brushes.Red;
-                endDate.ToolTip = "Ne mozete zakazivati termine u proslost!";
+                endDate.ToolTip = "You must select valid date!";
                 submitButton.IsEnabled = false;
             }
             else

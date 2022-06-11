@@ -91,12 +91,16 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 startDate_datePicker.BorderBrush = Brushes.Red;
                 endDate_datePicker.BorderBrush = Brushes.Red;
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 return;
             }
             else
             {
                 startDate_datePicker.BorderBrush = Brushes.Gray;
                 endDate_datePicker.BorderBrush = Brushes.Gray;
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                startDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
             }
             bool isUrgent = (bool)isUrgent_comboBox.IsChecked;
             Doctor myDoctor = (Doctor)app.LoggedInUser;
@@ -145,24 +149,24 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void startDate_datePicker_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(startDate_datePicker.SelectedDate < DateTime.Now)
+            if(startDate_datePicker.SelectedDate < DateTime.Now || startDate_datePicker.SelectedDate == null)
             {
                 startDate_datePicker.BorderBrush = Brushes.Red;
-                startDate_datePicker.ToolTip = "Ne mozete zakazivati termin u proslost!";
+                startDate_datePicker.ToolTip = "You cant select date in the past!";
                 startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else if(startDate_datePicker.SelectedDate < DateTime.Now.AddDays(3))
             {
                 startDate_datePicker.BorderBrush = Brushes.Red;
-                startDate_datePicker.ToolTip = "Morate zatraziti odmor miniumum 3 dana ranije!";
+                startDate_datePicker.ToolTip = "You must submit request at least 3 days earlier!";
                 startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else if (endDate_datePicker.SelectedDate < startDate_datePicker.SelectedDate)
             {
                 startDate_datePicker.BorderBrush = Brushes.Red;
-                startDate_datePicker.ToolTip = "Da l sam pos'o il sam dos'o... :|";
+                startDate_datePicker.ToolTip = "You must enter valid date!";
                 startDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
@@ -177,17 +181,17 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void endDate_datePicker_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (endDate_datePicker.SelectedDate < DateTime.Now)
+            if (endDate_datePicker.SelectedDate < DateTime.Now || endDate_datePicker.SelectedDate == null)
             {
                 endDate_datePicker.BorderBrush = Brushes.Red;
-                endDate_datePicker.ToolTip = "Ne mozete zakazivati termin u proslost!";
+                endDate_datePicker.ToolTip = "You cant select date in the past!";
                 endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else if (endDate_datePicker.SelectedDate < startDate_datePicker.SelectedDate)
             {
                 endDate_datePicker.BorderBrush = Brushes.Red;
-                endDate_datePicker.ToolTip = "Da l sam pos'o il sam dos'o... :|";
+                endDate_datePicker.ToolTip = "You must enter valid date!";
                 endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
