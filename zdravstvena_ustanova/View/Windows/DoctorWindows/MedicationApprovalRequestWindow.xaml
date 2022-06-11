@@ -14,8 +14,20 @@
         <Label Content="Request" HorizontalAlignment="Left" Margin="569,39,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="RequestMessageTextBox" IsEnabled="False" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="Medication Approval Request" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="651,359,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Submit"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="532,359,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="651,349,0,0" VerticalAlignment="Top" Height="48" Width="114" Background="White" Click="Button_Click_Submit">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="532,349,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel" Background="White">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label Content="Response" HorizontalAlignment="Left" Margin="569,177,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="ResponseMessageTextBox" HorizontalAlignment="Left" Margin="569,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="RequestStatus" HorizontalAlignment="Left" Margin="78,271,0,0" VerticalAlignment="Top" FontSize="20"/>

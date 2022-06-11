@@ -140,21 +140,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel_HolidayRequest(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (answer == MessageBoxResult.Yes)
-            {
-                if (HolidayRequestsReviewWindow == null)
-                {
-                    this.Close();
-                    return;
-                }
-                //var refreshedHolidayRequests = ProfileAndPersonalDataWindow.RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow);
-                //var holidayRequestsReviewWindowNew = new HolidayRequestsReviewWindow(refreshedHolidayRequests, ProfileAndPersonalDataWindow);
-                //HolidayRequestsReviewWindow.Close();
-                //holidayRequestsReviewWindowNew.ShowDialog();
-                this.Close();
-            }
-            
+            this.Close();
         }
 
         private void startDate_datePicker_LostFocus(object sender, RoutedEventArgs e)

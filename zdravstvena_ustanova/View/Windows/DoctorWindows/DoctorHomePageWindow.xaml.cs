@@ -82,7 +82,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             Username = app.LoggedInUser.Name;
             MedicationApprovalRequests = new ObservableCollection<MedicationApprovalRequest>();
             CheckForNewMedicationApprovalRequest();
-            StartCheckingForNewMedicationApprovalRequest(500);
+            StartCheckingForNewMedicationApprovalRequest(30);
             UpdateCalendar();
         }
 

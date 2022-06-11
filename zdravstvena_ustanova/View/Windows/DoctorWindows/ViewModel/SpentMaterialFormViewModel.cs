@@ -34,11 +34,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
         }
         private void ExecuteClose()
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (answer == MessageBoxResult.Yes)
-            {
-                SpentMaterialFormView.Close();
-            }
+            SpentMaterialFormView.Close();
         }
     }
 }

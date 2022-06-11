@@ -89,11 +89,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows.ViewModel
         }
         private void ExecuteClose()
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (answer == MessageBoxResult.Yes)
-            {
-                ProfileAndPersonalDataView.Close();
-            }
+          ProfileAndPersonalDataView.Close();
         }
         public List<HolidayRequest> RefreshPropertyHolidayRequests(HolidayRequestsReviewWindow holidayRequestsReviewWindow)
         {

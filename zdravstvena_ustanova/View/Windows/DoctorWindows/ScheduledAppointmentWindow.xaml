@@ -9,8 +9,8 @@
         Title="ScheduledAppointmentWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid Background="#067c7b">
         <TabControl TabStripPlacement="Left" Background="#067c7b">
-            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" Background="#067c7b" ToolTip="You can add anamnesis to patient health record">
-                <Canvas Background="#067c7b">
+            <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" ToolTip="You can add anamnesis to patient health record">
+                <Canvas>
                     <Label Content="Diagnosis:" Margin="70,35,0,0" Height="51" Width="300" FontSize="22" Canvas.Top="84" Canvas.Left="-44"/>
                     <Label Content="Current diseases:" Margin="70,213,0,0" Height="37" Width="300"  FontSize="22" Canvas.Left="-49" Canvas.Top="80"/>
                     <Label Content="Socio-epidemiological data:" Margin="530,214,0,0" Height="38" Width="300" FontSize="22" Canvas.Left="-12" Canvas.Top="76"/>
@@ -109,63 +109,65 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Button Width="114" Height="48" x:Name="hospitalizeButton" Content="Hospitalize " Margin="187,114,92,-123" Background="White" Grid.Row="11" Click="hospitalizeButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Click="releaseButton_Click" Width="114" Height="48" x:Name="releaseButton" Content="Release" Margin="112,114,175,-123" Background="White" Grid.Column="1" Grid.Row="11">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Width="114" Height="48" Content="Cancel" Margin="26,114,256,-123" Background="White" IsEnabled="False" Grid.Row="11">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Width="114" Height="48" Content="Cancel" Margin="274,114,24,-123" Background="White" IsEnabled="False" Grid.Column="1" Grid.Row="11">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Label Grid.Column="0" Grid.Row="1" Content="JMBG:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="0" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Panel.ZIndex="5" Grid.Row="1" Grid.RowSpan="2"/>
+                    <TextBox x:Name="jmbgTextBox" LostFocus="jmbgTextBox_LostFocus" Grid.Column="0" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,26" Panel.ZIndex="5" Grid.Row="1" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="3" Content="LBO:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
-                    <Label Grid.Column="0" Grid.Row="5" Content="Room id:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,1,0,9" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="0" Grid.Row="5" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <TextBox x:Name="lboTextBox" LostFocus="lboTextBox_LostFocus" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,26" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Room:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="40,1,0,9" Panel.ZIndex="5"/>
+                    <TextBox x:Name="roomTextBox" LostFocus="roomTextBox_LostFocus" Grid.Column="0" Grid.Row="5" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,26" Panel.ZIndex="5" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="7" Content="Cause of hospitalization:" Height="40" Width="248" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="0" Grid.Row="8" TextWrapping="Wrap" Text="" Width="248" FontSize="18" HorizontalAlignment="Left" Margin="29,1,0,10" Panel.ZIndex="5"/>
+                    <TextBox x:Name="causeOfHospitalizationTextBox" LostFocus="causeOfHospitalizationTextBox_LostFocus" Grid.Column="0" Grid.Row="8" TextWrapping="Wrap" Text="" Width="248" FontSize="18" HorizontalAlignment="Left" Margin="29,1,0,10" Panel.ZIndex="5"/>
                     <Label Grid.Column="0" Grid.Row="9" Content="Backing diseases:" Height="40" Width="230" FontSize="22" HorizontalAlignment="Left" Margin="40,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="0" Grid.Row="9" TextWrapping="Wrap" Text="" Width="248" FontSize="18" HorizontalAlignment="Left" Margin="29,50,0,13" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <TextBox x:Name="backingDiseasesTextBox" LostFocus="backingDiseasesTextBox_LostFocus" Grid.Column="0" Grid.Row="9" TextWrapping="Wrap" Text="" Width="248" FontSize="18" HorizontalAlignment="Left" Margin="29,50,0,13" Panel.ZIndex="5" Grid.RowSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="11" Content="Requested date for admission:" Height="40" Width="308" FontSize="22" HorizontalAlignment="Left" Margin="20,5,0,5" Panel.ZIndex="5"/>
-                    <DatePicker Grid.Column="0" Grid.Row="11" Width="170" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,-26" Panel.ZIndex="5"/>
+                    <DatePicker x:Name="requestedDateOfAdmissionDatePicker" LostFocus="requestedDateOfAdmissionDatePicker_LostFocus" Grid.Column="0" Grid.Row="11" Width="170" FontSize="18" HorizontalAlignment="Left" Margin="29,45,0,-26" Panel.ZIndex="5"/>
                     <Label Grid.Column="1" Grid.Row="1" Content="Date of admission:" Height="40" Width="190" FontSize="22" HorizontalAlignment="Left" Margin="191,1,0,9" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="1" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Panel.ZIndex="5" Grid.Row="1" Grid.RowSpan="2"/>
+                    <TextBox x:Name="dateOfAdmissionTextBox" LostFocus="dateOfAdmissionTextBox_LostFocus" Grid.Column="1" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,26" Panel.ZIndex="5" Grid.Row="1" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="2" Content="Release date:" Height="40" Width="145" FontSize="22" HorizontalAlignment="Left" Margin="236,48,0,13" Panel.ZIndex="5" Grid.RowSpan="2"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
-                    <Label Grid.Column="1" Grid.Row="5" Content="Room id:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="281,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <TextBox x:Name="releaseDateTextBox" LostFocus="releaseDateTextBox_LostFocus" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,26" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <Label Grid.Column="1" Grid.Row="5" Content="Room:" Height="40" Width="100" FontSize="22" HorizontalAlignment="Left" Margin="281,5,0,5" Panel.ZIndex="5"/>
+                    <TextBox x:Name="room2TextBox" LostFocus="room2TextBox_LostFocus" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,45,0,26" Panel.ZIndex="5" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="7" Content="Hours of fan support:" Height="40" Width="216" FontSize="22" HorizontalAlignment="Left" Margin="165,5,0,5" Panel.ZIndex="5"/>
-                    <TextBox Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,46,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
+                    <TextBox x:Name="hoursOfFanSupportTextBox" LostFocus="hoursOfFanSupportTextBox_LostFocus" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" Width="160" FontSize="18" HorizontalAlignment="Left" Margin="221,46,0,25" Panel.ZIndex="5" Grid.RowSpan="2"/>
                     <Label Grid.Column="1" Grid.Row="9" Content="Release kind:" Height="40" Width="160" FontSize="22" HorizontalAlignment="Left" Margin="221,25,0,36" Panel.ZIndex="5" Grid.RowSpan="2"/>
-                    <ComboBox Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="210,20,0,0" VerticalAlignment="Top" Width="171" Height="31" Panel.ZIndex="5" Grid.RowSpan="2">
+                    <ComboBox x:Name="releaseKindComboBox" LostFocus="releaseKindComboBox_LostFocus" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="210,20,0,0" VerticalAlignment="Top" Width="171" Height="31" Panel.ZIndex="5" Grid.RowSpan="2">
                         <ComboBoxItem Content="1-Home Release"></ComboBoxItem>
                         <ComboBoxItem Content="2-Release to other clinic"></ComboBoxItem>
                         <ComboBoxItem Content="3-Statistical release"></ComboBoxItem>
                         <ComboBoxItem Content="4-Self requested release"></ComboBoxItem>
                         <ComboBoxItem Content="5-Died"></ComboBoxItem>
                     </ComboBox>
+                    <TextBlock x:Name="preventErrorRequestedDateForAdmissionTextBlock" Text="You must choose valid date!" TextWrapping="Wrap" Margin="236,39,40,-59" Grid.Row="11" Foreground="Red" Visibility="Hidden"/>
+                    <TextBlock x:Name="preventErrorReleseaseKindTextBlock" TextWrapping="Wrap" Margin="69,10,231,27" Grid.Row="10" Foreground="Red" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="2"><Run Text="You must choose release kind!"/><LineBreak/><Run/></TextBlock>
                     <Canvas>
-                        <Button Content="Cancel" Margin="50,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="20"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                        <Button Content="Hospitalize " Margin="210,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="20"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                        <Button Content="Release" Margin="530,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="20"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                        <Button Content="Cancel" Margin="680,662,0,0"  Height="48" Width="114" Background="White" IsEnabled="False">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="20"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
                         <Rectangle HorizontalAlignment="Left" Height="752" Margin="420,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="2" RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
                                 <TransformGroup>

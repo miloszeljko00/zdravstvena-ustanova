@@ -648,7 +648,333 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 CheckIfCanEnableSubmitButton();
             }
         }
+        private void jmbgTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(jmbgTextBox.Text))
+            {
+                jmbgTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                jmbgTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
 
-        //\Drag&Drop
+        private void lboTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(lboTextBox.Text))
+            {
+                lboTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                lboTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
+
+        private void roomTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(roomTextBox.Text))
+            {
+                roomTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                roomTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
+        private void causeOfHospitalizationTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(causeOfHospitalizationTextBox.Text))
+            {
+                causeOfHospitalizationTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                causeOfHospitalizationTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
+
+        private void backingDiseasesTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(backingDiseasesTextBox.Text))
+            {
+                backingDiseasesTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                backingDiseasesTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
+
+        private void requestedDateOfAdmissionDatePicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (requestedDateOfAdmissionDatePicker.SelectedDate == null || requestedDateOfAdmissionDatePicker.SelectedDate < DateTime.Now)
+            {
+                requestedDateOfAdmissionDatePicker.BorderBrush = Brushes.Red;
+                preventErrorRequestedDateForAdmissionTextBlock.Visibility = Visibility.Visible;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                requestedDateOfAdmissionDatePicker.BorderBrush = Brush;
+                preventErrorRequestedDateForAdmissionTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableHospitalizeButton();
+            }
+        }
+
+        private void CheckIfCanEnableHospitalizeButton()
+        {
+            if(requestedDateOfAdmissionDatePicker.SelectedDate == null || requestedDateOfAdmissionDatePicker.SelectedDate < DateTime.Now ||
+                string.IsNullOrEmpty(backingDiseasesTextBox.Text) || string.IsNullOrEmpty(causeOfHospitalizationTextBox.Text) || string.IsNullOrEmpty(lboTextBox.Text) || string.IsNullOrEmpty(jmbgTextBox.Text))
+            {
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+
+                hospitalizeButton.IsEnabled = true;
+            }
+        }
+
+        private void dateOfAdmissionTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(dateOfAdmissionTextBox.Text))
+            {
+                dateOfAdmissionTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                dateOfAdmissionTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
+
+        private void releaseDateTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(releaseDateTextBox.Text))
+            {
+                releaseDateTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                releaseDateTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
+
+        private void room2TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(room2TextBox.Text))
+            {
+                room2TextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                room2TextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
+
+        private void hoursOfFanSupportTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(hoursOfFanSupportTextBox.Text))
+            {
+                hoursOfFanSupportTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                hoursOfFanSupportTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
+
+        private void releaseKindComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(releaseKindComboBox.Text))
+            {
+                preventErrorReleseaseKindTextBlock.Visibility = Visibility.Visible;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                preventErrorReleseaseKindTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
+
+        private void CheckIfCanEnableReleaseButton()
+        {
+            if (string.IsNullOrEmpty(dateOfAdmissionTextBox.Text) || string.IsNullOrEmpty(releaseDateTextBox.Text) || string.IsNullOrEmpty(room2TextBox.Text) ||
+                string.IsNullOrEmpty(hoursOfFanSupportTextBox.Text) || string.IsNullOrEmpty(releaseKindComboBox.Text))
+            {
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+
+                releaseButton.IsEnabled = true;
+            }
+        }
+
+        private void hospitalizeButton_Click(object sender, RoutedEventArgs e)
+        {
+           
+            if (string.IsNullOrEmpty(jmbgTextBox.Text))
+            {
+                jmbgTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                jmbgTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+            
+
+            
+           
+            if (string.IsNullOrEmpty(lboTextBox.Text))
+            {
+                lboTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                lboTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+
+            if (string.IsNullOrEmpty(roomTextBox.Text))
+            {
+                roomTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                roomTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+
+            if (string.IsNullOrEmpty(causeOfHospitalizationTextBox.Text))
+            {
+                causeOfHospitalizationTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                causeOfHospitalizationTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+            
+
+            
+            if (string.IsNullOrEmpty(backingDiseasesTextBox.Text))
+            {
+                backingDiseasesTextBox.BorderBrush = Brushes.Red;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                backingDiseasesTextBox.BorderBrush = Brush;
+                CheckIfCanEnableHospitalizeButton();
+            }
+
+
+
+            if (requestedDateOfAdmissionDatePicker.SelectedDate == null || requestedDateOfAdmissionDatePicker.SelectedDate < DateTime.Now)
+            {
+                requestedDateOfAdmissionDatePicker.BorderBrush = Brushes.Red;
+                preventErrorRequestedDateForAdmissionTextBlock.Visibility = Visibility.Visible;
+                hospitalizeButton.IsEnabled = false;
+            }
+            else
+            {
+                requestedDateOfAdmissionDatePicker.BorderBrush = Brush;
+                preventErrorRequestedDateForAdmissionTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableHospitalizeButton();
+            }
+
+        }
+
+        private void releaseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(dateOfAdmissionTextBox.Text))
+            {
+                dateOfAdmissionTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                dateOfAdmissionTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(releaseDateTextBox.Text))
+            {
+                releaseDateTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                releaseDateTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+
+
+            if (string.IsNullOrEmpty(room2TextBox.Text))
+            {
+                room2TextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                room2TextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(hoursOfFanSupportTextBox.Text))
+            {
+                hoursOfFanSupportTextBox.BorderBrush = Brushes.Red;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                hoursOfFanSupportTextBox.BorderBrush = Brush;
+                CheckIfCanEnableReleaseButton();
+            }
+
+
+
+            if (string.IsNullOrEmpty(releaseKindComboBox.Text))
+            {
+                preventErrorReleseaseKindTextBlock.Visibility = Visibility.Visible;
+                releaseButton.IsEnabled = false;
+            }
+            else
+            {
+                preventErrorReleseaseKindTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableReleaseButton();
+            }
+        }
     }
 }

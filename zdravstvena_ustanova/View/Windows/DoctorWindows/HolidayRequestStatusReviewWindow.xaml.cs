@@ -38,16 +38,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (answer == MessageBoxResult.Yes)
-            {
-                this.Close();
-            }
-        }
-
-        private void Button_Click_Submit(object sender, RoutedEventArgs e)
-        {
-
+            this.Close();
         }
     }
 }
