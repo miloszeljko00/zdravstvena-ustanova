@@ -120,8 +120,161 @@
   <data name="account" xml:space="preserve">
     <value>Nalog</value>
   </data>
+  <data name="activeMedicationApprovalRequests" xml:space="preserve">
+    <value>Aktivni zahtevi za odobrenje leka</value>
+  </data>
+  <data name="activeRequests" xml:space="preserve">
+    <value>Aktivni zahtevi</value>
+  </data>
+  <data name="addInventory" xml:space="preserve">
+    <value>Dodavanje inventara</value>
+  </data>
+  <data name="addItem" xml:space="preserve">
+    <value>Dodaj predmet</value>
+  </data>
+  <data name="addMedication" xml:space="preserve">
+    <value>Dodavanje leka</value>
+  </data>
+  <data name="addRoom" xml:space="preserve">
+    <value>Dodavanje prostorije</value>
+  </data>
+  <data name="approvalRequest" xml:space="preserve">
+    <value>Zahtev za odobrenje</value>
+  </data>
+  <data name="approved" xml:space="preserve">
+    <value>Odobren</value>
+  </data>
+  <data name="approvedMedicationCount" xml:space="preserve">
+    <value>Broj odobrenih lekova</value>
+  </data>
+  <data name="averageGrade" xml:space="preserve">
+    <value>Prosečna ocena</value>
+  </data>
+  <data name="averageHoursDaily:" xml:space="preserve">
+    <value>Prosečno sati dnevno:</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Nazad</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="cancel2" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="cancelRenovation" xml:space="preserve">
+    <value>Otkaži renoviranje</value>
+  </data>
+  <data name="cancelRequest" xml:space="preserve">
+    <value>Otkaži zahtev</value>
+  </data>
+  <data name="cancelTransfer" xml:space="preserve">
+    <value>Otkazivanje premeštanja</value>
+  </data>
+  <data name="confirm" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="confirmDelete" xml:space="preserve">
+    <value>Potvrdi brisanje?</value>
+  </data>
+  <data name="confirmDeletea" xml:space="preserve">
+    <value />
+  </data>
+  <data name="count" xml:space="preserve">
+    <value>Količina</value>
+  </data>
+  <data name="count:" xml:space="preserve">
+    <value>Količina:</value>
+  </data>
+  <data name="creationDate" xml:space="preserve">
+    <value>Datum kreiranja</value>
+  </data>
+  <data name="currentRoom:" xml:space="preserve">
+    <value>Trenutna prostorija:</value>
+  </data>
+  <data name="currentWarehousoe" xml:space="preserve">
+    <value>Trenutni magacin:</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="dateOfRemoval" xml:space="preserve">
+    <value>Datum uklanjanja</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="description:" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="destination:" xml:space="preserve">
+    <value>Odredište:</value>
+  </data>
+  <data name="doctor" xml:space="preserve">
+    <value>Lekar</value>
+  </data>
+  <data name="doctor2" xml:space="preserve">
+    <value>   Doktor: </value>
+  </data>
+  <data name="doctor:" xml:space="preserve">
+    <value>Lekar:</value>
+  </data>
   <data name="doctors" xml:space="preserve">
     <value>Lekari</value>
+  </data>
+  <data name="editItem" xml:space="preserve">
+    <value>Izmena predmeta</value>
+  </data>
+  <data name="editMedication" xml:space="preserve">
+    <value>Izmeni lek</value>
+  </data>
+  <data name="editMedication2" xml:space="preserve">
+    <value>Izmena leka</value>
+  </data>
+  <data name="editRoom" xml:space="preserve">
+    <value>Izmena prostorije</value>
+  </data>
+  <data name="endDate:" xml:space="preserve">
+    <value>Datum završetka:</value>
+  </data>
+  <data name="finishedMedicationApprovalRequests" xml:space="preserve">
+    <value>Završeni zahtevi za odobrenje leka</value>
+  </data>
+  <data name="finishedRequests" xml:space="preserve">
+    <value>Završeni zahtevi</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>Prvu</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Sprat</value>
+  </data>
+  <data name="floor:" xml:space="preserve">
+    <value>Sprat:</value>
+  </data>
+  <data name="floorOfFirstRoom" xml:space="preserve">
+    <value>Sprat prve:</value>
+  </data>
+  <data name="floorOfSecondRoom" xml:space="preserve">
+    <value>Sprat druge:</value>
+  </data>
+  <data name="friday" xml:space="preserve">
+    <value>Petak</value>
+  </data>
+  <data name="from2:" xml:space="preserve">
+    <value>Iz:</value>
+  </data>
+  <data name="from:" xml:space="preserve">
+    <value>Od:</value>
+  </data>
+  <data name="fromRoom" xml:space="preserve">
+    <value>Iz prostorije</value>
+  </data>
+  <data name="generateReport" xml:space="preserve">
+    <value>Generiši izveštaj</value>
+  </data>
+  <data name="gradeCount" xml:space="preserve">
+    <value>Broj ocena</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Početna</value>
@@ -129,37 +282,289 @@
   <data name="information" xml:space="preserve">
     <value>Informacije</value>
   </data>
+  <data name="ingredient:" xml:space="preserve">
+    <value>Sastojak:</value>
+  </data>
+  <data name="ingredients:" xml:space="preserve">
+    <value>Sastojci:</value>
+  </data>
+  <data name="inventoryCount" xml:space="preserve">
+    <value>Broj inventara</value>
+  </data>
+  <data name="inventoryOverview" xml:space="preserve">
+    <value>Pregled inventara</value>
+  </data>
+  <data name="item" xml:space="preserve">
+    <value>Predmet</value>
+  </data>
   <data name="items" xml:space="preserve">
     <value>Predmeti</value>
+  </data>
+  <data name="itemType" xml:space="preserve">
+    <value>Tip predmeta</value>
+  </data>
+  <data name="itemType:" xml:space="preserve">
+    <value>Tip predmeta:</value>
+  </data>
+  <data name="listOfQuestions" xml:space="preserve">
+    <value>Lista pitanja</value>
   </data>
   <data name="logout" xml:space="preserve">
     <value>Odjava</value>
   </data>
+  <data name="manager" xml:space="preserve">
+    <value>Upravnik</value>
+  </data>
+  <data name="medication" xml:space="preserve">
+    <value>Lek</value>
+  </data>
   <data name="medications" xml:space="preserve">
     <value>Lekovi</value>
+  </data>
+  <data name="medicationType" xml:space="preserve">
+    <value>Tip leka</value>
+  </data>
+  <data name="medicationType:" xml:space="preserve">
+    <value>Tip leka:</value>
+  </data>
+  <data name="mergeWith:" xml:space="preserve">
+    <value>Spoji sa:</value>
+  </data>
+  <data name="monday" xml:space="preserve">
+    <value>Ponedeljak</value>
+  </data>
+  <data name="mostFrequentDay:" xml:space="preserve">
+    <value>Najfrekventniji dan:</value>
+  </data>
+  <data name="MoveInventoryTo" xml:space="preserve">
+    <value>Premesti inventar u:</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="name:" xml:space="preserve">
+    <value>Naziv:</value>
+  </data>
+  <data name="nameOfFirstRoom" xml:space="preserve">
+    <value>Naziv prve:</value>
+  </data>
+  <data name="nameOfSecondRoom" xml:space="preserve">
+    <value>Naziv druge:</value>
+  </data>
+  <data name="new" xml:space="preserve">
+    <value>Nov</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Dalje</value>
+  </data>
+  <data name="note:" xml:space="preserve">
+    <value>Napomena:</value>
+  </data>
+  <data name="numberOfApprovedMedications30Days" xml:space="preserve">
+    <value>Broj odobrenih lekova u prethodnih 30 dana:</value>
+  </data>
+  <data name="numberOfGradesPerQuestion" xml:space="preserve">
+    <value>Broj ocena po pitanjima:</value>
+  </data>
+  <data name="numberOfOrders30Days" xml:space="preserve">
+    <value>Broj narudžbina u prethodnih 30 dana:</value>
+  </data>
+  <data name="numberOfPollAnswers30Days" xml:space="preserve">
+    <value>Broj odgovora na ankete u prethodnih 30 dana:</value>
+  </data>
+  <data name="numberOfRenovations30Days" xml:space="preserve">
+    <value>Broj renoviranja u prethodnih 30 dana:</value>
+  </data>
+  <data name="numberOfScheduledAppointments:" xml:space="preserve">
+    <value>Broj zakazanih termina:</value>
+  </data>
+  <data name="numberOfTransfers30Days" xml:space="preserve">
+    <value>Broj premeštanja u prethodnih 30 dana:</value>
   </data>
   <data name="orders" xml:space="preserve">
     <value>Narudžbine</value>
   </data>
+  <data name="ordersCount" xml:space="preserve">
+    <value>Broj narudžbina</value>
+  </data>
+  <data name="patient2" xml:space="preserve">
+    <value>   Patient: </value>
+  </data>
+  <data name="pickNewDate" xml:space="preserve">
+    <value>Izaberi novi datum</value>
+  </data>
+  <data name="pollName" xml:space="preserve">
+    <value>Naziv ankete</value>
+  </data>
   <data name="polls" xml:space="preserve">
     <value>Ankete</value>
+  </data>
+  <data name="pollsAnswers" xml:space="preserve">
+    <value>Odgovora na ankete</value>
+  </data>
+  <data name="pollType" xml:space="preserve">
+    <value>Tip ankete</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>Štampaj</value>
+  </data>
+  <data name="question" xml:space="preserve">
+    <value>Pitanje</value>
+  </data>
+  <data name="removeInventory" xml:space="preserve">
+    <value>Uklanjanje inventara</value>
+  </data>
+  <data name="renovationCount" xml:space="preserve">
+    <value>Broj renoviranja</value>
+  </data>
+  <data name="renovationEndDate" xml:space="preserve">
+    <value>Datum završetka renoviranja</value>
+  </data>
+  <data name="renovationReason" xml:space="preserve">
+    <value>Razlog renoviranja</value>
   </data>
   <data name="renovations" xml:space="preserve">
     <value>Renoviranja</value>
   </data>
+  <data name="renovationStartDate" xml:space="preserve">
+    <value>Datum početka renoviranja</value>
+  </data>
+  <data name="renovationType:" xml:space="preserve">
+    <value>Tip renoviranja:</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Izveštaji</value>
+  </data>
+  <data name="requestApproval" xml:space="preserve">
+    <value>Zatraži odobrenje</value>
   </data>
   <data name="requests" xml:space="preserve">
     <value>Zahtevi</value>
   </data>
+  <data name="requestStatus" xml:space="preserve">
+    <value>Status zahteva</value>
+  </data>
+  <data name="resend" xml:space="preserve">
+    <value>Pošalji ponovo</value>
+  </data>
+  <data name="results" xml:space="preserve">
+    <value>Rezultati</value>
+  </data>
+  <data name="results:" xml:space="preserve">
+    <value>Rezultati:</value>
+  </data>
+  <data name="room" xml:space="preserve">
+    <value>Prostorija</value>
+  </data>
+  <data name="room:" xml:space="preserve">
+    <value>Prostorija:</value>
+  </data>
+  <data name="room:a" xml:space="preserve">
+    <value />
+  </data>
+  <data name="roomMerge" xml:space="preserve">
+    <value>Spajanje prostorija</value>
+  </data>
+  <data name="roomOccupancy" xml:space="preserve">
+    <value>Zauzetost prostorije</value>
+  </data>
+  <data name="roomOccupancyReport" xml:space="preserve">
+    <value>Izveštaj o zauzetosti prostorije</value>
+  </data>
   <data name="rooms" xml:space="preserve">
     <value>Prostorije</value>
+  </data>
+  <data name="roomSplit" xml:space="preserve">
+    <value>Razdvajanje prostorija</value>
+  </data>
+  <data name="roomType" xml:space="preserve">
+    <value>Tip prostorije</value>
+  </data>
+  <data name="saturday" xml:space="preserve">
+    <value>Subota</value>
+  </data>
+  <data name="scheduledAppointments" xml:space="preserve">
+    <value>Zakazanih termina</value>
+  </data>
+  <data name="scheduleRenovation" xml:space="preserve">
+    <value>Zakaži renoviranje</value>
+  </data>
+  <data name="scheduleRenovation2" xml:space="preserve">
+    <value>Zakazivanje renoviranja</value>
+  </data>
+  <data name="scheduleTransfer" xml:space="preserve">
+    <value>Zakaži premeštanje</value>
+  </data>
+  <data name="scheduleTransfer2" xml:space="preserve">
+    <value>Zakazivanje premeštanja</value>
+  </data>
+  <data name="second" xml:space="preserve">
+    <value>Drugu</value>
+  </data>
+  <data name="source:" xml:space="preserve">
+    <value>Izvor:</value>
+  </data>
+  <data name="startDate:" xml:space="preserve">
+    <value>Datum početka:</value>
+  </data>
+  <data name="sunday" xml:space="preserve">
+    <value>Nedelja</value>
+  </data>
+  <data name="thursday" xml:space="preserve">
+    <value>Četvrtak</value>
+  </data>
+  <data name="to2:" xml:space="preserve">
+    <value>U:</value>
+  </data>
+  <data name="to:" xml:space="preserve">
+    <value>Do:</value>
+  </data>
+  <data name="toRoom" xml:space="preserve">
+    <value>U prostoriju</value>
+  </data>
+  <data name="total:" xml:space="preserve">
+    <value>Ukupno:</value>
+  </data>
+  <data name="totalGradeQuestionCount" xml:space="preserve">
+    <value>Ukupna ocena (broj pitanja):</value>
+  </data>
+  <data name="totalInHospital" xml:space="preserve">
+    <value>Ukupno u bolnici</value>
+  </data>
+  <data name="transferDate" xml:space="preserve">
+    <value>Datum premeštanja</value>
+  </data>
+  <data name="transferDate:" xml:space="preserve">
+    <value>Datum premeštanja:</value>
   </data>
   <data name="transfers" xml:space="preserve">
     <value>Premeštanja</value>
   </data>
+  <data name="tuesday" xml:space="preserve">
+    <value>Utorak</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="type:" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="typeOfFirstRoom" xml:space="preserve">
+    <value>Tip prve:</value>
+  </data>
+  <data name="typeOfSecondRoom" xml:space="preserve">
+    <value>Tip druge:</value>
+  </data>
   <data name="warehouse" xml:space="preserve">
     <value>Skladište</value>
+  </data>
+  <data name="wednesday" xml:space="preserve">
+    <value>Sreda</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Dobrodošli!</value>
+  </data>
+  <data name="writeoff" xml:space="preserve">
+    <value>Otpis</value>
   </data>
 </root>

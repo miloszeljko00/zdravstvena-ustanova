@@ -70,6 +70,15 @@ namespace zdravstvena_ustanova.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add item.
+        /// </summary>
+        internal static string addItem {
+            get {
+                return ResourceManager.GetString("addItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Doctors.
         /// </summary>
         internal static string doctors {

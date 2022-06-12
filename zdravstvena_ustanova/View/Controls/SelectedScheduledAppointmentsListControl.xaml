@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   
@@ -12,11 +13,11 @@
             <DataTemplate>
                 <WrapPanel>
                     <TextBlock Text="{Binding Start, StringFormat=\{0:HH:mm\}}" FontWeight="Bold" />
-                    <TextBlock Text="   Doktor: " />
+                    <TextBlock Text="{zdravstvenaUstanova:Loc doctor2}" />
                     <TextBlock Text="{Binding Doctor.Name}" FontWeight="Bold" />
                     <TextBlock Text=" " FontWeight="Bold" />
                     <TextBlock Text="{Binding Doctor.Surname}" FontWeight="Bold" />
-                    <TextBlock Text="   Pacijent: " />
+                    <TextBlock Text="{zdravstvenaUstanova:Loc patient2}" />
                     <TextBlock Text="{Binding Patient.Name}" FontWeight="Bold" />
                     <TextBlock Text=" " FontWeight="Bold" />
                     <TextBlock Text="{Binding Patient.Surname}" FontWeight="Bold" />

@@ -65,7 +65,14 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
 
                 if (ScheduledAppointments.Count != 0)
                 {
-                    AppointmentsCountDisplay.Content = ScheduledAppointments.Count() + " termina";
+                    if (ManagerMainPage.CurrentLanguage == "en-US")
+                    {
+                        AppointmentsCountDisplay.Content = ScheduledAppointments.Count() + " appointments";
+                    }
+                    else
+                    {
+                        AppointmentsCountDisplay.Content = ScheduledAppointments.Count() + " termina";
+                    }
                 }
                 if(RenovationAppointment != null)
                 {
@@ -110,7 +117,14 @@ namespace zdravstvena_ustanova.View.Controls.RoomsCalendar
                     if (dayFieldCalendar.RenovationAppointment != null)
                     {
                         dayFieldCalendar.panel.Background = Brushes.Red;
-                        dayFieldCalendar.AppointmentsCountDisplay.Content = "Renoviranje";
+                        if (ManagerMainPage.CurrentLanguage == "en-US")
+                        {
+                            dayFieldCalendar.AppointmentsCountDisplay.Content = "Renovation";
+                        }
+                        else
+                        {
+                            dayFieldCalendar.AppointmentsCountDisplay.Content = "Renoviranje";
+                        }
                         dayFieldCalendar.AppointmentsCountDisplay.Foreground = Brushes.White;
                         dayFieldCalendar.label.Foreground = Brushes.White;
                     }

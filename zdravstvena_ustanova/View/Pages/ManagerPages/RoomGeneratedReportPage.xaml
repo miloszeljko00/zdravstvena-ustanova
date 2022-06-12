@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="RoomGeneratedReportPage">
@@ -16,12 +17,13 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
-            <Label Margin="80,0,0,0" VerticalContentAlignment="Center" Content="Izveštaj o zauzetosti prostorije" FontSize="40"></Label>
+            <Label Margin="80,0,0,0" VerticalContentAlignment="Center" 
+                   Content="{zdravstvenaUstanova:Loc roomOccupancyReport}" FontSize="40"></Label>
           
             <Button x:Name="PrintButton" Margin="438,0,0,0" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="PrintButton_OnClick">
                 <WrapPanel>
                     <Image Source="/Resources/img/printer.png" Width="18"></Image>
-                    <Label FontSize="14" Content="Štampaj"></Label>
+                    <Label FontSize="14" Content="{zdravstvenaUstanova:Loc print}"></Label>
                 </WrapPanel>
             </Button>
         </WrapPanel>
@@ -30,17 +32,17 @@
             <Border Margin="80, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="750" Height="450">
                 <wpf:CartesianChart Width="746" Height="446" Name="AppointmentsChart">
                     <wpf:CartesianChart.Series>
-                        <wpf:ColumnSeries Title="Zakazanih termina" Values="{Binding NumberOfAppointments}"/>
+                        <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc scheduledAppointments}" Values="{Binding NumberOfAppointments}"/>
                     </wpf:CartesianChart.Series>
                     <wpf:CartesianChart.AxisX>
-                        <wpf:Axis Title="Datum" Labels="{Binding Dates}">
+                        <wpf:Axis Title="{zdravstvenaUstanova:Loc date}" Labels="{Binding Dates}">
                             <wpf:Axis.Separator>
                                 <wpf:Separator Step="1"/>
                             </wpf:Axis.Separator>
                         </wpf:Axis>
                     </wpf:CartesianChart.AxisX>
                     <wpf:CartesianChart.AxisY>
-                        <wpf:Axis Title="Zakazanih termina">
+                        <wpf:Axis Title="{zdravstvenaUstanova:Loc scheduledAppointments}">
                             <wpf:Axis.Separator>
                                 <wpf:Separator Step="1"/>
                             </wpf:Axis.Separator>
@@ -51,28 +53,32 @@
             <Border Margin="30, 0, 0, 0" BorderBrush="Gray" BorderThickness="1px" Width="350" Height="450" Grid.Row="1">
                 <StackPanel Width="346" Height="446" >
                     <WrapPanel Margin="10,30,10,0">
-                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
+                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="{zdravstvenaUstanova:Loc from:}"></Label>
                         <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="258" Text="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="10,0,10,0">
-                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Do:"></Label>
+                        <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="{zdravstvenaUstanova:Loc to:}"></Label>
                         <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="258" Text="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                     </WrapPanel>
                     <StackPanel Margin="10,30,10,0">
                         <WrapPanel>
-                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Prostorija:"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" 
+                                   Content="{zdravstvenaUstanova:Loc room:}"></Label>
                             <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="176" Text="{Binding Room.Name}"></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,80,0,0">
-                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="170" Content="Broj rezervisanih termina:"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="170" 
+                                   Content="{zdravstvenaUstanova:Loc numberOfScheduledAppointments:}"></Label>
                             <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="156" Text="{Binding TotalNumberOfAppointments}"></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,0,0,0">
-                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Prosečno sati dnevno:"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" 
+                                   Content="{zdravstvenaUstanova:Loc averageHoursDaily:}"></Label>
                             <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="176" Text="{Binding AvgHoursDaily, StringFormat=N2}"></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,50,0,0">
-                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Najfrekventniji dan:"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" 
+                                   Content="{zdravstvenaUstanova:Loc mostFrequentDay:}"></Label>
                             <TextBlock TextAlignment="Right" HorizontalAlignment="Right" FontSize="14" Width="176" Text="{Binding MostFrequentDay}"></TextBlock>
                         </WrapPanel>
                     </StackPanel>

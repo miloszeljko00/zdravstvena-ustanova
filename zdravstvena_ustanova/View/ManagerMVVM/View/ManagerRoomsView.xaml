@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.ManagerMVVM.View"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:model="clr-namespace:zdravstvena_ustanova.View.ManagerMVVM.Model"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="MedicationRoomsView">
@@ -17,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button Command="{Binding InventoryOverviewCommand}"  x:Name="InventoryOverviewButton" Width="150" Height="48" FontSize="14" Cursor="Hand">Pregled inventara</Button>
+            <Button Command="{Binding InventoryOverviewCommand}"  x:Name="InventoryOverviewButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Content="{zdravstvenaUstanova:Loc inventoryOverview}"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="500,5,0,0" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -103,10 +104,10 @@
             <DataGrid x:Name="RoomsDataGrid" SelectedItem="{Binding RoomsModel.SelectedRoom}" ItemsSource="{Binding RoomsModel.Rooms}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Prostorija" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Broj inventara" Binding="{Binding StoredItems.Count}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc room}" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc roomType}" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc floor}" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc inventoryCount}" Binding="{Binding StoredItems.Count}" Width="*"></DataGridTextColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

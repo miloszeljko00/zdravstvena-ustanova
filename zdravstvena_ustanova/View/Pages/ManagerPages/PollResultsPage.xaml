@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="PollResultsPage">
@@ -15,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Label Content="Rezultati:" Width="180" FontSize="36"></Label>
+            <Label Content="{zdravstvenaUstanova:Loc results:}" Width="180" FontSize="36"></Label>
             <Label Width="820" Content="{Binding SurveyName}" FontSize="36"/>
         </StackPanel>
         <WrapPanel Grid.Row="1">
@@ -24,9 +25,9 @@
 <DataGrid x:Name="SurveysDataGrid" ItemsSource="{Binding QuestionScores}" IsReadOnly="True" SelectionMode="Single" 
                       Margin="0,0,0,0"  AutoGenerateColumns="False" Height="450" Width="600" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="SurveysDataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Pitanje" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Prosečna ocena" Binding="{Binding AvgScore}" Width="150"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Broj ocena" Binding="{Binding TotalAnswersCount}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{zdravstvenaUstanova:Loc question}" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{zdravstvenaUstanova:Loc averageGrade}" Binding="{Binding AvgScore}" Width="150"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{zdravstvenaUstanova:Loc gradeCount}" Binding="{Binding TotalAnswersCount}" Width="150"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
                 </Border>
@@ -34,7 +35,7 @@
 
 <StackPanel Width="390" Margin="10,0,0,0">
                 <WrapPanel >
-                    <Label Width="235" FontSize="18" Content="Ukupna ocena (broj pitanja):" HorizontalContentAlignment="Left"></Label>
+                        <Label Width="235" FontSize="18" Content="{zdravstvenaUstanova:Loc totalGradeQuestionCount:}" HorizontalContentAlignment="Left"></Label>
                     <Label Width="50" FontSize="18" Content="{Binding TotalScore}" HorizontalContentAlignment="Right"></Label>
                     <Label FontSize="18" Content="(" HorizontalContentAlignment="Right"></Label>
                     <Label Width="50" FontSize="18" Content="{Binding TotalScoreCount}" HorizontalContentAlignment="Center"></Label>
@@ -42,7 +43,7 @@
                 </WrapPanel>
 
                 <Separator Background="Black"></Separator>
-                <Label Margin="0,20,0,0" FontSize="18" Content="Broj ocena po pitanjima:" HorizontalContentAlignment="Left"></Label>
+                    <Label Margin="0,20,0,0" FontSize="18" Content="{zdravstvenaUstanova:Loc numberOfGradesPerQuestion:}" HorizontalContentAlignment="Left"></Label>
 
                 <WrapPanel>
                     <Label Width="100" Content="⭐: " FontSize="18"></Label>

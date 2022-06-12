@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="PollsOverviewPage">
@@ -15,8 +16,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Button IsEnabled="False" x:Name="SurveyResultsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="SurveyResultsButton_OnClick">Rezultati</Button>
-            <Button IsEnabled="False" Margin="15,0,0,0" x:Name="ListOfQuestionsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ListOfQuestionsButton_OnClick">Spisak pitanja</Button>
+            <Button IsEnabled="False" x:Name="SurveyResultsButton" Width="150" Height="48" FontSize="14" Cursor="Hand" 
+                    Click="SurveyResultsButton_OnClick"
+                    Content="{zdravstvenaUstanova:Loc results}"></Button>
+            <Button IsEnabled="False" Margin="15,0,0,0" x:Name="ListOfQuestionsButton" Width="150" Height="48" FontSize="14" 
+                    Cursor="Hand" Click="ListOfQuestionsButton_OnClick"
+                    Content="{zdravstvenaUstanova:Loc listOfQuestions}"></Button>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="335,5,0,0" TextChanged="SearchTextBox_OnTextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -75,9 +80,9 @@
 <DataGrid x:Name="SurveysDataGrid" ItemsSource="{Binding Surveys}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="SurveysDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv ankete" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tip ankete" Binding="{Binding SurveyType}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum kreiranja" Binding="{Binding DateOfPublication, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc pollName}" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc pollType}" Binding="{Binding SurveyType}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc creationDate}" Binding="{Binding DateOfPublication, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
             </Border>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages" xmlns:roomscalendar="clr-namespace:zdravstvena_ustanova.View.Controls.RoomsCalendar"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="RoomCalendarOverview">
@@ -14,10 +15,12 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" VerticalAlignment="Center">
-            <Label Margin="60,0,0,0" VerticalContentAlignment="Center" Content="Zauzetost prostorije" FontSize="40"></Label>
+            <Label Margin="60,0,0,0" VerticalContentAlignment="Center" Content="{zdravstvenaUstanova:Loc roomOccupancy}" FontSize="40"></Label>
             
-            <Button IsEnabled="{Binding IsRenovationSelected}" x:Name="UnScheduleRenovationButton" Margin="467.5,0,0,0" Content="Otkaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="UnScheduleRenovationButton_Click"></Button>
-            <Button x:Name="ScheduleRenovationButton" Margin="50,0,0,0" Content="Zakaži renoviranje" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ScheduleRenovationButton_Click"></Button>
+            <Button IsEnabled="{Binding IsRenovationSelected}" x:Name="UnScheduleRenovationButton" 
+                    Margin="467.5,0,0,0" Content="{zdravstvenaUstanova:Loc cancelRenovation}" Width="150" Height="48" FontSize="14"
+                    Cursor="Hand" Click="UnScheduleRenovationButton_Click"></Button>
+            <Button x:Name="ScheduleRenovationButton" Margin="50,0,0,0" Content="{zdravstvenaUstanova:Loc scheduleRenovation}" Width="150" Height="48" FontSize="14" Cursor="Hand" Click="ScheduleRenovationButton_Click"></Button>
         </WrapPanel>
         <WrapPanel Grid.Row="1">
             <WrapPanel Margin="60, 0, 0, 0" Width="800" Height="450" Name="CalendarContainer">
@@ -28,15 +31,15 @@
 
                     <StackPanel>
                         <WrapPanel Margin="4,4,4,0">
-                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Naziv:"></Label>
+                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="{zdravstvenaUstanova:Loc name:}"></Label>
                             <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="270" Content="{Binding Room.Name}"></Label>
                         </WrapPanel>
                         <WrapPanel Margin="4,0,4,0">
-                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Tip:"></Label>
+                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="{zdravstvenaUstanova:Loc type:}"></Label>
                             <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="270" Content="{Binding Room.RoomType}"></Label>
                         </WrapPanel>
                         <WrapPanel Margin="4,0,4,4">
-                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Sprat:"></Label>
+                            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="{zdravstvenaUstanova:Loc floor:}"></Label>
                             <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontSize="14" Width="270" Content="{Binding Room.Floor}"></Label>
                         </WrapPanel>
                     </StackPanel>

@@ -4,19 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Width="346" Height="352">
         <WrapPanel Margin="10,0,10,0">
-            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Od:"></Label>
+            <Label VerticalContentAlignment="Center" FontSize="14" Width="68"
+                   Content="{zdravstvenaUstanova:Loc from:}"></Label>
             <TextBlock TextAlignment="Center" HorizontalAlignment="Right" FontSize="14" Width="258" Text="{Binding SelectedRenovationAppointment.StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
         </WrapPanel>
         <WrapPanel Margin="10,0,10,0">
-            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" Content="Do:"></Label>
+            <Label VerticalContentAlignment="Center" FontSize="14" Width="68" 
+                   Content="{zdravstvenaUstanova:Loc to:}"></Label>
             <TextBlock TextAlignment="Center" HorizontalAlignment="Right" FontSize="14" Width="258" Text="{Binding SelectedRenovationAppointment.EndDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
         </WrapPanel>
         <StackPanel Margin="10,0,10,0">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150" Content="Razlog renoviranja:"></Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Width="150"
+                   Content="{zdravstvenaUstanova:Loc renovationReason}"></Label>
             <Border BorderBrush="Gray" BorderThickness="1px">
                 <TextBlock Margin="10" FontSize="14" Height="240" Text="{Binding SelectedRenovationAppointment.Description}"></TextBlock>
             </Border>

@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
         xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
         mc:Ignorable="d" 
         d:DesignHeight="900" d:DesignWidth="600"
         Title="RoomsReportPDF" WindowStyle="None">
@@ -19,28 +20,34 @@
         <Border BorderThickness="2px"  BorderBrush="Gray" Margin="20,20,20,20">
             <StackPanel Margin="20,20,20,20" Height="210">
                 <WrapPanel Margin="10,0,10,0">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Od:"></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                               Text="{zdravstvenaUstanova:Loc from:}"></TextBlock>
                     <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                 </WrapPanel>
                 <WrapPanel Margin="10,0,10,0">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Do:"></TextBlock>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                               Text="{zdravstvenaUstanova:Loc to:}"></TextBlock>
                     <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}"></TextBlock>
                 </WrapPanel>
                 <StackPanel Margin="10,20,10,0">
                     <WrapPanel>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Prostorija:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                                   Text="{zdravstvenaUstanova:Loc room:}"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding Room.Name}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,20,0,0">
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Broj rezervisanih termina:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                                   Text="{zdravstvenaUstanova:Loc numberOfScheduledAppointments:}"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding TotalNumberOfAppointments}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,0,0,0">
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Prosečno sati dnevno:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                                   Text="{zdravstvenaUstanova:Loc averageHoursDaily:}"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding AvgHoursDaily, StringFormat=N2}"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Margin="0,20,0,0">
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" Text="Najfrekventniji dan:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Width="250" 
+                                   Text="{zdravstvenaUstanova:Loc mostFrequentDay:}"></TextBlock>
                         <TextBlock TextAlignment="Left" HorizontalAlignment="Right" FontSize="18" Width="246" Text="{Binding MostFrequentDay}"></TextBlock>
                     </WrapPanel>
                 </StackPanel>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.ManagerMVVM.View"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="RoomsOccupancyPage">
@@ -16,15 +17,15 @@
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
 
-            <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="Prostorije"></Label>
-            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="118,0,0,0"></Label>
+            <Label FontSize="40" Margin="0,0,0,0" Width="300" Content="{zdravstvenaUstanova:Loc rooms}"></Label>
+            <Label Content="{zdravstvenaUstanova:Loc from:}" FontSize="18" VerticalAlignment="Center" Margin="118,0,0,0"></Label>
             <DatePicker SelectedDate="{Binding StartDate}" Name="StartDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
-            <Label Content="Od:" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0"></Label>
+            <Label Content="{zdravstvenaUstanova:Loc to:}" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0"></Label>
             <DatePicker SelectedDate="{Binding EndDate}" Name="EndDatePicker" Margin="15,0,0,0" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
             <Button x:Name="GenerateReportButton" Width="150" Height="48" Margin="15,0,0,0" FontSize="13" Cursor="Hand" Command="{Binding GenerateReportCommand}">
                 <WrapPanel>
                     <Image Source="/Resources/img/reports-icon.png" Width="18"></Image>
-                    <Label Content="Generiši izveštaj" FontSize="12" Foreground="#FF000000"></Label>
+                    <Label Content="{zdravstvenaUstanova:Loc generateReport}" FontSize="12" Foreground="#FF000000"></Label>
                 </WrapPanel>
             </Button>
 
@@ -34,9 +35,9 @@
             <DataGrid x:Name="RoomsDataGrid" SelectedItem="{Binding RoomsModel.SelectedRoom}" ItemsSource="{Binding RoomsModel.Rooms}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Naziv" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tip prostorije" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Sprat" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc name}" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc roomType}" Binding="{Binding RoomType}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc floor}" Binding="{Binding Floor}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

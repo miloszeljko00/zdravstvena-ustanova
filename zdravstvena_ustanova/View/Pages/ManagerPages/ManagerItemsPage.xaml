@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="ManagerItemsPage">
@@ -73,9 +74,9 @@
 <DataGrid x:Name="ItemsDataGrid" ItemsSource="{Binding ItemViewModels}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="ItemsDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ukupno u bolnici" Binding="{Binding TotalCount}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc name}" Binding="{Binding Item.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc description}" Binding="{Binding Item.Description}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc totalInHospital}" Binding="{Binding TotalCount}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
             </Border>
