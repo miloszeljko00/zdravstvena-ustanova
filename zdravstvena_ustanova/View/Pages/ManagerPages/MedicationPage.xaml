@@ -86,7 +86,7 @@
                     <DataGridTextColumn Header="{zdravstvenaUstanova:Loc medication}" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="{zdravstvenaUstanova:Loc medicationType}" Binding="{Binding MedicationType.Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="{zdravstvenaUstanova:Loc count}" Binding="{Binding Quantity}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc approved}" Binding="{Binding IsApproved}" Width="68"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc approved}" Binding="{Binding IsApproved}" Width="100"></DataGridTextColumn>
                 
             </DataGrid.Columns>
         </DataGrid>

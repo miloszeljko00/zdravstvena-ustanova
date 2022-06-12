@@ -177,9 +177,6 @@
   <data name="confirmDelete" xml:space="preserve">
     <value>Potvrdi brisanje?</value>
   </data>
-  <data name="confirmDeletea" xml:space="preserve">
-    <value />
-  </data>
   <data name="count" xml:space="preserve">
     <value>Količina</value>
   </data>
@@ -206,6 +203,9 @@
   </data>
   <data name="description:" xml:space="preserve">
     <value>Opis:</value>
+  </data>
+  <data name="destination" xml:space="preserve">
+    <value>Odredište</value>
   </data>
   <data name="destination:" xml:space="preserve">
     <value>Odredište:</value>
@@ -459,9 +459,6 @@
   <data name="room:" xml:space="preserve">
     <value>Prostorija:</value>
   </data>
-  <data name="room:a" xml:space="preserve">
-    <value />
-  </data>
   <data name="roomMerge" xml:space="preserve">
     <value>Spajanje prostorija</value>
   </data>
@@ -479,6 +476,9 @@
   </data>
   <data name="roomType" xml:space="preserve">
     <value>Tip prostorije</value>
+  </data>
+  <data name="roomType:" xml:space="preserve">
+    <value>Tip prostorije:</value>
   </data>
   <data name="saturday" xml:space="preserve">
     <value>Subota</value>
@@ -500,6 +500,9 @@
   </data>
   <data name="second" xml:space="preserve">
     <value>Drugu</value>
+  </data>
+  <data name="source" xml:space="preserve">
+    <value>Izvor</value>
   </data>
   <data name="source:" xml:space="preserve">
     <value>Izvor:</value>
