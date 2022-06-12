@@ -120,8 +120,161 @@
   <data name="account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="activeMedicationApprovalRequests" xml:space="preserve">
+    <value>Active medication approval requests</value>
+  </data>
+  <data name="activeRequests" xml:space="preserve">
+    <value>Active requests</value>
+  </data>
+  <data name="addInventory" xml:space="preserve">
+    <value>Add inventory</value>
+  </data>
+  <data name="addItem" xml:space="preserve">
+    <value>Add item</value>
+  </data>
+  <data name="addMedication" xml:space="preserve">
+    <value>Add medication</value>
+  </data>
+  <data name="addRoom" xml:space="preserve">
+    <value>Add room</value>
+  </data>
+  <data name="approvalRequest" xml:space="preserve">
+    <value>Approval request</value>
+  </data>
+  <data name="approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="approvedMedicationCount" xml:space="preserve">
+    <value>Number of approved medications</value>
+  </data>
+  <data name="averageGrade" xml:space="preserve">
+    <value>Average grade</value>
+  </data>
+  <data name="averageHoursDaily:" xml:space="preserve">
+    <value>Average hours daily</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cancel2" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cancelRenovation" xml:space="preserve">
+    <value>Cancel renovation</value>
+  </data>
+  <data name="cancelRequest" xml:space="preserve">
+    <value>Cancel request</value>
+  </data>
+  <data name="cancelTransfer" xml:space="preserve">
+    <value>Cancel transfer</value>
+  </data>
+  <data name="confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="confirmDelete" xml:space="preserve">
+    <value>Confirm delete?</value>
+  </data>
+  <data name="count" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="count:" xml:space="preserve">
+    <value>Quantity:</value>
+  </data>
+  <data name="creationDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="currentRoom:" xml:space="preserve">
+    <value>Current room:</value>
+  </data>
+  <data name="currentWarehousoe" xml:space="preserve">
+    <value>Current warehouse:</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="dateOfRemoval" xml:space="preserve">
+    <value>Date of removal</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="description:" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="destination:" xml:space="preserve">
+    <value>Destination:</value>
+  </data>
+  <data name="doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="doctor2" xml:space="preserve">
+    <value>   Doctor </value>
+  </data>
+  <data name="doctor:" xml:space="preserve">
+    <value>Doctor:</value>
+  </data>
   <data name="doctors" xml:space="preserve">
     <value>Doctors</value>
+  </data>
+  <data name="editItem" xml:space="preserve">
+    <value>Edit item</value>
+  </data>
+  <data name="editMedication" xml:space="preserve">
+    <value>Edit medication</value>
+  </data>
+  <data name="editMedication2" xml:space="preserve">
+    <value>Edit medication</value>
+  </data>
+  <data name="editRoom" xml:space="preserve">
+    <value>Edit room</value>
+  </data>
+  <data name="endDate:" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="finishedMedicationApprovalRequests" xml:space="preserve">
+    <value>Finished medication approval requests</value>
+  </data>
+  <data name="finishedRequests" xml:space="preserve">
+    <value>Finished requests</value>
+  </data>
+  <data name="first" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="floor:" xml:space="preserve">
+    <value>Floor:</value>
+  </data>
+  <data name="floorOfFirstRoom" xml:space="preserve">
+    <value>Floor of first:</value>
+  </data>
+  <data name="floorOfSecondRoom" xml:space="preserve">
+    <value>Floor of second:</value>
+  </data>
+  <data name="friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="from2:" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="from:" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="fromRoom" xml:space="preserve">
+    <value>From room:</value>
+  </data>
+  <data name="generateReport" xml:space="preserve">
+    <value>Generate report</value>
+  </data>
+  <data name="gradeCount" xml:space="preserve">
+    <value>Number of grades</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
@@ -129,37 +282,292 @@
   <data name="information" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="ingredient:" xml:space="preserve">
+    <value>Ingredient:</value>
+  </data>
+  <data name="ingredients:" xml:space="preserve">
+    <value>Ingredients:</value>
+  </data>
+  <data name="inventoryCount" xml:space="preserve">
+    <value>Inventory count</value>
+  </data>
+  <data name="inventoryOverview" xml:space="preserve">
+    <value>Inventory overview</value>
+  </data>
+  <data name="item" xml:space="preserve">
+    <value>Item</value>
+  </data>
   <data name="items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="itemType" xml:space="preserve">
+    <value>Item type</value>
+  </data>
+  <data name="itemType:" xml:space="preserve">
+    <value>Item type:</value>
+  </data>
+  <data name="listOfQuestions" xml:space="preserve">
+    <value>List of questions</value>
   </data>
   <data name="logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="medication" xml:space="preserve">
+    <value>Medication</value>
+  </data>
   <data name="medications" xml:space="preserve">
     <value>Medications</value>
+  </data>
+  <data name="medicationType" xml:space="preserve">
+    <value>Medication type</value>
+  </data>
+  <data name="medicationType:" xml:space="preserve">
+    <value>Medication type:</value>
+  </data>
+  <data name="mergeWith:" xml:space="preserve">
+    <value>Merge with:</value>
+  </data>
+  <data name="monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="mostFrequentDay:" xml:space="preserve">
+    <value>Most frequent day:</value>
+  </data>
+  <data name="MoveInventoryTo" xml:space="preserve">
+    <value>Transfer to:</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="name:" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="nameOfFirstRoom" xml:space="preserve">
+    <value>Name of first:</value>
+  </data>
+  <data name="nameOfSecondRoom" xml:space="preserve">
+    <value>Name of second:</value>
+  </data>
+  <data name="new" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="note:" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="numberOfApprovedMedications30Days" xml:space="preserve">
+    <value>Number of approved medications in last 30 days</value>
+  </data>
+  <data name="numberOfGradesPerQuestion" xml:space="preserve">
+    <value>Number of grades per question</value>
+  </data>
+  <data name="numberOfOrders30Days" xml:space="preserve">
+    <value>Number of orders in last 30 days</value>
+  </data>
+  <data name="numberOfPollAnswers30Days" xml:space="preserve">
+    <value>Number of poll answers in last 30 days</value>
+  </data>
+  <data name="numberOfRenovations30Days" xml:space="preserve">
+    <value>Number of renovations in last 30 days</value>
+  </data>
+  <data name="numberOfScheduledAppointments:" xml:space="preserve">
+    <value>Number of scheduled appointments in last 30 days</value>
+  </data>
+  <data name="numberOfTransfers30Days" xml:space="preserve">
+    <value>Number of transfers in last 30 days</value>
   </data>
   <data name="orders" xml:space="preserve">
     <value>Orders</value>
   </data>
+  <data name="ordersCount" xml:space="preserve">
+    <value>Number of orders</value>
+  </data>
+  <data name="patient2" xml:space="preserve">
+    <value>   Patient: </value>
+  </data>
+  <data name="pickNewDate" xml:space="preserve">
+    <value>New Date</value>
+  </data>
+  <data name="pollName" xml:space="preserve">
+    <value>Poll name</value>
+  </data>
   <data name="polls" xml:space="preserve">
     <value>Polls</value>
+  </data>
+  <data name="pollsAnswers" xml:space="preserve">
+    <value>Poll answers</value>
+  </data>
+  <data name="pollType" xml:space="preserve">
+    <value>Poll type</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="removeInventory" xml:space="preserve">
+    <value>Remove inventory</value>
+  </data>
+  <data name="renovationCount" xml:space="preserve">
+    <value>Number of renovations</value>
+  </data>
+  <data name="renovationEndDate" xml:space="preserve">
+    <value>End date of renovation</value>
+  </data>
+  <data name="renovationReason" xml:space="preserve">
+    <value>Reason for renovation</value>
   </data>
   <data name="renovations" xml:space="preserve">
     <value>Renovations</value>
   </data>
+  <data name="renovationStartDate" xml:space="preserve">
+    <value>Start date of renovation</value>
+  </data>
+  <data name="renovationType:" xml:space="preserve">
+    <value>Renovation type:</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Reports</value>
+  </data>
+  <data name="requestApproval" xml:space="preserve">
+    <value>Request approval</value>
   </data>
   <data name="requests" xml:space="preserve">
     <value>Requests</value>
   </data>
+  <data name="requestStatus" xml:space="preserve">
+    <value>Request status</value>
+  </data>
+  <data name="resend" xml:space="preserve">
+    <value>Resend</value>
+  </data>
+  <data name="results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="results:" xml:space="preserve">
+    <value>Results:</value>
+  </data>
+  <data name="room" xml:space="preserve">
+    <value>Room</value>
+  </data>
+  <data name="room:" xml:space="preserve">
+    <value>Room:</value>
+  </data>
+  <data name="roomMerge" xml:space="preserve">
+    <value>Merge rooms</value>
+  </data>
+  <data name="roomOccupancy" xml:space="preserve">
+    <value>Room occupancy</value>
+  </data>
+  <data name="roomOccupancyReport" xml:space="preserve">
+    <value>Room occupancy report</value>
+  </data>
   <data name="rooms" xml:space="preserve">
     <value>Rooms</value>
+  </data>
+  <data name="roomSplit" xml:space="preserve">
+    <value>Split rooms</value>
+  </data>
+  <data name="roomType" xml:space="preserve">
+    <value>Room type</value>
+  </data>
+  <data name="roomType:" xml:space="preserve">
+    <value>Room type:</value>
+  </data>
+  <data name="saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="scheduledAppointments" xml:space="preserve">
+    <value>Scheduled appointments</value>
+  </data>
+  <data name="scheduleRenovation" xml:space="preserve">
+    <value>Schedule renovation</value>
+  </data>
+  <data name="scheduleRenovation2" xml:space="preserve">
+    <value>Schedule renovation</value>
+  </data>
+  <data name="scheduleTransfer" xml:space="preserve">
+    <value>Schedule transfer</value>
+  </data>
+  <data name="scheduleTransfer2" xml:space="preserve">
+    <value>Schedule transfer</value>
+  </data>
+  <data name="second" xml:space="preserve">
+    <value>Second</value>
+  </data>
+  <data name="source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="source:" xml:space="preserve">
+    <value>Source:</value>
+  </data>
+  <data name="startDate:" xml:space="preserve">
+    <value>Start date:</value>
+  </data>
+  <data name="sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="to2:" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="to:" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="toRoom" xml:space="preserve">
+    <value>To room:</value>
+  </data>
+  <data name="total:" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="totalGradeQuestionCount" xml:space="preserve">
+    <value>Total grade ( number of questions )</value>
+  </data>
+  <data name="totalInHospital" xml:space="preserve">
+    <value>Total in hospital</value>
+  </data>
+  <data name="transferDate" xml:space="preserve">
+    <value>Transfer date</value>
+  </data>
+  <data name="transferDate:" xml:space="preserve">
+    <value>Transfer date:</value>
   </data>
   <data name="transfers" xml:space="preserve">
     <value>Transfers</value>
   </data>
+  <data name="tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="type:" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="typeOfFirstRoom" xml:space="preserve">
+    <value>Type of first:</value>
+  </data>
+  <data name="typeOfSecondRoom" xml:space="preserve">
+    <value>Type of second:</value>
+  </data>
   <data name="warehouse" xml:space="preserve">
     <value>Warehouse</value>
+  </data>
+  <data name="wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="writeoff" xml:space="preserve">
+    <value>Writeoff</value>
   </data>
 </root>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d"
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="PollsQuestionsOverviewPage">
@@ -74,7 +75,7 @@
 <DataGrid x:Name="SurveyQuestionsDataGrid" ItemsSource="{Binding SurveyQuestions}" IsReadOnly="True" SelectionMode="Single" 
                   AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="SurveyQuestionsDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pitanje" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc question}" Binding="{Binding Question}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
             </Border>

@@ -28,7 +28,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
         private readonly Duration _dropdownAnimationDuration;
         public ObservableCollection<string> Languages { get; set; }
 
-        public string CurrentLanguage { get; set; }
+        public static string CurrentLanguage { get; set; }
 
         public ManagerMainPage(LoginPage loginPage)
         {
@@ -104,7 +104,6 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
                 AccelerationRatio = 0.2
             };
             AccountsDropDown.BeginAnimation(HeightProperty, heightAnimation);
-
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

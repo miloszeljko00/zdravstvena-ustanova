@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.ManagerMVVM.View"
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="ManagerHomeView">
@@ -16,8 +17,8 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Dobrodošli!" FontSize="40" Width="300" Height="100" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
-            <Label Content="Upravnik" FontSize="18" Width="300" Height="36" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
+            <Label Content="{zdravstvenaUstanova:Loc welcome}" FontSize="40" Width="300" Height="100" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
+            <Label Content="{zdravstvenaUstanova:Loc manager}" FontSize="18" Width="300" Height="36" HorizontalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
             <Border BorderBrush="Gray" BorderThickness="2px " HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="250">
                 <Border Background="DarkGray" BorderBrush="Gray" BorderThickness="1px" CornerRadius="1000" Width="220" Height="220">
                     <Image Source="{Binding ManagerModel.ProfileImage}" Width="200" Height="200"></Image>
@@ -28,12 +29,12 @@
         </StackPanel>
         <Border Grid.Column="1" Margin="0,0,80,0" Width="650" Height="450" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="1px">
             <TabControl>
-                <TabItem Cursor="Hand" Header="Premestanja">
+                <TabItem Cursor="Hand" Header="{zdravstvenaUstanova:Loc transfers}">
                     <StackPanel>
-                        <Label FontSize="18" Margin="0,10,0,0" Content="Broj premeštanja u prethodnih 30 dana:"></Label>
+                        <Label FontSize="18" Margin="0,10,0,0" Content="{zdravstvenaUstanova:Loc numberOfTransfers30Days}"></Label>
                             <wpf:CartesianChart Margin="0,30,0,0" Width="600" Height="350" Name="AppointmentsChart">
                                 <wpf:CartesianChart.Series>
-                                    <wpf:ColumnSeries Title="Zakazanih termina" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
+                                <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc scheduledAppointments}" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
                                 </wpf:CartesianChart.Series>
                                 <wpf:CartesianChart.AxisX>
                                     <wpf:Axis Title="Datum" Labels="{Binding MovementGraphModel.Dates}" ShowLabels="False">
@@ -43,7 +44,7 @@
                                     </wpf:Axis>
                                 </wpf:CartesianChart.AxisX>
                                 <wpf:CartesianChart.AxisY>
-                                    <wpf:Axis Title="Zakazanih termina">
+                                <wpf:Axis Title="{zdravstvenaUstanova:Loc scheduledAppointments}">
                                         <wpf:Axis.Separator>
                                             <wpf:Separator Step="1"/>
                                         </wpf:Axis.Separator>
@@ -52,12 +53,12 @@
                             </wpf:CartesianChart>
                     </StackPanel>
                 </TabItem>
-                <TabItem Cursor="Hand" Header="Ankete">
+                <TabItem Cursor="Hand" Header="{zdravstvenaUstanova:Loc polls}">
                     <StackPanel>
-                        <Label FontSize="18" Margin="0,10,0,0" Content="Broj odgovora na ankete u prethodnih 30 dana:"></Label>
+                        <Label FontSize="18" Margin="0,10,0,0" Content="{zdravstvenaUstanova:Loc numberOfPollAnswers30Days}"></Label>
                         <wpf:CartesianChart Margin="0,30,0,0" Width="600" Height="350" Name="PollsChart">
                             <wpf:CartesianChart.Series>
-                                <wpf:ColumnSeries Title="Odgovora na ankete" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
+                                <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc pollsAnswers}" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
                             </wpf:CartesianChart.Series>
                             <wpf:CartesianChart.AxisX>
                                 <wpf:Axis Title="Datum" Labels="{Binding MovementGraphModel.Dates}" ShowLabels="False">
@@ -67,7 +68,7 @@
                                 </wpf:Axis>
                             </wpf:CartesianChart.AxisX>
                             <wpf:CartesianChart.AxisY>
-                                <wpf:Axis Title="Odgovora na ankete">
+                                <wpf:Axis Title="{zdravstvenaUstanova:Loc pollsAnswers}">
                                     <wpf:Axis.Separator>
                                         <wpf:Separator Step="1"/>
                                     </wpf:Axis.Separator>
@@ -76,12 +77,12 @@
                         </wpf:CartesianChart>
                     </StackPanel>
                     </TabItem>
-                <TabItem Cursor="Hand" Header="Narudzbine">
+                <TabItem Cursor="Hand" Header="{zdravstvenaUstanova:Loc orders}">
                     <StackPanel>
-                        <Label FontSize="18" Margin="0,10,0,0" Content="Broj narudzbina u prethodnih 30 dana:"></Label>
+                        <Label FontSize="18" Margin="0,10,0,0" Content="{zdravstvenaUstanova:Loc numberOfOrders30Days}"></Label>
                         <wpf:CartesianChart Margin="0,30,0,0" Width="600" Height="350" Name="OrdersChart">
                             <wpf:CartesianChart.Series>
-                                <wpf:ColumnSeries Title="Broj narudzbina" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
+                                <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc ordersCount}" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
                             </wpf:CartesianChart.Series>
                             <wpf:CartesianChart.AxisX>
                                 <wpf:Axis Title="Datum" Labels="{Binding MovementGraphModel.Dates}" ShowLabels="False">
@@ -91,7 +92,7 @@
                                 </wpf:Axis>
                             </wpf:CartesianChart.AxisX>
                             <wpf:CartesianChart.AxisY>
-                                <wpf:Axis Title="Broj narudzbina">
+                                <wpf:Axis Title="{zdravstvenaUstanova:Loc ordersCount}">
                                     <wpf:Axis.Separator>
                                         <wpf:Separator Step="1"/>
                                     </wpf:Axis.Separator>
@@ -100,12 +101,12 @@
                         </wpf:CartesianChart>
                     </StackPanel>
                     </TabItem>
-                <TabItem Cursor="Hand"  Header="Renoviranja">
+                <TabItem Cursor="Hand"  Header="{zdravstvenaUstanova:Loc renovations}">
                     <StackPanel>
-                        <Label FontSize="18" Margin="0,10,0,0" Content="Broj renoviranja u prethodnih 30 dana:"></Label>
+                        <Label FontSize="18" Margin="0,10,0,0" Content="{zdravstvenaUstanova:Loc numberOfRenovations30Days}"></Label>
                         <wpf:CartesianChart Margin="0,30,0,0" Width="600" Height="350" Name="RenovationsChart">
                             <wpf:CartesianChart.Series>
-                                <wpf:ColumnSeries Title="Broj renoviranja" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
+                                <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc renovationCount}" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
                             </wpf:CartesianChart.Series>
                             <wpf:CartesianChart.AxisX>
                                 <wpf:Axis Title="Datum" Labels="{Binding MovementGraphModel.Dates}" ShowLabels="False">
@@ -115,7 +116,7 @@
                                 </wpf:Axis>
                             </wpf:CartesianChart.AxisX>
                             <wpf:CartesianChart.AxisY>
-                                <wpf:Axis Title="Broj renoviranja">
+                                <wpf:Axis Title="{zdravstvenaUstanova:Loc renovationCount}">
                                     <wpf:Axis.Separator>
                                         <wpf:Separator Step="1"/>
                                     </wpf:Axis.Separator>
@@ -124,12 +125,12 @@
                         </wpf:CartesianChart>
                     </StackPanel>
                     </TabItem>
-                <TabItem Cursor="Hand"  Header="Lekovi">
+                <TabItem Cursor="Hand"  Header="{zdravstvenaUstanova:Loc medications}">
                     <StackPanel>
-                        <Label FontSize="18" Margin="0,10,0,0" Content="Broj odobrenih lekova u prethodnih 30 dana:"></Label>
+                        <Label FontSize="18" Margin="0,10,0,0" Content="{zdravstvenaUstanova:Loc numberOfApprovedMedications30Days}"></Label>
                         <wpf:CartesianChart Margin="0,30,0,0" Width="600" Height="350" Name="MedicationsChart">
                             <wpf:CartesianChart.Series>
-                                <wpf:ColumnSeries Title="Broj odobrenih lekova" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
+                                <wpf:ColumnSeries Title="{zdravstvenaUstanova:Loc aprovedMedicationCount}" Values="{Binding MovementGraphModel.NumberOfAppointments}"/>
                             </wpf:CartesianChart.Series>
                             <wpf:CartesianChart.AxisX>
                                 <wpf:Axis Title="Datum" Labels="{Binding MovementGraphModel.Dates}" ShowLabels="False">
@@ -139,7 +140,7 @@
                                 </wpf:Axis>
                             </wpf:CartesianChart.AxisX>
                             <wpf:CartesianChart.AxisY>
-                                <wpf:Axis Title="Broj odobrenih lekova">
+                                <wpf:Axis Title="{zdravstvenaUstanova:Loc approvedMedicationCount}">
                                     <wpf:Axis.Separator>
                                         <wpf:Separator Step="1"/>
                                     </wpf:Axis.Separator>

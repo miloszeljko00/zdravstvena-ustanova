@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls.RoomsCalendar"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border BorderBrush="Gray" BorderThickness="2px" Width="800" Height="450">
@@ -50,12 +51,12 @@
                 </Image>
             </WrapPanel>
             <UniformGrid Rows="1" Columns="7" Width="800" Height="40" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Margin="2,0,0,0" Content="Ponedeljak" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
-                <Label Content="Utorak" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
-                <Label Content="Sreda" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
-                <Label Content="Četvrtak" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
-                <Label Content="Petak" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
-                <Label Content="Subota" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc monday}" Margin="2,0,0,0"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc tuesday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc wednesday}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc thursday}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc saturday}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
+                <Label Content="{zdravstvenaUstanova:Loc sunday}" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
                 <Label Margin="0,0,2,0" Content="Nedelja" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></Label>
             </UniformGrid>
             <WrapPanel Name="daysContainer" Grid.Row="2" Margin="2,0,2,0">

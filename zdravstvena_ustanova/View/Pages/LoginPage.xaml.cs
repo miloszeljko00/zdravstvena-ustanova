@@ -43,8 +43,8 @@ namespace zdravstvena_ustanova.View.Pages
             //username = "velja";
             //password = "velja";
 
-            username = "upravnik";
-            password = "upravnik";
+            //username = "upravnik";
+            //password = "upravnik";
 
             if (username == null || password == null) return;
 
