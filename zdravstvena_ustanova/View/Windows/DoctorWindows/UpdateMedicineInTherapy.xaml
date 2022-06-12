@@ -33,7 +33,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Background="White" x:Name="submitButton" Click ="updatePrescribedMedicine" Content="Submit" HorizontalAlignment="Left" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Margin="166,0,0,0">
+        <Button Background="White" x:Name="submitButton" Click ="updatePrescribedMedicine" Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Margin="166,0,0,0">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -46,6 +46,7 @@
         <Label Content="Quantity:" HorizontalAlignment="Left" Margin="37,13,0,0" VerticalAlignment="Top" Width="153" FontSize="22" Grid.Row="3"/>
         <TextBox ToolTip="This field is required!" LostFocus="quantity_LostFocus" x:Name="quantity" HorizontalAlignment="Left" Margin="45,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="18" Grid.Row="3"/>
         <DatePicker ToolTip="This field is required!" LostFocus="endDate_LostFocus" x:Name="endDate" Grid.Column="1" HorizontalAlignment="Left" Margin="47,50,0,0" Grid.Row="1" VerticalAlignment="Top" Height="27" Width="120"/>
-        <TextBlock x:Name="selectedMedicinePreventErrorTextBlock" Margin="200,57,65,1" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="Morate odabrati"/><Run Text=" lek!"/></TextBlock>
+        <TextBlock x:Name="selectedMedicinePreventErrorTextBlock" Margin="200,57,65,1" Foreground="red" FontSize="14" Visibility="Hidden"><Run Text="You must select"/><Run Text=" medicine!"/></TextBlock>
+        <TextBlock x:Name="endDatePreventErrorTextBlock" Margin="189,50,36,2" Foreground="red" FontSize="14" Visibility="Hidden" Grid.Column="1" Grid.Row="1" Text="You must select date!"/>
     </Grid>
 </Window>

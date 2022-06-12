@@ -48,7 +48,7 @@ namespace zdravstvena_ustanova.Controller
            
             if(timesPerDay == null || timesPerDay=="" || onHours==null || onHours == "" || medication==null || endDate == null)
             {
-                MessageBox.Show("Morate uneti sve obavezne podatke(medication,tbd,oh,endDate...)");
+                MessageBox.Show("You must enter all required data(medication,tbd,oh,endDate...)");
                 isFormValid = false;
             } else
             {

@@ -49,7 +49,7 @@
             <ComboBoxItem Content="20"></ComboBoxItem>
             <ComboBoxItem Content="21"></ComboBoxItem>
         </ComboBox>
-        <Button x:Name="submitButton" Background="White" Content="Submit" HorizontalAlignment="Left" Margin="261,40,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit">
+        <Button x:Name="submitButton" Background="White" Content="Schedule" HorizontalAlignment="Left" Margin="261,40,0,0" VerticalAlignment="Top" Grid.Row="3" Height="48" Width="114" Grid.Column="1" Click="Button_Click_Submit">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>

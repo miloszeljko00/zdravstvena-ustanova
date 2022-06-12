@@ -21,7 +21,7 @@
         </DataGrid>
         <Button Command="{Binding OpenAnotherWindowCommand}" FontSize="12" HorizontalAlignment="Left"
             Margin="685,138,0,0" VerticalAlignment="Top" Height="48" Width="114" 
-            Background="White" Content="Spent Materials" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            Background="White" Content="Spent Materials" ToolTip="Here is the form for spent materials" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -42,7 +42,7 @@
         <Button Command="{Binding OpenAnotherWindowCommand2}" FontSize="12" HorizontalAlignment="Left"
             Margin="685,201,0,0" VerticalAlignment="Top" Height="48" Width="114" 
             Background="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            <TextBlock TextWrapping="Wrap">Materials for ordering</TextBlock>
+            <TextBlock TextWrapping="Wrap" ToolTip="Here is the form for materials to order">Materials for ordering</TextBlock>
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>

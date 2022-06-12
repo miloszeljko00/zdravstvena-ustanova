@@ -98,7 +98,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 if (ResponseMessageTextBox.Text == "")
                 {
-                    MessageBox.Show("Morate napisati objasnjenje zbog cega ste odbili lek!");
+                    MessageBox.Show("You must enter a response why you declined medicine!");
                     return;
                 }
             }

@@ -211,7 +211,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel_Adding_Medicine_In_Therapy(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Izmena terapije", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Changing terapy", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 this.Close();

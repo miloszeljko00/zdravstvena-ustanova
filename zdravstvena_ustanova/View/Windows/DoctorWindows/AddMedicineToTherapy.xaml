@@ -33,7 +33,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="submitButton" Background="White" Click ="createPrescribedMedicine" Content="Submit" HorizontalAlignment="Left" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Margin="166,0,0,0">
+        <Button x:Name="submitButton" Background="White" Click ="createPrescribedMedicine" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Center" Width="114" Height="48" Grid.Row="4" Margin="166,0,0,0">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>

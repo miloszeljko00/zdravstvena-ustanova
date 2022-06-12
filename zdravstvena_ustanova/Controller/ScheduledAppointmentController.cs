@@ -70,7 +70,7 @@ namespace zdravstvena_ustanova.Controller
         {
             if(selectedDate<DateTime.Now)
             {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                MessageBox.Show("You cant select past date!");
                 return false;
             }
             return true;
@@ -83,12 +83,12 @@ namespace zdravstvena_ustanova.Controller
             }
             if (selectedPatient == null || selectedTypeOfAnAppointment == null || selectedTimeOfAnAppointment == null || selectedTypeOfAnAppointment == "" || selectedTimeOfAnAppointment == "")
             {
-                MessageBox.Show("Morate odabrati sve podatke!");
+                MessageBox.Show("You must enter all required data!");
                 return false;
             }
             else if (selectedDate < DateTime.Now)
             {
-                MessageBox.Show("Ne mozete zakazivati termine u proslost!");
+                MessageBox.Show("You cant select past date!");
                 return false;
             }
             return true;
@@ -97,7 +97,7 @@ namespace zdravstvena_ustanova.Controller
         {
             if(specialty == "" || doctor == "" || time=="" || date == null)
             {
-                MessageBox.Show("Morate odabrati sve podatke(specijalnost, doktora, vreme i datum pregleda...)!");
+                MessageBox.Show("You must enter all required data(specialty, doctor, Date&Time of an appointment)!");
                 return false;
             }
             return true;

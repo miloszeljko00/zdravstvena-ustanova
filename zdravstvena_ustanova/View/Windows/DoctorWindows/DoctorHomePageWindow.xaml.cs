@@ -209,7 +209,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void MenuItem_Click_Logout(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Zelite da se odjavite?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you wanna logout?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 MainWindow mw = new MainWindow();
@@ -290,7 +290,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_PrintYourSchedule(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Formiracete pdf izvestaj Vasih zakazanih termina za narednih 7 dana.", "Creating PDF file", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            MessageBoxResult answer = MessageBox.Show("Creating the report of your scheduled appointments in next 7 days.", "Creating PDF file", MessageBoxButton.OKCancel, MessageBoxImage.Information);
             if (answer == MessageBoxResult.OK)
             {
                 string tipPregleda = "";

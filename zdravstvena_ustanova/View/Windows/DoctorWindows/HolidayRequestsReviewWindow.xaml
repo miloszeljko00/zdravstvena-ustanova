@@ -11,9 +11,9 @@
                   AutoGenerateColumns="False" VerticalAlignment="Bottom" SelectionChanged="dataGridHolidayRequests_SelectionChanged" Margin="10,0,129,10"
                   ToolTip="Selecting an active request you can see detail information about it">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pocetak odmora" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Kraj odmora" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status zahteva" Binding="{Binding HolidayRequestStatus}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="End date" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Request status" Binding="{Binding HolidayRequestStatus}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="662,201,0,0" VerticalAlignment="Top" Height="48" Width="114" Click="Button_Click_Cancel" FontSize="14" Background="White">

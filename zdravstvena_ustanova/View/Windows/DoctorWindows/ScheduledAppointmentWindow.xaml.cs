@@ -232,7 +232,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel_TabAnamnesis(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje Anamneze",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Annulmenting Anamneze",MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(answer==MessageBoxResult.Yes)
             {
                 var app = Application.Current as App;
@@ -332,7 +332,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel_Appointment(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da otkazete pregled?", "Otkazivanje Pregleda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you wanna cancel this appointment?", "Canceling appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             { 
                 var app = Application.Current as App;
@@ -359,7 +359,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             if (dataGridTherapy.SelectedItem == null)
             {
-                MessageBox.Show("Niste selektovali lek");
+                MessageBox.Show("You must select medicine first");
                 return;
             }
             PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
@@ -373,10 +373,10 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             if (dataGridTherapy.SelectedItem == null)
             {
-                MessageBox.Show("Niste selektovali lek");
+                MessageBox.Show("You must select medicine first");
                 return;
             }
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da obirsete lek iz terapije?", "Brisanje leka iz terapije...", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you wanna remove medicine from therapy?", "Removing medicine from therapy", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 PrescribedMedicine pm = (PrescribedMedicine)dataGridTherapy.SelectedItem;
@@ -573,7 +573,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel_Request_For_Specialist(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Ponistavanje zahteva", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Canceling request", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 specialtiesComboBox.SelectedItem = null;

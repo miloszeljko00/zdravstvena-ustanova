@@ -94,12 +94,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 endDate.BorderBrush = Brushes.Red;
                 endDate.ToolTip = "You must select valid date!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else
             {
                 endDate.BorderBrush = Brushes.Gray;
                 endDate.ToolTip = "This field is required!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableSubmitButton();
             }
             /////////////////////////////////////////////
@@ -181,7 +183,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_Cancel_Updating_Medicine_In_Therapy(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni da zelite da ponistite izmene?", "Izmena terapije", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure you wanna udno changes?", "Changing terapy", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 this.Close();
@@ -250,12 +252,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 endDate.BorderBrush = Brushes.Red;
                 endDate.ToolTip = "You must select valid date!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Visible;
                 submitButton.IsEnabled = false;
             }
             else
             {
                 endDate.BorderBrush = Brushes.Gray;
                 endDate.ToolTip = "This field is required!";
+                endDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableSubmitButton();
             }
         }

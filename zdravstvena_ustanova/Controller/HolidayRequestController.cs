@@ -44,22 +44,22 @@ namespace zdravstvena_ustanova.Controller
             bool returnValue = true;
             if (startDate == null || endDate == null)
             {
-                MessageBox.Show("Morate uneti vremenski interval!");
+                MessageBox.Show("You must enter time interval!");
                 returnValue = false;
             }
             else if (endDate <= startDate)
             {
-                MessageBox.Show("Morate uneti validan vremenski period!");
+                MessageBox.Show("You must enter valid date!");
                 returnValue = false;
             }
             else if (startDate <= DateTime.Now)
             {
-                MessageBox.Show("Ne mozete podnositi zahteve za proslost!");
+                MessageBox.Show("You cant select past date!");
                 returnValue = false;
             }
             else if (startDate <= DateTime.Now.AddDays(2))
             { 
-                MessageBox.Show("Morate zakazati odmor minimum 3 dana ranije!");
+                MessageBox.Show("You have to request at least 3 days earlier!");
                 returnValue = false;    
             }          
             return returnValue;
@@ -78,8 +78,8 @@ namespace zdravstvena_ustanova.Controller
                         {
                             if (hr.HolidayRequestStatus == zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ONHOLD || hr.HolidayRequestStatus == zdravstvena_ustanova.Model.Enums.HolidayRequestStatus.ACCEPTED)
                             {
-                                MessageBox.Show("Nazalost trenutno ne mozete zakazati odmor. " +
-                               "Kolega vase specijalnosti je vec zatrazio odmor u tom vremenskom periodu.");
+                                MessageBox.Show("Unfortunately right now you cant request for holiday. " +
+                               "College of your specialty has alredy requested holiday.");
                                 returnValue = false;
                             }
                         }

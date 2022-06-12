@@ -24,6 +24,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         public DoctorHomePageWindow DoctorHomePageWindow { get; set; }
         public ObservableCollection<Patient> Patients { get; set; }
         public ObservableCollection<Room> Rooms { get; set; }
+        public SolidColorBrush Brush { get; set; }
 
         #region NotifyProperties
         private Patient _selectedPatient;
@@ -92,7 +93,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         {
             InitializeComponent();
             DataContext = this;
-
+            Brush = (SolidColorBrush)patientNameTextBox.BorderBrush;
             var app = Application.Current as App;
             Patients = new ObservableCollection<Patient>();
             var patients = app.PatientController.GetAll();
@@ -117,17 +118,17 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             SelectedDate = sa.Start.Date;
             if(SelectedDate.Year < DateTime.Now.Year)
             {
-                DateOfAppointmentDatePicker.IsEnabled = false;
+                datePickerCreateNewAppointment.IsEnabled = false;
                 TimeComboBox.IsEnabled = false;
             }
             else if(SelectedDate.Month < DateTime.Now.Month)
             {
-                DateOfAppointmentDatePicker.IsEnabled = false;
+                datePickerCreateNewAppointment.IsEnabled = false;
                 TimeComboBox.IsEnabled = false;
             }
             else if(SelectedDate.Day < DateTime.Now.Day)
             {
-                DateOfAppointmentDatePicker.IsEnabled = false;
+                datePickerCreateNewAppointment.IsEnabled = false;
                 TimeComboBox.IsEnabled = false;
             }
             typeOfAppointment.SelectedItem = sa.AppointmentType;
@@ -178,10 +179,98 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
         }
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Da li ste sigurni?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show("Are you sure?", "Checkout", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
                 this.Close();
+            }
+        }
+        private void datePickerCreateNewAppointment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SelectedDate < DateTime.Now)
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Red;
+                datePickerCreateNewAppointment.ToolTip = "You cant select date in the past!";
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                datePickerCreateNewAppointment.BorderBrush = Brushes.Gray;
+                datePickerCreateNewAppointment.ToolTip = "This field is required!";
+                selectedDatePreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+        private void pComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(pComboBox.Text))
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Visible;
+                patientNameTextBox.BorderBrush = Brushes.Red;
+                patientSurnameTextBox.BorderBrush = Brushes.Red;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedPatientPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                patientNameTextBox.BorderBrush = Brush;
+                patientSurnameTextBox.BorderBrush = Brush;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void typeOfAppointment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(typeOfAppointment.Text))
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTypeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void rComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(rComboBox.Text))
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedRoomPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        private void TimeComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TimeComboBox.Text))
+            {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Visible;
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                selectedTimeOfAnAppointmentPreventErrorTextBlock.Visibility = Visibility.Hidden;
+                CheckIfCanEnableSubmitButton();
+            }
+        }
+
+        public void CheckIfCanEnableSubmitButton()
+        {
+            if (string.IsNullOrEmpty(TimeComboBox.Text) || string.IsNullOrEmpty(rComboBox.Text) || string.IsNullOrEmpty(typeOfAppointment.Text) || string.IsNullOrEmpty(pComboBox.Text) || SelectedDate < DateTime.Now)
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
             }
         }
     }
