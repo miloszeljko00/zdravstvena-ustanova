@@ -56,6 +56,7 @@
     <None Remove="Resources\img\veljinNotificationIcon.png" />
     <None Remove="Resources\img\veljinOurDoctorsIcon.png" />
     <None Remove="Resources\img\veljinProfileDataIcon.png" />
+    <None Remove="Resources\img\veljinSuccessfullIcon.png" />
     <None Remove="Resources\img\work-time.png" />
     <None Remove="Resources\img\medical-record-icon.png" />
     <None Remove="Resources\img\medical-report-icon.png" />
@@ -141,6 +142,10 @@
     <Content Include="Resources\img\user-man-info-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\img\veljinSuccessfullIcon.png" />
   </ItemGroup>
 
   <ItemGroup>

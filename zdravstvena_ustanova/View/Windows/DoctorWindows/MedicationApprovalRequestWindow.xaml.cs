@@ -104,15 +104,23 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             }
             string response = ResponseMessageTextBox.Text;
             RequestStatus requestStatus = (RequestStatus)RequestStatusComboBox.SelectedItem;
-
-            if (requestStatus == RequestStatus.WAITING_FOR_APPROVAL) return;
-           
             MedicationApprovalRequest.RequestStatus = requestStatus;
             MedicationApprovalRequest.ResponseMessage = response;
             app.MedicationApprovalRequestController.Update(MedicationApprovalRequest);
             MedicationApprovalRequests.Remove(MedicationApprovalRequest);
             this.Close();
         }
-       
+
+        private void RequestStatusComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((RequestStatus)RequestStatusComboBox.SelectedItem == RequestStatus.WAITING_FOR_APPROVAL)
+            {
+                submitButton.IsEnabled = false;
+            }
+            else
+            {
+                submitButton.IsEnabled = true;
+            }
+        }
     }
 }

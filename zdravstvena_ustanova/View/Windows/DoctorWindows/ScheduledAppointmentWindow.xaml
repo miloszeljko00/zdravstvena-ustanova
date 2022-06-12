@@ -11,13 +11,14 @@
         <TabControl TabStripPlacement="Left" Background="#067c7b">
             <TabItem Header="anamnesis - report" Margin="-1,17,1,-17" FontSize="16" ToolTip="You can add anamnesis to patient health record">
                 <Canvas>
+                    <Image Opacity="0" x:Name="SuccessIcon3" Source="\Resources\img\veljinSuccessfullIcon.png" Height="44" Canvas.Top="673" Width="78" Canvas.Left="289"/>
                     <Label Content="Diagnosis:" Margin="70,35,0,0" Height="51" Width="300" FontSize="22" Canvas.Top="84" Canvas.Left="-44"/>
                     <Label Content="Current diseases:" Margin="70,213,0,0" Height="37" Width="300"  FontSize="22" Canvas.Left="-49" Canvas.Top="80"/>
                     <Label Content="Socio-epidemiological data:" Margin="530,214,0,0" Height="38" Width="300" FontSize="22" Canvas.Left="-12" Canvas.Top="76"/>
                     <Label Content="Family anamnesis:" Margin="530,35,0,0" Height="37" Width="300" FontSize="22" Canvas.Left="-12" Canvas.Top="82"/>
                     <Label Content="Anamnesis conclusion:" Margin="530,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Top="51"/>
                     <Label Content="Earlier diseases:" Margin="70,410,0,0" Height="37" Width="300" FontSize="22" Canvas.Left="-48" Canvas.Top="51"/>
-                    <Button Content="Submit" FontSize="18"
+                    <Button Content="Apply" FontSize="18"
             Margin="363,620,0,0" Height="48" Width="114" Background="White" Canvas.Left="-189" Canvas.Top="49" Click="Button_Click_Submit_TabAnamnesis">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -109,6 +110,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Image Opacity="0" x:Name="SuccessIcon" Source="\Resources\img\veljinSuccessfullIcon.png" Canvas.Left="1057" Margin="321,123,22,-114" Grid.Row="11"/>
                     <Button Width="114" Height="48" x:Name="hospitalizeButton" Content="Hospitalize " Margin="187,114,92,-123" Background="White" Grid.Row="11" Click="hospitalizeButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -123,14 +125,14 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Width="114" Height="48" Content="Cancel" Margin="26,114,256,-123" Background="White" IsEnabled="False" Grid.Row="11">
+                    <Button x:Name="cancelHospitalization" Click="cancelHospitalization_Click" Width="114" Height="48" Content="Cancel" Margin="26,114,256,-123" Background="White" Grid.Row="11">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Width="114" Height="48" Content="Cancel" Margin="274,114,24,-123" Background="White" IsEnabled="False" Grid.Column="1" Grid.Row="11">
+                    <Button x:Name="cancelRelease" Click="cancelRelease_Click" Width="114" Height="48" Content="Cancel" Margin="274,114,24,-123" Background="White" Grid.Column="1" Grid.Row="11">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -181,6 +183,7 @@
                         <Label Content="Hospitalization Request" Canvas.Left="107" FontSize="24"/>
                     </Canvas>
                     <Label Content="Hospitalization Record" Grid.Column="1" Margin="69,0,90,9" FontSize="24"/>
+                    <Image x:Name="successIcon2" Opacity="0" Source="/Resources/img/veljinSuccessfullIcon.png" Margin="48,123,295,-114" Grid.Row="11" Grid.Column="1"/>
                 </Grid>
 
             </TabItem>
@@ -242,6 +245,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <Image Opacity="0" x:Name="successIcon4" Source="\Resources\img\veljinSuccessfullIcon.png" Canvas.Top="673" Width="78" Canvas.Left="289" Margin="274,54,489,51" Grid.Row="4"/>
                     <Button Background="White" Content="Cancel" HorizontalAlignment="Left" Margin="17,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="48" Width="114" Click="Button_Click_Cancel_Request_For_Specialist">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -249,7 +253,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Background="White" x:Name="submitButton" Content="Submit" HorizontalAlignment="Left" Margin="148,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist">
+                    <Button Background="White" x:Name="submitButton" Content="Schedule" HorizontalAlignment="Left" Margin="148,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="48" Width="114" Click="Button_Click_Submit_Request_For_Specialist">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>

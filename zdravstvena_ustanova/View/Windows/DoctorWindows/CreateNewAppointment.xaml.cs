@@ -449,7 +449,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void Button_Click_Cancel(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Create an appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void datePickerCreateNewAppointment_LostFocus(object sender, RoutedEventArgs e)

@@ -47,7 +47,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
 
         private void skipButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult answer = MessageBox.Show("Pritiskom na 'OK' ugasicete wizard-a i bicete upuceni na pocetnu stranicu.", "Skipping wizard.", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            MessageBoxResult answer = MessageBox.Show("Pressing on 'OK' you will skip wizard and will be redirected on the home page.", "Skipping wizard.", MessageBoxButton.OKCancel, MessageBoxImage.Information);
             if (answer == MessageBoxResult.OK)
             {
                 this.Close();

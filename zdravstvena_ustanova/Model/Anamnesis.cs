@@ -17,6 +17,8 @@ namespace zdravstvena_ustanova.Model
         public Anamnesis(long id)
         {
             Id = id;
+            Diagnosis = "";
+            Conclusion = "";
         }
     }
 }

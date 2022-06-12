@@ -84,7 +84,8 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             CheckForNewMedicationApprovalRequest();
             StartCheckingForNewMedicationApprovalRequest(30);
             UpdateCalendar();
-            //app.Show(alertTextBox);
+            //var win = new WizardWindow();
+            //win.ShowDialog();
         }
 
         public void UpdateCalendar()
@@ -95,7 +96,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             date = new DateTime(todayDate.Year, todayDate.Month, todayDate.Day, 8, 0, 0);
             if (todayDate.DayOfWeek == 0)
             {
-                date = date.AddDays(6);
+                date = date.AddDays(-6);
             }
             else
             {

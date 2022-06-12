@@ -11,6 +11,7 @@ using System.Windows.Data;
 //using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.Model;
@@ -228,6 +229,23 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 Anamnesis.Conclusion = new string(AnamnesisConclusionTextBoxInput.Text);
             }
+            var animationDuration = new Duration(TimeSpan.FromSeconds(1));
+            DoubleAnimation opacityAnimation = new DoubleAnimation(1, animationDuration)
+            {
+                AccelerationRatio = 0.2
+            };
+            opacityAnimation.Completed += (s, e) => hide_succesIcon3(animationDuration);
+
+            SuccessIcon3.BeginAnimation(OpacityProperty, opacityAnimation);
+
+        }
+        private void hide_succesIcon3(Duration duration)
+        {
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0, duration)
+            {
+                AccelerationRatio = 0.2
+            };
+            SuccessIcon3.BeginAnimation(OpacityProperty, opacityAnimation);
         }
 
         private void Button_Click_Cancel_TabAnamnesis(object sender, RoutedEventArgs e)
@@ -239,6 +257,11 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 if (app.AnamnesisController.GetById(Anamnesis.Id) != null)
                 {
                     Anamnesis = app.AnamnesisController.GetById(Anamnesis.Id);
+                }
+                else
+                {
+                    AnamnesisDiagnosisTextBoxInput.Text = "";
+                    AnamnesisConclusionTextBoxInput.Text = "";
                 }
                 
             }
@@ -447,7 +470,14 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             return null;
         }
         //\Drag&Drop
-
+        private void hide_succesIcon4(Duration duration)
+        {
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0, duration)
+            {
+                AccelerationRatio = 0.2
+            };
+            successIcon4.BeginAnimation(OpacityProperty, opacityAnimation);
+        }
         private void Button_Click_Submit_Request_For_Specialist(object sender, RoutedEventArgs e)
         {
             var app = Application.Current as App;
@@ -509,7 +539,15 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                         SelectedDoctor.Id, SelectedDoctor.Room.Id);
                     SpecialistScheduledAppointment = app.ScheduledAppointmentController.Create(SpecialistScheduledAppointment);
                     DoctorHomePageWindow.UpdateCalendar();
-                    this.Close();
+
+                    var animationDuration = new Duration(TimeSpan.FromSeconds(1));
+                    DoubleAnimation opacityAnimation = new DoubleAnimation(1, animationDuration)
+                    {
+                        AccelerationRatio = 0.2
+                    };
+                    opacityAnimation.Completed += (s, e) => hide_succesIcon4(animationDuration);
+
+                    successIcon4.BeginAnimation(OpacityProperty, opacityAnimation);
                 }
             }
             else
@@ -908,7 +946,26 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
                 preventErrorRequestedDateForAdmissionTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableHospitalizeButton();
             }
+            if(hospitalizeButton.IsEnabled == true)
+            {
+                var animationDuration = new Duration(TimeSpan.FromSeconds(1));
+                DoubleAnimation opacityAnimation = new DoubleAnimation(1, animationDuration)
+                {
+                    AccelerationRatio = 0.2
+                };
+                opacityAnimation.Completed += (s, e) => hide_succesIcon(animationDuration);
 
+                SuccessIcon.BeginAnimation(OpacityProperty, opacityAnimation);
+            }
+
+        }
+        private void hide_succesIcon(Duration duration)
+        {
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0, duration)
+            {
+                AccelerationRatio = 0.2
+            };
+            SuccessIcon.BeginAnimation(OpacityProperty, opacityAnimation);
         }
 
         private void releaseButton_Click(object sender, RoutedEventArgs e)
@@ -918,6 +975,7 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 dateOfAdmissionTextBox.BorderBrush = Brushes.Red;
                 releaseButton.IsEnabled = false;
+
             }
             else
             {
@@ -974,6 +1032,52 @@ namespace zdravstvena_ustanova.View.Windows.DoctorWindows
             {
                 preventErrorReleseaseKindTextBlock.Visibility = Visibility.Hidden;
                 CheckIfCanEnableReleaseButton();
+            }
+            if (releaseButton.IsEnabled == true)
+            {
+                var animationDuration = new Duration(TimeSpan.FromSeconds(1));
+                DoubleAnimation opacityAnimation = new DoubleAnimation(1, animationDuration)
+                {
+                    AccelerationRatio = 0.2
+                };
+                opacityAnimation.Completed += (s, e) => hide_succesIcon2(animationDuration);
+
+                successIcon2.BeginAnimation(OpacityProperty, opacityAnimation);
+            }
+        }
+        private void hide_succesIcon2(Duration duration)
+        {
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0, duration)
+            {
+                AccelerationRatio = 0.2
+            };
+            successIcon2.BeginAnimation(OpacityProperty, opacityAnimation);
+        }
+
+        private void cancelHospitalization_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Changing hosptilazation request", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                jmbgTextBox.Text = null;
+                lboTextBox.Text = null;
+                roomTextBox.Text = null;
+                causeOfHospitalizationTextBox.Text = null;
+                backingDiseasesTextBox.Text = null;
+                requestedDateOfAdmissionDatePicker.SelectedDate = null;
+            }
+        }
+
+        private void cancelRelease_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to undo the changes?", "Changing release report", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                dateOfAdmissionTextBox.Text = null;
+                releaseDateTextBox.Text = null;
+                room2TextBox.Text = null;
+                hoursOfFanSupportTextBox.Text = null;
+                releaseKindComboBox.SelectedItem = null;
             }
         }
     }

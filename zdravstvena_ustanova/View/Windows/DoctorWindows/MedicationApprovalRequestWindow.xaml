@@ -14,7 +14,7 @@
         <Label Content="Request" HorizontalAlignment="Left" Margin="569,39,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="RequestMessageTextBox" IsEnabled="False" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="Medication Approval Request" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Button ToolTip="If u are dening request you must enter response" Content="Submit" HorizontalAlignment="Left" Margin="651,349,0,0" VerticalAlignment="Top" Height="48" Width="114" Background="White" Click="Button_Click_Submit">
+        <Button x:Name="submitButton" IsEnabled="False" ToolTip="If u are dening request you must enter response" Content="Submit" HorizontalAlignment="Left" Margin="651,349,0,0" VerticalAlignment="Top" Height="48" Width="114" Background="White" Click="Button_Click_Submit">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -31,7 +31,7 @@
         <Label Content="Response" HorizontalAlignment="Left" Margin="569,177,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="ResponseMessageTextBox" HorizontalAlignment="Left" Margin="569,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="186" Height="85" FontSize="18"/>
         <Label Content="Request status" HorizontalAlignment="Left" Margin="78,271,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <ComboBox x:Name="RequestStatusComboBox" Text="" HorizontalAlignment="Left" Margin="78,313,0,0" VerticalAlignment="Top" Width="138" Height="30"/>
+        <ComboBox x:Name="RequestStatusComboBox" LostFocus="RequestStatusComboBox_LostFocus" Text="" HorizontalAlignment="Left" Margin="78,313,0,0" VerticalAlignment="Top" Width="138" Height="30"/>
 
     </Grid>
 </Window>
