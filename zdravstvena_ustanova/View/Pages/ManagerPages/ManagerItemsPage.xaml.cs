@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Controls;
+using zdravstvena_ustanova.View.ManagerMVVM.Model;
+using zdravstvena_ustanova.View.ManagerMVVM.View;
 using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Pages.ManagerPages
@@ -24,12 +26,12 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
     /// </summary>
     public partial class ManagerItemsPage : Page
     {
-        public ObservableCollection<ItemViewModel> ItemViewModels { get; set; }
+        public ObservableCollection<ItemModel> ItemViewModels { get; set; }
 
         public ManagerItemsPage()
         {
             InitializeComponent();
-            ItemViewModels = new ObservableCollection<ItemViewModel>();
+            ItemViewModels = new ObservableCollection<ItemModel>();
             DataContext = this;
 
             var app = Application.Current as App;
@@ -39,7 +41,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
             foreach (var item in items)
             {
                 var totalCount = app.StoredItemController.GetTotalItemCount(item);
-                ItemViewModel itemViewModel = new ItemViewModel(item, totalCount);
+                ItemModel itemViewModel = new ItemModel(item, totalCount);
                 ItemViewModels.Add(itemViewModel);
             }
         }
@@ -68,7 +70,7 @@ namespace zdravstvena_ustanova.View.Pages.ManagerPages
 
         private void AddIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.Modal.Content = new AddItemControl(ItemViewModels); 
+            MainWindow.Modal.Content = new AddItemView(ItemViewModels); 
             MainWindow.Modal.IsOpen = true;
         }
 

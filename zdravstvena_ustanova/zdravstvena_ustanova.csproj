@@ -26,6 +26,7 @@
     <None Remove="Resources\img\icons8-high-priority-64.png" />
     <None Remove="Resources\img\icons8-new.png" />
     <None Remove="Resources\img\ingredients-icon.png" />
+    <None Remove="Resources\img\manager-icon.png" />
     <None Remove="Resources\img\minus-icon.png" />
     <None Remove="Resources\img\icons8-add.png" />
     <None Remove="Resources\img\icons8-back.png" />
@@ -110,6 +111,7 @@
     <Resource Include="Resources\img\icons8-delivered.png" />
     <Resource Include="Resources\img\icons8-high-priority-64.png" />
     <Resource Include="Resources\img\icons8-new.png" />
+    <Resource Include="Resources\img\manager-icon.png" />
     <Resource Include="Resources\img\night-theme.png" />
     <Resource Include="Resources\img\printer.png" />
     <Resource Include="Resources\img\reports-icon.png" />
@@ -265,6 +267,7 @@
   <ItemGroup>
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 

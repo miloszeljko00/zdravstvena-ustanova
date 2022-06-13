@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using zdravstvena_ustanova.View.ManagerMVVM.Model;
 using zdravstvena_ustanova.View.Model;
 
 namespace zdravstvena_ustanova.View.Controls
@@ -23,9 +24,9 @@ namespace zdravstvena_ustanova.View.Controls
     /// </summary>
     public partial class AddItemControl : UserControl
     {
-        public ObservableCollection<ItemViewModel> ItemViewModels;
+        public ObservableCollection<ItemModel> ItemViewModels;
 
-        public AddItemControl(ObservableCollection<ItemViewModel> itemViewModel)
+        public AddItemControl(ObservableCollection<ItemModel> itemViewModel)
         {
             InitializeComponent();
             DataContext = this;
@@ -58,7 +59,7 @@ namespace zdravstvena_ustanova.View.Controls
 
             item = app.ItemController.Create(item);
 
-            ItemViewModels.Add(new ItemViewModel(item, 0));
+            ItemViewModels.Add(new ItemModel(item, 0));
             MainWindow.Modal.IsOpen = false;
             MainWindow.Modal.Content = null;
         }

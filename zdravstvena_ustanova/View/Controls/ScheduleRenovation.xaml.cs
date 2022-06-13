@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using zdravstvena_ustanova.View.Controls.RoomsCalendar;
+using zdravstvena_ustanova.View.Pages.ManagerPages;
 
 namespace zdravstvena_ustanova.View.Controls
 {
@@ -132,11 +133,25 @@ namespace zdravstvena_ustanova.View.Controls
         {
             if(((RenovationType)RenovationTypeComboBox.SelectedItem).Id == 1)
             {
-                OkButton.Content = "Potvrdi";
+                if (ManagerMainPage.CurrentLanguage == "en-US")
+                {
+                    OkButton.Content = "Confirm";
+                }
+                else
+                {
+                    OkButton.Content = "Potvrdi";
+                }
             }
             else
             {
-                OkButton.Content = "Dalje";
+                if (ManagerMainPage.CurrentLanguage == "en-US")
+                {
+                    OkButton.Content = "Next";
+                }
+                else
+                {
+                    OkButton.Content = "Dalje";
+                }
             }
         }
     }

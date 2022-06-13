@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
     <Grid Width="500" Height="550">
@@ -20,24 +21,31 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Zakazivanje renoviranja" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Datum početka:</Label>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" 
+               Content="{zdravstvenaUstanova:Loc scheduleRenovation2}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc startDate:}"></Label>
         <DatePicker x:Name="StartDatePicker" Width="200" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></DatePicker>
-        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Datum završetka:</Label>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc endDate:}"></Label>
         <DatePicker x:Name="EndDatePicker" Width="200" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"></DatePicker>
 
-        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">tip renoviranja:</Label>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc renovationType:}"></Label>
         <ComboBox DisplayMemberPath="Name" VerticalContentAlignment="Center" Name="RenovationTypeComboBox" Width="200" Height="28" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="RenovationTypeComboBox_SelectionChanged"></ComboBox>
 
         
         
-        <Label Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top">Opis:</Label>
+        <Label Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top"
+               Content="{zdravstvenaUstanova:Loc description:}"></Label>
         <TextBox Text="" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                  x:Name="RenovationDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
 
         <UniformGrid Grid.Row="6" Grid.ColumnSpan="2" Columns="2" VerticalAlignment="Center">
-            <Button x:Name="CancelButton" Margin="0,0,0,0"  Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
-            <Button x:Name="OkButton" Margin="0,0,0,0" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
+            <Button x:Name="CancelButton" Margin="0,0,0,0"  Width="150" Height="48" 
+                    Content="{zdravstvenaUstanova:Loc cancel}" FontSize="14" Click="CancelButton_Click"></Button>
+            <Button x:Name="OkButton" Margin="0,0,0,0" Width="150" Height="48" 
+                    Content="{zdravstvenaUstanova:Loc confirm}" FontSize="14" Click="OkButton_Click"></Button>
         </UniformGrid>
     </Grid>
 </UserControl>

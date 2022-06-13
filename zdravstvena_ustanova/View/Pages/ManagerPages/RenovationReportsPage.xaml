@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:zdravstvena_ustanova.View.Pages.ManagerPages"
+      xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
       mc:Ignorable="d"
       d:DesignHeight="640" d:DesignWidth="1280"
       Title="RenovationReportsPage">
@@ -15,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="140,48,140,0" Orientation="Horizontal">
-            <Label FontSize="40" Margin="15,0,0,0" Width="240" Content="Renoviranja"></Label>
+            <Label FontSize="40" Margin="15,0,0,0" Width="240" Content="{zdravstvenaUstanova:Loc renovations}"></Label>
             <TextBox x:Name="SearchTextBox" Width="150" Height="30" Margin="395,5,0,0" TextChanged="SearchTextBox_TextChanged" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" VerticalContentAlignment="Center" MaxLines="2147483644">
                 <TextBox.Background>
                     <ImageBrush ImageSource="/Resources/img/search-name.png" AlignmentX="Left" Stretch="None" />
@@ -73,10 +74,10 @@
             <DataGrid x:Name="RenovationAppointmentsDataGrid" ItemsSource="{Binding RenovationAppointments}" IsReadOnly="True" SelectionMode="Single" 
                       AutoGenerateColumns="False" Height="450" Width="1000" Grid.Row="1" VerticalScrollBarVisibility="Visible" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="RenovationAppointmentsDataGrid_SelectionChanged">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Prostorija" Binding="{Binding MainRoom.Name}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Tip prostorije" Binding="{Binding MainRoom.RoomType}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Datum početka renoviranja" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Datum završetka renoviranja" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc room}" Binding="{Binding MainRoom.Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc roomType}" Binding="{Binding MainRoom.RoomType}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc renovationStartDate}" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="{zdravstvenaUstanova:Loc renovationEndDate}" Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy.\}}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Width="500" Height="450">
@@ -19,22 +20,34 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Uklanjanje inventara" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" 
+               Content="{zdravstvenaUstanova:Loc removeInventory}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <TextBox IsEnabled="False" VerticalContentAlignment="Center" Name="ItemName" Text="{Binding StoredItem.Item.Name}" Grid.Column="1" Grid.Row="1" Width="200" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-        <Label Grid.Column="0" Grid.Row="2" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">Izvor:</Label>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc Source:}"></Label>
         <UniformGrid Width="200" Columns="2" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
-            <RadioButton x:Name="DeleteItemRadio" GroupName="ItemDestination" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Margin="0,0,0,0" IsChecked="True">Otpis Robe</RadioButton>
-            <RadioButton x:Name="MoveItemToWarehouseRadio" GroupName="ItemDestination" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="18"  Margin="0,0,0,0">Magacin</RadioButton>
+            <RadioButton x:Name="DeleteItemRadio" GroupName="ItemDestination" HorizontalAlignment="Left"
+                         VerticalContentAlignment="Center" FontSize="18" Margin="0,0,0,0" IsChecked="True"
+                         Content="{zdravstvenaUstanova:Loc writeoff}"></RadioButton>
+            <RadioButton x:Name="MoveItemToWarehouseRadio" GroupName="ItemDestination" HorizontalAlignment="Right" 
+                         VerticalContentAlignment="Center" FontSize="18"  Margin="0,0,0,0"
+                         Content="{zdravstvenaUstanova:Loc warehouse}"></RadioButton>
         </UniformGrid>
-        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
-        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Količina:</Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc name:}"></Label>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc count:}"></Label>
         <WrapPanel  Name="TransferCountPanel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Slider Minimum="0" Maximum="{Binding ItemCount}" Value="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"></Slider>
             <TextBox Text="{Binding ItemsForTransfer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" PreviewTextInput="QuantityTextBox_PreviewTextInput"  VerticalContentAlignment="Center" x:Name="QuantityTextBox" Width="45" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
         </WrapPanel>
-        <Label Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Datum uklanjanja:</Label>
+        <Label Grid.Column="0" Grid.Row="4" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc dateOfRemoval:}"></Label>
         <DatePicker Name="ScheduleDatePicker" Grid.Row="4" Grid.Column="1" Width="200" Height="28" VerticalAlignment="Center" HorizontalAlignment="Left"></DatePicker>
-        <Button x:Name="OkButton" Margin="0,0,0,0" Grid.Column="1" Grid.Row="5" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
-        <Button x:Name="CancelButton" Margin="0,0,0,0" Grid.Column="0" Grid.Row="5" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+        <Button x:Name="OkButton" Margin="0,0,0,0" Grid.Column="1" Grid.Row="5" Width="150" Height="48" 
+                Content="{zdravstvenaUstanova:Loc confirm}" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,0,0,0" Grid.Column="0" Grid.Row="5" Width="150" Height="48" 
+                Content="{zdravstvenaUstanova:Loc cancel}" FontSize="14" Click="CancelButton_Click"></Button>
     </Grid>
 </UserControl>

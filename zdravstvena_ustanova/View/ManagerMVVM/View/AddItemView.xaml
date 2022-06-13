@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="zdravstvena_ustanova.View.ManagerMVVM.View.AddItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:zdravstvena_ustanova.View.ManagerMVVM.View"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
+             mc:Ignorable="d" 
+            d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Width="500" Height="450">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="{zdravstvenaUstanova:Loc addItem}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{zdravstvenaUstanova:Loc name:}"></Label>
+        <TextBox Text="{Binding ItemName}"  VerticalContentAlignment="Center" x:Name="ItemNameTextBox" Width="200" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{zdravstvenaUstanova:Loc itemType:}"></Label>
+        <ComboBox SelectedItem="{Binding ItemType}" ItemsSource="{Binding ItemTypes}" DisplayMemberPath="Name" VerticalContentAlignment="Center" Name="ItemTypeComboBox" Width="200" Height="28" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{zdravstvenaUstanova:Loc description:}"></Label>
+        <TextBox Text="{Binding ItemDescription}" TextWrapping="Wrap" AcceptsTab="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                 x:Name="ItemDescriptionTextBox" Width="200" Height="140" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+        <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Columns="2" VerticalAlignment="Center">
+            <Button Command="{Binding CancelCommand}" x:Name="CancelButton" Margin="0,0,0,0"  Width="150" Height="48" Content="{zdravstvenaUstanova:Loc cancel}" FontSize="14" ></Button>
+            <Button Command="{Binding OkCommand}"  x:Name="OkButton" Margin="0,0,0,0" Width="150" Height="48" Content="{zdravstvenaUstanova:Loc confirm}" FontSize="14"></Button>
+        </UniformGrid>
+    </Grid>
+</UserControl>

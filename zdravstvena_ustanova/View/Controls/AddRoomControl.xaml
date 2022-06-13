@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:zdravstvena_ustanova.View.Controls"
+             xmlns:zdravstvenaUstanova="clr-namespace:zdravstvena_ustanova"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Width="500" Height="450">
@@ -18,14 +19,20 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" Content="Dodavanje prostorije" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Naziv:</Label>
+        <Label Margin="0,0,0,20" Grid.ColumnSpan="2" 
+               Content="{zdravstvenaUstanova:Loc addRoom}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Column="0" Grid.Row="1" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc name:}"></Label>
         <TextBox VerticalContentAlignment="Center" x:Name="roomNameTextBox" Width="150" Height="28" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Tip prostorije:</Label>
+        <Label Grid.Column="0" Grid.Row="2" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc roomType:}"></Label>
         <ComboBox VerticalContentAlignment="Center" Name="roomTypeComboBox" ItemsSource="{Binding RoomTypes}" Grid.Column="1" Grid.Row="2" Width="150" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
-        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center">Sprat</Label>
+        <Label Grid.Column="0" Grid.Row="3" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+               Content="{zdravstvenaUstanova:Loc floor:}"></Label>
         <TextBox PreviewTextInput="floorTextBox_PreviewTextInput" VerticalContentAlignment="Center" x:Name="roomFloorTextBox" Grid.Column="1" Grid.Row="3" Width="150" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
-        <Button x:Name="OkButton" Margin="0,50,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" Content="Potvrdi" FontSize="14" Click="OkButton_Click"></Button>
-        <Button x:Name="CancelButton" Margin="0,50,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" Content="Odustani" FontSize="14" Click="CancelButton_Click"></Button>
+        <Button x:Name="OkButton" Margin="0,50,0,0" Grid.Column="1" Grid.Row="4" Width="150" Height="48" 
+                Content="{zdravstvenaUstanova:Loc confirm}" FontSize="14" Click="OkButton_Click"></Button>
+        <Button x:Name="CancelButton" Margin="0,50,0,0" Grid.Column="0" Grid.Row="4" Width="150" Height="48" 
+                Content="{zdravstvenaUstanova:Loc cancel}" FontSize="14" Click="CancelButton_Click"></Button>
     </Grid>
 </UserControl>

@@ -50,6 +50,7 @@ namespace zdravstvena_ustanova.View.Pages
 
             var app = Application.Current as App;
             var user = app.AccountController.Login(username, password);
+            
 
             if (user == null) return;
 

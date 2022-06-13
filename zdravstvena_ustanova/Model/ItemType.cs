@@ -21,5 +21,11 @@ namespace zdravstvena_ustanova.Model
         {
             Id = id;
         }
+
+        public ItemType()
+        {
+            Id = -1;
+            Name = "";
+        }
     }
 }
